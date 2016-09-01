@@ -8,7 +8,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 public class TestClass extends JFrame{
 	JPanel contentPane=new JPanel();
@@ -30,6 +29,7 @@ public class TestClass extends JFrame{
 			public void actionPerformed(ActionEvent e){
 				Object[] choices = {"1","2","3","4","5","6","7","8","9","10","11"}; //options in drop down
 				String choice = (String)JOptionPane.showInputDialog(contentPane, "Which level?", "Please Select", JOptionPane.QUESTION_MESSAGE, null, choices, null);
+				System.out.println(choice);
 			}
 		});
 		add(levelChooser);  

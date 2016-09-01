@@ -13,3 +13,10 @@ Classes:
 	ViewStats panel with JTable
 	Settings panel with clear stats functionality
 	
+
+
+
+Hidden Files:
+	Level (which level the user is on - will be empty if never launched before)
+	
+	

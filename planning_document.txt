@@ -1,0 +1,15 @@
+1 JFrame with multiple JPanels
+JMessageDialogs for pop ups
+
+
+Classes:
+	Festival class with 1 speaking method
+	FileIO class to handle files, get words into data structure
+
+	VoxSpell creates files, show menu
+	MainMenu extends JPanel main menu with buttons to change panels
+	Quiz abstract class extends JPanel
+		extended by ReviewMistakes and NewQuiz implement abstract methods
+	ViewStats panel with JTable
+	Settings panel with clear stats functionality
+	

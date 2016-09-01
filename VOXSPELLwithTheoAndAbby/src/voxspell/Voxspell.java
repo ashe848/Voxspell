@@ -7,6 +7,7 @@ public class Voxspell extends JFrame{
 	
 	
 	public Voxspell(){
+		//Below setup code for frame from Theo's code
 		super();
 		setTitle("VoxSpell version 0.0000000001 Post-PreAlpha (but still in Alpha)");
 		setSize(800,600);
@@ -18,8 +19,13 @@ public class Voxspell extends JFrame{
 	
 	public static void main(String[] args){
 		Festival festival = new Festival();
+		
+		//Testing swingworker capabilities
 		System.out.println("Program Starting...");
-		festival.speak("HEllo");
+		festival.speak("I should be going on after line below printed");
+		System.out.println("This should be printed before line above finishes being said");
+		
+		//Initialising Swing program
 		SwingUtilities.invokeLater(new Runnable() {
 			
 			@Override

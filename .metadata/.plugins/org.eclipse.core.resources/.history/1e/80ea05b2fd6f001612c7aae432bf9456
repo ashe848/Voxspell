@@ -22,6 +22,17 @@ public class Voxspell extends JFrame{
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		revalidate();
+		
+		setContentPane(contentPane);
+		JButton levelChooser = new JButton("Clear");
+		levelChooser.setAlignmentX(Component.CENTER_ALIGNMENT);
+		levelChooser.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				Object[] choices = {"1","2","3","4","5","6","7","8","9","10","11"}; //options in drop down
+				String choice = (String)JOptionPane.showInputDialog(contentPane, "Which level?", "Please Select", JOptionPane.QUESTION_MESSAGE, null, choices, null);
+			}
+		});
+		add(levelChooser);  
 	}
 	
 	public static void main(String[] args){
@@ -31,8 +42,6 @@ public class Voxspell extends JFrame{
 		System.out.println("Program Starting...");
 		festival.speak("I should be going on after line below printed");
 		System.out.println("This should be printed before line above finishes being said");
-		TestClass tc = new TestClass();
-		tc.setVisible(true);
 		
 		//Initialising Swing program
 		SwingUtilities.invokeLater(new Runnable() {

@@ -1,17 +1,10 @@
 package voxspell;
 
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 public class Voxspell extends JFrame{
-	JPanel contentPane=new JPanel();
+	
 	
 	public Voxspell(){
 		//Below setup code for frame from Theo's code
@@ -31,8 +24,6 @@ public class Voxspell extends JFrame{
 		System.out.println("Program Starting...");
 		festival.speak("I should be going on after line below printed");
 		System.out.println("This should be printed before line above finishes being said");
-		TestClass tc = new TestClass();
-		tc.setVisible(true);
 		
 		//Initialising Swing program
 		SwingUtilities.invokeLater(new Runnable() {

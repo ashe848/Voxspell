@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 public class Voxspell extends JFrame{
+	
+	
 	public Voxspell(){
 		super();
 		setTitle("VoxSpell version 0.0000000001 Post-PreAlpha (but still in Alpha)");
@@ -15,8 +17,9 @@ public class Voxspell extends JFrame{
 	}
 	
 	public static void main(String[] args){
+		Festival festival = new Festival();
 		System.out.println("Program Starting...");
-		
+		festival.speak("HEllo");
 		SwingUtilities.invokeLater(new Runnable() {
 			
 			@Override

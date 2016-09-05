@@ -6,6 +6,8 @@ import javax.swing.SwingUtilities;
 
 public class Voxspell extends JFrame{
 	JPanel contentPane=new JPanel();
+	private static String RESOURCE_FILE_LOCATION = System.getProperty("user.dir")+"/resources/";
+	private static FileIO file_handler;
 	
 	public Voxspell(){
 		//Below setup code for frame from Theo's code
@@ -16,6 +18,8 @@ public class Voxspell extends JFrame{
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		revalidate();
+		
+		file_handler=FileIO.getInstance(this);
 	}
 	
 	public static void main(String[] args){
@@ -37,5 +41,9 @@ public class Voxspell extends JFrame{
 				instance.setVisible(true);
 			}
 		});
+	}
+	
+	public static String getResourceFileLocation(){
+		return RESOURCE_FILE_LOCATION;
 	}
 }

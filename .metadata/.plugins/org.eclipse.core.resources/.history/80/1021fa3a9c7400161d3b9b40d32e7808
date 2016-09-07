@@ -130,11 +130,11 @@ public class FileIO {
 			temp_faulted_array = new ArrayList<Integer>();
 			temp_failed_array = new ArrayList<Integer>();
 			
-/*			//To see them in debug mode
+			//To see them in debug mode
 			ArrayList<ArrayList<String>> localaw = persistent_allwords;
 			ArrayList<ArrayList<Integer>> localmc = persistent_master_count;
 			ArrayList<ArrayList<Integer>> localfauc = persistent_faulted_count;
-			ArrayList<ArrayList<Integer>> localfailc = persistent_failed_count;*/
+			ArrayList<ArrayList<Integer>> localfailc = persistent_failed_count;
 			
 			current_BR.close();
 			

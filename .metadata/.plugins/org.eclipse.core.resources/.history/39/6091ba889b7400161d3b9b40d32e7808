@@ -111,8 +111,8 @@ public class FileIO {
 					word+=split_line[i];
 					word+=" ";
 				}
-				word=word.trim();
-
+				word.trim();
+				
 				temp_string_array.add(word);
 				temp_mastered_array.add(mastered_count);
 				temp_faulted_array.add(faulted_count);
@@ -129,12 +129,6 @@ public class FileIO {
 			temp_mastered_array = new ArrayList<Integer>();
 			temp_faulted_array = new ArrayList<Integer>();
 			temp_failed_array = new ArrayList<Integer>();
-			
-/*			//To see them in debug mode
-			ArrayList<ArrayList<String>> localaw = persistent_allwords;
-			ArrayList<ArrayList<Integer>> localmc = persistent_master_count;
-			ArrayList<ArrayList<Integer>> localfauc = persistent_faulted_count;
-			ArrayList<ArrayList<Integer>> localfailc = persistent_failed_count;*/
 			
 			current_BR.close();
 			

@@ -1,7 +1,11 @@
 package voxspell;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -12,6 +16,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+
+import voxspell.Voxspell.PanelID;
 
 @SuppressWarnings("serial")
 public class GeneralStats extends JPanel {
@@ -79,5 +85,23 @@ public class GeneralStats extends JPanel {
 
 		scrollPane.setLocation(50,50);
 		scrollPane.setSize(700,400);
+		
+		setupBackButton();
+	}
+	
+	private void setupBackButton(){
+		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
+		JButton back_button = new JButton("", back_button_image);
+		
+		back_button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				parent_frame.changePanel(PanelID.MainMenu);
+			}
+		});
+		
+		add(back_button);
+		back_button.setSize(50,50);
+		back_button.setLocation(700,500);
 	}
 }

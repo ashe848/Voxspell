@@ -1,0 +1,13 @@
+package voxspell;
+
+import javax.swing.JPanel;
+
+public class GeneralStats extends JPanel {
+	private static Voxspell parent_frame;
+	private static FileIO file_handler;
+	
+	public GeneralStats(Voxspell parent){
+		parent_frame=parent;
+		file_handler=FileIO.getInstance(parent_frame);
+	}
+}

@@ -1,0 +1,12 @@
+package voxspell;
+
+import javax.swing.JPanel;
+
+public class GeneralStats extends JPanel {
+	private static Voxspell parent_frame;
+	
+	public GeneralStats(Voxspell parent){
+		parent_frame=parent;
+		
+	}
+}

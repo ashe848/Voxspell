@@ -1,0 +1,26 @@
+package voxspell;
+
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+public class GeneralStats extends JPanel {
+	private static Voxspell parent_frame;
+	private static FileIO file_handler;
+	private static JTable table;
+	
+	public GeneralStats(Voxspell parent){
+		parent_frame=parent;
+		file_handler=FileIO.getInstance(parent_frame);
+		
+		//creates table model with said column names, currently no rows, and disallowing the editing of cells
+				String[] columnNames = {"Word","Failed","Faulted","Mastered"};
+				int rowCount = 0;
+				DefaultTableModel model = new DefaultTableModel(columnNames, rowCount){
+					public boolean isCellEditable(int row, int col) {
+						return false; //so users can't change their stats
+					}
+				};
+				table = new JTable(model);
+	}
+}

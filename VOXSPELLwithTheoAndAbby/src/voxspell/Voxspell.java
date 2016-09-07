@@ -20,6 +20,9 @@ public class Voxspell extends JFrame{
 		revalidate();
 		
 		file_handler=FileIO.getInstance(this);
+		
+		add(new GeneralStats(this));
+		revalidate();
 	}
 	
 	public static void main(String[] args){
@@ -45,5 +48,9 @@ public class Voxspell extends JFrame{
 	
 	public static String getResourceFileLocation(){
 		return RESOURCE_FILE_LOCATION;
+	}
+	
+	public static FileIO getFileIO(){
+		return file_handler;
 	}
 }

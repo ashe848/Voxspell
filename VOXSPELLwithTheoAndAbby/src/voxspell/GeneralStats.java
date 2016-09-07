@@ -36,7 +36,7 @@ public class GeneralStats extends JPanel {
 
 
 		//creates table model with said column names, currently no rows, and disallowing the editing of cells
-		String[] columnNames = {"Level","Word","Failed","Faulted","Mastered"};
+		String[] columnNames = {"Level","Word","Mastered","Faulted","Failed"};
 		int rowCount = 0;
 		DefaultTableModel model = new DefaultTableModel(columnNames, rowCount){
 			public boolean isCellEditable(int row, int col) {
@@ -56,7 +56,9 @@ public class GeneralStats extends JPanel {
 
 		for (int i=0; i<file_handler.getNumberOfLevels(); i++){
 			for (Object[] o:file_handler.returnWordDataForLevel(i)){
-				model.addRow(o);
+				if(!(o[2].equals(0)&&o[3].equals(0)&&o[4].equals(0))){
+					model.addRow(o);
+				}
 			}
 		}
 

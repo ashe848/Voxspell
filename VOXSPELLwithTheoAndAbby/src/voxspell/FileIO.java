@@ -6,11 +6,15 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.crypto.Mac;
+
 public class FileIO {
 	private static Voxspell parent_frame;
 	private static FileIO instance=null;
 	
 	private static ArrayList<ArrayList<String>> wordlist_words;
+	private static ArrayList<ArrayList<String>> reviewlist_words;
+
 	private static ArrayList<ArrayList<String>> persistent_allwords;
 
 	private static ArrayList<ArrayList<Integer>> persistent_master_count;
@@ -26,6 +30,7 @@ public class FileIO {
 		parent_frame=parent;
 		
 		wordlist_words = new ArrayList<ArrayList<String>>();
+		reviewlist_words = new ArrayList<ArrayList<String>>();
 		
 		persistent_allwords = new ArrayList<ArrayList<String>>();
 		persistent_master_count = new ArrayList<ArrayList<Integer>>();
@@ -37,7 +42,7 @@ public class FileIO {
 		session_faulted_count = new ArrayList<ArrayList<Integer>>();
 		session_failed_count = new ArrayList<ArrayList<Integer>>();
 		
-		readWordlist();
+		readFiles();
 	}
 	
 	public static FileIO getInstance(Voxspell parent){
@@ -47,7 +52,7 @@ public class FileIO {
 		return instance;
 	}
 	 
-	private static void readWordlist(){
+	private static void readFiles(){
 		BufferedReader current_BR;
 		try {
 			//wordlist into wordlist array
@@ -65,6 +70,13 @@ public class FileIO {
 			}
 			wordlist_words.add(temp_string_array);
 			current_BR.close();
+			
+			for(int i=0; i<wordlist_words.size();i++){
+				persistent_allwords.add(new ArrayList<String>());
+				persistent_master_count.add(new ArrayList<Integer>());
+				persistent_faulted_count.add(new ArrayList<Integer>());
+				persistent_failed_count.add(new ArrayList<Integer>());
+			}
 			
 			//statsfile into allwords
 			current_BR = new BufferedReader(new FileReader(parent_frame.getResourceFileLocation()+"statsfile"));
@@ -89,36 +101,20 @@ public class FileIO {
 				mastered_count  = Integer.valueOf(split_line[1]);
 				faulted_count = Integer.valueOf(split_line[2]);
 				failed_count = Integer.valueOf(split_line[3]);
-				
-				//offload previous level into data array
-				if(word_level != current_level){
-					//BELOW INTO METHOD
-					persistent_allwords.add(temp_string_array);
-					persistent_master_count.add(temp_mastered_array);
-					persistent_faulted_count.add(temp_faulted_array);
-					persistent_failed_count.add(temp_failed_array);
-					
-					temp_string_array = new ArrayList<String>();
-					temp_mastered_array = new ArrayList<Integer>();
-					temp_faulted_array = new ArrayList<Integer>();
-					temp_failed_array = new ArrayList<Integer>();
 
-					current_level++;
-				}
-				
-				
 				for(int i=4; i<split_line.length; i++){
 					word+=split_line[i];
 					word+=" ";
 				}
 				word=word.trim();
-
-				temp_string_array.add(word);
-				temp_mastered_array.add(mastered_count);
-				temp_faulted_array.add(faulted_count);
-				temp_failed_array.add(failed_count);
-
+				
+				persistent_allwords.get(word_level).add(word);
+				persistent_master_count.get(word_level).add(mastered_count);
+				persistent_faulted_count.get(word_level).add(faulted_count);
+				persistent_failed_count.get(word_level).add(failed_count);
 			}
+			
+			current_BR.close(); //close statsfile
 			
 			persistent_allwords.add(temp_string_array);
 			persistent_master_count.add(temp_mastered_array);
@@ -128,17 +124,46 @@ public class FileIO {
 			temp_string_array = new ArrayList<String>();
 			temp_mastered_array = new ArrayList<Integer>();
 			temp_faulted_array = new ArrayList<Integer>();
-			temp_failed_array = new ArrayList<Integer>();
+			temp_failed_array = new ArrayList<Integer>();			
+
+			//adds words from wordlist that not in statsfile into persistent structures
+			for(int i = 0; i<wordlist_words.size(); i++){
+				//i=level
+				for(String w: wordlist_words.get(i)){
+					if(!persistent_allwords.get(i).contains(w)){
+						persistent_allwords.get(i).add(w);
+						persistent_master_count.get(i).add(0);
+						persistent_faulted_count.get(i).add(0);
+						persistent_failed_count.get(i).add(0);
+					}
+				}
+			}
 			
-/*			//To see them in debug mode
+			//To see them in debug mode
 			ArrayList<ArrayList<String>> localaw = persistent_allwords;
 			ArrayList<ArrayList<Integer>> localmc = persistent_master_count;
 			ArrayList<ArrayList<Integer>> localfauc = persistent_faulted_count;
-			ArrayList<ArrayList<Integer>> localfailc = persistent_failed_count;*/
+			ArrayList<ArrayList<Integer>> localfailc = persistent_failed_count;
 			
+//			WE DO REVIEWLIST HERE
+			
+			current_BR = new BufferedReader(new FileReader(parent_frame.getResourceFileLocation()+"reviewlist"));
+			temp_string_array = new ArrayList<String>();
+
+			while ((string_input = current_BR.readLine()) != null) {
+				if (string_input.charAt(0)=='%'){
+					reviewlist_words.add(temp_string_array);
+					temp_string_array= new ArrayList<String>();	
+				} else {
+					temp_string_array.add(string_input);
+				}
+			}
+			reviewlist_words.add(temp_string_array);
+
+			ArrayList<ArrayList<String>> localrl = reviewlist_words;
 			current_BR.close();
-			
-			//WE DO REVIEWLIST HERE
+
+			//DONEZO
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

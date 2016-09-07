@@ -29,8 +29,8 @@ public class Voxspell extends JFrame{
 		System.out.println("Program Starting...");
 		festival.speak("I should be going on after line below printed");
 		System.out.println("This should be printed before line above finishes being said");
-		TestClass tc = new TestClass();
-		tc.setVisible(true);
+//		TestClass tc = new TestClass();
+//		tc.setVisible(true);
 		
 		//Initialising Swing program
 		SwingUtilities.invokeLater(new Runnable() {

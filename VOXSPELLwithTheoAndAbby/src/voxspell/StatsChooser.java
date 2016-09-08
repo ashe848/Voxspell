@@ -11,6 +11,7 @@ import javax.swing.JTable;
 
 import voxspell.Voxspell.PanelID;
 
+@SuppressWarnings("serial")
 public class StatsChooser extends JPanel{
 	private static Voxspell parent_frame;
 	private static FileIO file_handler;
@@ -58,8 +59,7 @@ public class StatsChooser extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//parent_frame.changePanel(PanelID.Settings);
-				System.out.println("persistent level");
+				parent_frame.changePanel(PanelID.PersistentLevelStats);
 			}
 		});
 		
@@ -77,7 +77,6 @@ public class StatsChooser extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				parent_frame.changePanel(PanelID.SessionAllStats);
-//				System.out.println("session all");
 			}
 		});
 		
@@ -94,8 +93,7 @@ public class StatsChooser extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//parent_frame.changePanel(PanelID.Settings);
-				System.out.println("session level");
+				parent_frame.changePanel(PanelID.SessionLevelStats);
 			}
 		});
 		

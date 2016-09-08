@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -79,7 +78,6 @@ public class FileIO {
 			}
 			wordlist_words.add(temp_string_array);
 
-
 			current_BR.close();
 
 			//initialise ArrayLists for data structure
@@ -142,7 +140,6 @@ public class FileIO {
 						persistent_master_count.get(i).add(0);
 						persistent_faulted_count.get(i).add(0);
 						persistent_failed_count.get(i).add(0);
-						System.out.println(w);
 					}
 				}
 			}
@@ -154,8 +151,7 @@ public class FileIO {
 			ArrayList<ArrayList<Integer>> localfauc = persistent_faulted_count;
 			ArrayList<ArrayList<Integer>> localfailc = persistent_failed_count;
 
-			//			WE DO REVIEWLIST HERE
-
+			//WE DO REVIEWLIST HERE
 			current_BR = new BufferedReader(new FileReader(parent_frame.getResourceFileLocation()+"reviewlist"));
 			temp_string_array = new ArrayList<String>();
 
@@ -189,8 +185,8 @@ public class FileIO {
 
 			if (current_level==0){
 				//open level chooser
-				Object[] choices = {"1","2","3","4","5","6","7","8","9","10","11"}; //options in drop down
-				String choice = (String)JOptionPane.showInputDialog(parent_frame.getContentPane(), "Welcome! This is your first time! Please select a level to start at", "Which level?", JOptionPane.QUESTION_MESSAGE, null, choices, null);
+				Object[] levels = {"1","2","3","4","5","6","7","8","9","10","11"}; //options in drop down
+				String choice = (String)JOptionPane.showInputDialog(parent_frame.getContentPane(), "Welcome! This is your first time! Please select a level to start at", "Which level?", JOptionPane.QUESTION_MESSAGE, null, levels, null);
 				if (choice==null){
 					System.exit(0);
 				} else {

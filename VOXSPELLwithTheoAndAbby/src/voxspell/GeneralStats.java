@@ -1,6 +1,5 @@
 package voxspell;
 
-import java.awt.Window.Type;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -26,8 +25,6 @@ public class GeneralStats extends JPanel {
 	private static Voxspell parent_frame;
 	private static FileIO file_handler;
 	private static JTable table;
-	
-
 
 	public GeneralStats(Voxspell parent, StatsType type){
 		super();
@@ -36,7 +33,6 @@ public class GeneralStats extends JPanel {
 
 		parent_frame=parent;
 		file_handler=FileIO.getInstance(parent_frame);
-
 
 		//creates table model with said column names, currently no rows, and disallowing the editing of cells
 		String[] columnNames = {"Level","Word","Mastered","Faulted","Failed"};
@@ -69,7 +65,6 @@ public class GeneralStats extends JPanel {
 
 		//For ordering
 		TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(model);
-			//sorter.setComparator(column, comparator);
 		table.setRowSorter(sorter);
 		ArrayList<RowSorter.SortKey> key = new ArrayList<RowSorter.SortKey>();
 		key.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));//default is ascending order of first column ie alphabetical order of words

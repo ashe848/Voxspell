@@ -6,7 +6,6 @@ import javax.swing.SwingUtilities;
 
 import voxspell.StatsChooser.StatsType;
 
-
 @SuppressWarnings("serial")
 
 public class Voxspell extends JFrame{
@@ -82,13 +81,13 @@ public class Voxspell extends JFrame{
 			this.getContentPane().add(new GeneralStats(this, StatsType.Persistent));
 			break;
 		case PersistentLevelStats:
-//			this.getContentPane().add(new StatsChooser(this, StatsType.Persistent));
+			this.getContentPane().add(new LevelStats(this, StatsType.Persistent));
 			break;
 		case SessionAllStats:
 			this.getContentPane().add(new GeneralStats(this, StatsType.Session));
 			break;
 		case SessionLevelStats:
-//			this.getContentPane().add(new StatsChooser(this));
+			this.getContentPane().add(new LevelStats(this, StatsType.Session));
 			break;
 		case Review:
 //			this.getContentPane().add(new DoQuizPanel(this, "REVIEW QUIZ"));

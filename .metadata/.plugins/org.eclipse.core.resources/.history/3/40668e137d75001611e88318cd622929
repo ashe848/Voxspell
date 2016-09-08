@@ -1,0 +1,27 @@
+package voxspell;
+
+import javax.swing.JTable;
+
+import voxspell.StatsChooser.StatsType;
+
+public class LevelStats {
+	private static Voxspell parent_frame;
+	private static FileIO file_handler;
+	private static JTable table;
+
+	public LevelStats(Voxspell parent, StatsType type){
+		super();
+		setSize(800,600);
+		setLayout(null);
+
+		parent_frame=parent;
+		file_handler=FileIO.getInstance(parent_frame);
+	
+	String[] petStrings = { "Bird", "Cat", "Dog", "Rabbit", "Pig" };
+
+	//Create the combo box, select item at index 4.
+	//Indices start at 0, so 4 specifies the pig.
+	JComboBox petList = new JComboBox(petStrings);
+	petList.setSelectedIndex(4);
+	petList.addActionListener(this);
+}

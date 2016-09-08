@@ -1,0 +1,26 @@
+package voxspell;
+
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+
+import voxspell.StatsChooser.StatsType;
+
+public class LevelStats extends JPanel{
+	private static Voxspell parent_frame;
+	private static FileIO file_handler;
+	private static JTable table;
+
+	public LevelStats(Voxspell parent, StatsType type){
+		super();
+		setSize(800,600);
+		setLayout(null);
+
+		parent_frame=parent;
+		file_handler=FileIO.getInstance(parent_frame);
+
+		String[] levels = {"1","2","3","4","5","6","7","8","9","10","11"};
+
+		JComboBox petList = new JComboBox(levels);
+		petList.addActionListener(this);
+	}

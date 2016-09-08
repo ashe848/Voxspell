@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import voxspell.StatsChooser.StatsType;
 
 public class FileIO {
@@ -29,7 +31,7 @@ public class FileIO {
 	private static ArrayList<ArrayList<Integer>> session_faulted_count;
 	private static ArrayList<ArrayList<Integer>> session_failed_count;
 
-	private int current_level = 0;
+	private static int current_level=0;
 
 	private FileIO(Voxspell parent){
 		parent_frame=parent;
@@ -76,21 +78,25 @@ public class FileIO {
 				}
 			}
 			wordlist_words.add(temp_string_array);
-			
-			
+
+
 			current_BR.close();
-System.out.println(""+wordlist_words.size());
+
+			//initialise ArrayLists for data structure
 			for(int i=0; i<wordlist_words.size();i++){
 				persistent_allwords.add(new ArrayList<String>());
 				persistent_master_count.add(new ArrayList<Integer>());
 				persistent_faulted_count.add(new ArrayList<Integer>());
 				persistent_failed_count.add(new ArrayList<Integer>());
+				session_words.add(new ArrayList<String>());
+				session_master_count.add(new ArrayList<Integer>());
+				session_faulted_count.add(new ArrayList<Integer>());
+				session_failed_count.add(new ArrayList<Integer>());
+				reviewlist_words.add(new ArrayList<String>());
 			}
 
 			//statsfile into allwords
 			current_BR = new BufferedReader(new FileReader(parent_frame.getResourceFileLocation()+"statsfile"));
-//			temp_string_array = new ArrayList<String>();
-
 
 			int word_level;
 			int mastered_count, faulted_count, failed_count;
@@ -121,18 +127,11 @@ System.out.println(""+wordlist_words.size());
 			}
 
 			current_BR.close(); //close statsfile
-//
-//			persistent_allwords.add(temp_string_array);
-//			persistent_master_count.add(temp_mastered_array);
-//			persistent_faulted_count.add(temp_faulted_array);
-//			persistent_failed_count.add(temp_failed_array);
+
 			ArrayList<Integer> temp_mastered_array = new ArrayList<Integer>();
 			ArrayList<Integer> temp_faulted_array = new ArrayList<Integer>();
 			ArrayList<Integer> temp_failed_array = new ArrayList<Integer>();
 			temp_string_array = new ArrayList<String>();
-//			temp_mastered_array = new ArrayList<Integer>();
-//			temp_faulted_array = new ArrayList<Integer>();
-//			temp_failed_array = new ArrayList<Integer>();			
 
 			//adds words from wordlist that not in statsfile into persistent structures
 			for(int i = 0; i<wordlist_words.size(); i++){
@@ -176,20 +175,41 @@ System.out.println(""+wordlist_words.size());
 			ArrayList<ArrayList<String>> localrl = reviewlist_words;
 			current_BR.close();
 
+
+			//READ IN SETTINGS FILE FOR LEVEL
+
+			current_BR = new BufferedReader(new FileReader(parent_frame.getResourceFileLocation()+"settings"));
+			while ((string_input = current_BR.readLine()) != null) {
+				current_level=Integer.parseInt(string_input);
+				if(!(current_level<getNumberOfLevels() && current_level>0)){
+					current_level=0;
+				}
+			}
+			current_BR.close();
+
+			if (current_level==0){
+				//open level chooser
+				Object[] choices = {"1","2","3","4","5","6","7","8","9","10","11"}; //options in drop down
+				String choice = (String)JOptionPane.showInputDialog(parent_frame.getContentPane(), "Welcome! This is your first time! Please select a level to start at", "Which level?", JOptionPane.QUESTION_MESSAGE, null, choices, null);
+				if (choice==null){
+					System.exit(0);
+				} else {
+					current_level=Integer.parseInt(choice);
+					writeToSettings();
+				}
+			}
+
 			//DONEZO
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		for(int i=0; i<wordlist_words.size();i++){
-			session_words.add(new ArrayList<String>());
-			session_master_count.add(new ArrayList<Integer>());
-			session_faulted_count.add(new ArrayList<Integer>());
-			session_failed_count.add(new ArrayList<Integer>());
+			
 		}
-		
+
 		ArrayList<ArrayList<String>> localsw=session_words;
 		ArrayList<ArrayList<Integer>> localsmc=session_master_count;
 		ArrayList<ArrayList<Integer>> localsfaulc=session_faulted_count;
@@ -214,10 +234,10 @@ System.out.println(""+wordlist_words.size());
 			failed_count=session_failed_count;
 			break;
 		}
-		
+
 		return getWordDataForLevel(level, words, master_count, faulted_count, failed_count);
 	}
-	
+
 	private ArrayList<Object[]> getWordDataForLevel(int level, ArrayList<ArrayList<String>> words, ArrayList<ArrayList<Integer>> master_count, ArrayList<ArrayList<Integer>> faulted_count, ArrayList<ArrayList<Integer>> failed_count){
 		ArrayList<Object[]> to_return = new ArrayList<Object[]>();
 		for (int i=0; i<words.get(level).size(); i++){
@@ -229,10 +249,9 @@ System.out.println(""+wordlist_words.size());
 		return to_return;
 	}
 
-	public int getNumberOfLevels(){
-		System.out.println(persistent_allwords.size()+"");
-			return persistent_allwords.size();
-}
+	public static int getNumberOfLevels(){
+		return persistent_allwords.size();
+	}
 
 	public int getCurrentLevel(){
 		return current_level;
@@ -265,5 +284,89 @@ System.out.println(""+wordlist_words.size());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static void writeToSettings(){
+		try {
+			FileWriter fw = new FileWriter(new File(parent_frame.getResourceFileLocation()+"settings"), false);
+			fw.write(""+current_level);
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void processQuizResults(ArrayList<String> mastered_words, ArrayList<String> faulted_words, ArrayList<String> failed_words, String quiz_type){
+		enterResultsIntoDataStructure(mastered_words, WordResult.Mastered);
+		enterResultsIntoDataStructure(faulted_words, WordResult.Faulted);
+		enterResultsIntoDataStructure(failed_words, WordResult.Failed);
+		
+		if (quiz_type.equals("Review")){
+			removeFromReviewList(mastered_words);
+			removeFromReviewList(faulted_words);
+		} else {
+			addToReviewList(failed_words);
+		}
+	}
+	
+	private void enterResultsIntoDataStructure(ArrayList<String> quizzed_words, WordResult word_result_type){
+		ArrayList<ArrayList<Integer>> persistent_data_structure;
+		ArrayList<ArrayList<Integer>> session_data_structure;
+		switch(word_result_type){
+		case Mastered:
+			persistent_data_structure=persistent_master_count;
+			session_data_structure=session_master_count;
+			break;
+		case Faulted:
+			persistent_data_structure=persistent_faulted_count;
+			session_data_structure=session_faulted_count;
+			break;
+		default:
+			persistent_data_structure=persistent_failed_count;
+			session_data_structure=session_failed_count;
+			break;
+		}
+		for (String w:quizzed_words){
+			//for persistent data structure
+			int index=persistent_allwords.get(current_level).indexOf(w);
+			int current_value;
+			current_value=persistent_data_structure.get(current_level).get(index);
+			persistent_data_structure.get(current_level).set(index, current_value+1);
+			
+			//for session data structure
+			if (session_words.get(current_level).contains(w)){
+				index=session_words.get(current_level).indexOf(w);
+				current_value=session_data_structure.get(current_level).get(index);
+				session_data_structure.get(current_level).set(index, current_value+1);
+			} else {
+				session_words.get(current_level).add(w);
+				session_master_count.get(current_level).add(0);
+				session_faulted_count.get(current_level).add(0);
+				session_failed_count.get(current_level).add(0);
+				
+				index=session_words.get(current_level).indexOf(w);
+				session_data_structure.get(current_level).set(index, 1);
+			}	
+		}
+	}
+	
+	private void removeFromReviewList(ArrayList<String> not_faulted_words){
+		for (String w:not_faulted_words){
+			if (reviewlist_words.get(current_level).contains(w)){
+				reviewlist_words.get(current_level).remove(w);
+			}
+		}
+	}
+	
+	private void addToReviewList(ArrayList<String> failed_words){
+		for (String w:failed_words){
+			if (!reviewlist_words.get(current_level).contains(w)){
+				reviewlist_words.get(current_level).add(w);
+			}
+		}
+	}
+	
+	public enum WordResult {
+		Mastered, Faulted, Failed;
 	}
 }

@@ -7,6 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -81,9 +84,10 @@ public class MainMenu extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				file_handler.processQuizResults(new ArrayList<String>(Arrays.asList("a")), new ArrayList<String>(Arrays.asList("I")), new ArrayList<String>(Arrays.asList("the")), "asd");
 				file_handler.writeToReview();
-								file_handler.writeStats();
-parent_frame.changePanel(PanelID.MainMenu);
+				file_handler.writeStats();
+				parent_frame.changePanel(PanelID.MainMenu);
 			}
 		});
 		
@@ -97,12 +101,14 @@ parent_frame.changePanel(PanelID.MainMenu);
 	 * Review Quiz setup and functionality method
 	 */
 	private void setupReviewQuiz(){
+		ArrayList<String> anArrayList = new ArrayList<String>(Arrays.asList("a"));
 		JButton new_quiz_button = new JButton("REVIEW A QUIZ");
 		new_quiz_button.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				parent_frame.changePanel(PanelID.Review);
+				
+//				parent_frame.changePanel(PanelID.Review);
 			}
 		});
 		

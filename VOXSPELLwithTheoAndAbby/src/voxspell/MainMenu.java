@@ -81,8 +81,9 @@ public class MainMenu extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				file_handler.writeStats();
-				parent_frame.changePanel(PanelID.Quiz);
+				file_handler.writeToReview();
+								file_handler.writeStats();
+parent_frame.changePanel(PanelID.MainMenu);
 			}
 		});
 		

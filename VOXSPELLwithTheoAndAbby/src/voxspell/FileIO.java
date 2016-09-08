@@ -6,7 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+
+import voxspell.StatsChooser.StatsType;
 
 public class FileIO {
 	private static Voxspell parent_frame;
@@ -68,13 +71,15 @@ public class FileIO {
 						wordlist_words.add(temp_string_array);
 						temp_string_array= new ArrayList<String>();	
 					} else {
-						temp_string_array.add(string_input);
+						temp_string_array.add(string_input.trim());
 					}
 				}
 			}
 			wordlist_words.add(temp_string_array);
+			
+			
 			current_BR.close();
-
+System.out.println(""+wordlist_words.size());
 			for(int i=0; i<wordlist_words.size();i++){
 				persistent_allwords.add(new ArrayList<String>());
 				persistent_master_count.add(new ArrayList<Integer>());
@@ -84,10 +89,8 @@ public class FileIO {
 
 			//statsfile into allwords
 			current_BR = new BufferedReader(new FileReader(parent_frame.getResourceFileLocation()+"statsfile"));
-			temp_string_array = new ArrayList<String>();
-			ArrayList<Integer> temp_mastered_array = new ArrayList<Integer>();
-			ArrayList<Integer> temp_faulted_array = new ArrayList<Integer>();
-			ArrayList<Integer> temp_failed_array = new ArrayList<Integer>();
+//			temp_string_array = new ArrayList<String>();
+
 
 			int word_level;
 			int mastered_count, faulted_count, failed_count;
@@ -118,16 +121,18 @@ public class FileIO {
 			}
 
 			current_BR.close(); //close statsfile
-
-			persistent_allwords.add(temp_string_array);
-			persistent_master_count.add(temp_mastered_array);
-			persistent_faulted_count.add(temp_faulted_array);
-			persistent_failed_count.add(temp_failed_array);
-
+//
+//			persistent_allwords.add(temp_string_array);
+//			persistent_master_count.add(temp_mastered_array);
+//			persistent_faulted_count.add(temp_faulted_array);
+//			persistent_failed_count.add(temp_failed_array);
+			ArrayList<Integer> temp_mastered_array = new ArrayList<Integer>();
+			ArrayList<Integer> temp_faulted_array = new ArrayList<Integer>();
+			ArrayList<Integer> temp_failed_array = new ArrayList<Integer>();
 			temp_string_array = new ArrayList<String>();
-			temp_mastered_array = new ArrayList<Integer>();
-			temp_faulted_array = new ArrayList<Integer>();
-			temp_failed_array = new ArrayList<Integer>();			
+//			temp_mastered_array = new ArrayList<Integer>();
+//			temp_faulted_array = new ArrayList<Integer>();
+//			temp_failed_array = new ArrayList<Integer>();			
 
 			//adds words from wordlist that not in statsfile into persistent structures
 			for(int i = 0; i<wordlist_words.size(); i++){
@@ -138,11 +143,13 @@ public class FileIO {
 						persistent_master_count.get(i).add(0);
 						persistent_faulted_count.get(i).add(0);
 						persistent_failed_count.get(i).add(0);
+						System.out.println(w);
 					}
 				}
 			}
 
 			//To see them in debug mode
+			ArrayList<ArrayList<String>> localwl = wordlist_words;
 			ArrayList<ArrayList<String>> localaw = persistent_allwords;
 			ArrayList<ArrayList<Integer>> localmc = persistent_master_count;
 			ArrayList<ArrayList<Integer>> localfauc = persistent_faulted_count;
@@ -175,22 +182,57 @@ public class FileIO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		for(int i=0; i<wordlist_words.size();i++){
+			session_words.add(new ArrayList<String>());
+			session_master_count.add(new ArrayList<Integer>());
+			session_faulted_count.add(new ArrayList<Integer>());
+			session_failed_count.add(new ArrayList<Integer>());
+		}
+		
+		ArrayList<ArrayList<String>> localsw=session_words;
+		ArrayList<ArrayList<Integer>> localsmc=session_master_count;
+		ArrayList<ArrayList<Integer>> localsfaulc=session_faulted_count;
+		ArrayList<ArrayList<Integer>> localsfailc=session_failed_count;
+		System.out.print("");
 	}
 
-	public ArrayList<Object[]> returnWordDataForLevel(int level){
+	public ArrayList<Object[]> returnWordDataForLevel(int level, StatsChooser.StatsType type){
+		ArrayList<ArrayList<String>> words;
+		ArrayList<ArrayList<Integer>> master_count, faulted_count, failed_count;
+		switch (type) {
+		case Persistent:
+			words=persistent_allwords;
+			master_count=persistent_master_count;
+			faulted_count=persistent_faulted_count;
+			failed_count=persistent_failed_count;
+			break;
+		default:
+			words=session_words;
+			master_count=session_master_count;
+			faulted_count=session_faulted_count;
+			failed_count=session_failed_count;
+			break;
+		}
+		
+		return getWordDataForLevel(level, words, master_count, faulted_count, failed_count);
+	}
+	
+	private ArrayList<Object[]> getWordDataForLevel(int level, ArrayList<ArrayList<String>> words, ArrayList<ArrayList<Integer>> master_count, ArrayList<ArrayList<Integer>> faulted_count, ArrayList<ArrayList<Integer>> failed_count){
 		ArrayList<Object[]> to_return = new ArrayList<Object[]>();
-		for (int i=0; i<persistent_allwords.get(level).size(); i++){
-			to_return.add(new Object[]{Integer.valueOf(level), persistent_allwords.get(level).get(i),
-					persistent_master_count.get(level).get(i), 
-					persistent_faulted_count.get(level).get(i), 
-					persistent_failed_count.get(level).get(i)});
+		for (int i=0; i<words.get(level).size(); i++){
+			to_return.add(new Object[]{Integer.valueOf(level), words.get(level).get(i),
+					master_count.get(level).get(i), 
+					faulted_count.get(level).get(i), 
+					failed_count.get(level).get(i)});
 		}
 		return to_return;
 	}
 
 	public int getNumberOfLevels(){
-		return persistent_allwords.size();
-	}
+		System.out.println(persistent_allwords.size()+"");
+			return persistent_allwords.size();
+}
 
 	public int getCurrentLevel(){
 		return current_level;
@@ -200,7 +242,7 @@ public class FileIO {
 		try {
 			FileWriter fw = new FileWriter(new File(parent_frame.getResourceFileLocation()+"statsfile"), false);
 			for (int i=0; i<getNumberOfLevels(); i++){
-				for (Object[] o:returnWordDataForLevel(i)){
+				for (Object[] o:returnWordDataForLevel(i, StatsType.Persistent)){
 					fw.write(o[0]+" "+ o[2]+" "+o[3]+" "+o[4]+" "+o[1]+"\n");
 				}
 			}
@@ -213,7 +255,7 @@ public class FileIO {
 	public void writeToReview(){
 		try {
 			FileWriter fw = new FileWriter(new File(parent_frame.getResourceFileLocation()+"reviewlist"), false);
-			for (int i=1; i<getNumberOfLevels()-1; i++){
+			for (int i=1; i<getNumberOfLevels(); i++){
 				fw.write("%Level "+i+"\n");
 				for (String w:reviewlist_words.get(i)){
 					fw.write(w+"\n");

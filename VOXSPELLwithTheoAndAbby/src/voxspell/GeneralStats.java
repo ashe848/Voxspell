@@ -1,5 +1,6 @@
 package voxspell;
 
+import java.awt.Window.Type;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import voxspell.StatsChooser.StatsType;
 import voxspell.Voxspell.PanelID;
 
 @SuppressWarnings("serial")
@@ -24,9 +26,10 @@ public class GeneralStats extends JPanel {
 	private static Voxspell parent_frame;
 	private static FileIO file_handler;
 	private static JTable table;
+	
 
 
-	public GeneralStats(Voxspell parent){
+	public GeneralStats(Voxspell parent, StatsType type){
 		super();
 		setSize(800,600);
 		setLayout(null);
@@ -55,7 +58,7 @@ public class GeneralStats extends JPanel {
 		table = new JTable(model);
 
 		for (int i=0; i<file_handler.getNumberOfLevels(); i++){
-			for (Object[] o:file_handler.returnWordDataForLevel(i)){
+			for (Object[] o:file_handler.returnWordDataForLevel(i, type)){
 				if(!(o[2].equals(0)&&o[3].equals(0)&&o[4].equals(0))){
 					model.addRow(o);
 				}
@@ -98,7 +101,7 @@ public class GeneralStats extends JPanel {
 		back_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				parent_frame.changePanel(PanelID.MainMenu);
+				parent_frame.changePanel(PanelID.StatSelection);
 			}
 		});
 		

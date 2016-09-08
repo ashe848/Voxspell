@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import voxspell.StatsChooser.StatsType;
+
 
 @SuppressWarnings("serial")
 
@@ -74,7 +76,19 @@ public class Voxspell extends JFrame{
 //			this.getContentPane().add(new SettingsWindowPanel(this));
 			break;
 		case StatSelection:
-			this.getContentPane().add(new GeneralStats(this));
+			this.getContentPane().add(new StatsChooser(this));
+			break;
+		case PersistentAllStats:
+			this.getContentPane().add(new GeneralStats(this, StatsType.Persistent));
+			break;
+		case PersistentLevelStats:
+//			this.getContentPane().add(new StatsChooser(this, StatsType.Persistent));
+			break;
+		case SessionAllStats:
+			this.getContentPane().add(new GeneralStats(this, StatsType.Session));
+			break;
+		case SessionLevelStats:
+//			this.getContentPane().add(new StatsChooser(this));
 			break;
 		case Review:
 //			this.getContentPane().add(new DoQuizPanel(this, "REVIEW QUIZ"));
@@ -85,6 +99,6 @@ public class Voxspell extends JFrame{
 	}
 
 	public enum PanelID{
-		MainMenu, Settings, Help, LevelChooser, StatSelection, StatGeneral, StatByLevel, Quiz, Review;
+		MainMenu, Settings, Help, LevelChooser, StatSelection, PersistentAllStats, PersistentLevelStats, SessionAllStats, SessionLevelStats, Quiz, Review;
 	}
 }

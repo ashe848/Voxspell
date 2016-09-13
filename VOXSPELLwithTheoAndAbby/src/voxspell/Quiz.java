@@ -66,15 +66,13 @@ public class Quiz extends JPanel {
 
 			startQuiz();
 		}
-		
-		
 	}
 
 	/**
 	 * sets up title at top of panel
 	 */
 	private void setupTitle(){
-		JLabel title_to_display = new JLabel(quiz_type.toString()); 
+		JLabel title_to_display = new JLabel(quiz_type.toString()+" (Level: "+parent_frame.getFileIO().getCurrentLevel()+")"); 
 		title_to_display.setFont(new Font("Courier New", Font.BOLD, 50));
 
 		add(title_to_display);
@@ -267,10 +265,7 @@ public class Quiz extends JPanel {
 		 */
 		if (current_word_number == words_to_spell.size()){
 			parent_frame.getFileIO().processQuizResults(words_mastered,words_faulted,words_failed,quiz_type);
-			
-			JOptionPane.showMessageDialog(null, "Test Finished.\nReturning To Main Menu." ,"Congratulations",JOptionPane.OK_OPTION);
-			parent_frame.changePanel(PanelID.MainMenu);
-
+			parent_frame.changePanel(PanelID.QuizComplete);
 			//Otherwise keep going with quiz
 		} else{
 			startQuiz();

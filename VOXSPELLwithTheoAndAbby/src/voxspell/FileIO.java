@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -317,13 +316,12 @@ public class FileIO {
 			addToReviewList(failed_words);
 		}
 		
-		
 		latest_mastered_words=mastered_words;
 		latest_faulted_words=faulted_words;
 		latest_failed_words=failed_words;
-		
 		writeStats();
 		writeToReview();
+		
 	}
 	
 	private void enterResultsIntoDataStructure(ArrayList<String> quizzed_words, WordResult word_result_type){
@@ -367,6 +365,14 @@ public class FileIO {
 		}
 	}
 	
+	public ArrayList<ArrayList<String>> getLatestWordResults(){
+		ArrayList<ArrayList<String>> to_return=new ArrayList<ArrayList<String>>();
+		to_return.add(latest_mastered_words);
+		to_return.add(latest_faulted_words);
+		to_return.add(latest_failed_words);
+		return to_return;
+	}
+	
 	private void removeFromReviewList(ArrayList<String> not_faulted_words){
 		for (String w:not_faulted_words){
 			if (reviewlist_words.get(current_level).contains(w)){
@@ -398,12 +404,7 @@ public class FileIO {
 
 		switch(id){
 		case Quiz:
-//			if (wordlist_words.get(current_level).size()==0){
-//				JOptionPane.showMessageDialog(null, "EMPTY WORDLIST FILE, nothing to test\nWill return to main menu" ,"Error",JOptionPane.WARNING_MESSAGE);
-//				parent_frame.changePanel(PanelID.MainMenu);
-//			} else {
 				relevant_bank_of_words = wordlist_words.get(current_level);
-//			}
 			break; 
 		default://Review
 			relevant_bank_of_words = reviewlist_words.get(current_level);
@@ -450,5 +451,32 @@ public class FileIO {
 	
 	public enum WordResult {
 		Mastered, Faulted, Failed;
+	}
+	public void increaseLevel(){
+		current_level++;
+	}
+
+	public boolean halfAttempted() {
+		int na_count=0;
+		//words not attempted
+		for (Object[] o:returnWordDataForLevel(current_level, StatsType.Persistent)){
+			if(!(o[2].equals(0)&&o[3].equals(0)&&o[4].equals(0))){
+				na_count++;
+			}
+		}
+		
+		if(na_count>=persistent_allwords.get(current_level).size()/2){
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean noReview() {
+		if(reviewlist_words.get(current_level).size()==0){
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
@@ -26,11 +27,19 @@ public class StatsChooser extends JPanel{
 		parent_frame=parent;
 		file_handler=FileIO.getInstance(parent_frame);
 		
+		setupTitle();
 		setupPersistentAllButton();
 		setupPersistentLevelButton();
 		setupSessionAllButton();
 		setupSessionLevelButton();
 		setupBackButton();
+	}
+	
+	private void setupTitle() {
+		JLabel title = new JLabel("Choose type of statistics");
+		title.setFont(new Font("Courier New", Font.BOLD, 50));
+		title.setBounds(20, 39, 760, 87);
+		add(title);
 	}
 	
 	private void setupPersistentAllButton(){

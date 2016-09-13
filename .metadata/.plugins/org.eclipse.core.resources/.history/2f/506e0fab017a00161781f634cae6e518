@@ -1,0 +1,14 @@
+package tosw164SOFTENG206A02;
+
+import javax.swing.JPanel;
+
+public class GUITest extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public GUITest() {
+
+	}
+
+}

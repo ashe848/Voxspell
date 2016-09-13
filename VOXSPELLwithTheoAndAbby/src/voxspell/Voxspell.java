@@ -94,12 +94,15 @@ public class Voxspell extends JFrame{
 		case Review:
 			this.getContentPane().add(new Quiz(this, PanelID.Review));
 			break;
+		case QuizComplete:
+			this.getContentPane().add(new QuizComplete(this));
+			break;
 		}
 		this.revalidate();
 
 	}
 
 	public enum PanelID{
-		MainMenu, Settings, Help, LevelChooser, StatSelection, PersistentAllStats, PersistentLevelStats, SessionAllStats, SessionLevelStats, Quiz, Review;
+		MainMenu, Settings, Help, LevelChooser, StatSelection, PersistentAllStats, PersistentLevelStats, SessionAllStats, SessionLevelStats, Quiz, Review, QuizComplete;
 	}
 }

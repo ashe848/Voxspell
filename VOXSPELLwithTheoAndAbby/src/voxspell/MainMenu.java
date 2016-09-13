@@ -83,10 +83,17 @@ public class MainMenu extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				file_handler.processQuizResults(new ArrayList<String>(Arrays.asList("a")), new ArrayList<String>(Arrays.asList("I")), new ArrayList<String>(Arrays.asList("the")), "asd");
-				file_handler.writeToReview();
-				file_handler.writeStats();
-				parent_frame.changePanel(PanelID.MainMenu);
+//				file_handler.processQuizResults(new ArrayList<String>(Arrays.asList("a")), new ArrayList<String>(Arrays.asList("I")), new ArrayList<String>(Arrays.asList("the")), "asd");
+//				file_handler.writeToReview();
+//				file_handler.writeStats();
+//				parent_frame.changePanel(PanelID.MainMenu);
+				int count = 0;
+				ArrayList<String> something = parent_frame.getFileIO().getWordsForSpellingQuiz(10, PanelID.Quiz);
+				for (String w: something){
+					System.out.println(w);
+					count++;
+				}
+				System.out.println("~~~~~~~~~~" + count);
 			}
 		});
 		
@@ -106,7 +113,13 @@ public class MainMenu extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				int count = 0;
+				ArrayList<String> something = parent_frame.getFileIO().getWordsForSpellingQuiz(10, PanelID.Review);
+				for (String w: something){
+					System.out.println(w);
+					count++;
+				}
+				System.out.println("~~~~~~~~~~" + count);
 //				parent_frame.changePanel(PanelID.Review);
 			}
 		});

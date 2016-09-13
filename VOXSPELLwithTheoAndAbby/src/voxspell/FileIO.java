@@ -6,11 +6,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.JOptionPane;
 
 import voxspell.StatsChooser.StatsType;
+import voxspell.Voxspell.PanelID;
 
 public class FileIO {
 	private static Voxspell parent_frame;
@@ -58,6 +61,14 @@ public class FileIO {
 		return instance;
 	}
 
+	/**
+	 * Method that reads contents of files and stores them into data structure.
+	 * Files read from:
+	 * 		NZ Spelling list text file		contents put into wordlist_words arraylist of arraylist(string) by level
+	 * 		Statistics file					contents put into persistent{allwords, masteredcount, faultedcount, failedcount}
+	 * 		Reviewlist words file			contents put into reviewlist_words arraylist of arraylist(String) by level
+	 * 		Settings file					contents put into current_level field
+	 */
 	private static void readFiles(){
 		BufferedReader current_BR;
 		try {
@@ -154,19 +165,23 @@ public class FileIO {
 			//WE DO REVIEWLIST HERE
 			current_BR = new BufferedReader(new FileReader(parent_frame.getResourceFileLocation()+"reviewlist"));
 			temp_string_array = new ArrayList<String>();
-
+			
+			int lvl = 0;
+			
 			while ((string_input = current_BR.readLine()) != null) {
 				if (!string_input.isEmpty()){
 					if (string_input.charAt(0)=='%'){
-						reviewlist_words.add(temp_string_array);
-						temp_string_array= new ArrayList<String>();	
+						lvl++;
+//						reviewlist_words.add(temp_string_array);
+//						temp_string_array= new ArrayList<String>();	
 					} else {
-						temp_string_array.add(string_input);
+//						temp_string_array.add(string_input);
+						reviewlist_words.get(lvl).add(string_input);
 					}
 				}
 
 			}
-			reviewlist_words.add(temp_string_array);
+//			reviewlist_words.add(temp_string_array);
 
 			ArrayList<ArrayList<String>> localrl = reviewlist_words;
 			current_BR.close();
@@ -359,6 +374,61 @@ public class FileIO {
 			if (!reviewlist_words.get(current_level).contains(w)){
 				reviewlist_words.get(current_level).add(w);
 			}
+		}
+	}
+	
+	/**
+	 * Method that generates random words for spelling(not review) quiz
+	 * @param n		words in quiz specified, will go to number of words in file is less
+	 * @return		array of randomised words to do test on
+	 * 
+	 * Taken from Theo's Assignment 2
+	 */
+	public ArrayList<String> getWordsForSpellingQuiz(int n, PanelID id){
+		
+		//setup relevant bank of words to choose from depending on quiz type
+		ArrayList<String> relevant_bank_of_words;
+		switch(id){
+		case Quiz:
+			relevant_bank_of_words = wordlist_words.get(current_level);
+			break; 
+		default://Review
+			relevant_bank_of_words = reviewlist_words.get(current_level);
+			break;
+		}
+		
+		ArrayList<String> to_return = new ArrayList<String>();
+		int[] indices = new int[relevant_bank_of_words.size()];
+
+		for(int i = 0; i<relevant_bank_of_words.size(); i++){
+			indices[i] = i;
+		}
+
+		shuffleIndicesArray(indices);
+
+		for(int i = 0; i<relevant_bank_of_words.size() && i<n; i++){
+			to_return.add(relevant_bank_of_words.get(indices[i]));
+		}
+
+		return to_return;
+	}
+	
+	/**
+	 * Shuffles indices of array, so it doesn't mess with pointers. No deep copying needed
+	 * @param x		array to shuffle
+	 * 
+	 * Taken from Theo's Assignment 2
+	 */
+	private void shuffleIndicesArray(int[] x){
+		Random rand = new Random();
+		//swaps 2 random elements 100 times
+		for(int i = 0; i<100; i++){
+			int rand1 = rand.nextInt(x.length);
+			int rand2 = rand.nextInt(x.length);
+			
+			int temp = x[rand1];
+			x[rand1] = x[rand2];
+			x[rand2] = temp;
 		}
 	}
 	

@@ -32,7 +32,11 @@ public class FileIO {
 	private static ArrayList<ArrayList<Integer>> session_master_count;
 	private static ArrayList<ArrayList<Integer>> session_faulted_count;
 	private static ArrayList<ArrayList<Integer>> session_failed_count;
-
+	
+	private static ArrayList<String> latest_mastered_words;
+	private static ArrayList<String> latest_faulted_words;
+	private static ArrayList<String> latest_failed_words;
+	
 	private static int current_level=0;
 
 	private FileIO(Voxspell parent){
@@ -312,6 +316,11 @@ public class FileIO {
 		} else {
 			addToReviewList(failed_words);
 		}
+		
+		
+		latest_mastered_words=mastered_words;
+		latest_faulted_words=faulted_words;
+		latest_failed_words=failed_words;
 		
 		writeStats();
 		writeToReview();

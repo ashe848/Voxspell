@@ -13,10 +13,12 @@ public class Voxspell extends JFrame{
 	JPanel contentPane=new JPanel();
 	private static String RESOURCE_FILE_LOCATION = System.getProperty("user.dir")+"/resources/";
 	private static FileIO file_handler;
+	public Festival festival;
 
 	public Voxspell(){
 		//Below setup code for frame from Theo's code
 		super();
+		festival = new Festival();
 		setTitle("VoxSpell version 0.0000000001 Post-PreAlpha (but still in Alpha)");
 		setSize(800,600);
 		setLocationRelativeTo(null);
@@ -31,12 +33,12 @@ public class Voxspell extends JFrame{
 	}
 
 	public static void main(String[] args){
-		Festival festival = new Festival();
+//		Festival festival = new Festival();
 
 		//Testing swingworker capabilities
-		System.out.println("Program Starting...");
-		festival.speak("I should be going on after line below printed");
-		System.out.println("This should be printed before line above finishes being said");
+//		System.out.println("Program Starting...");
+//		festival.speak("I should be going on after line below printed");
+//		System.out.println("This should be printed before line above finishes being said");
 		//		TestClass tc = new TestClass();
 		//		tc.setVisible(true);
 
@@ -69,7 +71,7 @@ public class Voxspell extends JFrame{
 			this.getContentPane().add(new MainMenu(this));
 			break;
 		case Quiz:
-//			this.getContentPane().add(new DoQuizPanel(this, "SPELLING QUIZ"));
+			this.getContentPane().add(new Quiz(this, PanelID.Quiz));
 			break;
 		case Settings:
 //			this.getContentPane().add(new SettingsWindowPanel(this));
@@ -90,7 +92,7 @@ public class Voxspell extends JFrame{
 			this.getContentPane().add(new LevelStats(this, StatsType.Session));
 			break;
 		case Review:
-//			this.getContentPane().add(new DoQuizPanel(this, "REVIEW QUIZ"));
+			this.getContentPane().add(new Quiz(this, PanelID.Review));
 			break;
 		}
 		this.revalidate();

@@ -27,6 +27,7 @@ public class LevelStats extends JPanel{
 	private static FileIO file_handler;
 	private static JTable table;
 	private static TableRowSorter<TableModel> sorter;
+	private static JScrollPane scrollPane;
 
 	public LevelStats(Voxspell parent, StatsType type){
 		super();
@@ -55,7 +56,7 @@ public class LevelStats extends JPanel{
 	}
 
 	private void removeTableFromPanel(){
-		this.remove(table);
+		this.remove(scrollPane);
 	}
 
 	private void setupBackButton(){
@@ -118,7 +119,7 @@ public class LevelStats extends JPanel{
 
 
 		//adds scroll pane to table
-		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane = new JScrollPane(table);
 		add(scrollPane);
 		scrollPane.setVisible(true);
 

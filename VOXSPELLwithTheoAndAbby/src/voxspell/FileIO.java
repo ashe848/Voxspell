@@ -140,7 +140,6 @@ public class FileIO {
 			ArrayList<Integer> temp_mastered_array = new ArrayList<Integer>();
 			ArrayList<Integer> temp_faulted_array = new ArrayList<Integer>();
 			ArrayList<Integer> temp_failed_array = new ArrayList<Integer>();
-			temp_string_array = new ArrayList<String>();
 
 			//adds words from wordlist that not in statsfile into persistent structures
 			for(int i = 0; i<wordlist_words.size(); i++){
@@ -164,7 +163,6 @@ public class FileIO {
 
 			//WE DO REVIEWLIST HERE
 			current_BR = new BufferedReader(new FileReader(parent_frame.getResourceFileLocation()+"reviewlist"));
-			temp_string_array = new ArrayList<String>();
 			
 			int lvl = 0;
 			
@@ -172,16 +170,12 @@ public class FileIO {
 				if (!string_input.isEmpty()){
 					if (string_input.charAt(0)=='%'){
 						lvl++;
-//						reviewlist_words.add(temp_string_array);
-//						temp_string_array= new ArrayList<String>();	
 					} else {
-//						temp_string_array.add(string_input);
 						reviewlist_words.get(lvl).add(string_input);
 					}
 				}
 
 			}
-//			reviewlist_words.add(temp_string_array);
 
 			ArrayList<ArrayList<String>> localrl = reviewlist_words;
 			current_BR.close();
@@ -268,7 +262,7 @@ public class FileIO {
 		return current_level;
 	}
 
-	public void writeStats(){
+	private void writeStats(){
 		try {
 			FileWriter fw = new FileWriter(new File(parent_frame.getResourceFileLocation()+"statsfile"), false);
 			for (int i=0; i<getNumberOfLevels(); i++){
@@ -282,7 +276,7 @@ public class FileIO {
 		}
 	}
 
-	public void writeToReview(){
+	private void writeToReview(){
 		try {
 			FileWriter fw = new FileWriter(new File(parent_frame.getResourceFileLocation()+"reviewlist"), false);
 			for (int i=1; i<getNumberOfLevels(); i++){
@@ -307,17 +301,20 @@ public class FileIO {
 		}
 	}
 	
-	public void processQuizResults(ArrayList<String> mastered_words, ArrayList<String> faulted_words, ArrayList<String> failed_words, String quiz_type){
+	public void processQuizResults(ArrayList<String> mastered_words, ArrayList<String> faulted_words, ArrayList<String> failed_words, PanelID quiz_type){
 		enterResultsIntoDataStructure(mastered_words, WordResult.Mastered);
 		enterResultsIntoDataStructure(faulted_words, WordResult.Faulted);
 		enterResultsIntoDataStructure(failed_words, WordResult.Failed);
 		
-		if (quiz_type.equals("Review")){
+		if (quiz_type==PanelID.Review){
 			removeFromReviewList(mastered_words);
 			removeFromReviewList(faulted_words);
 		} else {
 			addToReviewList(failed_words);
 		}
+		
+		writeStats();
+		writeToReview();
 	}
 	
 	private void enterResultsIntoDataStructure(ArrayList<String> quizzed_words, WordResult word_result_type){
@@ -388,28 +385,38 @@ public class FileIO {
 		
 		//setup relevant bank of words to choose from depending on quiz type
 		ArrayList<String> relevant_bank_of_words;
+		ArrayList<String> to_return = new ArrayList<String>();
+
 		switch(id){
 		case Quiz:
-			relevant_bank_of_words = wordlist_words.get(current_level);
+//			if (wordlist_words.get(current_level).size()==0){
+//				JOptionPane.showMessageDialog(null, "EMPTY WORDLIST FILE, nothing to test\nWill return to main menu" ,"Error",JOptionPane.WARNING_MESSAGE);
+//				parent_frame.changePanel(PanelID.MainMenu);
+//			} else {
+				relevant_bank_of_words = wordlist_words.get(current_level);
+//			}
 			break; 
 		default://Review
 			relevant_bank_of_words = reviewlist_words.get(current_level);
 			break;
 		}
 		
-		ArrayList<String> to_return = new ArrayList<String>();
-		int[] indices = new int[relevant_bank_of_words.size()];
+		if(relevant_bank_of_words.size() == 0){
+			JOptionPane.showMessageDialog(null, "EMPTY " + id.toString() + " FILE, nothing to test\nWill return to main menu" ,"Error",JOptionPane.WARNING_MESSAGE);
+			parent_frame.changePanel(PanelID.MainMenu);
+		} else {
+			int[] indices = new int[relevant_bank_of_words.size()];
 
-		for(int i = 0; i<relevant_bank_of_words.size(); i++){
-			indices[i] = i;
+			for(int i = 0; i<relevant_bank_of_words.size(); i++){
+				indices[i] = i;
+			}
+
+			shuffleIndicesArray(indices);
+
+			for(int i = 0; i<relevant_bank_of_words.size() && i<n; i++){
+				to_return.add(relevant_bank_of_words.get(indices[i]));
+			}
 		}
-
-		shuffleIndicesArray(indices);
-
-		for(int i = 0; i<relevant_bank_of_words.size() && i<n; i++){
-			to_return.add(relevant_bank_of_words.get(indices[i]));
-		}
-
 		return to_return;
 	}
 	

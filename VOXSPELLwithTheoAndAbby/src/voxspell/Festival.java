@@ -8,7 +8,7 @@ public class Festival {
 	
 	//class responsible for making the festival calls
 	public void speak(String speech){
-		if (System.getProperty("os.name").equals("Linux")) {
+		if (System.getProperty("os.name").equals("Lsinux")) {
 			//Was Abby's code.
 			SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
 				protected Void doInBackground(){

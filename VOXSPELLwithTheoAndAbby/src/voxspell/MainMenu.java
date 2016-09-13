@@ -87,13 +87,14 @@ public class MainMenu extends JPanel{
 //				file_handler.writeToReview();
 //				file_handler.writeStats();
 //				parent_frame.changePanel(PanelID.MainMenu);
-				int count = 0;
-				ArrayList<String> something = parent_frame.getFileIO().getWordsForSpellingQuiz(10, PanelID.Quiz);
-				for (String w: something){
-					System.out.println(w);
-					count++;
-				}
-				System.out.println("~~~~~~~~~~" + count);
+//				int count = 0;
+//				ArrayList<String> something = parent_frame.getFileIO().getWordsForSpellingQuiz(10, PanelID.Quiz);
+//				for (String w: something){
+//					System.out.println(w);
+//					count++;
+//				}
+//				System.out.println("~~~~~~~~~~" + count);
+				parent_frame.changePanel(PanelID.Quiz);
 			}
 		});
 		
@@ -113,14 +114,14 @@ public class MainMenu extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int count = 0;
-				ArrayList<String> something = parent_frame.getFileIO().getWordsForSpellingQuiz(10, PanelID.Review);
-				for (String w: something){
-					System.out.println(w);
-					count++;
-				}
-				System.out.println("~~~~~~~~~~" + count);
-//				parent_frame.changePanel(PanelID.Review);
+//				int count = 0;
+//				ArrayList<String> something = parent_frame.getFileIO().getWordsForSpellingQuiz(10, PanelID.Review);
+//				for (String w: something){
+//					System.out.println(w);
+//					count++;
+//				}
+//				System.out.println("~~~~~~~~~~" + count);
+				parent_frame.changePanel(PanelID.Review);
 			}
 		});
 		

@@ -1,0 +1,127 @@
+package voxspell;
+
+import java.io.IOException;
+
+import javax.swing.SwingWorker;
+
+public class Festival {
+	private static FestivalSpeed festival_speed=FestivalSpeed.normal;
+	private static FestivalVoice festival_voice=FestivalVoice.American;
+	private static Voxspell parent_frame;
+	private static Festival instance=null;
+
+	public static Festival getInstance(Voxspell parent){
+		if (instance==null){
+			instance=new Festival(parent);
+		}
+		return instance;
+	}
+	
+	private Festival(Voxspell parent){
+		parent_frame = parent;
+	}
+
+	//class responsible for making the festival calls
+	public synchronized void speak(String speech){
+		if (System.getProperty("os.name").equals("Linux")) {
+			//Was Abby's code.
+			SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+				protected Void doInBackground(){
+					String command = "echo " + speech + "| festival --tts";
+//					parent_frame.getFileIO().writeToScheme(speech, festival_speed, festival_voice);
+//					String command = "festival -b "+parent_frame.getResourceFileLocation()+"festival.scm ; sleep 2";
+					ProcessBuilder pb = new ProcessBuilder("bash", "-c", command);
+					try {
+						Process p = pb.start();
+						p.waitFor(); //waits for the festival call to finish before proceeding as to avoid the speaking overlapping
+					} catch (IOException e){
+						e.printStackTrace();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					return null;
+				}
+			};
+			worker.execute();
+//			FestivalWorker worker = FestivalWorker.getInstance();
+//			worker.work(speech);
+		}
+		else {
+			System.out.println(speech);
+		}
+	}
+
+	public void setFestivalSpeed(FestivalSpeed speed) {
+		festival_speed = speed;
+	}
+
+	public void setFestivalVoice(FestivalVoice voice) {
+		festival_voice = voice;
+	}
+
+	public enum FestivalSpeed {
+		slow, normal, fast;
+
+		public double getSpeedValue(){
+			switch(this){
+			case slow:
+				return 1.5;
+			case fast:
+				return 0.75;
+			default:
+				return 1.0;
+			}
+		}
+	}
+	
+	public enum FestivalVoice {
+		Kiwi, American;
+
+		public String getVoiceValue(){
+			switch(this){
+			case Kiwi:
+				return "akl_nz_jdt_diphone";
+			default:
+				return "kal_diphone";
+			}
+		}
+	}
+	
+	static class FestivalWorker extends SwingWorker<Void, Void>{
+		private String speech;
+		private static FestivalWorker instance=null;
+
+		public static FestivalWorker getInstance(){
+			if (instance==null){
+				instance=new FestivalWorker();
+			}
+			return instance;
+		}
+		
+		private FestivalWorker(){
+			super();
+		}
+		
+		public void work(String speech){
+			this.speech = speech;
+			this.execute();
+		}
+		
+		protected Void doInBackground(){
+			String command = "echo " + speech + "| festival --tts";
+//			parent_frame.getFileIO().writeToScheme(speech, festival_speed, festival_voice);
+
+//			String command = "festival -b "+parent_frame.getResourceFileLocation()+"festival.scm ; sleep 2";
+			ProcessBuilder pb = new ProcessBuilder("bash", "-c", command);
+			try {
+				Process p = pb.start();
+				p.waitFor(); //waits for the festival call to finish before proceeding as to avoid the speaking overlapping
+			} catch (IOException e){
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+	}
+}

@@ -18,7 +18,7 @@ public class Voxspell extends JFrame{
 	public Voxspell(){
 		//Below setup code for frame from Theo's code
 		super();
-		festival = new Festival(this);
+		festival = Festival.getInstance(this);
 		setTitle("VoxSpell version 0.0000000001 Post-PreAlpha (but still in Alpha)");
 		setSize(800,600);
 		setLocationRelativeTo(null);

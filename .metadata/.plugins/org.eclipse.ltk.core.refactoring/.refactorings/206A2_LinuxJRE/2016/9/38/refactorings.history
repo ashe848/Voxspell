@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy package &apos;ashe848a2&apos; to &apos;A2ForA3/src&apos;&#x0A;- Original project: &apos;206A2_LinuxJRE&apos;&#x0A;- Destination element: &apos;A2ForA3/src&apos;&#x0A;- Original element: &apos;206A2_LinuxJRE/src/ashe848a2&apos;" description="Copy package" destination="=A2ForA3/src" element1="/src&lt;ashe848a2" flags="589830" fragments="1" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyPackages" stamp="1473829517155" version="1.0"/>
+</session>

@@ -313,7 +313,10 @@ public class FileIO {
 			fw.write("(Parameter.set 'Duration_Stretch " + speed.getSpeedValue() +")\n");
 			fw.write("(voice_" + voice.getVoiceValue() +")\n");
 			fw.write("(SayText \""+speech+"\")");
-			
+			System.out.println("(Parameter.set 'Duration_Stretch " + speed.getSpeedValue() +")\n");
+						System.out.println("(voice_" + voice.getVoiceValue() +")\n");
+			System.out.println("(SayText \""+speech+"\")");
+
 			
 			fw.close();
 		} catch (IOException e) {

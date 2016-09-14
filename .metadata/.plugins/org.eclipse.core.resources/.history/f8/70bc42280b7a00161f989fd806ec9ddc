@@ -1,0 +1,7 @@
+package voxspell;
+
+import java.awt.Component;
+
+public class Settings extends Component {
+
+}

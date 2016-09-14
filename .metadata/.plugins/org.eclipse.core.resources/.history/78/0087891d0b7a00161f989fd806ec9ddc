@@ -74,7 +74,7 @@ public class Voxspell extends JFrame{
 			this.getContentPane().add(new Quiz(this, PanelID.Quiz));
 			break;
 		case Settings:
-			this.getContentPane().add(new Settings(this));
+//			this.getContentPane().add(new SettingsWindowPanel(this));
 			break;
 		case StatSelection:
 			this.getContentPane().add(new StatsChooser(this));

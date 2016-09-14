@@ -12,9 +12,7 @@ public class Festival {
 			//Was Abby's code.
 			SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
 				protected Void doInBackground(){
-					//String command = "echo " + speech + "| festival --tts";
-					
-					String command = "festival -b festival.scm";
+					String command = "echo " + speech + "| festival --tts";
 					ProcessBuilder pb = new ProcessBuilder("bash", "-c", command);
 					try {
 						Process p = pb.start();

@@ -304,16 +304,6 @@ public class FileIO {
 		}
 	}
 	
-	public static void writeToScheme(){
-		try {
-			FileWriter fw = new FileWriter(new File(parent_frame.getResourceFileLocation()+"festival.scm"), false);
-			fw.write(""+current_level);
-			fw.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public void processQuizResults(ArrayList<String> mastered_words, ArrayList<String> faulted_words, ArrayList<String> failed_words, PanelID quiz_type){
 		enterResultsIntoDataStructure(mastered_words, WordResult.Mastered);
 		enterResultsIntoDataStructure(faulted_words, WordResult.Faulted);

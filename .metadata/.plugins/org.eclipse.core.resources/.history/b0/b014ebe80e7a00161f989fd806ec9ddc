@@ -1,0 +1,67 @@
+package tosw164SOFTENG206A02;
+
+import javax.swing.JPanel;
+
+import voxspell.Voxspell.PanelID;
+
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+
+public class GUITest extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public GUITest() {
+		setLayout(null);
+		setSize(800,600);
+		setupBackButton();
+	}
+	
+	private void setupBackButton(){
+		//ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
+		JButton back_button = new JButton("");
+		
+		add(back_button);
+		back_button.setSize(50,50);
+		back_button.setLocation(700,500);
+		
+		JButton btnClearStats = new JButton("Clear Stats");
+		btnClearStats.setBounds(31, 23, 166, 72);
+		add(btnClearStats);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(31, 193, 166, 72);
+		add(comboBox);
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setBounds(31, 353, 166, 72);
+		add(comboBox_1);
+		
+		JButton btnExitWithoutSaving = new JButton("exit without saving");
+		btnExitWithoutSaving.setBounds(626, 500, 50, 50);
+		add(btnExitWithoutSaving);
+		
+		JLabel lblChangeVoice = new JLabel("Change voice");
+		lblChangeVoice.setBounds(31, 146, 166, 15);
+		add(lblChangeVoice);
+		
+		JLabel lblChangeSpeed = new JLabel("Change speed");
+		lblChangeSpeed.setBounds(31, 309, 166, 15);
+		add(lblChangeSpeed);
+		
+		JLabel lblCurrentVoiceIs = new JLabel("Current voice is _");
+		lblCurrentVoiceIs.setBounds(31, 171, 166, 15);
+		add(lblCurrentVoiceIs);
+		
+		JLabel lblCurrentSpeedIs = new JLabel("Current speed is _");
+		lblCurrentSpeedIs.setBounds(31, 328, 166, 15);
+		add(lblCurrentSpeedIs);
+	}
+}

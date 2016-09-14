@@ -11,6 +11,8 @@ import java.util.Random;
 
 import javax.swing.JOptionPane;
 
+import voxspell.Festival.FestivalSpeed;
+import voxspell.Festival.FestivalVoice;
 import voxspell.StatsChooser.StatsType;
 import voxspell.Voxspell.PanelID;
 
@@ -55,7 +57,7 @@ public class FileIO {
 		session_failed_count = new ArrayList<ArrayList<Integer>>();
 
 		readFiles();
-	}
+		}
 
 	public static FileIO getInstance(Voxspell parent){
 		if (instance==null){
@@ -304,10 +306,15 @@ public class FileIO {
 		}
 	}
 	
-	public static void writeToScheme(){
+	public static void writeToScheme(String speech, FestivalSpeed speed, FestivalVoice voice){
+		
 		try {
 			FileWriter fw = new FileWriter(new File(parent_frame.getResourceFileLocation()+"festival.scm"), false);
-			fw.write(""+current_level);
+			fw.write("(Parameter.set 'Duration_Stretch " + speed.getSpeedValue() +")\n");
+			fw.write("(voice_" + voice.getVoiceValue() +")\n");
+			fw.write("(SayText \""+speech+"\")");
+			
+			
 			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();

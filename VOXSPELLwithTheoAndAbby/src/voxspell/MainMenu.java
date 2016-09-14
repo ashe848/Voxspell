@@ -93,7 +93,7 @@ public class MainMenu extends JPanel{
 //					System.out.println(w);
 //					count++;
 //				}
-//				System.out.println("~~~~~~~~~~" + count);
+//				System.out.println("(Parameter.set 'Duration_Stretch " + speed +")");
 				parent_frame.changePanel(PanelID.Quiz);
 			}
 		});

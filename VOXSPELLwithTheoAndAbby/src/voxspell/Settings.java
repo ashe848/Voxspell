@@ -7,12 +7,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import voxspell.Festival.FestivalSpeed;
 import voxspell.Voxspell.PanelID;
 
 public class Settings extends JPanel {
 	private Voxspell parent_frame;
-	private double festival_speed;
-	private String festival_voice;
+	private Festival festival;
 	
 	public Settings(Voxspell parent){
 		setSize(800,600);
@@ -20,7 +20,7 @@ public class Settings extends JPanel {
 
 		parent_frame = parent;
 		setupBackButton();
-		festival_speed=2.2;
+		festival.setFestivalSpeed(FestivalSpeed.slow);
 	}
 	
 	private void setupBackButton(){

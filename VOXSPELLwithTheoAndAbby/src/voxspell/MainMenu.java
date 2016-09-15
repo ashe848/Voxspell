@@ -56,11 +56,11 @@ public class MainMenu extends JPanel{
 	
 	private void setupAccuracyRateLabel() {
 		JLabel accuracy_rate_label = new JLabel(parent_frame.getFileIO().getAccuracyRates()); 
-		accuracy_rate_label.setFont(new Font("Courier New", Font.BOLD, 10));
+		accuracy_rate_label.setFont(new Font("Courier New", Font.BOLD, 12));
 
 		add(accuracy_rate_label);
-		accuracy_rate_label.setLocation(50, 550);
-		accuracy_rate_label.setSize(700, 50);
+		accuracy_rate_label.setLocation(50, 530);
+		accuracy_rate_label.setSize(400, 30);
 		accuracy_rate_label.setOpaque(true);
 		
 	}

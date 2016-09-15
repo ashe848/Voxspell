@@ -34,9 +34,9 @@ public class Festival {
 				locked=true;
 				worker_queue.get(0).execute();
 				worker_queue.remove(0);
-			}else {
-				System.out.println(speech);
 			}
+		}else {
+			System.out.println(speech);
 		}
 	}
 

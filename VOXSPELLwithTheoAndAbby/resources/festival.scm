@@ -1,3 +1,3 @@
-(Parameter.set 'Duration_Stretch 2.5)
+(Parameter.set 'Duration_Stretch 1.0)
 (voice_kal_diphone)
-(SayText "compliment")
+(SayText "Correct")

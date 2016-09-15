@@ -63,11 +63,11 @@ public class QuizComplete extends JPanel{
 		};
 		JTable table = new JTable(model);
 		Object[] mastered_col=new Object[latest_mastered_words.size()];
-		model.addColumn("Mastered", latest_mastered_words.toArray(mastered_col));
+		model.addColumn("Mastered ("+latest_mastered_words.size()+")", latest_mastered_words.toArray(mastered_col));
 		Object[] faulted_col=new Object[latest_mastered_words.size()];
-		model.addColumn("Faulted", latest_faulted_words.toArray(faulted_col));
+		model.addColumn("Faulted ("+latest_faulted_words.size()+")", latest_faulted_words.toArray(faulted_col));
 		Object[] failed_col=new Object[latest_mastered_words.size()];
-		model.addColumn("Failed", latest_failed_words.toArray(failed_col));
+		model.addColumn("Failed ("+latest_failed_words.size()+")", latest_failed_words.toArray(failed_col));
 		table.setModel(model);
 
 		//http://stackoverflow.com/a/7433758

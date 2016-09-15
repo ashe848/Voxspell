@@ -1,4 +1,0 @@
-INDEX VERSION 1.129+/home/abby/Desktop/206A3/Boring206PlaceHolderName/.metadata/.plugins/org.eclipse.jdt.core
-4066510187.index
-3029271446.index
-1535876648.index

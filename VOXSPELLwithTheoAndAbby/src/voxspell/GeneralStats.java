@@ -1,5 +1,6 @@
 package voxspell;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -87,8 +88,19 @@ public class GeneralStats extends JPanel {
 		scrollPane.setSize(700,400);
 		
 		setupBackButton();
+		setupAccuracyRateLabel();
 	}
 	
+	private void setupAccuracyRateLabel() {
+		JLabel accuracy_rate_label = new JLabel(parent_frame.getFileIO().getAccuracyRates()); 
+		accuracy_rate_label.setFont(new Font("Courier New", Font.BOLD, 10));
+
+		add(accuracy_rate_label);
+		accuracy_rate_label.setLocation(50, 550);
+		accuracy_rate_label.setSize(700, 50);
+		accuracy_rate_label.setOpaque(true);
+		
+	}
 	private void setupBackButton(){
 		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
 		JButton back_button = new JButton("", back_button_image);

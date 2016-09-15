@@ -33,8 +33,19 @@ public class StatsChooser extends JPanel{
 		setupSessionAllButton();
 		setupSessionLevelButton();
 		setupBackButton();
+		setupAccuracyRateLabel();
 	}
 	
+	private void setupAccuracyRateLabel() {
+		JLabel accuracy_rate_label = new JLabel(parent_frame.getFileIO().getAccuracyRates()); 
+		accuracy_rate_label.setFont(new Font("Courier New", Font.BOLD, 10));
+
+		add(accuracy_rate_label);
+		accuracy_rate_label.setLocation(50, 550);
+		accuracy_rate_label.setSize(700, 50);
+		accuracy_rate_label.setOpaque(true);
+		
+	}
 	private void setupTitle() {
 		JLabel title = new JLabel("Choose type of statistics");
 		title.setFont(new Font("Courier New", Font.BOLD, 50));

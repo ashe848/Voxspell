@@ -8,8 +8,8 @@ import javax.swing.SwingWorker;
 //class responsible for making the festival calls
 //Based on Abby's code.
 public class Festival {
-	private static FestivalSpeed festival_speed=FestivalSpeed.normal;
-	private static FestivalVoice festival_voice=FestivalVoice.American;
+	private static FestivalSpeed festival_speed=FestivalSpeed.slow;
+	private static FestivalVoice festival_voice=FestivalVoice.Kiwi;
 	private static Voxspell parent_frame;
 	private static Festival instance=null;
 	private static ArrayList<FestivalWorker> worker_queue=new ArrayList<FestivalWorker>();

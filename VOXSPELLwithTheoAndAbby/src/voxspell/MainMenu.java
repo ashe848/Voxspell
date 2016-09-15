@@ -13,6 +13,7 @@ import java.util.Arrays;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -50,8 +51,20 @@ public class MainMenu extends JPanel{
 		setupSettingsButton();
 		setupStatsButton();
 		setupExitButton();
+		setupAccuracyRateLabel();
 	}
 	
+	private void setupAccuracyRateLabel() {
+		JLabel accuracy_rate_label = new JLabel(parent_frame.getFileIO().getAccuracyRates()); 
+		accuracy_rate_label.setFont(new Font("Courier New", Font.BOLD, 10));
+
+		add(accuracy_rate_label);
+		accuracy_rate_label.setLocation(50, 550);
+		accuracy_rate_label.setSize(700, 50);
+		accuracy_rate_label.setOpaque(true);
+		
+	}
+
 	/**
 	 * Puts the voxspell background image, overriding paintComponent method(below) to ensure functionality
 	 */
@@ -183,6 +196,7 @@ public class MainMenu extends JPanel{
 		exit_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				file_handler.getAccuracyRates();
 				boolean askquit_result = askToLeave();
 				if (askquit_result){
 					System.exit(0);

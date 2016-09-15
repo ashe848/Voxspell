@@ -470,17 +470,22 @@ public class FileIO {
 	public void increaseLevel(){
 		current_level++;
 	}
-
-	public boolean halfAttempted() {
-		int na_count=0;
+	
+	private int getAttemptedCount() {
+		int attempted_count=0;
 		//words not attempted
 		for (Object[] o:returnWordDataForLevel(current_level, StatsType.Persistent)){
 			if(!(o[2].equals(0)&&o[3].equals(0)&&o[4].equals(0))){
-				na_count++;
+				attempted_count++;
 			}
 		}
+		return attempted_count;
+	}
+
+	public boolean halfAttempted() {
+		int attempted_count=getAttemptedCount();
 		
-		if(na_count>=persistent_allwords.get(current_level).size()/2){
+		if(attempted_count>=persistent_allwords.get(current_level).size()/2){
 			return true;
 		} else {
 			return false;
@@ -493,5 +498,14 @@ public class FileIO {
 		} else {
 			return false;
 		}
+	}
+	
+	public String getAccuracyRates(){
+		String to_return="";
+		to_return+="[level "+this.getCurrentLevel();
+		to_return+="]\t[Attempted: "+getAttemptedCount()+"/"+persistent_allwords.get(current_level).size();
+		to_return+="]\t["+reviewlist_words.get(current_level).size()+" failed out of "+persistent_allwords.get(current_level).size()+"]";
+		
+		return to_return;
 	}
 }

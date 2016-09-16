@@ -26,7 +26,7 @@ import voxspell.Voxspell.PanelID;
 /**
  * Statistics for all levels
  */
-public class GeneralStats extends JPanel {
+public class testGeneralStats extends JPanel {
 	private static Voxspell parent_frame;
 	
 	private static JTable table;
@@ -34,7 +34,7 @@ public class GeneralStats extends JPanel {
 	/**
 	 * Constructor
 	 */
-	public GeneralStats(Voxspell parent, StatsType type){
+	public testGeneralStats(Voxspell parent, StatsType type){
 		super();
 		setSize(800,600);
 		setLayout(null);
@@ -126,7 +126,7 @@ public class GeneralStats extends JPanel {
 	 * To display accuracy rates for level user is currently on
 	 */
 	private void setupAccuracyRateLabel() {
-		JLabel accuracy_rate_label = new JLabel(parent_frame.getFileIO().getAccuracyRates()); 
+		JLabel accuracy_rate_label = new JLabel("Hello"); 
 		accuracy_rate_label.setFont(new Font("Courier New", Font.BOLD, 10));
 
 		add(accuracy_rate_label);

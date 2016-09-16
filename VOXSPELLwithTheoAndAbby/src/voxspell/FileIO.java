@@ -40,6 +40,9 @@ public class FileIO {
 
 	private static int current_level=0;
 
+	/**
+	 * Constructor
+	 */
 	private FileIO(Voxspell parent){
 		parent_frame=parent;
 

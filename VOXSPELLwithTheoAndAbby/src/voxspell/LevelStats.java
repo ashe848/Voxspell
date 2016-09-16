@@ -23,59 +23,133 @@ import voxspell.StatsChooser.StatsType;
 import voxspell.Voxspell.PanelID;
 
 @SuppressWarnings("serial")
+
+/**
+ * Statistics by levels
+ */
 public class LevelStats extends JPanel{
 	private static Voxspell parent_frame;
-	private static FileIO file_handler;
+	
 	private static JTable table;
 	private static TableRowSorter<TableModel> sorter;
-	private static JScrollPane scrollPane;
+	private static JScrollPane scroll_pane;
 
+	/**
+	 * Constructor
+	 */
 	public LevelStats(Voxspell parent, StatsType type){
 		super();
 		setSize(800,600);
 		setLayout(null);
 
 		parent_frame=parent;
-		file_handler=FileIO.getInstance(parent_frame);
 
-		refreshTable(1, type);
+		//defaults to user's current level
+		refreshTable(parent_frame.getFileIO().getCurrentLevel(), type);
 
-		String[] levels = {"1","2","3","4","5","6","7","8","9","10","11"};
+		setupLevelChooser(type);
+		setupBackButton();
+		setupAccuracyRateLabel();
+	}
+
+	/**
+	 * Removes current table from panel to allow refreshing
+	 */
+	private void removeTableFromPanel(){
+		this.remove(scroll_pane); //removes scroll pane as it contains the table
+	}
+
+	/**
+	 * Refreshes table to match the selected level
+	 * Unlike the table in GeneralStats, this table doesn't have a level column
+	 * @param level
+	 * @param type
+	 */
+	private void refreshTable(int level, StatsType type){
+		//creates table model with said column names, currently no rows, and disallowing the editing of cells
+		String[] column_names = {"Word","Mastered","Faulted","Failed"};
+		int row_count = 0;
+
+		DefaultTableModel model = new DefaultTableModel(column_names, row_count){
+			public boolean isCellEditable(int row, int col) {
+				return false; //so users can't change their stats
+			}
+
+			//types of the columns for correct ordering
+			public Class getColumnClass(int column) {
+				switch (column) {
+				case 0:
+					return String.class;
+				default:
+					return Integer.class;
+				}
+			}
+		};
+		table = new JTable(model);
+
+		//adds row for word into table if it has been attempted
+		for (Object[] o:parent_frame.getFileIO().returnWordDataForLevel(level, type)){
+			if(!(o[2].equals(0)&&o[3].equals(0)&&o[4].equals(0))){
+				model.addRow(new Object[] {o[1], o[2], o[3], o[4]});
+			}
+		}
+		table.setModel(model);
+
+		//For ordering
+		sorter = new TableRowSorter<TableModel>(model);
+		table.setRowSorter(sorter);
+		ArrayList<RowSorter.SortKey> key = new ArrayList<RowSorter.SortKey>();
+		key.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));//default is ascending order of first column i.e. alphabetical order of words
+		sorter.setSortKeys(key);
+		sorter.sort();
+
+		//Alignment for the cells http://stackoverflow.com/a/7433758
+		DefaultTableCellRenderer alignment_renderer = new DefaultTableCellRenderer();
+		alignment_renderer.setHorizontalAlignment(JLabel.CENTER);
+		table.setDefaultRenderer(String.class, alignment_renderer);
+		table.setDefaultRenderer(Integer.class, alignment_renderer);
+
+		//adds scroll pane to table to panel
+		scroll_pane = new JScrollPane(table);
+		add(scroll_pane);
+		scroll_pane.setVisible(true);
+		scroll_pane.setLocation(50,50);
+		scroll_pane.setSize(700,400);
+	}
+
+	/**
+	 * Set up level chooser for the number of levels in this word list
+	 * @param type
+	 */
+	private void setupLevelChooser(StatsType type) {
+		//-1 to exclude level 0
+		Integer[] levels = new Integer[parent_frame.getFileIO().getNumberOfLevels()-1];
+		for(int level=1; level<parent_frame.getFileIO().getNumberOfLevels(); level++){
+			levels[level-1]=level;
+		}
 		JComboBox level_chooser = new JComboBox(levels);
-		level_chooser.setSelectedItem(String.valueOf(parent_frame.getFileIO().getCurrentLevel()));
+		//default to current level
+		level_chooser.setSelectedItem(parent_frame.getFileIO().getCurrentLevel());
 		level_chooser.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int level=Integer.parseInt((String)level_chooser.getSelectedItem());
+				int level=(int)level_chooser.getSelectedItem();
 				removeTableFromPanel();
-				refreshTable(level,type);			}
+				refreshTable(level,type);			
+			}
 		});
 
 		add(level_chooser);
 		level_chooser.setLocation(50,500);
 		level_chooser.setSize(100,50);
-		setupBackButton();
-		setupAccuracyRateLabel();
-	}
-	
-	private void setupAccuracyRateLabel() {
-		JLabel accuracy_rate_label = new JLabel(parent_frame.getFileIO().getAccuracyRates()); 
-		accuracy_rate_label.setFont(new Font("Courier New", Font.BOLD, 10));
-
-		add(accuracy_rate_label);
-		accuracy_rate_label.setLocation(50, 550);
-		accuracy_rate_label.setSize(700, 50);
-		accuracy_rate_label.setOpaque(true);
-		
-	}
-	private void removeTableFromPanel(){
-		this.remove(scrollPane);
 	}
 
+	/**
+	 * Back button to return to previous panel
+	 */
 	private void setupBackButton(){
 		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
 		JButton back_button = new JButton("", back_button_image);
-
 		back_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -88,55 +162,16 @@ public class LevelStats extends JPanel{
 		back_button.setLocation(700,500);
 	}
 
-	private void refreshTable(int level, StatsType type){
-		//creates table model with said column names, currently no rows, and disallowing the editing of cells
-		String[] columnNames = {"Word","Mastered","Faulted","Failed"};
-		int rowCount = 0;
+	/**
+	 * To display accuracy rates for level user is currently on
+	 */
+	private void setupAccuracyRateLabel() {
+		JLabel accuracy_rate_label = new JLabel(parent_frame.getFileIO().getAccuracyRates()); 
+		accuracy_rate_label.setFont(new Font("Courier New", Font.BOLD, 10));
 
-		DefaultTableModel model = new DefaultTableModel(columnNames, rowCount){
-			public boolean isCellEditable(int row, int col) {
-				return false; //so users can't change their stats
-			}
-
-			public Class getColumnClass(int column) {
-				switch (column) {
-				case 0:
-					return String.class;
-				default:
-					return Integer.class;
-				}
-			}
-		};
-		table = new JTable(model);
-
-		for (Object[] o:file_handler.returnWordDataForLevel(level, type)){
-			if(!(o[2].equals(0)&&o[3].equals(0)&&o[4].equals(0))){
-				model.addRow(new Object[] {o[1], o[2], o[3], o[4]});
-			}
-		}
-		table.setModel(model);
-
-		//For ordering
-		sorter = new TableRowSorter<TableModel>(model);
-		table.setRowSorter(sorter);
-		ArrayList<RowSorter.SortKey> key = new ArrayList<RowSorter.SortKey>();
-		key.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));//default is ascending order of first column ie alphabetical order of words
-		sorter.setSortKeys(key);
-		sorter.sort();
-
-		//http://stackoverflow.com/a/7433758
-		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-		table.setDefaultRenderer(String.class, centerRenderer);
-		table.setDefaultRenderer(Integer.class, centerRenderer);
-
-
-		//adds scroll pane to table
-		scrollPane = new JScrollPane(table);
-		add(scrollPane);
-		scrollPane.setVisible(true);
-
-		scrollPane.setLocation(50,50);
-		scrollPane.setSize(700,400);
+		add(accuracy_rate_label);
+		accuracy_rate_label.setLocation(200, 530);
+		accuracy_rate_label.setSize(400, 30);
+		accuracy_rate_label.setOpaque(true);	
 	}
 }

@@ -16,6 +16,8 @@ import javax.swing.JTextField;
 
 import voxspell.Voxspell.PanelID;
 
+@SuppressWarnings("serial")
+
 public class Quiz extends JPanel {
 	private Voxspell parent_frame;
 	private PanelID quiz_type;
@@ -27,6 +29,7 @@ public class Quiz extends JPanel {
 	private int current_word_number;
 	private int current_attempt_number;
 	private String word_is;
+	private int words_in_quiz=10;
 
 	private ArrayList<String> words_mastered;
 	private ArrayList<String> words_faulted;
@@ -162,6 +165,9 @@ public class Quiz extends JPanel {
 	/**
 	 * Adds button that allows user to go back to main menu (user prompted before actually doing so)
 	 */
+	/**
+	 * Back button to return to previous panel
+	 */
 	private void setupBackButton(){
 		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
 		JButton back_button = new JButton("", back_button_image);
@@ -286,9 +292,9 @@ public class Quiz extends JPanel {
 	private void initialiseWordsToSpell(){
 		//If SPELLING then normal quiz
 		if(this.getQuizType()==PanelID.Quiz){
-			words_to_spell = parent_frame.getFileIO().getWordsForSpellingQuiz(10, PanelID.Quiz);
+			words_to_spell = parent_frame.getFileIO().getWordsForSpellingQuiz(words_in_quiz, PanelID.Quiz);
 		} else { //If REVIEW (else clause) must be review quiz
-			words_to_spell = parent_frame.getFileIO().getWordsForSpellingQuiz(10, PanelID.Review);
+			words_to_spell = parent_frame.getFileIO().getWordsForSpellingQuiz(words_in_quiz, PanelID.Review);
 		}		 
 	}
 }

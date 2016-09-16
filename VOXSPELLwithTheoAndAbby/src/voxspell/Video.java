@@ -15,11 +15,15 @@ import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import voxspell.Voxspell.PanelID;
 
+@SuppressWarnings("serial")
+
 public class Video extends JPanel{
 	private static Voxspell parent_frame;
 	private EmbeddedMediaPlayerComponent mediaPlayerComponent;
 	private JPanel panel;
-	
+	/**
+	 * Constructor
+	 */
 	public Video(Voxspell parent){
 		super();
 		setSize(800,600);
@@ -141,6 +145,9 @@ public class Video extends JPanel{
 		
 	}
 	
+	/**
+	 * Back button to return to previous panel
+	 */
 	private void setupBackButton(){
 		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
 		JButton back_button = new JButton("", back_button_image);

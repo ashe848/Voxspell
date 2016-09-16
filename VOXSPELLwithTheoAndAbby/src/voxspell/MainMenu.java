@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import voxspell.Voxspell.PanelID;
 
 @SuppressWarnings("serial")
+
 /**
  * Literally all of this is Theo's
  * @author theooswanditosw164 not ashe848 XD
@@ -29,11 +30,10 @@ public class MainMenu extends JPanel{
 	
 
 	private Voxspell parent_frame;
-	private static FileIO file_handler;
 	private Image bg_image;
 	
 	/**
-	 * Constructor of main method panel, sets parameters and creates GUI elements
+	 * Constructor
 	 */
 	MainMenu(Voxspell parent){
 		super();
@@ -42,7 +42,6 @@ public class MainMenu extends JPanel{
 		setLayout(null);
 		
 		parent_frame  = parent;
-		file_handler=FileIO.getInstance(parent_frame);
 		
 		setupBackground();
 		
@@ -196,7 +195,7 @@ public class MainMenu extends JPanel{
 		exit_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				file_handler.getAccuracyRates();
+				parent_frame.getFileIO().getAccuracyRates();
 				boolean askquit_result = askToLeave();
 				if (askquit_result){
 					System.exit(0);

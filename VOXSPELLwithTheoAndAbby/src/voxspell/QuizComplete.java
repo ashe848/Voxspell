@@ -16,12 +16,17 @@ import javax.swing.table.DefaultTableModel;
 
 import voxspell.Voxspell.PanelID;
 
+@SuppressWarnings("serial")
+
 public class QuizComplete extends JPanel{
 	private Voxspell parent_frame;
 	private static ArrayList<String> latest_mastered_words;
 	private static ArrayList<String> latest_faulted_words;
 	private static ArrayList<String> latest_failed_words;
 	
+	/**
+	 * Constructor
+	 */
 	public QuizComplete(Voxspell parent){
 		setSize(800,600);
 		setLayout(null);
@@ -42,8 +47,8 @@ public class QuizComplete extends JPanel{
 		accuracy_rate_label.setFont(new Font("Courier New", Font.BOLD, 10));
 
 		add(accuracy_rate_label);
-		accuracy_rate_label.setLocation(50, 550);
-		accuracy_rate_label.setSize(700, 50);
+		accuracy_rate_label.setLocation(50, 530);
+		accuracy_rate_label.setSize(400, 30);
 		accuracy_rate_label.setOpaque(true);
 		
 	}
@@ -136,6 +141,9 @@ public class QuizComplete extends JPanel{
 		add(button);		
 	}
 
+	/**
+	 * Back button to return to previous panel
+	 */
 	private void setupBackButton(){
 		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
 		JButton back_button = new JButton("", back_button_image);

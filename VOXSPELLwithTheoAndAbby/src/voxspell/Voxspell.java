@@ -4,24 +4,34 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import com.sun.jna.Native;
-import com.sun.jna.NativeLibrary;
-
-import uk.co.caprica.vlcj.binding.LibVlc;
-import uk.co.caprica.vlcj.runtime.RuntimeUtil;
+//import com.sun.jna.Native;
+//import com.sun.jna.NativeLibrary;
+//
+//import uk.co.caprica.vlcj.binding.LibVlc;
+//import uk.co.caprica.vlcj.runtime.RuntimeUtil;
+import voxspell.Festival.FestivalWorker;
 import voxspell.StatsChooser.StatsType;
 
 @SuppressWarnings("serial")
 
+/**
+ * The class containing the main method 
+ * Is the frame for the Voxspell program
+ */
 public class Voxspell extends JFrame{
+	//////////////JPanel content_pane=new JPanel();
 
-	JPanel contentPane=new JPanel();
 	private static String RESOURCE_FILE_LOCATION = System.getProperty("user.dir")+"/resources/";
-	private static FileIO file_handler;
-	public Festival festival;
 
+	//Contains the FileIO and Festival instances which panels get
+	private static FileIO file_handler;
+	public static Festival festival;
+
+	/**
+	 * Constructor
+	 */
 	public Voxspell(){
-		//Below setup code for frame from Theo's code
+		//Below setup code for frame from Theo's A2 code
 		super();
 		festival = Festival.getInstance(this);
 		setTitle("VoxSpell version 0.0000000001 Post-PreAlpha (but still in Alpha)");
@@ -38,19 +48,8 @@ public class Voxspell extends JFrame{
 	}
 
 	public static void main(String[] args){
-		//		Festival festival = new Festival();
-
-		//Testing swingworker capabilities
-		//		System.out.println("Program Starting...");
-		//		festival.speak("I should be going on after line below printed");
-		//		System.out.println("This should be printed before line above finishes being said");
-		//		TestClass tc = new TestClass();
-		//		tc.setVisible(true);
-
 		//Initialising Swing program
 		SwingUtilities.invokeLater(new Runnable() {
-
-			@Override
 			public void run() {
 				Voxspell instance = new Voxspell();
 				instance.setVisible(true);
@@ -58,10 +57,18 @@ public class Voxspell extends JFrame{
 		});
 	}
 
+	/**
+	 * Method to return location of resources folder
+	 * @return
+	 */
 	public String getResourceFileLocation(){
 		return RESOURCE_FILE_LOCATION;
 	}
 
+	/**
+	 * Method to return object responsible for handling file I/O
+	 * @return
+	 */
 	public static FileIO getFileIO(){
 		return file_handler;
 	}
@@ -71,15 +78,15 @@ public class Voxspell extends JFrame{
 		this.getContentPane().removeAll();
 		this.repaint();
 
-		switch ( id ) {
+		switch (id) {
 		case MainMenu:
 			this.getContentPane().add(new MainMenu(this));
 			break;
-		case Quiz:
-			this.getContentPane().add(new Quiz(this, PanelID.Quiz));
-			break;
 		case Settings:
 			this.getContentPane().add(new Settings(this));
+			break;
+		case Help:
+			///////////////
 			break;
 		case StatSelection:
 			this.getContentPane().add(new StatsChooser(this));
@@ -96,6 +103,9 @@ public class Voxspell extends JFrame{
 		case SessionLevelStats:
 			this.getContentPane().add(new LevelStats(this, StatsType.Session));
 			break;
+		case Quiz:
+			this.getContentPane().add(new Quiz(this, PanelID.Quiz));
+			break;
 		case Review:
 			this.getContentPane().add(new Quiz(this, PanelID.Review));
 			break;
@@ -103,18 +113,23 @@ public class Voxspell extends JFrame{
 			this.getContentPane().add(new QuizComplete(this));
 			break;
 		case Video:
+			/*
 			NativeLibrary.addSearchPath(
 					RuntimeUtil.getLibVlcLibraryName(), "/Applications/vlc-2.0.0/VLC.app/Contents/MacOS/lib"
 					);
 			Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
 			this.getContentPane().add(new Video(this));
+			*/
+			System.out.println("Video");
 			break;
 		}
 		this.revalidate();
-
 	}
 
+	/**
+	 * The different panels
+	 */
 	public enum PanelID{
-		MainMenu, Settings, Help, LevelChooser, StatSelection, PersistentAllStats, PersistentLevelStats, SessionAllStats, SessionLevelStats, Quiz, Review, QuizComplete, Video;
+		MainMenu, Settings, Help, StatSelection, PersistentAllStats, PersistentLevelStats, SessionAllStats, SessionLevelStats, Quiz, Review, QuizComplete, Video;
 	}
 }

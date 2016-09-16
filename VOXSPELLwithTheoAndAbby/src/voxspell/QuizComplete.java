@@ -97,7 +97,7 @@ public class QuizComplete extends JPanel{
 
 	private void determineButtons(){
 		//complete level when 50% attempted with no fails
-		if (parent_frame.getFileIO().halfAttempted() && parent_frame.getFileIO().noReview()){
+		if (parent_frame.getFileIO().halfAttempted() && parent_frame.getFileIO().noReview() && parent_frame.getFileIO().getCurrentLevel()<parent_frame.getFileIO().getNumberOfLevels()){
 			setupLevelUpButton();
 		}
 		

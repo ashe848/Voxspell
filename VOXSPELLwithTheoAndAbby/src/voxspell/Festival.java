@@ -56,9 +56,9 @@ public class Festival {
 			case slow:
 				return 2.5;
 			case fast:
-				return 0.75;
-			default:
 				return 1.0;
+			default:
+				return 1.5;
 			}
 		}
 	}
@@ -107,5 +107,13 @@ public class Festival {
 				worker_queue.remove(0);
 			}
 		}
+	}
+
+	public FestivalSpeed getFestivalSpeed() {
+		return festival_speed;
+	}
+
+	public FestivalVoice getFestivalVoice() {
+		return festival_voice;
 	}
 }

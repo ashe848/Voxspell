@@ -33,31 +33,20 @@ public class FileIO {
 	private static ArrayList<ArrayList<Integer>> session_master_count;
 	private static ArrayList<ArrayList<Integer>> session_faulted_count;
 	private static ArrayList<ArrayList<Integer>> session_failed_count;
-	
+
 	private static ArrayList<String> latest_mastered_words;
 	private static ArrayList<String> latest_faulted_words;
 	private static ArrayList<String> latest_failed_words;
-	
+
 	private static int current_level=0;
 
 	private FileIO(Voxspell parent){
 		parent_frame=parent;
 
-		wordlist_words = new ArrayList<ArrayList<String>>();
-		reviewlist_words = new ArrayList<ArrayList<String>>();
 
-		persistent_allwords = new ArrayList<ArrayList<String>>();
-		persistent_master_count = new ArrayList<ArrayList<Integer>>();
-		persistent_faulted_count = new ArrayList<ArrayList<Integer>>();
-		persistent_failed_count = new ArrayList<ArrayList<Integer>>();
-
-		session_words = new ArrayList<ArrayList<String>>();
-		session_master_count = new ArrayList<ArrayList<Integer>>();
-		session_faulted_count = new ArrayList<ArrayList<Integer>>();
-		session_failed_count = new ArrayList<ArrayList<Integer>>();
 
 		readFiles();
-		}
+	}
 
 	public static FileIO getInstance(Voxspell parent){
 		if (instance==null){
@@ -75,6 +64,21 @@ public class FileIO {
 	 * 		Settings file					contents put into current_level field
 	 */
 	private static void readFiles(){
+		wordlist_words = new ArrayList<ArrayList<String>>();
+		reviewlist_words = new ArrayList<ArrayList<String>>();
+
+		persistent_allwords = new ArrayList<ArrayList<String>>();
+		persistent_master_count = new ArrayList<ArrayList<Integer>>();
+		persistent_faulted_count = new ArrayList<ArrayList<Integer>>();
+		persistent_failed_count = new ArrayList<ArrayList<Integer>>();
+
+		session_words = new ArrayList<ArrayList<String>>();
+		session_master_count = new ArrayList<ArrayList<Integer>>();
+		session_faulted_count = new ArrayList<ArrayList<Integer>>();
+		session_failed_count = new ArrayList<ArrayList<Integer>>();
+		
+		
+		
 		BufferedReader current_BR;
 		try {
 			//wordlist into wordlist array
@@ -168,9 +172,9 @@ public class FileIO {
 
 			//WE DO REVIEWLIST HERE
 			current_BR = new BufferedReader(new FileReader(parent_frame.getResourceFileLocation()+"reviewlist"));
-			
+
 			int lvl = 0;
-			
+
 			while ((string_input = current_BR.readLine()) != null) {
 				if (!string_input.isEmpty()){
 					if (string_input.charAt(0)=='%'){
@@ -196,17 +200,8 @@ public class FileIO {
 				}
 			}
 			current_BR.close();
-
 			if (current_level==0){
-				//open level chooser
-				Object[] levels = {"1","2","3","4","5","6","7","8","9","10","11"}; //options in drop down
-				String choice = (String)JOptionPane.showInputDialog(parent_frame.getContentPane(), "Welcome! This is your first time! Please select a level to start at", "Which level?", JOptionPane.QUESTION_MESSAGE, null, levels, null);
-				if (choice==null){
-					System.exit(0);
-				} else {
-					current_level=Integer.parseInt(choice);
-					writeToSettings();
-				}
+				chooseLevel();
 			}
 
 			//DONEZO
@@ -217,7 +212,7 @@ public class FileIO {
 		}
 
 		for(int i=0; i<wordlist_words.size();i++){
-			
+
 		}
 
 		ArrayList<ArrayList<String>> localsw=session_words;
@@ -225,6 +220,20 @@ public class FileIO {
 		ArrayList<ArrayList<Integer>> localsfaulc=session_faulted_count;
 		ArrayList<ArrayList<Integer>> localsfailc=session_failed_count;
 		System.out.print("");
+	}
+
+	private static void chooseLevel() {
+
+		//open level chooser
+		Object[] levels = {"1","2","3","4","5","6","7","8","9","10","11"}; //options in drop down
+		String choice = (String)JOptionPane.showInputDialog(parent_frame.getContentPane(), "Please select a level to start at", "Which level?", JOptionPane.QUESTION_MESSAGE, null, levels, null);
+		if (choice==null){
+			System.exit(0);
+		} else {
+			current_level=Integer.parseInt(choice);
+			writeToSettings();
+		}
+
 	}
 
 	public ArrayList<Object[]> returnWordDataForLevel(int level, StatsChooser.StatsType type){
@@ -305,9 +314,9 @@ public class FileIO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void writeToScheme(String speech, FestivalSpeed speed, FestivalVoice voice){
-		
+
 		try {
 			FileWriter fw = new FileWriter(new File(parent_frame.getResourceFileLocation()+"festival.scm"), false);
 			fw.write("(Parameter.set 'Duration_Stretch " + speed.getSpeedValue() +")\n");
@@ -318,27 +327,27 @@ public class FileIO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void processQuizResults(ArrayList<String> mastered_words, ArrayList<String> faulted_words, ArrayList<String> failed_words, PanelID quiz_type){
 		enterResultsIntoDataStructure(mastered_words, WordResult.Mastered);
 		enterResultsIntoDataStructure(faulted_words, WordResult.Faulted);
 		enterResultsIntoDataStructure(failed_words, WordResult.Failed);
-		
+
 		if (quiz_type==PanelID.Review){
 			removeFromReviewList(mastered_words);
 			removeFromReviewList(faulted_words);
 		} else {
 			addToReviewList(failed_words);
 		}
-		
+
 		latest_mastered_words=mastered_words;
 		latest_faulted_words=faulted_words;
 		latest_failed_words=failed_words;
 		writeStats();
 		writeToReview();
-		
+
 	}
-	
+
 	private void enterResultsIntoDataStructure(ArrayList<String> quizzed_words, WordResult word_result_type){
 		ArrayList<ArrayList<Integer>> persistent_data_structure;
 		ArrayList<ArrayList<Integer>> session_data_structure;
@@ -362,7 +371,7 @@ public class FileIO {
 			int current_value;
 			current_value=persistent_data_structure.get(current_level).get(index);
 			persistent_data_structure.get(current_level).set(index, current_value+1);
-			
+
 			//for session data structure
 			if (session_words.get(current_level).contains(w)){
 				index=session_words.get(current_level).indexOf(w);
@@ -373,13 +382,13 @@ public class FileIO {
 				session_master_count.get(current_level).add(0);
 				session_faulted_count.get(current_level).add(0);
 				session_failed_count.get(current_level).add(0);
-				
+
 				index=session_words.get(current_level).indexOf(w);
 				session_data_structure.get(current_level).set(index, 1);
 			}	
 		}
 	}
-	
+
 	public ArrayList<ArrayList<String>> getLatestWordResults(){
 		ArrayList<ArrayList<String>> to_return=new ArrayList<ArrayList<String>>();
 		to_return.add(latest_mastered_words);
@@ -387,7 +396,7 @@ public class FileIO {
 		to_return.add(latest_failed_words);
 		return to_return;
 	}
-	
+
 	private void removeFromReviewList(ArrayList<String> not_faulted_words){
 		for (String w:not_faulted_words){
 			if (reviewlist_words.get(current_level).contains(w)){
@@ -395,7 +404,7 @@ public class FileIO {
 			}
 		}
 	}
-	
+
 	private void addToReviewList(ArrayList<String> failed_words){
 		for (String w:failed_words){
 			if (!reviewlist_words.get(current_level).contains(w)){
@@ -403,7 +412,7 @@ public class FileIO {
 			}
 		}
 	}
-	
+
 	/**
 	 * Method that generates random words for spelling(not review) quiz
 	 * @param n		words in quiz specified, will go to number of words in file is less
@@ -412,20 +421,20 @@ public class FileIO {
 	 * Taken from Theo's Assignment 2
 	 */
 	public ArrayList<String> getWordsForSpellingQuiz(int n, PanelID id){
-		
+
 		//setup relevant bank of words to choose from depending on quiz type
 		ArrayList<String> relevant_bank_of_words;
 		ArrayList<String> to_return = new ArrayList<String>();
 
 		switch(id){
 		case Quiz:
-				relevant_bank_of_words = wordlist_words.get(current_level);
+			relevant_bank_of_words = wordlist_words.get(current_level);
 			break; 
 		default://Review
 			relevant_bank_of_words = reviewlist_words.get(current_level);
 			break;
 		}
-		
+
 		if(relevant_bank_of_words.size() == 0){
 			JOptionPane.showMessageDialog(null, "EMPTY " + id.toString() + " FILE, nothing to test\nWill return to main menu" ,"Error",JOptionPane.WARNING_MESSAGE);
 			parent_frame.changePanel(PanelID.MainMenu);
@@ -444,7 +453,7 @@ public class FileIO {
 		}
 		return to_return;
 	}
-	
+
 	/**
 	 * Shuffles indices of array, so it doesn't mess with pointers. No deep copying needed
 	 * @param x		array to shuffle
@@ -457,20 +466,20 @@ public class FileIO {
 		for(int i = 0; i<100; i++){
 			int rand1 = rand.nextInt(x.length);
 			int rand2 = rand.nextInt(x.length);
-			
+
 			int temp = x[rand1];
 			x[rand1] = x[rand2];
 			x[rand2] = temp;
 		}
 	}
-	
+
 	public enum WordResult {
 		Mastered, Faulted, Failed;
 	}
 	public void increaseLevel(){
 		current_level++;
 	}
-	
+
 	private int getAttemptedCount() {
 		int attempted_count=0;
 		//words not attempted
@@ -484,7 +493,7 @@ public class FileIO {
 
 	public boolean halfAttempted() {
 		int attempted_count=getAttemptedCount();
-		
+
 		if(attempted_count>=persistent_allwords.get(current_level).size()/2){
 			return true;
 		} else {
@@ -499,13 +508,34 @@ public class FileIO {
 			return false;
 		}
 	}
-	
+
 	public String getAccuracyRates(){
 		String to_return="";
 		to_return+="[level "+this.getCurrentLevel();
 		to_return+="]\t[Attempted: "+getAttemptedCount()+"/"+persistent_allwords.get(current_level).size();
 		to_return+="]\t["+reviewlist_words.get(current_level).size()+" failed out of "+persistent_allwords.get(current_level).size()+"]";
-		
+
 		return to_return;
+	}
+
+	public void clearFiles() {
+		current_level=0;
+		writeToSettings();
+		
+		//wipe files data structure
+		try {
+			FileWriter fw = new FileWriter(new File(parent_frame.getResourceFileLocation()+"reviewlist"), false);
+			fw.close();
+			fw = new FileWriter(new File(parent_frame.getResourceFileLocation()+"statsfile"), false);
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		chooseLevel();
+		
+		readFiles();
+		parent_frame.changePanel(PanelID.MainMenu);
 	}
 }

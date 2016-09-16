@@ -129,6 +129,7 @@ public class QuizComplete extends JPanel{
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				parent_frame.changePanel(PanelID.Video);
 				System.out.println("video");
 			}
 		});

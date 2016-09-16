@@ -7,8 +7,9 @@ import javax.swing.SwingWorker;
 
 //class responsible for making the festival calls
 //Based on Abby's code.
+//http://stackoverflow.com/questions/22412544/swingworker-queue-and-single-using
 public class Festival {
-	private static FestivalSpeed festival_speed=FestivalSpeed.slow;
+	private static FestivalSpeed festival_speed=FestivalSpeed.fast;
 	private static FestivalVoice festival_voice=FestivalVoice.Kiwi;
 	private static Voxspell parent_frame;
 	private static Festival instance=null;
@@ -54,9 +55,9 @@ public class Festival {
 		public double getSpeedValue(){
 			switch(this){
 			case slow:
-				return 2.5;
+				return 2;
 			case fast:
-				return 1.0;
+				return 1;
 			default:
 				return 1.5;
 			}

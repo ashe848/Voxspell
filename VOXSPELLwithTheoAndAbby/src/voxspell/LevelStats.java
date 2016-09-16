@@ -42,6 +42,7 @@ public class LevelStats extends JPanel{
 
 		String[] levels = {"1","2","3","4","5","6","7","8","9","10","11"};
 		JComboBox level_chooser = new JComboBox(levels);
+		level_chooser.setSelectedItem(String.valueOf(parent_frame.getFileIO().getCurrentLevel()));
 		level_chooser.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

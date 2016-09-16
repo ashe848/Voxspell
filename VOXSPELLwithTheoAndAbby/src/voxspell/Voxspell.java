@@ -4,6 +4,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import com.sun.jna.Native;
+import com.sun.jna.NativeLibrary;
+
+import uk.co.caprica.vlcj.binding.LibVlc;
+import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 import voxspell.StatsChooser.StatsType;
 
 @SuppressWarnings("serial")
@@ -33,12 +38,12 @@ public class Voxspell extends JFrame{
 	}
 
 	public static void main(String[] args){
-//		Festival festival = new Festival();
+		//		Festival festival = new Festival();
 
 		//Testing swingworker capabilities
-//		System.out.println("Program Starting...");
-//		festival.speak("I should be going on after line below printed");
-//		System.out.println("This should be printed before line above finishes being said");
+		//		System.out.println("Program Starting...");
+		//		festival.speak("I should be going on after line below printed");
+		//		System.out.println("This should be printed before line above finishes being said");
 		//		TestClass tc = new TestClass();
 		//		tc.setVisible(true);
 
@@ -97,12 +102,19 @@ public class Voxspell extends JFrame{
 		case QuizComplete:
 			this.getContentPane().add(new QuizComplete(this));
 			break;
+		case Video:
+			NativeLibrary.addSearchPath(
+					RuntimeUtil.getLibVlcLibraryName(), "/Applications/vlc-2.0.0/VLC.app/Contents/MacOS/lib"
+					);
+			Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
+			this.getContentPane().add(new Video(this));
+			break;
 		}
 		this.revalidate();
 
 	}
 
 	public enum PanelID{
-		MainMenu, Settings, Help, LevelChooser, StatSelection, PersistentAllStats, PersistentLevelStats, SessionAllStats, SessionLevelStats, Quiz, Review, QuizComplete;
+		MainMenu, Settings, Help, LevelChooser, StatSelection, PersistentAllStats, PersistentLevelStats, SessionAllStats, SessionLevelStats, Quiz, Review, QuizComplete, Video;
 	}
 }

@@ -62,6 +62,7 @@ public class StatsChooser extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				parent_frame.changePanel(PanelID.PersistentAllStats);
+//				parent_frame.changePanel(PanelID.Video);
 			}
 		});
 		

@@ -38,6 +38,7 @@ public class Settings extends JPanel {
 		
 		FestivalSpeed[] speeds={FestivalSpeed.slow, FestivalSpeed.normal, FestivalSpeed.fast};
 		JComboBox speed_chooser = new JComboBox(speeds);
+		speed_chooser.setSelectedItem(parent_frame.festival.getFestivalSpeed());
 		speed_chooser.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -59,6 +60,7 @@ public class Settings extends JPanel {
 
 		FestivalVoice[] voices={FestivalVoice.American, FestivalVoice.Kiwi};
 		JComboBox voice_chooser = new JComboBox(voices);
+		voice_chooser.setSelectedItem(parent_frame.festival.getFestivalVoice());
 		voice_chooser.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -94,6 +96,7 @@ public class Settings extends JPanel {
 		back_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				parent_frame.festival.speak("The quick brown fox jumps");
 				boolean asksave_result = askToConfirm("Would you like to Save?", "Save Settings");
 				if (asksave_result){
 					parent_frame.getFileIO().writeToSettings();

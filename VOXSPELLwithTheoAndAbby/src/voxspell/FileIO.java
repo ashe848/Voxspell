@@ -319,8 +319,8 @@ public class FileIO {
 
 		try {
 			FileWriter fw = new FileWriter(new File(parent_frame.getResourceFileLocation()+"festival.scm"), false);
-			fw.write("(Parameter.set 'Duration_Stretch " + speed.getSpeedValue() +")\n");
 			fw.write("(voice_" + voice.getVoiceValue() +")\n");
+			fw.write("(Parameter.set 'Duration_Stretch " + speed.getSpeedValue() +")\n");
 			fw.write("(SayText \""+speech+"\")");			
 			fw.close();
 		} catch (IOException e) {

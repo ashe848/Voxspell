@@ -29,7 +29,7 @@ public class Quiz extends JPanel {
 	private int current_word_number;
 	private int current_attempt_number;
 	private String word_is;
-	private int words_in_quiz=10;
+	private int words_in_quiz=3; //////////////////////CHANGED FOR EASE OF TESTING
 
 	private ArrayList<String> words_mastered;
 	private ArrayList<String> words_faulted;

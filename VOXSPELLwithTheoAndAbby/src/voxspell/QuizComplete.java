@@ -39,6 +39,7 @@ public class QuizComplete extends JPanel{
 		setupTitle();
 		determineButtons();
 		setupBackButton();
+//		parent_frame.component_maker.setupBackButton(this, PanelID.MainMenu);
 		setupAccuracyRateLabel();
 	}
 	
@@ -101,25 +102,32 @@ public class QuizComplete extends JPanel{
 	}
 
 	private void determineButtons(){
+		//at most 1 incorrect
+		if(latest_failed_words.size()<2) {
+			setupVideoButton();
+			setupLevelUpButton();//just for assignment 3 purposes to go with specs
+		}
+		
+		/* GOOD IDEA FOR FINAL PROJECT, BUT MAY BE GOING AGAINST A3 SPECS SO COMMENTED OUT
 		//complete level when 50% attempted with no fails
 		if (parent_frame.getFileIO().halfAttempted() && parent_frame.getFileIO().noReview() && parent_frame.getFileIO().getCurrentLevel()<parent_frame.getFileIO().getNumberOfLevels()){
 			setupLevelUpButton();
 		}
-		
-		//at most 1 incorrect
-		if(latest_failed_words.size()<2) {
-			setupVideoButton();
-		}
+		*/
 	}
 
 	private void setupLevelUpButton() {
-		JButton btnUpLvl = new JButton("UP LVL");
+		JButton btnUpLvl = new JButton("LEVEL UP");
 		btnUpLvl.setBounds(550, 39, 200, 200);
 		btnUpLvl.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				parent_frame.getFileIO().increaseLevel();
-				System.out.println("Level: "+parent_frame.getFileIO().getCurrentLevel());
+				//if not on highest level, increase level
+				if (parent_frame.getFileIO().getCurrentLevel()<parent_frame.getFileIO().getNumberOfLevels()-1){
+					parent_frame.getFileIO().increaseLevel();
+				} else {
+					parent_frame.getFileIO().chooseLevel("All levels completed!");
+				}
 				btnUpLvl.setVisible(false);
 			}
 		});

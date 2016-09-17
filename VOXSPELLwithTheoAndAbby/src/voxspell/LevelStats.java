@@ -49,6 +49,7 @@ public class LevelStats extends JPanel{
 
 		setupLevelChooser(type);
 		setupBackButton();
+//		parent_frame.component_maker.setupBackButton(this, PanelID.MainMenu);
 		setupAccuracyRateLabel();
 	}
 
@@ -122,11 +123,7 @@ public class LevelStats extends JPanel{
 	 * @param type
 	 */
 	private void setupLevelChooser(StatsType type) {
-		//-1 to exclude level 0
-		Integer[] levels = new Integer[parent_frame.getFileIO().getNumberOfLevels()-1];
-		for(int level=1; level<parent_frame.getFileIO().getNumberOfLevels(); level++){
-			levels[level-1]=level;
-		}
+		Integer[] levels = parent_frame.getFileIO().getLevelArray();
 		JComboBox level_chooser = new JComboBox(levels);
 		//default to current level
 		level_chooser.setSelectedItem(parent_frame.getFileIO().getCurrentLevel());

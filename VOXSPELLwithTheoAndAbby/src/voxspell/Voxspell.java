@@ -23,6 +23,7 @@ public class Voxspell extends JFrame{
 	//Contains the FileIO and Festival instances which panels get
 	private static FileIO file_handler;
 	public static Festival festival;
+//	public static ReusableComponents component_maker;
 
 	/**
 	 * Constructor
@@ -31,6 +32,7 @@ public class Voxspell extends JFrame{
 		//Below setup code for frame from Theo's A2 code
 		super();
 		festival = Festival.getInstance(this);
+//		component_maker=new ReusableComponents(this);
 		setTitle("VoxSpell version 0.0000000001 Post-PreAlpha (but still in Alpha)");
 		setSize(800,600);
 		setLocationRelativeTo(null);
@@ -40,7 +42,7 @@ public class Voxspell extends JFrame{
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 		  public void windowClosing(WindowEvent e) {
-			JOptionPane.showMessageDialog(null, "Closing the window will result in loss of data\nPlease exit using the button on main menu","Error",JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Closing the window will result in loss of data\nPlease exit using the power button on main menu","Error",JOptionPane.WARNING_MESSAGE);
 		  }
 		});
 		revalidate();

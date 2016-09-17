@@ -43,6 +43,7 @@ public class GeneralStats extends JPanel {
 
 		setupTable(type);		
 		setupBackButton();
+//		parent_frame.component_maker.setupBackButton(this, PanelID.StatSelection);
 		setupAccuracyRateLabel();
 	}
 

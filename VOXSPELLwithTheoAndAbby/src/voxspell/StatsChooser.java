@@ -35,6 +35,7 @@ public class StatsChooser extends JPanel{
 		setupSessionAllButton();
 		setupSessionLevelButton();
 		setupBackButton();
+//		parent_frame.component_maker.setupBackButton(this, PanelID.MainMenu);
 		setupAccuracyRateLabel();
 	}
 

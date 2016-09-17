@@ -45,9 +45,6 @@ public class FileIO {
 	 */
 	private FileIO(Voxspell parent){
 		parent_frame=parent;
-
-
-
 		readFiles();
 	}
 
@@ -203,7 +200,6 @@ public class FileIO {
 				
 			while ((string_input = current_BR.readLine()) != null) {
 				split_line = string_input.split(" ");
-				System.out.println(split_line[0]);
 				current_level=Integer.parseInt(split_line[0]);
 				
 				//not first time launching, so will have saved festival settings
@@ -235,7 +231,7 @@ public class FileIO {
 			parent_frame.festival.setFestivalSpeed(speed);
 			parent_frame.festival.setFestivalVoice(voice);
 			if (current_level==0){
-				chooseLevel();
+				chooseLevel("Welcome!");
 			}
 			//DONEZO
 		} catch (FileNotFoundException e) {
@@ -255,15 +251,15 @@ public class FileIO {
 		System.out.print("");
 	}
 
-	private static void chooseLevel() {
-
-		//open level chooser
-		Object[] levels = {"1","2","3","4","5","6","7","8","9","10","11"}; //options in drop down
-		String choice = (String)JOptionPane.showInputDialog(parent_frame.getContentPane(), "Please select a level to start at", "Which level?", JOptionPane.QUESTION_MESSAGE, null, levels, null);
+	public static void chooseLevel(String additional_message) {
+//		//open level chooser
+//		Object[] levels = {"1","2","3","4","5","6","7","8","9","10","11"}; //options in drop down
+		Integer[] levels = getLevelArray();
+		Integer choice = (Integer)JOptionPane.showInputDialog(parent_frame.getContentPane(), additional_message+"\nPlease select a level to start at", "Which level?", JOptionPane.QUESTION_MESSAGE, null, levels, null);
 		if (choice==null){
 			System.exit(0);
 		} else {
-			current_level=Integer.parseInt(choice);
+			current_level=choice;
 			writeToSettings();
 		}
 
@@ -307,6 +303,15 @@ public class FileIO {
 
 	public int getCurrentLevel(){
 		return current_level;
+	}
+	
+	public static Integer[] getLevelArray() {
+		//-1 to exclude level 0
+		Integer[] levels = new Integer[parent_frame.getFileIO().getNumberOfLevels()-1];
+		for(int level=1; level<parent_frame.getFileIO().getNumberOfLevels(); level++){
+			levels[level-1]=level;
+		}
+		return levels;
 	}
 
 	private void writeStats(){

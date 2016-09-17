@@ -16,12 +16,16 @@ import voxspell.Voxspell.PanelID;
 
 @SuppressWarnings("serial")
 
+/**
+ * Settings
+ */
 public class Settings extends JPanel {
 	private Voxspell parent_frame;
 
 	//temporary values selected by user. Only saved if user confirms
 	private FestivalVoice temp_voice_selection=null;
 	private FestivalSpeed temp_speed_selection=null;
+
 	/**
 	 * Constructor
 	 */
@@ -37,10 +41,10 @@ public class Settings extends JPanel {
 	}
 
 	/**
-	 * Resets all stats to as if it was the user's first launch
+	 * Resets all stats to as if it was the user's first launch (prompts user for confirmation)
 	 */
 	private void seupReset() {
-		JButton clear_stats_button = new JButton("Reset All");
+		JButton clear_stats_button = new JButton("RESET ALL");
 		clear_stats_button.setBounds(31, 30, 166, 72);
 		add(clear_stats_button);
 		clear_stats_button.addActionListener(new ActionListener() {
@@ -48,12 +52,12 @@ public class Settings extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				boolean askclear_result = askToConfirm("Are you sure you want to reset all?", "Reset All");
 				if (askclear_result){
-					parent_frame.getFileIO().clearFiles();
+					parent_frame.getDataHandler().clearFiles();
 				}
 			}
 		});
 	}
-	
+
 	/**
 	 * Drop down to change festival voice
 	 */
@@ -61,28 +65,30 @@ public class Settings extends JPanel {
 		JLabel change_voice_label = new JLabel("Change voice");
 		change_voice_label.setBounds(31, 146, 166, 15);
 		add(change_voice_label);
-//		JLabel lblCurrentVoiceIs = new JLabel("Orginal voice was "+parent_frame.festival.getFestivalVoice().toString());
-//		lblCurrentVoiceIs.setBounds(31, 171, 166, 15);
-//		add(lblCurrentVoiceIs);
+		//		TODO remove below?
+		//		JLabel lblCurrentVoiceIs = new JLabel("Orginal voice was "+parent_frame.festival.getFestivalVoice().toString());
+		//		lblCurrentVoiceIs.setBounds(31, 171, 166, 15);
+		//		add(lblCurrentVoiceIs);
 
 		//TODO: select from voice.list on user's machine
+		//Would introduce changes to DataHandler methods dealing with stats
+		//Way out could be to use String instead of enum
 		FestivalVoice[] voices={FestivalVoice.American, FestivalVoice.Kiwi};
 		JComboBox voice_chooser = new JComboBox(voices);
-		
+
 		//set shown item to be the current voice
-		voice_chooser.setSelectedItem(parent_frame.festival.getFestivalVoice());
+		voice_chooser.setSelectedItem(parent_frame.getFestival().getFestivalVoice());
 		voice_chooser.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				temp_voice_selection=(FestivalVoice)voice_chooser.getSelectedItem();
-//				parent_frame.festival.setFestivalVoice((FestivalVoice)voice_chooser.getSelectedItem());
 			}
 		});
-		
+
 		voice_chooser.setBounds(31, 193, 166, 72);
 		add(voice_chooser);
 	}
-	
+
 	/**
 	 * Drop down to change festival speed
 	 */
@@ -90,29 +96,29 @@ public class Settings extends JPanel {
 		JLabel change_speed_label = new JLabel("Change speed");
 		change_speed_label.setBounds(31, 309, 166, 15);
 		add(change_speed_label);
-//		JLabel lblCurrentSpeedIs = new JLabel("Orginal speed was "+parent_frame.festival.getFestivalSpeed().toString());
-//		lblCurrentSpeedIs.setBounds(31, 334, 166, 15);
-//		add(lblCurrentSpeedIs);
-		
+		//		TODO remove below?
+		//		JLabel lblCurrentSpeedIs = new JLabel("Orginal speed was "+parent_frame.festival.getFestivalSpeed().toString());
+		//		lblCurrentSpeedIs.setBounds(31, 334, 166, 15);
+		//		add(lblCurrentSpeedIs);
+
 		FestivalSpeed[] speeds={FestivalSpeed.slow, FestivalSpeed.normal, FestivalSpeed.fast};
 		JComboBox speed_chooser = new JComboBox(speeds);
-		
+
 		//set shown item to be the current voice
-		speed_chooser.setSelectedItem(parent_frame.festival.getFestivalSpeed());
+		speed_chooser.setSelectedItem(parent_frame.getFestival().getFestivalSpeed());
 		speed_chooser.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				temp_speed_selection=(FestivalSpeed)speed_chooser.getSelectedItem();
-//				parent_frame.festival.setFestivalSpeed((FestivalSpeed)speed_chooser.getSelectedItem());
 			}
 		});
-		
+
 		speed_chooser.setBounds(31, 359, 166, 72);
 		add(speed_chooser);
 	}
-	
+
 	/**
-	 * Back button to return to previous panel
+	 * Back button to return to previous panel (user prompted to save before actually doing so)
 	 */
 	private void setupBackButton(){
 		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
@@ -126,12 +132,12 @@ public class Settings extends JPanel {
 					 * the temporary selection values will be null
 					 */
 					if(temp_voice_selection!=null){
-						parent_frame.festival.setFestivalVoice(temp_voice_selection);
+						parent_frame.getFestival().setFestivalVoice(temp_voice_selection);
 					}
 					if(temp_speed_selection!=null){
-						parent_frame.festival.setFestivalSpeed(temp_speed_selection);
+						parent_frame.getFestival().setFestivalSpeed(temp_speed_selection);
 					}
-					parent_frame.getFileIO().writeToSettings();
+					parent_frame.getDataHandler().writeToSettings();
 				}
 				parent_frame.changePanel(PanelID.MainMenu); //else doesn't save
 			}
@@ -141,7 +147,7 @@ public class Settings extends JPanel {
 		back_button.setSize(50,50);
 		back_button.setLocation(700,500);
 	}
-	
+
 	/**
 	 * Pop up to confirm that user wants to commit to their selection
 	 * http://stackoverflow.com/questions/8689122/joptionpane-yes-no-options-confirm-dialog-box-issue-java

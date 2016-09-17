@@ -28,7 +28,7 @@ import voxspell.Voxspell.PanelID;
  */
 public class GeneralStats extends JPanel {
 	private static Voxspell parent_frame;
-	
+
 	private static JTable table;
 
 	/**
@@ -43,7 +43,8 @@ public class GeneralStats extends JPanel {
 
 		setupTable(type);		
 		setupBackButton();
-//		parent_frame.component_maker.setupBackButton(this, PanelID.StatSelection);
+		//		TODO
+		//		parent_frame.component_maker.setupBackButton(this, PanelID.StatSelection);
 		setupAccuracyRateLabel();
 	}
 
@@ -74,8 +75,8 @@ public class GeneralStats extends JPanel {
 		table = new JTable(model);
 
 		//adds row for word into table if it has been attempted
-		for (int i=0; i<parent_frame.getFileIO().getNumberOfLevels(); i++){
-			for (Object[] o:parent_frame.getFileIO().returnWordDataForLevel(i, type)){
+		for (int i=0; i<parent_frame.getDataHandler().getNumberOfLevels(); i++){
+			for (Object[] o:parent_frame.getDataHandler().returnWordDataForLevel(i, type)){
 				if(!(o[2].equals(0)&&o[3].equals(0)&&o[4].equals(0))){
 					model.addRow(o);
 				}
@@ -122,12 +123,12 @@ public class GeneralStats extends JPanel {
 		back_button.setSize(50,50);
 		back_button.setLocation(700,500);
 	}
-	
+
 	/**
 	 * To display accuracy rates for level user is currently on
 	 */
 	private void setupAccuracyRateLabel() {
-		JLabel accuracy_rate_label = new JLabel(parent_frame.getFileIO().getAccuracyRates()); 
+		JLabel accuracy_rate_label = new JLabel(parent_frame.getDataHandler().getAccuracyRates()); 
 		accuracy_rate_label.setFont(new Font("Courier New", Font.BOLD, 10));
 
 		add(accuracy_rate_label);

@@ -35,7 +35,8 @@ public class StatsChooser extends JPanel{
 		setupSessionAllButton();
 		setupSessionLevelButton();
 		setupBackButton();
-//		parent_frame.component_maker.setupBackButton(this, PanelID.MainMenu);
+		//		TODO
+		//		parent_frame.component_maker.setupBackButton(this, PanelID.MainMenu);
 		setupAccuracyRateLabel();
 	}
 
@@ -131,7 +132,7 @@ public class StatsChooser extends JPanel{
 	 * To display accuracy rates for level user is currently on
 	 */
 	private void setupAccuracyRateLabel() {
-		JLabel accuracy_rate_label = new JLabel(parent_frame.getFileIO().getAccuracyRates()); 
+		JLabel accuracy_rate_label = new JLabel(parent_frame.getDataHandler().getAccuracyRates()); 
 		accuracy_rate_label.setFont(new Font("Courier New", Font.BOLD, 10));
 
 		add(accuracy_rate_label);

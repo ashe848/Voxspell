@@ -18,6 +18,10 @@ import voxspell.Voxspell.PanelID;
 
 @SuppressWarnings("serial")
 
+/**
+ * For any type of quiz
+ * Based on Theo's A2 code
+ */
 public class Quiz extends JPanel {
 	private Voxspell parent_frame;
 	private PanelID quiz_type;
@@ -29,7 +33,8 @@ public class Quiz extends JPanel {
 	private int current_word_number;
 	private int current_attempt_number;
 	private String word_is;
-	private int words_in_quiz=3; //////////////////////CHANGED FOR EASE OF TESTING
+	//	TODO: change back to 10 after testing
+	private int words_in_quiz=3;
 
 	private ArrayList<String> words_mastered;
 	private ArrayList<String> words_faulted;
@@ -38,7 +43,7 @@ public class Quiz extends JPanel {
 	/**
 	 * constructor for panel, sets up paramaters of panel and various fields
 	 * @param parent	frame
-	 * @param titletext	text to display in title, determines what kind of test it is
+	 * @param 
 	 */
 	public Quiz(Voxspell parent, PanelID type){
 		setSize(800,600);
@@ -46,15 +51,14 @@ public class Quiz extends JPanel {
 
 		parent_frame = parent;
 		quiz_type = type;
-		
+
 		initialiseWordsToSpell();
-		
+
 		if (words_to_spell.size()!=0){
 			setupTitle();
 			setupProgressTextArea();
 			setupSpellHereLabel();
 			setupSpellHereField();
-
 			setupSubmitButton();
 			setupSayAgainButton();
 			setupBackButton();
@@ -72,10 +76,22 @@ public class Quiz extends JPanel {
 	}
 
 	/**
+	 * Method that determines what will be tested in quiz based on type of quiz
+	 */
+	private void initialiseWordsToSpell(){
+		//normal quiz
+		if(quiz_type==PanelID.Quiz){
+			words_to_spell = parent_frame.getDataHandler().getWordsForSpellingQuiz(words_in_quiz, PanelID.Quiz);
+		} else { //review quiz
+			words_to_spell = parent_frame.getDataHandler().getWordsForSpellingQuiz(words_in_quiz, PanelID.Review);
+		}		 
+	}
+
+	/**
 	 * sets up title at top of panel
 	 */
 	private void setupTitle(){
-		JLabel title_to_display = new JLabel(quiz_type.toString()+" (Level: "+parent_frame.getFileIO().getCurrentLevel()+")"); 
+		JLabel title_to_display = new JLabel(quiz_type.toString()+" (Level: "+parent_frame.getDataHandler().getCurrentLevel()+")"); 
 		title_to_display.setFont(new Font("Courier New", Font.BOLD, 50));
 
 		add(title_to_display);
@@ -130,7 +146,6 @@ public class Quiz extends JPanel {
 	private void setupSubmitButton() {
 		ImageIcon submit_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "submit_button.png");
 		JButton submit_button = new JButton("", submit_button_image);
-
 		submit_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -149,11 +164,10 @@ public class Quiz extends JPanel {
 	private void setupSayAgainButton() {
 		ImageIcon sayagain_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "sayagain_button.png");
 		JButton sayagain_button = new JButton("", sayagain_button_image);
-
 		sayagain_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				sayWord(words_to_spell.get(current_word_number));
+				parent_frame.getFestival().speak(words_to_spell.get(current_word_number));
 			}
 		});
 
@@ -163,10 +177,7 @@ public class Quiz extends JPanel {
 	}
 
 	/**
-	 * Adds button that allows user to go back to main menu (user prompted before actually doing so)
-	 */
-	/**
-	 * Back button to return to previous panel
+	 * Back button to return to previous panel (user prompted before actually doing so)
 	 */
 	private void setupBackButton(){
 		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
@@ -202,18 +213,11 @@ public class Quiz extends JPanel {
 	}
 
 	/**
-	 * @returns first word of title, SPELLING is normal quiz, REVIEW is review quiz
-	 */
-	private PanelID getQuizType(){
-		return quiz_type;
-	}
-
-	/**
 	 * Begins quiz based on current word and current attempt fields of object
 	 * Says word to spell and updates text progress area
 	 */
 	private void startQuiz(){
-		sayWord("Please Spell "+words_to_spell.get(current_word_number));
+		parent_frame.getFestival().speak("Please spell "+words_to_spell.get(current_word_number));
 		display_to_user.append("Please spell word "+(current_word_number+1)+" out of "+words_to_spell.size()+"\tAttempt: "+(current_attempt_number)+"/2\n");
 	}
 
@@ -222,19 +226,18 @@ public class Quiz extends JPanel {
 	 * @param attempt	string that user typed into field, is compared with list of words to spell
 	 */
 	private void checkCorrectSpelling(String attempt){
-
 		input_from_user.setText("");//clear input field
 		display_to_user.append("\tYour guess was: "+attempt);//updates progress area with user guess
-
-		//user enters nothing
-		if(attempt.equals("")){
+		
+		if(attempt.equals("")){//user enters nothing
 			display_to_user.append("\n\t\tCan't have empty input, try again\n");
-
-			//user enters something
-		} else{
-			//if correct spelling (ignoring case)
+		} else if(attempt.matches("[0-9]+")){ //user enters a number
+			display_to_user.append("\n\t\tCan't have numerical input, try again\n");
+		}
+		else{
+			//if correct spelling (case-sensitive)
 			if(attempt.equals(words_to_spell.get(current_word_number))){
-				sayWord("Correct");
+				parent_frame.getFestival().speak("Correct");
 
 				//adds to respective arraylist based on which attempt they get it right
 				if(word_is.equals("Mastered")){
@@ -242,59 +245,35 @@ public class Quiz extends JPanel {
 				} else {//words is faulted
 					words_faulted.add(words_to_spell.get(current_word_number));
 				}
+
 				display_to_user.append("\tCORRECT\n");
 				current_word_number+=1;
 				current_attempt_number=1;
 				word_is = "Mastered";
-				//incorrect spelling
-			} else{
-				sayWord("Incorrect");
+			} else{//incorrect spelling
+				parent_frame.getFestival().speak("Incorrect");
 				display_to_user.append("\tINCORRECT\n");
+
 				//second time getting it wrong(failed)
 				if(current_attempt_number == 2){
 					words_failed.add(words_to_spell.get(current_word_number));
 					current_attempt_number=1;
 					current_word_number+=1;
 					word_is = "Mastered";
-					//first time getting it wrong(faulted so far, maybe failed later)
-				} else{
-					sayWord("Please try again");
+				} else{	//first time getting it wrong(faulted so far, maybe failed later)
+					parent_frame.getFestival().speak("Please try again");
 					word_is="Faulted";
 					current_attempt_number+=1;
 				}
 			}
 		}
 
-		/* End clause when words to spell array exhausted
-		 * Updates the IOContent fields and relevant files
-		 * Also prompts user with notification that test is over and that they will be returned to main menu
-		 */
+		//When words to spell array exhausted, asks DataHandler to process results
 		if (current_word_number == words_to_spell.size()){
-			parent_frame.getFileIO().processQuizResults(words_mastered,words_faulted,words_failed,quiz_type);
+			parent_frame.getDataHandler().processQuizResults(words_mastered,words_faulted,words_failed,quiz_type);
 			parent_frame.changePanel(PanelID.QuizComplete);
-			//Otherwise keep going with quiz
-		} else{
+		} else{ //Otherwise keep going with quiz
 			startQuiz();
 		}
-	}
-
-	/**
-	 * Method that calls festival in bash to say out text
-	 * @param text to say out
-	 */
-	private void sayWord(String text){
-		parent_frame.festival.speak(text);
-	}
-
-	/**
-	 * Method that creates the words_to_spell field that will be tested in quiz based on type of quiz
-	 */
-	private void initialiseWordsToSpell(){
-		//If SPELLING then normal quiz
-		if(this.getQuizType()==PanelID.Quiz){
-			words_to_spell = parent_frame.getFileIO().getWordsForSpellingQuiz(words_in_quiz, PanelID.Quiz);
-		} else { //If REVIEW (else clause) must be review quiz
-			words_to_spell = parent_frame.getFileIO().getWordsForSpellingQuiz(words_in_quiz, PanelID.Review);
-		}		 
 	}
 }

@@ -29,7 +29,7 @@ import voxspell.Voxspell.PanelID;
  */
 public class LevelStats extends JPanel{
 	private static Voxspell parent_frame;
-	
+
 	private static JTable table;
 	private static TableRowSorter<TableModel> sorter;
 	private static JScrollPane scroll_pane;
@@ -45,24 +45,19 @@ public class LevelStats extends JPanel{
 		parent_frame=parent;
 
 		//defaults to user's current level
-		refreshTable(parent_frame.getFileIO().getCurrentLevel(), type);
+		refreshTable(parent_frame.getDataHandler().getCurrentLevel(), type);
 
 		setupLevelChooser(type);
 		setupBackButton();
-//		parent_frame.component_maker.setupBackButton(this, PanelID.MainMenu);
+		//		TODO
+		//		parent_frame.component_maker.setupBackButton(this, PanelID.MainMenu);
 		setupAccuracyRateLabel();
-	}
-
-	/**
-	 * Removes current table from panel to allow refreshing
-	 */
-	private void removeTableFromPanel(){
-		this.remove(scroll_pane); //removes scroll pane as it contains the table
 	}
 
 	/**
 	 * Refreshes table to match the selected level
 	 * Unlike the table in GeneralStats, this table doesn't have a level column
+	 * Based on Abby's A2 code
 	 * @param level
 	 * @param type
 	 */
@@ -89,7 +84,7 @@ public class LevelStats extends JPanel{
 		table = new JTable(model);
 
 		//adds row for word into table if it has been attempted
-		for (Object[] o:parent_frame.getFileIO().returnWordDataForLevel(level, type)){
+		for (Object[] o:parent_frame.getDataHandler().returnWordDataForLevel(level, type)){
 			if(!(o[2].equals(0)&&o[3].equals(0)&&o[4].equals(0))){
 				model.addRow(new Object[] {o[1], o[2], o[3], o[4]});
 			}
@@ -119,14 +114,22 @@ public class LevelStats extends JPanel{
 	}
 
 	/**
+	 * Removes current table from panel to allow refreshing
+	 */
+	private void removeTableFromPanel(){
+		this.remove(scroll_pane); //removes scroll pane as it contains the table
+	}
+
+	/**
 	 * Set up level chooser for the number of levels in this word list
 	 * @param type
 	 */
 	private void setupLevelChooser(StatsType type) {
-		Integer[] levels = parent_frame.getFileIO().getLevelArray();
+		Integer[] levels = parent_frame.getDataHandler().getLevelArray();
 		JComboBox level_chooser = new JComboBox(levels);
+
 		//default to current level
-		level_chooser.setSelectedItem(parent_frame.getFileIO().getCurrentLevel());
+		level_chooser.setSelectedItem(parent_frame.getDataHandler().getCurrentLevel());
 		level_chooser.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -163,7 +166,7 @@ public class LevelStats extends JPanel{
 	 * To display accuracy rates for level user is currently on
 	 */
 	private void setupAccuracyRateLabel() {
-		JLabel accuracy_rate_label = new JLabel(parent_frame.getFileIO().getAccuracyRates()); 
+		JLabel accuracy_rate_label = new JLabel(parent_frame.getDataHandler().getAccuracyRates()); 
 		accuracy_rate_label.setFont(new Font("Courier New", Font.BOLD, 10));
 
 		add(accuracy_rate_label);

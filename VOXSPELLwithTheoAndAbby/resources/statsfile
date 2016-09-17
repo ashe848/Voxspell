@@ -1,6 +1,6 @@
-1 0 0 0 a
-1 0 0 0 I
-1 0 0 0 it
+1 0 0 1 a
+1 1 0 0 I
+1 1 0 0 it
 1 0 0 0 the
 1 0 0 0 was
 1 0 0 0 and
@@ -14,13 +14,13 @@
 2 0 0 0 that
 2 0 0 0 up
 2 0 0 0 but
-2 1 0 0 he
+2 0 0 0 he
 2 0 0 0 on
-2 1 0 0 then
+2 0 0 0 then
 2 0 0 0 went
 2 0 0 0 for
 2 0 0 0 is
-2 1 0 0 she
+2 0 0 0 she
 2 0 0 0 there
 2 0 0 0 when
 2 0 0 0 got

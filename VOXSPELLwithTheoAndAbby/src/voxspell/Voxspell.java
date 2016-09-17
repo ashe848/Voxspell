@@ -16,45 +16,45 @@ import voxspell.StatsChooser.StatsType;
  * Is the frame for the Voxspell program
  */
 public class Voxspell extends JFrame{
-	//////////////JPanel content_pane=new JPanel();
-
 	private static String RESOURCE_FILE_LOCATION = System.getProperty("user.dir")+"/resources/";
 
-	//Contains the FileIO and Festival instances which panels get
-	private static FileIO file_handler;
-	public static Festival festival;
-//	public static ReusableComponents component_maker;
+	//Contains the DataHandler and Festival instances which panels get
+	private static DataHandler data_handler;
+	private static Festival festival;
+	//	TODO
+	//	public static ReusableComponents component_maker;
 
 	/**
 	 * Constructor
 	 */
 	public Voxspell(){
-		//Below setup code for frame from Theo's A2 code
 		super();
 		festival = Festival.getInstance(this);
-//		component_maker=new ReusableComponents(this);
-		setTitle("VoxSpell version 0.0000000001 Post-PreAlpha (but still in Alpha)");
+		data_handler=DataHandler.getInstance(this);
+		//		TODO
+		//		component_maker=new ReusableComponents(this);
+
+		//setup code from Theo's A2 code
+		setTitle("Voxspell version 0.0000000001 Post-PreAlpha (but still in Alpha)");
 		setSize(800,600);
 		setLocationRelativeTo(null);
 		setResizable(false);
 
-		//Make the button on main menu the only way to exit the application
+		//Make the power button on main menu the only way to exit the application
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
-		  public void windowClosing(WindowEvent e) {
-			JOptionPane.showMessageDialog(null, "Closing the window will result in loss of data\nPlease exit using the power button on main menu","Error",JOptionPane.WARNING_MESSAGE);
-		  }
+			public void windowClosing(WindowEvent e) {
+				JOptionPane.showMessageDialog(null, "Closing the window will result in loss of data\nPlease exit using the power button on main menu", "Error", JOptionPane.WARNING_MESSAGE);
+			}
 		});
-		revalidate();
 
-		file_handler=FileIO.getInstance(this);
-
+		//make MainMenu the panel to display
 		add(new MainMenu(this));
 		revalidate();
 	}
 
 	public static void main(String[] args){
-		//Initialising Swing program
+		//Initialise Swing program
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				Voxspell instance = new Voxspell();
@@ -72,11 +72,19 @@ public class Voxspell extends JFrame{
 	}
 
 	/**
-	 * Method to return object responsible for handling file I/O
+	 * Method to return object responsible for handling data
 	 * @return
 	 */
-	public static FileIO getFileIO(){
-		return file_handler;
+	public DataHandler getDataHandler(){
+		return data_handler;
+	}
+
+	/**
+	 * Method to return object responsible for making Festival calls
+	 * @return
+	 */
+	public Festival getFestival(){
+		return festival;
 	}
 
 	public void changePanel(PanelID id){
@@ -92,7 +100,7 @@ public class Voxspell extends JFrame{
 			this.getContentPane().add(new Settings(this));
 			break;
 		case Help:
-			///////////////
+			//			TODO
 			break;
 		case StatSelection:
 			this.getContentPane().add(new StatsChooser(this));
@@ -119,14 +127,15 @@ public class Voxspell extends JFrame{
 			this.getContentPane().add(new QuizComplete(this));
 			break;
 		case Video:
+			//			TODO
 			/*
 			NativeLibrary.addSearchPath(
 					RuntimeUtil.getLibVlcLibraryName(), "/Applications/vlc-2.0.0/VLC.app/Contents/MacOS/lib"
 					);
 			Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
 			this.getContentPane().add(new Video(this));
-			*/
-			System.out.println("Video");
+			 */
+			System.out.println("Play video here");
 			break;
 		}
 		this.revalidate();

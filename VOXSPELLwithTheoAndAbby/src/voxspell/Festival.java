@@ -8,21 +8,20 @@ import javax.swing.SwingWorker;
 /**
  * Singleton class responsible for making the festival calls
  * Based on Abby's A2 code
- *
  */
 public class Festival {
 	private static Voxspell parent_frame;
 
 	private static Festival instance=null;
 
-	//initialised by readfiles in FileIO
+	//initialised by readfiles in DataHandler
 	private static FestivalSpeed festival_speed;
 	private static FestivalVoice festival_voice;
 
 	//queuing of SwingWorkers to avoid voice overlapping
 	//inspired by http://stackoverflow.com/questions/22412544/swingworker-queue-and-single-using
 	private static ArrayList<FestivalWorker> worker_queue=new ArrayList<FestivalWorker>();
-	//flag to indicate if there is already a worker excuting Festival calls
+	//flag to indicate if there is already a worker executing Festival calls
 	private static boolean locked=false;
 
 	/**
@@ -70,10 +69,10 @@ public class Festival {
 
 		public String getVoiceValue(){
 			switch(this){
-			case Kiwi:
-				return "akl_nz_jdt_diphone";
-			default: //American
+			case American:
 				return "kal_diphone";
+			default: //Kiwi
+				return "akl_nz_jdt_diphone";
 			}
 		}
 	}
@@ -105,8 +104,8 @@ public class Festival {
 	 * @param speech
 	 */
 	public void speak(String speech){
-		//Only makes Festival calls if the OS is Linux to avoid issues when using Windows
-		//Just for development purposes to speed up testing
+		//Only makes Festival calls on Linux to avoid issues on other OS
+		//For development purposes to speed up testing
 		if (System.getProperty("os.name").equals("Linux")) {
 			FestivalWorker worker = new FestivalWorker(speech);
 			worker_queue.add(worker);
@@ -126,7 +125,7 @@ public class Festival {
 	 * and so ensures the GUI doesn't freeze
 	 */
 	static class FestivalWorker extends SwingWorker<Void, Void> {
-		//what the speak
+		//what to speak
 		private String speech;
 
 		/**
@@ -141,8 +140,8 @@ public class Festival {
 		 * The time-consuming task done on a background worker thread
 		 */
 		protected Void doInBackground(){
-			//writes to scm file
-			parent_frame.getFileIO().writeToScheme(speech, festival_speed, festival_voice);
+			//writes to .scm file
+			parent_frame.getDataHandler().writeToScheme(speech, festival_speed, festival_voice);
 
 			//makes call to festival to execute the scm file in batch mode
 			String command = "festival -b "+parent_frame.getResourceFileLocation()+"festival.scm";

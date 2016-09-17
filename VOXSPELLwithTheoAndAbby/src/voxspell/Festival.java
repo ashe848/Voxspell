@@ -15,9 +15,9 @@ public class Festival {
 
 	private static Festival instance=null;
 
-	//default settings for festival. Currently not saved between sessions
-	private static FestivalSpeed festival_speed=FestivalSpeed.fast;
-	private static FestivalVoice festival_voice=FestivalVoice.Kiwi;
+	//initialised by readfiles in FileIO
+	private static FestivalSpeed festival_speed;
+	private static FestivalVoice festival_voice;
 
 	//queuing of SwingWorkers to avoid voice overlapping
 	//inspired by http://stackoverflow.com/questions/22412544/swingworker-queue-and-single-using
@@ -53,9 +53,9 @@ public class Festival {
 		public double getSpeedValue(){
 			switch(this){
 			case slow:
-				return 2;
+				return 2.0;
 			case fast:
-				return 1;
+				return 1.0;
 			default: //normal
 				return 1.5;
 			}

@@ -79,9 +79,9 @@ public class FileIO {
 		session_master_count = new ArrayList<ArrayList<Integer>>();
 		session_faulted_count = new ArrayList<ArrayList<Integer>>();
 		session_failed_count = new ArrayList<ArrayList<Integer>>();
-		
-		
-		
+
+
+
 		BufferedReader current_BR;
 		try {
 			//wordlist into wordlist array
@@ -196,17 +196,47 @@ public class FileIO {
 			//READ IN SETTINGS FILE FOR LEVEL
 
 			current_BR = new BufferedReader(new FileReader(parent_frame.getResourceFileLocation()+"settings"));
+			
+			//set defaults
+				FestivalSpeed speed=FestivalSpeed.normal;
+				FestivalVoice voice=FestivalVoice.Kiwi;
+				
 			while ((string_input = current_BR.readLine()) != null) {
-				current_level=Integer.parseInt(string_input);
-				if(!(current_level<getNumberOfLevels() && current_level>0)){
+				split_line = string_input.split(" ");
+				System.out.println(split_line[0]);
+				current_level=Integer.parseInt(split_line[0]);
+				
+				//not first time launching, so will have saved festival settings
+				if(current_level<getNumberOfLevels() && current_level>0){
+					//get festival speed
+					String speed_string=split_line[1];
+					switch(speed_string){
+					case "1.0":
+						speed=FestivalSpeed.fast;
+						break;
+					case "2.0":
+						speed=FestivalSpeed.slow;
+						break;
+					}
+					
+					//get festival voice
+					String voice_string=split_line[2];
+					switch (voice_string) {
+					case "kal_diphone":
+						voice=FestivalVoice.American;
+						break;
+					}		
+				} else {
 					current_level=0;
 				}
 			}
 			current_BR.close();
+			
+			parent_frame.festival.setFestivalSpeed(speed);
+			parent_frame.festival.setFestivalVoice(voice);
 			if (current_level==0){
 				chooseLevel();
 			}
-
 			//DONEZO
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -311,7 +341,7 @@ public class FileIO {
 	public static void writeToSettings(){
 		try {
 			FileWriter fw = new FileWriter(new File(parent_frame.getResourceFileLocation()+"settings"), false);
-			fw.write(""+current_level);
+			fw.write(current_level+" "+parent_frame.festival.getFestivalSpeed().getSpeedValue()+" "+parent_frame.festival.getFestivalVoice().getVoiceValue());
 			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -522,23 +552,21 @@ public class FileIO {
 	}
 
 	public void clearFiles() {
-		current_level=0;
-		writeToSettings();
-		
-		//wipe files data structure
+		//wipe files
 		try {
 			FileWriter fw = new FileWriter(new File(parent_frame.getResourceFileLocation()+"reviewlist"), false);
 			fw.close();
 			fw = new FileWriter(new File(parent_frame.getResourceFileLocation()+"statsfile"), false);
 			fw.close();
+			fw = new FileWriter(new File(parent_frame.getResourceFileLocation()+"settings"), false);
+			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
-		chooseLevel();
-		
+
+		current_level=0;
 		readFiles();
+		
 		parent_frame.changePanel(PanelID.MainMenu);
 	}
 }

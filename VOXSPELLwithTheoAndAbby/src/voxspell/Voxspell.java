@@ -1,15 +1,12 @@
 package voxspell;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-//import com.sun.jna.Native;
-//import com.sun.jna.NativeLibrary;
-//
-//import uk.co.caprica.vlcj.binding.LibVlc;
-//import uk.co.caprica.vlcj.runtime.RuntimeUtil;
-import voxspell.Festival.FestivalWorker;
 import voxspell.StatsChooser.StatsType;
 
 @SuppressWarnings("serial")
@@ -38,7 +35,14 @@ public class Voxspell extends JFrame{
 		setSize(800,600);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+		//Make the button on main menu the only way to exit the application
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+		  public void windowClosing(WindowEvent e) {
+			JOptionPane.showMessageDialog(null, "Closing the window will result in loss of data\nPlease exit using the button on main menu","Error",JOptionPane.WARNING_MESSAGE);
+		  }
+		});
 		revalidate();
 
 		file_handler=FileIO.getInstance(this);

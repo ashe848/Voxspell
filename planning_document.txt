@@ -20,3 +20,19 @@ Hidden Files:
 	Level (which level the user is on - will be empty if never launched before)
 	
 	
+
+
+
+	private static void debugHelper() {
+		//To see them in debug mode
+		ArrayList<ArrayList<String>> localwl = wordlist_words;
+		ArrayList<ArrayList<String>> localrl = reviewlist_words;
+		ArrayList<ArrayList<String>> localaw = persistent_allwords;
+		ArrayList<ArrayList<Integer>> localmc = persistent_master_count;
+		ArrayList<ArrayList<Integer>> localfauc = persistent_faulted_count;
+		ArrayList<ArrayList<Integer>> localfailc = persistent_failed_count;
+		ArrayList<ArrayList<String>> localsw=session_words;
+		ArrayList<ArrayList<Integer>> localsmc=session_master_count;
+		ArrayList<ArrayList<Integer>> localsfaulc=session_faulted_count;
+		ArrayList<ArrayList<Integer>> localsfailc=session_failed_count;
+	}

@@ -1,10 +1,15 @@
 package voxspell;
 
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -20,6 +25,7 @@ import voxspell.Voxspell.PanelID;
 
 public class QuizComplete extends JPanel{
 	private Voxspell parent_frame;
+	private Image bg_image;
 
 	//list of words from quiz just completed
 	private static ArrayList<String> latest_mastered_words;
@@ -39,23 +45,11 @@ public class QuizComplete extends JPanel{
 		latest_faulted_words=parent_frame.getDataHandler().getLatestWordResults().get(1);
 		latest_failed_words=parent_frame.getDataHandler().getLatestWordResults().get(2);
 
-		setupTitle();
 		setupTable();
 		determineButtons();
 		setupBackButton();
-		//		TODO
-		//		parent_frame.component_maker.setupBackButton(this, PanelID.MainMenu);
 		setupAccuracyRateLabel();
-	}
-
-	/**
-	 * Title
-	 */
-	private void setupTitle() {
-		JLabel quiz_complete_label = new JLabel("Quiz Completed");
-		quiz_complete_label.setFont(new Font("Courier New", Font.BOLD, 50));
-		quiz_complete_label.setBounds(38, 39, 469, 87);
-		add(quiz_complete_label);
+		setupBackground();
 	}
 
 	/**
@@ -93,6 +87,9 @@ public class QuizComplete extends JPanel{
 
 		table.setModel(model);
 
+		//Disallow reording of columns
+		table.getTableHeader().setReorderingAllowed(false);
+		
 		//Alignment for the cells http://stackoverflow.com/a/7433758
 		DefaultTableCellRenderer alignment_renderer = new DefaultTableCellRenderer();
 		alignment_renderer.setHorizontalAlignment(JLabel.CENTER);
@@ -103,7 +100,7 @@ public class QuizComplete extends JPanel{
 		JScrollPane scroll_pane = new JScrollPane(table);
 		add(scroll_pane);
 		scroll_pane.setVisible(true);
-		scroll_pane.setBounds(38, 168, 469, 382);
+		scroll_pane.setBounds(50, 150, 450, 300);
 	}
 
 	/**
@@ -116,10 +113,10 @@ public class QuizComplete extends JPanel{
 			setupLevelUpButton();//just for assignment 3 purposes to go with specs
 		}
 
-		/* GOOD IDEA FOR FINAL PROJECT, BUT MAY BE GOING AGAINST A3 SPECS SO COMMENTED OUT
+		/* GOOD IDEA FOR FINAL PROJECT, BUT MAY BE GOING AGAINST A3 SPECS SO COMMENTED OUT ON NASSER'S RECOMMENDATION
 
 		//complete level when 50% attempted with no fails
-		if (parent_frame.getFileIO().halfAttempted() && parent_frame.getFileIO().noReview() && parent_frame.getFileIO().getCurrentLevel()<parent_frame.getFileIO().getNumberOfLevels()){
+		if (parent_frame.getDataHandler().halfAttempted() && parent_frame.getgetDataHandler().noReview() && parent_frame.getgetDataHandler().getCurrentLevel()<parent_frame.getgetDataHandler().getNumberOfLevels()){
 			setupLevelUpButton();
 		}
 		 */
@@ -129,7 +126,9 @@ public class QuizComplete extends JPanel{
 	 * Button to move up a level
 	 */
 	private void setupLevelUpButton() {
-		JButton level_up_button = new JButton("LEVEL UP");
+		ImageIcon levelup_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "levelup_button.png");
+		JButton level_up_button = new JButton("", levelup_button_image);
+		
 		level_up_button.setBounds(550, 39, 200, 200);
 		level_up_button.addActionListener(new ActionListener() {
 			@Override
@@ -139,8 +138,9 @@ public class QuizComplete extends JPanel{
 					parent_frame.getDataHandler().increaseLevel();
 				} else {
 					//prompt user to choose which level they want to go to
-					parent_frame.getDataHandler().chooseLevel("All levels completed!");
+					parent_frame.getDataHandler().chooseLevel("All levels completed!\n");
 				}
+				//TODO show a label that says "moved up to level 9, etc"
 				level_up_button.setVisible(false);
 			}
 		});
@@ -152,7 +152,9 @@ public class QuizComplete extends JPanel{
 	 * Button to play video
 	 */
 	private void setupVideoButton() {
-		JButton video_button = new JButton("PLAY VIDEO");
+		ImageIcon videoreward_image = new ImageIcon(parent_frame.getResourceFileLocation() + "video_reward_button.png");
+		JButton video_button = new JButton("", videoreward_image);		
+		
 		video_button.setBounds(550, 268, 200, 200);
 		video_button.addActionListener(new ActionListener() {
 			@Override
@@ -189,8 +191,30 @@ public class QuizComplete extends JPanel{
 		accuracy_rate_label.setFont(new Font("Courier New", Font.BOLD, 10));
 
 		add(accuracy_rate_label);
-		accuracy_rate_label.setLocation(50, 530);
-		accuracy_rate_label.setSize(400, 30);
+		accuracy_rate_label.setLocation(50, 500);
+		accuracy_rate_label.setSize(300, 50);
 		accuracy_rate_label.setOpaque(true);
+	}
+	
+	/**
+	 * Puts the background image, overriding paintComponent method(below) to ensure functionality
+	 */
+	private void setupBackground(){
+		//http://stackoverflow.com/questions/1466240/how-to-set-an-image-as-a-background-for-frame-in-swing-gui-of-java
+		try {
+			bg_image = ImageIO.read(new File(parent_frame.getResourceFileLocation() + "quiz_complete_bg.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		setLocation(0,0);
+		setSize(800, 600);
+	}
+	
+	/**
+	 * Overriding the paintComponent method to place background
+	 */
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		g.drawImage(bg_image, 0, 0, this);
 	}
 }

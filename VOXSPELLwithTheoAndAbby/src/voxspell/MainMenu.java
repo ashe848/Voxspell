@@ -73,7 +73,9 @@ public class MainMenu extends JPanel{
 	 * New Spelling Quiz
 	 */
 	private void setupNewQuizButton(){
-		JButton new_quiz_button = new JButton("NEW QUIZ");
+		ImageIcon newquiz_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "quiz_button.png");
+		JButton new_quiz_button = new JButton("", newquiz_button_image);
+
 		new_quiz_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -82,7 +84,6 @@ public class MainMenu extends JPanel{
 		});
 
 		add(new_quiz_button);
-		new_quiz_button.setFont(new Font("Arial", Font.PLAIN, 10));;
 		new_quiz_button.setSize(200, 50);
 		new_quiz_button.setLocation(550, 300);
 	}
@@ -91,7 +92,9 @@ public class MainMenu extends JPanel{
 	 * Review Quiz
 	 */
 	private void setupReviewButton(){
-		JButton review_button = new JButton("REVIEW");
+		ImageIcon review_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "review_button.png");
+		JButton review_button = new JButton("", review_button_image);
+		
 		review_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -100,7 +103,6 @@ public class MainMenu extends JPanel{
 		});
 
 		add(review_button);
-		review_button.setFont(new Font("Arial", Font.PLAIN, 10));;
 		review_button.setSize(200, 50);
 		review_button.setLocation(550, 400);
 	}
@@ -119,7 +121,6 @@ public class MainMenu extends JPanel{
 		});
 
 		add(settings_button);
-		settings_button.setFont(new Font("Arial", Font.PLAIN, 10));;
 		settings_button.setSize(50, 50);
 		settings_button.setLocation(550, 500);
 	}
@@ -138,7 +139,6 @@ public class MainMenu extends JPanel{
 		});
 
 		add(stats_button);
-		stats_button.setFont(new Font("Arial", Font.PLAIN, 10));;
 		stats_button.setSize(100, 100);
 		stats_button.setLocation(50, 50);
 	}

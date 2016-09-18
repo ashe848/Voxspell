@@ -1,8 +1,13 @@
 package voxspell;
 
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,8 +24,11 @@ import voxspell.Voxspell.PanelID;
 /**
  * Settings
  */
+
+//TODO make dropdown not look terrible
 public class Settings extends JPanel {
 	private Voxspell parent_frame;
+	private Image bg_image;
 
 	//temporary values selected by user. Only saved if user confirms
 	private FestivalVoice temp_voice_selection=null;
@@ -38,14 +46,17 @@ public class Settings extends JPanel {
 		setupChangeVoice();
 		setupChangeSpeed();
 		setupBackButton();
+		setupBackground();
 	}
 
 	/**
 	 * Resets all stats to as if it was the user's first launch (prompts user for confirmation)
 	 */
 	private void seupReset() {
-		JButton clear_stats_button = new JButton("RESET ALL");
-		clear_stats_button.setBounds(31, 30, 166, 72);
+		ImageIcon clearall_image = new ImageIcon(parent_frame.getResourceFileLocation() + "clear_stats_button_alt.png");
+		JButton clear_stats_button = new JButton("", clearall_image);
+		
+		clear_stats_button.setBounds(400, 200, 300, 200);
 		add(clear_stats_button);
 		clear_stats_button.addActionListener(new ActionListener() {
 			@Override
@@ -65,10 +76,6 @@ public class Settings extends JPanel {
 		JLabel change_voice_label = new JLabel("Change voice");
 		change_voice_label.setBounds(31, 146, 166, 15);
 		add(change_voice_label);
-		//		TODO remove below?
-		//		JLabel lblCurrentVoiceIs = new JLabel("Orginal voice was "+parent_frame.festival.getFestivalVoice().toString());
-		//		lblCurrentVoiceIs.setBounds(31, 171, 166, 15);
-		//		add(lblCurrentVoiceIs);
 
 		//TODO: select from voice.list on user's machine
 		//Would introduce changes to DataHandler methods dealing with stats
@@ -96,10 +103,6 @@ public class Settings extends JPanel {
 		JLabel change_speed_label = new JLabel("Change speed");
 		change_speed_label.setBounds(31, 309, 166, 15);
 		add(change_speed_label);
-		//		TODO remove below?
-		//		JLabel lblCurrentSpeedIs = new JLabel("Orginal speed was "+parent_frame.festival.getFestivalSpeed().toString());
-		//		lblCurrentSpeedIs.setBounds(31, 334, 166, 15);
-		//		add(lblCurrentSpeedIs);
 
 		FestivalSpeed[] speeds={FestivalSpeed.slow, FestivalSpeed.normal, FestivalSpeed.fast};
 		JComboBox speed_chooser = new JComboBox(speeds);
@@ -162,5 +165,27 @@ public class Settings extends JPanel {
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * Puts the background image, overriding paintComponent method(below) to ensure functionality
+	 */
+	private void setupBackground(){
+		//http://stackoverflow.com/questions/1466240/how-to-set-an-image-as-a-background-for-frame-in-swing-gui-of-java
+		try {
+			bg_image = ImageIO.read(new File(parent_frame.getResourceFileLocation() + "settings_bg.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		setLocation(0,0);
+		setSize(800, 600);
+	}
+	
+	/**
+	 * Overriding the paintComponent method to place background
+	 */
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		g.drawImage(bg_image, 0, 0, this);
 	}
 }

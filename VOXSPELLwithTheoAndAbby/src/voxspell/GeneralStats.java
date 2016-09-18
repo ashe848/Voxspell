@@ -1,10 +1,15 @@
 package voxspell;
 
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -28,6 +33,7 @@ import voxspell.Voxspell.PanelID;
  */
 public class GeneralStats extends JPanel {
 	private static Voxspell parent_frame;
+	private Image bg_image;
 
 	private static JTable table;
 
@@ -43,9 +49,8 @@ public class GeneralStats extends JPanel {
 
 		setupTable(type);		
 		setupBackButton();
-		//		TODO
-		//		parent_frame.component_maker.setupBackButton(this, PanelID.StatSelection);
 		setupAccuracyRateLabel();
+		setupBackground(type);
 	}
 
 	/**
@@ -92,6 +97,9 @@ public class GeneralStats extends JPanel {
 		sorter.setSortKeys(key);
 		sorter.sort();
 
+		//Disallow reordering of columns
+		table.getTableHeader().setReorderingAllowed(false);
+		
 		//Alignment for the cells http://stackoverflow.com/a/7433758
 		DefaultTableCellRenderer alignment_renderer = new DefaultTableCellRenderer();
 		alignment_renderer.setHorizontalAlignment(JLabel.CENTER);
@@ -102,8 +110,8 @@ public class GeneralStats extends JPanel {
 		JScrollPane scroll_pane = new JScrollPane(table);
 		add(scroll_pane);
 		scroll_pane.setVisible(true);
-		scroll_pane.setLocation(50,50);
-		scroll_pane.setSize(700,400);
+		scroll_pane.setLocation(50,150);
+		scroll_pane.setSize(700,300);
 	}
 
 	/**
@@ -132,9 +140,38 @@ public class GeneralStats extends JPanel {
 		accuracy_rate_label.setFont(new Font("Courier New", Font.BOLD, 10));
 
 		add(accuracy_rate_label);
-		accuracy_rate_label.setLocation(50, 530);
-		accuracy_rate_label.setSize(400, 30);
+		accuracy_rate_label.setLocation(50, 500);
+		accuracy_rate_label.setSize(300, 50);
 		accuracy_rate_label.setVisible(true);
 		accuracy_rate_label.setOpaque(true);
+	}
+	
+	/**
+	 * Puts the background image, overriding paintComponent method(below) to ensure functionality
+	 * @param type 
+	 */
+	private void setupBackground(StatsType type){
+		//http://stackoverflow.com/questions/1466240/how-to-set-an-image-as-a-background-for-frame-in-swing-gui-of-java
+		try {
+			String background_filename="";
+			if (type.equals(StatsType.Persistent)){
+				background_filename="general_stats_bg.png";
+			} else {
+				background_filename="general_stats_current_bg.png";
+			}
+			bg_image = ImageIO.read(new File(parent_frame.getResourceFileLocation() + background_filename));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		setLocation(0,0);
+		setSize(800, 600);
+	}
+	
+	/**
+	 * Overriding the paintComponent method to place background
+	 */
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		g.drawImage(bg_image, 0, 0, this);
 	}
 }

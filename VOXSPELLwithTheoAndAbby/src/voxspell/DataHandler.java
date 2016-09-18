@@ -18,9 +18,14 @@ import voxspell.Voxspell.PanelID;
 
 public class DataHandler {
 	private static Voxspell parent_frame;
+
 	private static DataHandler instance=null;
 
+	private static String festival_scheme;
 	private static String spelling_list;
+	private static String statsfile;
+	private static String reviewlist;
+	private static String settings;
 
 	private static ArrayList<ArrayList<String>> wordlist_words;
 	private static ArrayList<ArrayList<String>> reviewlist_words;
@@ -46,7 +51,6 @@ public class DataHandler {
 	 */
 	private DataHandler(Voxspell parent){
 		parent_frame=parent;
-		spelling_list=parent_frame.getResourceFileLocation()+"NZCER-spelling-lists.txt";
 
 		readFiles();
 	}
@@ -72,6 +76,7 @@ public class DataHandler {
 	 * 		Settings file					contents put into current_level field
 	 */
 	private static void readFiles(){
+		setupFiles();
 		declareDataStructures();
 		readInWordlist();
 		initialiseDataStructures();
@@ -79,6 +84,52 @@ public class DataHandler {
 		addWordsNotInStats();
 		readInReviewList();
 		readInSettings();
+	}
+
+	/**
+	 * checks resource and data files
+	 */
+	private static void setupFiles() {
+		//if resources folder can't be found, abort program now instead of get exceptions thrown everywhere
+		//no barrier against if a png was deleted (could test for all contents and abort program, but that's not the purpose of this project)
+		File resources_folder = new File(parent_frame.getResourceFileLocation());
+		if (!resources_folder.exists()) {
+			JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary resources folder has been removed\nAborting", "Fatal Error", JOptionPane.WARNING_MESSAGE);
+			System.exit(1);
+		}
+		
+		festival_scheme = parent_frame.getResourceFileLocation()+"festival.scm";
+		spelling_list = parent_frame.getResourceFileLocation()+"NZCER-spelling-lists.txt";
+		//TODO make these files hidden
+		reviewlist = parent_frame.getResourceFileLocation()+"reviewlist";
+		statsfile = parent_frame.getResourceFileLocation()+"statsfile";
+		settings = parent_frame.getResourceFileLocation()+"settings";
+
+		//creates files that can be empty at this point (them not existing is an issue that won't crash the program)
+		try {	
+			File festival_scheme_file = new File(festival_scheme);
+			if (!festival_scheme_file.exists()) {
+				festival_scheme_file.createNewFile();				
+			}
+			
+			File review_list = new File(reviewlist);
+			if (!review_list.exists()) {
+				review_list.createNewFile();				
+			}
+
+			File stats_file = new File(statsfile);
+			if (!stats_file.exists()) {
+				stats_file.createNewFile();				
+			}
+
+			File settings_file = new File(settings);
+			if (!settings_file.exists()) {
+				settings_file.createNewFile();				
+			}
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Fatal error concerning data files\nAborting", "Fatal Error", JOptionPane.WARNING_MESSAGE);
+			System.exit(1);
+		}
 	}
 
 	/**
@@ -150,7 +201,7 @@ public class DataHandler {
 	 */
 	private static void readInStatsFile() {
 		try {
-			BufferedReader current_BR = new BufferedReader(new FileReader(parent_frame.getResourceFileLocation()+"statsfile"));
+			BufferedReader current_BR = new BufferedReader(new FileReader(statsfile));
 
 			int word_level, mastered_count, faulted_count, failed_count;
 			String string_input;
@@ -213,7 +264,7 @@ public class DataHandler {
 	 */
 	private static void readInReviewList() {
 		try {
-			BufferedReader current_BR = new BufferedReader(new FileReader(parent_frame.getResourceFileLocation()+"reviewlist"));
+			BufferedReader current_BR = new BufferedReader(new FileReader(reviewlist));
 
 			int level = 0;
 			String string_input;
@@ -237,7 +288,7 @@ public class DataHandler {
 
 	private static void readInSettings() {
 		try {
-			BufferedReader current_BR = new BufferedReader(new FileReader(parent_frame.getResourceFileLocation()+"settings"));
+			BufferedReader current_BR = new BufferedReader(new FileReader(settings));
 
 			//set defaults for festival
 			FestivalSpeed speed=FestivalSpeed.normal;
@@ -278,7 +329,7 @@ public class DataHandler {
 			parent_frame.getFestival().setFestivalSpeed(speed);
 			parent_frame.getFestival().setFestivalVoice(voice);
 			if (current_level==0){
-				chooseLevel("Welcome!");
+				chooseLevel("");
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -298,7 +349,7 @@ public class DataHandler {
 	 */
 	private void writeStats(){
 		try {
-			FileWriter fw = new FileWriter(new File(parent_frame.getResourceFileLocation()+"statsfile"), false);
+			FileWriter fw = new FileWriter(new File(statsfile), false);
 			for (int i=0; i<getNumberOfLevels(); i++){
 				for (Object[] o:returnWordDataForLevel(i, StatsType.Persistent)){
 					fw.write(o[0]+" "+ o[2]+" "+o[3]+" "+o[4]+" "+o[1]+"\n");
@@ -315,7 +366,7 @@ public class DataHandler {
 	 */
 	private void writeToReview(){
 		try {
-			FileWriter fw = new FileWriter(new File(parent_frame.getResourceFileLocation()+"reviewlist"), false);
+			FileWriter fw = new FileWriter(new File(reviewlist), false);
 			for (int i=1; i<getNumberOfLevels(); i++){
 				fw.write("%Level "+i+"\n");
 				for (String w:reviewlist_words.get(i)){
@@ -334,7 +385,7 @@ public class DataHandler {
 	 */
 	public static void writeToSettings(){
 		try {
-			FileWriter fw = new FileWriter(new File(parent_frame.getResourceFileLocation()+"settings"), false);
+			FileWriter fw = new FileWriter(new File(settings), false);
 			fw.write(current_level+" "+parent_frame.getFestival().getFestivalSpeed().getSpeedValue()+" "+parent_frame.getFestival().getFestivalVoice().getVoiceValue());
 			fw.close();
 		} catch (IOException e) {
@@ -348,7 +399,7 @@ public class DataHandler {
 	 */
 	public void writeToScheme(String speech, FestivalSpeed speed, FestivalVoice voice){
 		try {
-			FileWriter fw = new FileWriter(new File(parent_frame.getResourceFileLocation()+"festival.scm"), false);
+			FileWriter fw = new FileWriter(new File(festival_scheme), false);
 			fw.write("(voice_" + voice.getVoiceValue() +")\n");
 			fw.write("(Parameter.set 'Duration_Stretch " + speed.getSpeedValue() +")\n");
 			fw.write("(SayText \""+speech+"\")");			
@@ -364,11 +415,11 @@ public class DataHandler {
 	 */
 	public void clearFiles() {
 		try {
-			FileWriter fw = new FileWriter(new File(parent_frame.getResourceFileLocation()+"reviewlist"), false);
+			FileWriter fw = new FileWriter(new File(reviewlist), false);
 			fw.close();
-			fw = new FileWriter(new File(parent_frame.getResourceFileLocation()+"statsfile"), false);
+			fw = new FileWriter(new File(statsfile), false);
 			fw.close();
-			fw = new FileWriter(new File(parent_frame.getResourceFileLocation()+"settings"), false);
+			fw = new FileWriter(new File(settings), false);
 			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -641,7 +692,7 @@ public class DataHandler {
 	 */
 	public static void chooseLevel(String additional_message) {
 		Integer[] levels = getLevelArray();
-		Integer choice = (Integer)JOptionPane.showInputDialog(parent_frame.getContentPane(), additional_message+"\nPlease select a level to start at", "Which level?", JOptionPane.QUESTION_MESSAGE, null, levels, null);
+		Integer choice = (Integer)JOptionPane.showInputDialog(parent_frame.getContentPane(), additional_message+"Please select a level to start at", "Which level?", JOptionPane.QUESTION_MESSAGE, null, levels, null);
 		if (choice==null){
 			System.exit(0);
 		} else {
@@ -703,20 +754,5 @@ public class DataHandler {
 		to_return+="]\t["+reviewlist_words.get(current_level).size()+" failed out of "+persistent_allwords.get(current_level).size()+"]";
 
 		return to_return;
-	}
-
-	//TODO
-	private static void debugHelper() {
-		//To see them in debug mode
-		ArrayList<ArrayList<String>> localwl = wordlist_words;
-		ArrayList<ArrayList<String>> localrl = reviewlist_words;
-		ArrayList<ArrayList<String>> localaw = persistent_allwords;
-		ArrayList<ArrayList<Integer>> localmc = persistent_master_count;
-		ArrayList<ArrayList<Integer>> localfauc = persistent_faulted_count;
-		ArrayList<ArrayList<Integer>> localfailc = persistent_failed_count;
-		ArrayList<ArrayList<String>> localsw=session_words;
-		ArrayList<ArrayList<Integer>> localsmc=session_master_count;
-		ArrayList<ArrayList<Integer>> localsfaulc=session_faulted_count;
-		ArrayList<ArrayList<Integer>> localsfailc=session_failed_count;
 	}
 }

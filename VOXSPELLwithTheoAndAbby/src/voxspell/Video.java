@@ -25,6 +25,7 @@ public class Video extends JPanel{
 	private static Voxspell parent_frame;
 	
 	private EmbeddedMediaPlayerComponent media_player_component;
+	private EmbeddedMediaPlayer player;
 	private JPanel panel;
 	
 	/**
@@ -42,10 +43,10 @@ public class Video extends JPanel{
 	}
 
 	private void setupPlayer() {
-		JFrame frame = parent_frame; //don't need this? just use parent_frame?
+		JFrame frame = parent_frame;  //just use parent_frame wasn't working?
 		
         media_player_component = new EmbeddedMediaPlayerComponent();
-        final EmbeddedMediaPlayer player = media_player_component.getMediaPlayer();
+        player = media_player_component.getMediaPlayer();
 
         panel = new JPanel(null);
         panel.add(media_player_component);
@@ -109,7 +110,7 @@ public class Video extends JPanel{
 		 */
 	}
 
-	private void setupStartButton(final EmbeddedMediaPlayer player) {
+	private void setupStartButton() {
 		ImageIcon start_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
 		JButton start_button = new JButton("", start_button_image);
 		start_button.addActionListener(new ActionListener() {
@@ -124,7 +125,7 @@ public class Video extends JPanel{
 		start_button.setLocation(500,50);
 	}
 	
-	private void setupPauseButton(final EmbeddedMediaPlayer player) {
+	private void setupPauseButton() {
 		ImageIcon pause_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
 		JButton pause_button = new JButton("", pause_button_image);
 		pause_button.addActionListener(new ActionListener() {
@@ -139,7 +140,7 @@ public class Video extends JPanel{
 		pause_button.setLocation(600,0);
 	}
 
-	private void setupStopButton(final EmbeddedMediaPlayer player) {
+	private void setupStopButton() {
 		ImageIcon stop_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
 		JButton stop_button = new JButton("", stop_button_image);
 		stop_button.addActionListener(new ActionListener() {
@@ -163,6 +164,8 @@ public class Video extends JPanel{
 		back_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//stops video first before exitting
+				player.stop();
 				parent_frame.changePanel(PanelID.QuizComplete);
 			}
 		});

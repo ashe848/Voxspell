@@ -115,8 +115,14 @@ public class Festival {
 				worker_queue.remove(0);
 			}
 		} else {
+			//TODO for Windows
+			parent_frame.getDataHandler().writeToScheme(speech, festival_speed, festival_voice);
 			System.out.println(speech);
 		}
+	}
+	
+	public void emptyWorkerQueue(){
+		worker_queue=new ArrayList<FestivalWorker>();
 	}
 
 	/**

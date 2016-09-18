@@ -16,13 +16,12 @@ import voxspell.StatsChooser.StatsType;
  * Is the frame for the Voxspell program
  */
 public class Voxspell extends JFrame{
-	private static String RESOURCE_FILE_LOCATION = System.getProperty("user.dir")+"/resources/";
+	//TODO make this folder hidden
+	private static final String RESOURCE_FILE_LOCATION = System.getProperty("user.dir")+"/resources/";
 
 	//Contains the DataHandler and Festival instances which panels get
 	private static DataHandler data_handler;
 	private static Festival festival;
-	//	TODO
-	//	public static ReusableComponents component_maker;
 
 	/**
 	 * Constructor
@@ -31,8 +30,6 @@ public class Voxspell extends JFrame{
 		super();
 		festival = Festival.getInstance(this);
 		data_handler=DataHandler.getInstance(this);
-		//		TODO
-		//		component_maker=new ReusableComponents(this);
 
 		//setup code from Theo's A2 code
 		setTitle("Voxspell version 0.0000000001 Post-PreAlpha (but still in Alpha)");

@@ -1,9 +1,14 @@
 package voxspell;
 
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -18,6 +23,7 @@ import voxspell.Voxspell.PanelID;
  */
 public class StatsChooser extends JPanel{
 	private static Voxspell parent_frame;
+	private Image bg_image;
 
 	/**
 	 * Constructor
@@ -29,15 +35,13 @@ public class StatsChooser extends JPanel{
 
 		parent_frame=parent;
 
-		setupTitle();
 		setupPersistentAllButton();
 		setupPersistentLevelButton();
 		setupSessionAllButton();
 		setupSessionLevelButton();
 		setupBackButton();
-		//		TODO
-		//		parent_frame.component_maker.setupBackButton(this, PanelID.MainMenu);
 		setupAccuracyRateLabel();
+		setupBackground();
 	}
 
 	/**
@@ -45,13 +49,6 @@ public class StatsChooser extends JPanel{
 	 */
 	public enum StatsType{
 		Session, Persistent;
-	}
-
-	private void setupTitle() {
-		JLabel title = new JLabel("Choose type of statistics");
-		title.setFont(new Font("Courier New", Font.BOLD, 50));
-		title.setBounds(20, 39, 760, 87);
-		add(title);
 	}
 
 	private void setupPersistentAllButton(){
@@ -64,7 +61,6 @@ public class StatsChooser extends JPanel{
 		});
 
 		add(persistent_all_button);
-		persistent_all_button.setFont(new Font("Arial", Font.PLAIN, 10));;
 		persistent_all_button.setSize(200,100);
 		persistent_all_button.setLocation(50, 200);
 	}
@@ -136,8 +132,30 @@ public class StatsChooser extends JPanel{
 		accuracy_rate_label.setFont(new Font("Courier New", Font.BOLD, 10));
 
 		add(accuracy_rate_label);
-		accuracy_rate_label.setLocation(50, 530);
-		accuracy_rate_label.setSize(400, 30);
+		accuracy_rate_label.setLocation(50, 500);
+		accuracy_rate_label.setSize(300, 50);
 		accuracy_rate_label.setOpaque(true);
+	}
+	
+	/**
+	 * Puts the background image, overriding paintComponent method(below) to ensure functionality
+	 */
+	private void setupBackground(){
+		//http://stackoverflow.com/questions/1466240/how-to-set-an-image-as-a-background-for-frame-in-swing-gui-of-java
+		try {
+			bg_image = ImageIO.read(new File(parent_frame.getResourceFileLocation() + "stats_chooser_bg_underlined.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		setLocation(0,0);
+		setSize(800, 600);
+	}
+	
+	/**
+	 * Overriding the paintComponent method to place background
+	 */
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		g.drawImage(bg_image, 0, 0, this);
 	}
 }

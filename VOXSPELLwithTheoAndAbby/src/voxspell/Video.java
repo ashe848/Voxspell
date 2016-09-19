@@ -1,6 +1,7 @@
 package voxspell;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,6 +15,7 @@ import javax.swing.Timer;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import voxspell.Voxspell.PanelID;
+import javax.swing.JProgressBar;
 
 @SuppressWarnings("serial")
 
@@ -25,8 +27,8 @@ public class Video extends JPanel{
 	private static Voxspell parent_frame;
 	
 	private EmbeddedMediaPlayerComponent media_player_component;
-	private EmbeddedMediaPlayer player;
 	private JPanel panel;
+	private EmbeddedMediaPlayer player;
 	
 	/**
 	 * Constructor
@@ -43,14 +45,14 @@ public class Video extends JPanel{
 	}
 
 	private void setupPlayer() {
-		JFrame frame = parent_frame;  //just use parent_frame wasn't working?
+		JFrame frame = parent_frame; //just use parent_frame wasn't working?
 		
         media_player_component = new EmbeddedMediaPlayerComponent();
         player = media_player_component.getMediaPlayer();
 
         panel = new JPanel(null);
         panel.add(media_player_component);
-        media_player_component.setSize(400,400);
+        media_player_component.setSize(800,439);
         media_player_component.setLocation(0,0);
         
         frame.setContentPane(panel);
@@ -58,60 +60,14 @@ public class Video extends JPanel{
         String video = parent_frame.getResourceFileLocation()+"big_buck_bunny_1_minute.avi";
         player.playMedia(video);
         
-        setupStartButton(player);
-        setupPauseButton(player);
-		setupStopButton(player);
+        setupStartButton();
+        setupPauseButton();
+		setupStopButton();
 		
-		
-		/*
-		 *         JButton btnMute = new JButton("Shh....");
-		        panel.add(btnMute, BorderLayout.NORTH);
-		        btnMute.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						video.mute();
-					}
-				});
-		        
-		        JButton btnSkip = new JButton("Hurry up!");
-		        btnSkip.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						video.skip(5000);
-					}
-				});
-		        panel.add(btnSkip, BorderLayout.EAST);
-
-		        JButton btnSkipBack = new JButton("Say what!?!?");
-		        btnSkipBack.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						video.skip(-5000);
-					}
-				});
-		        panel.add(btnSkipBack, BorderLayout.WEST);
-		        
-		        JLabel labelTime = new JLabel("0 seconds");
-		        panel.add(labelTime, BorderLayout.SOUTH);
-
-		        Timer timer = new Timer(50, new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						long time = (long)(video.getTime()/1000.0);
-						labelTime.setText(String.valueOf(time));
-					}
-				});
-		        timer.start();
-		        
-		        frame.setLocation(100, 100);
-		        frame.setSize(1050, 600);
-		        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		        frame.setVisible(true);
-		 */
 	}
 
 	private void setupStartButton() {
-		ImageIcon start_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
+		ImageIcon start_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "play_button.png");
 		JButton start_button = new JButton("", start_button_image);
 		start_button.addActionListener(new ActionListener() {
 			@Override
@@ -122,26 +78,11 @@ public class Video extends JPanel{
 		
 		panel.add(start_button);
 		start_button.setSize(50,50);
-		start_button.setLocation(500,50);
+		start_button.setLocation(50,500);
 	}
 	
-	private void setupPauseButton() {
-		ImageIcon pause_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
-		JButton pause_button = new JButton("", pause_button_image);
-		pause_button.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				player.pause();
-			}
-		});
-		
-		panel.add(pause_button);
-		pause_button.setSize(50,50);
-		pause_button.setLocation(600,0);
-	}
-
 	private void setupStopButton() {
-		ImageIcon stop_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
+		ImageIcon stop_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "stop_button.png");
 		JButton stop_button = new JButton("", stop_button_image);
 		stop_button.addActionListener(new ActionListener() {
 			@Override
@@ -152,8 +93,25 @@ public class Video extends JPanel{
 		
 		panel.add(stop_button);
 		stop_button.setSize(50,50);
-		stop_button.setLocation(550,50);
+		stop_button.setLocation(110,500);
 	}
+	
+	private void setupPauseButton() {
+		ImageIcon pause_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "pause_button.png");
+		JButton pause_button = new JButton("", pause_button_image);
+		pause_button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				player.pause();
+			}
+		});
+		
+		panel.add(pause_button);
+		pause_button.setSize(50,50);
+		pause_button.setLocation(180,500);
+	}
+
+	
 	
 	/**
 	 * Back button to return to previous panel
@@ -164,7 +122,6 @@ public class Video extends JPanel{
 		back_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//stops video first before exitting
 				player.stop();
 				parent_frame.changePanel(PanelID.QuizComplete);
 			}
@@ -173,5 +130,25 @@ public class Video extends JPanel{
 		panel.add(back_button);
 		back_button.setSize(50,50);
 		back_button.setLocation(700,500);
+		
+//		JLabel lblTimeTotal = new JLabel("Time / Total");
+//		lblTimeTotal.setBounds(711, 449, 79, 15);
+//		add(lblTimeTotal);
+//		
+//		JProgressBar progressBar = new JProgressBar();
+//		progressBar.setBounds(20, 449, 681, 14);
+//		add(progressBar);
+//		
+//		JButton button = new JButton("<<", null);
+//		button.setBounds(269, 500, 50, 50);
+//		add(button);
+//		
+//		JButton button_1 = new JButton(">>", null);
+//		button_1.setBounds(330, 500, 50, 50);
+//		add(button_1);
+//		
+//		JButton btnMute = new JButton("Mute", null);
+//		btnMute.setBounds(415, 500, 50, 50);
+//		add(btnMute);
 	}
 }

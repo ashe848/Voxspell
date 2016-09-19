@@ -7,6 +7,11 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
+import com.sun.jna.Native;
+import com.sun.jna.NativeLibrary;
+
+import uk.co.caprica.vlcj.binding.LibVlc;
+import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 import voxspell.StatsChooser.StatsType;
 
 @SuppressWarnings("serial")
@@ -38,7 +43,7 @@ public class Voxspell extends JFrame{
 		setResizable(false);
 
 		//Make the power button on main menu the only way to exit the application
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				JOptionPane.showMessageDialog(null, "Closing the window will result in loss of data\nPlease exit using the power button on main menu", "Error", JOptionPane.WARNING_MESSAGE);
@@ -125,14 +130,12 @@ public class Voxspell extends JFrame{
 			break;
 		case Video:
 			//			TODO
-			/*
 			NativeLibrary.addSearchPath(
 					RuntimeUtil.getLibVlcLibraryName(), "/Applications/vlc-2.0.0/VLC.app/Contents/MacOS/lib"
 					);
 			Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
 			this.getContentPane().add(new Video(this));
-			 */
-			System.out.println("Play video here");
+//			System.out.println("Play video here");
 			break;
 		}
 		this.revalidate();

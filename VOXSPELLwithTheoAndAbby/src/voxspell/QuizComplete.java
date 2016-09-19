@@ -1,5 +1,6 @@
 package voxspell;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -79,11 +80,11 @@ public class QuizComplete extends JPanel{
 
 		//add columns to table with count in column names
 		Object[] mastered_col=new Object[latest_mastered_words.size()];
-		model.addColumn("Mastered ("+latest_mastered_words.size()+")", latest_mastered_words.toArray(mastered_col));
+		model.addColumn("First try! ("+latest_mastered_words.size()+")", latest_mastered_words.toArray(mastered_col));
 		Object[] faulted_col=new Object[latest_mastered_words.size()];
-		model.addColumn("Faulted ("+latest_faulted_words.size()+")", latest_faulted_words.toArray(faulted_col));
+		model.addColumn("Second try! ("+latest_faulted_words.size()+")", latest_faulted_words.toArray(faulted_col));
 		Object[] failed_col=new Object[latest_mastered_words.size()];
-		model.addColumn("Failed ("+latest_failed_words.size()+")", latest_failed_words.toArray(failed_col));
+		model.addColumn("Didn't get it ("+latest_failed_words.size()+")", latest_failed_words.toArray(failed_col));
 
 		table.setModel(model);
 
@@ -136,14 +137,23 @@ public class QuizComplete extends JPanel{
 				//if not on highest level, increase level
 				if (parent_frame.getDataHandler().getCurrentLevel()<parent_frame.getDataHandler().getNumberOfLevels()-1){
 					parent_frame.getDataHandler().increaseLevel();
+					setupLevelledUpLabel();
 				} else {
 					//prompt user to choose which level they want to go to
 					parent_frame.getDataHandler().chooseLevel("All levels completed!\n");
 				}
-				//TODO show a label that says "moved up to level 9, etc"
 				level_up_button.setVisible(false);
 			}
 		});
+		add(level_up_button);
+		level_up_button.setVisible(true);
+	}
+	
+	private void setupLevelledUpLabel() {
+		JLabel level_up_button = new JLabel("Moved up to level "+parent_frame.getDataHandler().getCurrentLevel(), JLabel.CENTER);
+		
+		level_up_button.setBounds(550, 39, 200, 200);
+		level_up_button.setForeground(Color.YELLOW);
 		add(level_up_button);
 		level_up_button.setVisible(true);
 	}

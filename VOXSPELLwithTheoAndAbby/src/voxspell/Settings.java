@@ -1,5 +1,6 @@
 package voxspell;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -75,6 +76,7 @@ public class Settings extends JPanel {
 	private void setupChangeVoice() {
 		JLabel change_voice_label = new JLabel("Change voice");
 		change_voice_label.setBounds(31, 146, 166, 15);
+		change_voice_label.setForeground(Color.YELLOW);
 		add(change_voice_label);
 
 		//TODO: select from voice.list on user's machine
@@ -102,6 +104,7 @@ public class Settings extends JPanel {
 	private void setupChangeSpeed() {
 		JLabel change_speed_label = new JLabel("Change speed");
 		change_speed_label.setBounds(31, 309, 166, 15);
+		change_speed_label.setForeground(Color.YELLOW);
 		add(change_speed_label);
 
 		FestivalSpeed[] speeds={FestivalSpeed.slow, FestivalSpeed.normal, FestivalSpeed.fast};

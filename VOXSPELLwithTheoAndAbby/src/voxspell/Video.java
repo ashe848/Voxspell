@@ -130,25 +130,5 @@ public class Video extends JPanel{
 		panel.add(back_button);
 		back_button.setSize(50,50);
 		back_button.setLocation(700,500);
-		
-//		JLabel lblTimeTotal = new JLabel("Time / Total");
-//		lblTimeTotal.setBounds(711, 449, 79, 15);
-//		add(lblTimeTotal);
-//		
-//		JProgressBar progressBar = new JProgressBar();
-//		progressBar.setBounds(20, 449, 681, 14);
-//		add(progressBar);
-//		
-//		JButton button = new JButton("<<", null);
-//		button.setBounds(269, 500, 50, 50);
-//		add(button);
-//		
-//		JButton button_1 = new JButton(">>", null);
-//		button_1.setBounds(330, 500, 50, 50);
-//		add(button_1);
-//		
-//		JButton btnMute = new JButton("Mute", null);
-//		btnMute.setBounds(415, 500, 50, 50);
-//		add(btnMute);
 	}
 }

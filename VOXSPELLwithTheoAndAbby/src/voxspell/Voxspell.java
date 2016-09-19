@@ -38,7 +38,11 @@ public class Voxspell extends JFrame{
 
 		//setup code from Theo's A2 code
 		setTitle("Voxspell version 0.0000000001 Post-PreAlpha (but still in Alpha)");
-		setSize(800,600);
+		if (System.getProperty("os.name").equals("Linux")) {
+			setSize(800,570);
+		} else {
+			setSize(800,600);
+		}
 		setLocationRelativeTo(null);
 		setResizable(false);
 
@@ -135,7 +139,6 @@ public class Voxspell extends JFrame{
 					);
 			Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
 			this.getContentPane().add(new Video(this));
-//			System.out.println("Play video here");
 			break;
 		}
 		this.revalidate();

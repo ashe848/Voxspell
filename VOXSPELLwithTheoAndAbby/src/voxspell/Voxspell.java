@@ -21,8 +21,7 @@ import voxspell.StatsChooser.StatsType;
  * Is the frame for the Voxspell program
  */
 public class Voxspell extends JFrame{
-	//TODO make this folder hidden
-	private static final String RESOURCE_FILE_LOCATION = System.getProperty("user.dir")+"/resources/";
+	private static final String RESOURCE_FILE_LOCATION = System.getProperty("user.dir")+"/.resources/";
 
 	//Contains the DataHandler and Festival instances which panels get
 	private static DataHandler data_handler;
@@ -38,16 +37,13 @@ public class Voxspell extends JFrame{
 
 		//setup code from Theo's A2 code
 		setTitle("Voxspell version 0.0000000001 Post-PreAlpha (but still in Alpha)");
-		if (System.getProperty("os.name").equals("Linux")) {
-			setSize(800,570);
-		} else {
-			setSize(800,600);
-		}
+		setSize(800,570);
+
 		setLocationRelativeTo(null);
 		setResizable(false);
 
 		//Make the power button on main menu the only way to exit the application
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				JOptionPane.showMessageDialog(null, "Closing the window will result in loss of data\nPlease exit using the power button on main menu", "Error", JOptionPane.WARNING_MESSAGE);
@@ -105,9 +101,6 @@ public class Voxspell extends JFrame{
 		case Settings:
 			this.getContentPane().add(new Settings(this));
 			break;
-		case Help:
-			//			TODO
-			break;
 		case StatSelection:
 			this.getContentPane().add(new StatsChooser(this));
 			break;
@@ -133,7 +126,6 @@ public class Voxspell extends JFrame{
 			this.getContentPane().add(new QuizComplete(this));
 			break;
 		case Video:
-			//			TODO
 			NativeLibrary.addSearchPath(
 					RuntimeUtil.getLibVlcLibraryName(), "/Applications/vlc-2.0.0/VLC.app/Contents/MacOS/lib"
 					);
@@ -145,9 +137,9 @@ public class Voxspell extends JFrame{
 	}
 
 	/**
-	 * The different panels
+	 * The different panel ID codes
 	 */
 	public enum PanelID{
-		MainMenu, Settings, Help, StatSelection, PersistentAllStats, PersistentLevelStats, SessionAllStats, SessionLevelStats, Quiz, Review, QuizComplete, Video;
+		MainMenu, Settings, StatSelection, PersistentAllStats, PersistentLevelStats, SessionAllStats, SessionLevelStats, Quiz, Review, QuizComplete, Video;
 	}
 }

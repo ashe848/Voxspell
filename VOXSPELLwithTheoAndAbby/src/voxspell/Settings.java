@@ -26,7 +26,6 @@ import voxspell.Voxspell.PanelID;
  * Settings
  */
 
-//TODO make dropdown not look terrible
 public class Settings extends JPanel {
 	private Voxspell parent_frame;
 	private Image bg_image;
@@ -79,9 +78,6 @@ public class Settings extends JPanel {
 		change_voice_label.setForeground(Color.YELLOW);
 		add(change_voice_label);
 
-		//TODO: select from voice.list on user's machine
-		//Would introduce changes to DataHandler methods dealing with stats
-		//Way out could be to use String instead of enum
 		FestivalVoice[] voices={FestivalVoice.American, FestivalVoice.Kiwi};
 		JComboBox voice_chooser = new JComboBox(voices);
 

@@ -100,7 +100,6 @@ public class DataHandler {
 		
 		festival_scheme = parent_frame.getResourceFileLocation()+"festival.scm";
 		spelling_list = parent_frame.getResourceFileLocation()+"NZCER-spelling-lists.txt";
-		//TODO make these files hidden
 		reviewlist = parent_frame.getResourceFileLocation()+"reviewlist";
 		statsfile = parent_frame.getResourceFileLocation()+"statsfile";
 		settings = parent_frame.getResourceFileLocation()+"settings";

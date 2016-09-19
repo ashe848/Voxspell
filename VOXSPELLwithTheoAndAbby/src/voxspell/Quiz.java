@@ -40,8 +40,7 @@ public class Quiz extends JPanel {
 	private int current_word_number;
 	private int current_attempt_number;
 	private boolean attempted_once;
-	//	TODO: change back to 10 after testing
-	private int words_in_quiz=3;
+	private int words_in_quiz=10;
 
 	private ArrayList<String> words_mastered;
 	private ArrayList<String> words_faulted;
@@ -121,9 +120,6 @@ public class Quiz extends JPanel {
 		add(scrolling_pane);
 		scrolling_pane.setSize(700, 250);
 		scrolling_pane.setLocation(50, 80);
-//		TODO
-//		scrolling_pane.getViewport().setOpaque(false);
-//		scrolling_pane.setOpaque(false);	
 		scrolling_pane.setBackground(Color.WHITE);
 	}
 

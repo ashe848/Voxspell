@@ -104,23 +104,15 @@ public class Festival {
 	 * @param speech
 	 */
 	public void speak(String speech){
-		//Only makes Festival calls on Linux to avoid issues on other OS
-		//For development purposes to speed up testing
-		if (System.getProperty("os.name").equals("Linux")) {
-			FestivalWorker worker = new FestivalWorker(speech);
-			worker_queue.add(worker);
-			if (!locked){
-				locked=true;
-				worker_queue.get(0).execute();
-				worker_queue.remove(0);
-			}
-		} else {
-			//TODO for Windows
-			parent_frame.getDataHandler().writeToScheme(speech, festival_speed, festival_voice);
-			System.out.println(speech);
+		FestivalWorker worker = new FestivalWorker(speech);
+		worker_queue.add(worker);
+		if (!locked){
+			locked=true;
+			worker_queue.get(0).execute();
+			worker_queue.remove(0);
 		}
 	}
-	
+
 	public void emptyWorkerQueue(){
 		worker_queue=new ArrayList<FestivalWorker>();
 	}

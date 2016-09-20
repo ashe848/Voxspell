@@ -19,14 +19,19 @@ import voxspell.Voxspell.PanelID;
 @SuppressWarnings("serial")
 
 /**
- * To select type of statistics to view
+ * To select type of statistics to view.
+ * Has 4 options of stats to be displayed, and a return to main menu button.
+ * 	-All stats from all sessions (all levels)
+ * 	-All stats from current session (all levels)
+ * 	-Stats for user selected level from all sessions
+ * 	-Stats for user selected level from current session
  */
 public class StatsChooser extends JPanel{
 	private static Voxspell parent_frame;
 	private Image bg_image;
 
 	/**
-	 * Constructor
+	 * Constructor. Setting up panel properties and initialise GUI elements
 	 */
 	public StatsChooser(Voxspell parent){
 		super();
@@ -46,11 +51,15 @@ public class StatsChooser extends JPanel{
 
 	/**
 	 * Statistics could be just for current session or persistent
+	 * Used to differentiate what data to fetch when button clicked
 	 */
 	public enum StatsType{
 		Session, Persistent;
 	}
 
+	/**
+	 * Creates button that displays statistics data for all levels from all sessions
+	 */
 	private void setupPersistentAllButton(){
 		ImageIcon persistent_all_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "persistent_all_button.png");
 		JButton persistent_all_button = new JButton("", persistent_all_button_image);
@@ -65,6 +74,9 @@ public class StatsChooser extends JPanel{
 		persistent_all_button.setLocation(50, 200);
 	}
 
+	/**
+	 * Creates button that displays statistics data for user selected level, from all sessions
+	 */
 	private void setupPersistentLevelButton(){
 		ImageIcon persistent_level_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "persistent_level_button.png");
 		JButton persistent_level_button = new JButton("", persistent_level_button_image);
@@ -79,6 +91,9 @@ public class StatsChooser extends JPanel{
 		persistent_level_button.setLocation(350, 200);
 	}
 
+	/**
+	 * Creates button that displays statistics data for all levels, only from current session
+	 */
 	private void setupSessionAllButton(){
 		ImageIcon session_all_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "session_all_button.png");
 		JButton session_all_button = new JButton("", session_all_button_image);
@@ -93,6 +108,10 @@ public class StatsChooser extends JPanel{
 		session_all_button.setLocation(50, 350);
 	}
 
+	/**
+	 * Creates button that displays statistics data for user selected level
+	 * but only from current session
+	 */
 	private void setupSessionLevelButton(){
 		ImageIcon session_level_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "session_level_button.png");
 		JButton session_level_button = new JButton("", session_level_button_image);
@@ -108,7 +127,7 @@ public class StatsChooser extends JPanel{
 	}
 
 	/**
-	 * Back button to return to previous panel
+	 * Back button to return to previous panel (main menu)
 	 */
 	private void setupBackButton(){
 		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
@@ -136,7 +155,7 @@ public class StatsChooser extends JPanel{
 		accuracy_rate_label.setSize(300, 50);
 		accuracy_rate_label.setOpaque(true);
 	}
-	
+
 	/**
 	 * Puts the background image, overriding paintComponent method(below) to ensure functionality
 	 */
@@ -150,9 +169,9 @@ public class StatsChooser extends JPanel{
 		setLocation(0,0);
 		setSize(800, 600);
 	}
-	
+
 	/**
-	 * Overriding the paintComponent method to place background
+	 * Overriding the paintComponent method to place background on panel
 	 */
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);

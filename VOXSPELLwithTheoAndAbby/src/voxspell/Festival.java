@@ -12,7 +12,7 @@ import javax.swing.SwingWorker;
 public class Festival {
 	private static Voxspell parent_frame;
 
-	private static Festival instance=null;
+	private static Festival instance=null; //since singleton class
 
 	//initialised by readfiles in DataHandler
 	private static FestivalSpeed festival_speed;

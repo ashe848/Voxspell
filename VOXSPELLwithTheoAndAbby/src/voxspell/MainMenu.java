@@ -20,7 +20,14 @@ import voxspell.Voxspell.PanelID;
 @SuppressWarnings("serial")
 
 /**
- * Main Menu
+ * JPanel for Main Menu
+ * Allows user to either:
+ * 		Go do a quiz
+ * 		Review failed words
+ * 		Enter settings screen
+ * 		Show statistics
+ * 		Quit program
+ * 
  * Based on Theo's A2 code
  */
 public class MainMenu extends JPanel{
@@ -29,7 +36,7 @@ public class MainMenu extends JPanel{
 	private Image bg_image;
 
 	/**
-	 * Constructor
+	 * Constructor, initialise panel properties and GUI elements
 	 */
 	MainMenu(Voxspell parent){
 		super();
@@ -49,6 +56,7 @@ public class MainMenu extends JPanel{
 
 	/**
 	 * Puts the voxspell background image, overriding paintComponent method(below) to ensure functionality
+	 * 
 	 * http://stackoverflow.com/questions/1466240/how-to-set-an-image-as-a-background-for-frame-in-swing-gui-of-java
 	 */
 	private void setupBackground(){
@@ -70,7 +78,7 @@ public class MainMenu extends JPanel{
 	}
 
 	/**
-	 * New Spelling Quiz
+	 * New Spelling Quiz button creation
 	 */
 	private void setupNewQuizButton(){
 		ImageIcon newquiz_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "quiz_button.png");
@@ -89,7 +97,7 @@ public class MainMenu extends JPanel{
 	}
 
 	/**
-	 * Review Quiz
+	 * Review Quiz button creation
 	 */
 	private void setupReviewButton(){
 		ImageIcon review_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "review_button.png");
@@ -108,7 +116,7 @@ public class MainMenu extends JPanel{
 	}
 
 	/**
-	 * Settings button
+	 * Settings button creation
 	 */
 	private void setupSettingsButton(){
 		ImageIcon setting_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "settings_button.png");
@@ -126,7 +134,7 @@ public class MainMenu extends JPanel{
 	}
 
 	/**
-	 * Statistics button
+	 * Statistics button creation
 	 */
 	private void setupStatsButton(){
 		ImageIcon stats_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "stats_button.png");
@@ -144,7 +152,7 @@ public class MainMenu extends JPanel{
 	}
 
 	/**
-	 * Exit button
+	 * Exit button creation
 	 */
 	private void setupExitButton(){
 		ImageIcon exit_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "ext_btn.png");

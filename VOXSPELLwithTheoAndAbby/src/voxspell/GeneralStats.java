@@ -29,7 +29,10 @@ import voxspell.Voxspell.PanelID;
 @SuppressWarnings("serial")
 
 /**
- * Statistics for all levels
+ * JPanel that displays statistics for all levels
+ * based on given parameter (persistent, or current session)
+ * Shows a table of all the words attempted and allows user
+ * to sort by the column headers
  */
 public class GeneralStats extends JPanel {
 	private static Voxspell parent_frame;
@@ -38,7 +41,7 @@ public class GeneralStats extends JPanel {
 	private static JTable table;
 
 	/**
-	 * Constructor
+	 * Constructor, initialise panel properties and set up GUI elements
 	 */
 	public GeneralStats(Voxspell parent, StatsType type){
 		super();
@@ -56,7 +59,7 @@ public class GeneralStats extends JPanel {
 	/**
 	 * Creates the JTable for stats
 	 * Based on Abby's A2 code
-	 * @param type
+	 * @param type		type of data requested to be displayed
 	 */
 	private void setupTable(StatsType type) {
 		//creates table model with said column names, currently no rows, and disallowing the editing of cells
@@ -148,7 +151,7 @@ public class GeneralStats extends JPanel {
 	
 	/**
 	 * Puts the background image, overriding paintComponent method(below) to ensure functionality
-	 * @param type 
+	 * @param type 		Type of stats, determines which background image to display
 	 */
 	private void setupBackground(StatsType type){
 		//http://stackoverflow.com/questions/1466240/how-to-set-an-image-as-a-background-for-frame-in-swing-gui-of-java

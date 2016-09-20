@@ -24,6 +24,15 @@ import voxspell.Voxspell.PanelID;
 
 @SuppressWarnings("serial")
 
+/**
+ * JPanel class displayed when user finishes the quiz or review quiz
+ * Shows user table of words attempted and if they got it right or not
+ * as well as how many attempts taken if they got it correct.
+ * 
+ * Also allows user to level up and watch reward video
+ * if user has completed quiz well.
+ * @author theooswanditosw164
+ */
 public class QuizComplete extends JPanel{
 	private Voxspell parent_frame;
 	private Image bg_image;
@@ -34,7 +43,7 @@ public class QuizComplete extends JPanel{
 	private static ArrayList<String> latest_failed_words;
 
 	/**
-	 * Constructor
+	 * Constructor, initialise panel parameters and GUI elements
 	 */
 	public QuizComplete(Voxspell parent){
 		setSize(800,600);
@@ -149,6 +158,10 @@ public class QuizComplete extends JPanel{
 		level_up_button.setVisible(true);
 	}
 	
+	/**
+	 * label created once user clicks level up. Notifies them that they have leveled up
+	 * to a new level.
+	 */
 	private void setupLevelledUpLabel() {
 		JLabel level_up_button = new JLabel("Moved up to level "+parent_frame.getDataHandler().getCurrentLevel(), JLabel.CENTER);
 		

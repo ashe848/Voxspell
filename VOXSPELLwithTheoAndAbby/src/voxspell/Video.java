@@ -15,18 +15,24 @@ import voxspell.Voxspell.PanelID;
 @SuppressWarnings("serial")
 
 /**
- * Video reward
+ * Video reward JPanel class
+ * Contains video panel, stop+play+play/pause button
+ * and return to quiz complete screen button.
  * Based on Nasser's ACP VLCJ code
  */
 public class Video extends JPanel{
-	private static Voxspell parent_frame;
+	private static Voxspell parent_frame; //link to parent frame
 	
+	//Component on panel used to show video
 	private EmbeddedMediaPlayerComponent media_player_component;
+	//Panel that video is shown on
 	private JPanel panel;
+	//Video player contained in the component
 	private EmbeddedMediaPlayer player;
 	
 	/**
-	 * Constructor
+	 * Constructor initialising the size and layout of jpanel
+	 * Also sets up buttons used to manipulate playback.
 	 */
 	public Video(Voxspell parent){
 		super();
@@ -36,9 +42,15 @@ public class Video extends JPanel{
 		parent_frame=parent;
 		
 		setupPlayer();
+		setupStartButton();
+        setupPauseButton();
+		setupStopButton();
 		setupBackButton();
 	}
 
+	/**
+	 * Sets up the video to be played at the top of the panel, in its own JPanel
+	 */
 	private void setupPlayer() {
 		JFrame frame = parent_frame; //just use parent_frame wasn't working?
 		
@@ -50,17 +62,24 @@ public class Video extends JPanel{
         media_player_component.setSize(800,439);
         media_player_component.setLocation(0,0);
         
-        frame.setContentPane(panel);
+        frame.setContentPane(panel); //sticking new panel on the frame that program is on
 
-        String video = parent_frame.getResourceFileLocation()+"new_better_reward_video.avi";
-        player.playMedia(video);
+        //Getting .avi video file from the resources folder
+        String video;
         
-        setupStartButton();
-        setupPauseButton();
-		setupStopButton();
-		
+        //Different video displayed if they get all right, then if they get 1 wrong
+        boolean perfect_quiz = parent_frame.getDataHandler().getLatestWordResults().get(2).size()==0;
+        if(perfect_quiz){
+        	video = parent_frame.getResourceFileLocation()+"reward_video.avi";
+        } else { //1 wrong
+        	video = parent_frame.getResourceFileLocation()+"ffmpeg_reward_video.avi";
+        }
+        player.playMedia(video);
 	}
 
+	/**
+	 * Creates start button for video on panel and sets its functionality
+	 */
 	private void setupStartButton() {
 		ImageIcon start_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "play_button.png");
 		JButton start_button = new JButton("", start_button_image);
@@ -76,6 +95,9 @@ public class Video extends JPanel{
 		start_button.setLocation(50,500);
 	}
 	
+	/**
+	 * Creates stop button for video panel and creates functionality
+	 */
 	private void setupStopButton() {
 		ImageIcon stop_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "stop_button.png");
 		JButton stop_button = new JButton("", stop_button_image);
@@ -91,6 +113,9 @@ public class Video extends JPanel{
 		stop_button.setLocation(110,500);
 	}
 	
+	/**
+	 * Creates pause/play button for video on panel
+	 */
 	private void setupPauseButton() {
 		ImageIcon pause_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "pause_button.png");
 		JButton pause_button = new JButton("", pause_button_image);
@@ -106,8 +131,6 @@ public class Video extends JPanel{
 		pause_button.setLocation(180,500);
 	}
 
-	
-	
 	/**
 	 * Back button to return to previous panel
 	 */

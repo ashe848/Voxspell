@@ -23,7 +23,9 @@ import voxspell.Voxspell.PanelID;
 @SuppressWarnings("serial")
 
 /**
- * Settings
+ * Settings JPanel class
+ * Allows user to change festival voice and speed
+ * Also allows user to reset all data (settings & stats)
  */
 
 //TODO make dropdown not look terrible
@@ -36,7 +38,7 @@ public class Settings extends JPanel {
 	private FestivalSpeed temp_speed_selection=null;
 
 	/**
-	 * Constructor
+	 * Constructor, initialise panel properties and GUI elements
 	 */
 	public Settings(Voxspell parent){
 		setSize(800,600);
@@ -163,8 +165,8 @@ public class Settings extends JPanel {
 	/**
 	 * Pop up to confirm that user wants to commit to their selection
 	 * http://stackoverflow.com/questions/8689122/joptionpane-yes-no-options-confirm-dialog-box-issue-java
-	 * @param body
-	 * @param title
+	 * @param body  body of dialog box
+	 * @param title	title of dialog box
 	 * @return
 	 */
 	private boolean askToConfirm(String body, String title){

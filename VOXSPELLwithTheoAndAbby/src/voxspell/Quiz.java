@@ -25,27 +25,34 @@ import voxspell.Voxspell.PanelID;
 @SuppressWarnings("serial")
 
 /**
- * For any type of quiz
+ * JPanel class for screen displayed when user does quiz (normal & review)
+ * Displays a title, with a text area below showing quiz progress and
+ * previous guesses.
+ * User has a text field where they enter their attempt with a submit
+ * button and say again (in case they want to hear word again) button 
+ * available to press.
+ * Return to main menu button also present on panel.
+ * 
  * Based on Theo's A2 code
  */
 public class Quiz extends JPanel {
 	private Voxspell parent_frame;
 	private Image bg_image;
-	private PanelID quiz_type;
+	private PanelID quiz_type; //Distinguishes if quiz is normal or review quiz
 
-	private JTextArea display_to_user;
-	private JTextField input_from_user;
+	private JTextArea display_to_user; //progress text area to show previous information
+	private JTextField input_from_user; //what user puts as guess for spelling quiz
 
-	private ArrayList<String> words_to_spell;
-	private int current_word_number;
-	private int current_attempt_number;
-	private boolean attempted_once;
+	private ArrayList<String> words_to_spell; //list of words to spell in quiz
+	private int current_word_number; //indicates which word the user is up to in quiz
+	private int current_attempt_number; //indicates which attempt user is up to when spelling
+	private boolean attempted_once; //flag indicating which attempt user is up to
 	//	TODO: change back to 10 after testing
-	private int words_in_quiz=3;
+	private int words_in_quiz=3; //number of words in each quiz
 
-	private ArrayList<String> words_mastered;
-	private ArrayList<String> words_faulted;
-	private ArrayList<String> words_failed;
+	private ArrayList<String> words_mastered; //list of words user got first try in quiz
+	private ArrayList<String> words_faulted; //list of words user got second try in quiz
+	private ArrayList<String> words_failed; //list of words user didn't get right in quiz
 
 	/**
 	 * constructor for panel, sets up paramaters of panel and various fields
@@ -79,7 +86,7 @@ public class Quiz extends JPanel {
 			words_faulted = new ArrayList<String>();
 			words_failed = new ArrayList<String>();
 
-			startQuiz();
+			startQuiz(); //begins quiz logic
 		}
 	}
 
@@ -121,7 +128,7 @@ public class Quiz extends JPanel {
 		add(scrolling_pane);
 		scrolling_pane.setSize(700, 250);
 		scrolling_pane.setLocation(50, 80);
-//		TODO
+//		TODO makes background of progress text transparent
 //		scrolling_pane.getViewport().setOpaque(false);
 //		scrolling_pane.setOpaque(false);	
 		scrolling_pane.setBackground(Color.WHITE);

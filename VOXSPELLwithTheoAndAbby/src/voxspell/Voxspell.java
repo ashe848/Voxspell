@@ -29,14 +29,14 @@ public class Voxspell extends JFrame{
 	private static Festival festival;
 
 	/**
-	 * Constructor
+	 * Constructor. Initialise frame, create data structure & set original panel to main menu
 	 */
 	public Voxspell(){
 		super();
 		festival = Festival.getInstance(this);
 		data_handler=DataHandler.getInstance(this);
 
-		//setup code from Theo's A2 code
+		//TODO setup code from Theo's A2 code
 		setTitle("Voxspell version 0.0000000001 Post-PreAlpha (but still in Alpha)");
 		if (System.getProperty("os.name").equals("Linux")) {
 			setSize(800,570);
@@ -93,20 +93,22 @@ public class Voxspell extends JFrame{
 		return festival;
 	}
 
+	/**
+	 * @param id	passed into method to change panel shown
+	 */
 	public void changePanel(PanelID id){
+		//Removes the current panel from the frame, ready for new one to take its place.
 		//http://stackoverflow.com/questions/9347076/how-to-remove-all-components-from-a-jframe-in-java
 		this.getContentPane().removeAll();
 		this.repaint();
 
+		//Change panel pased on ID passed into method. Initialise extra constructor parameters if needed.
 		switch (id) {
 		case MainMenu:
 			this.getContentPane().add(new MainMenu(this));
 			break;
 		case Settings:
 			this.getContentPane().add(new Settings(this));
-			break;
-		case Help:
-			//			TODO
 			break;
 		case StatSelection:
 			this.getContentPane().add(new StatsChooser(this));
@@ -133,7 +135,7 @@ public class Voxspell extends JFrame{
 			this.getContentPane().add(new QuizComplete(this));
 			break;
 		case Video:
-			//			TODO
+			//Setting up various libraries needed to show video reward after quiz is complete
 			NativeLibrary.addSearchPath(
 					RuntimeUtil.getLibVlcLibraryName(), "/Applications/vlc-2.0.0/VLC.app/Contents/MacOS/lib"
 					);
@@ -141,13 +143,15 @@ public class Voxspell extends JFrame{
 			this.getContentPane().add(new Video(this));
 			break;
 		}
+		
+		//Repaints the panel to the changed one
 		this.revalidate();
 	}
 
 	/**
-	 * The different panels
+	 * The different panels IDs used to differentiate different panels
 	 */
 	public enum PanelID{
-		MainMenu, Settings, Help, StatSelection, PersistentAllStats, PersistentLevelStats, SessionAllStats, SessionLevelStats, Quiz, Review, QuizComplete, Video;
+		MainMenu, Settings, StatSelection, PersistentAllStats, PersistentLevelStats, SessionAllStats, SessionLevelStats, Quiz, Review, QuizComplete, Video;
 	}
 }

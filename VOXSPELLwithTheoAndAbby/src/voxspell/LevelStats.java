@@ -31,7 +31,9 @@ import voxspell.Voxspell.PanelID;
 @SuppressWarnings("serial")
 
 /**
- * Statistics by levels
+ * JPanel class displaying statistics by level selected
+ * by a combo box dropdown, for either all stats or for
+ * current session
  */
 public class LevelStats extends JPanel{
 	private static Voxspell parent_frame;
@@ -42,7 +44,7 @@ public class LevelStats extends JPanel{
 	private static JScrollPane scroll_pane;
 
 	/**
-	 * Constructor
+	 * Constructor, initialise panel properties and adding GUI elements
 	 */
 	public LevelStats(Voxspell parent, StatsType type){
 		super();
@@ -64,8 +66,8 @@ public class LevelStats extends JPanel{
 	 * Refreshes table to match the selected level
 	 * Unlike the table in GeneralStats, this table doesn't have a level column
 	 * Based on Abby's A2 code
-	 * @param level
-	 * @param type
+	 * @param level		word data for level based on combobox
+	 * @param type		type of data to fetch (Persistent or Session)
 	 */
 	private void refreshTable(int level, StatsType type){
 		//creates table model with said column names, currently no rows, and disallowing the editing of cells
@@ -123,7 +125,8 @@ public class LevelStats extends JPanel{
 	}
 
 	/**
-	 * Removes current table from panel to allow refreshing
+	 * Removes current table from panel to allow refreshing once user
+	 * selects different level to display
 	 */
 	private void removeTableFromPanel(){
 		this.remove(scroll_pane); //removes scroll pane as it contains the table
@@ -131,7 +134,7 @@ public class LevelStats extends JPanel{
 
 	/**
 	 * Set up level chooser for the number of levels in this word list
-	 * @param type
+	 * @param type		type of data to fetch for when combobox changes
 	 */
 	private void setupLevelChooser(StatsType type) {
 		Integer[] levels = parent_frame.getDataHandler().getLevelArray();
@@ -188,7 +191,7 @@ public class LevelStats extends JPanel{
 	
 	/**
 	 * Puts the background image, overriding paintComponent method(below) to ensure functionality
-	 * @param type 
+	 * @param type 	determines which background image is displayed
 	 */
 	private void setupBackground(StatsType type){
 		//http://stackoverflow.com/questions/1466240/how-to-set-an-image-as-a-background-for-frame-in-swing-gui-of-java

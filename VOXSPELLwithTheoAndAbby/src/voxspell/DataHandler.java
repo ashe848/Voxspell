@@ -16,38 +16,50 @@ import voxspell.Festival.FestivalVoice;
 import voxspell.StatsChooser.StatsType;
 import voxspell.Voxspell.PanelID;
 
+/**
+ * Data handling class
+ * 
+ * Responsible for all interactions(input and output) with external spelling word data files
+ * (but not video file, which is handled elsewhere)
+ * Also responsible for returning spelling data/word data as well as 
+ * manipulation of data structure for things like generating random
+ * words to quiz.
+ * 
+ * @author theooswanditosw164
+ */
 public class DataHandler {
 	private static Voxspell parent_frame;
 
-	private static DataHandler instance=null;
+	private static DataHandler instance=null; //since singleton class
 
-	private static String festival_scheme;
-	private static String spelling_list;
-	private static String statsfile;
-	private static String reviewlist;
-	private static String settings;
+	//filenames
+	private static String festival_scheme; //name of scheme file used to say words
+	private static String spelling_list; //NZ official spelling list
+	private static String statsfile; //File holding stats for words attempted
+	private static String reviewlist; //Holds words that have been failed and not mastered/faulted after
+	private static String settings; //name of file that holds various settings
 
-	private static ArrayList<ArrayList<String>> wordlist_words;
-	private static ArrayList<ArrayList<String>> reviewlist_words;
+	private static ArrayList<ArrayList<String>> wordlist_words; //words from wordlist file
+	private static ArrayList<ArrayList<String>> reviewlist_words; //words from reviewlist file
 
-	private static ArrayList<ArrayList<String>> persistent_allwords;
-	private static ArrayList<ArrayList<Integer>> persistent_master_count;
-	private static ArrayList<ArrayList<Integer>> persistent_faulted_count;
-	private static ArrayList<ArrayList<Integer>> persistent_failed_count;
+	private static ArrayList<ArrayList<String>> persistent_allwords; //all words from wordlist + reviewlist
+	private static ArrayList<ArrayList<Integer>> persistent_master_count; //counts of times mastered of words above
+	private static ArrayList<ArrayList<Integer>> persistent_faulted_count; //counts of times faulted of words above
+	private static ArrayList<ArrayList<Integer>> persistent_failed_count; //counts of times failed of words above
 
-	private static ArrayList<ArrayList<String>> session_words;
-	private static ArrayList<ArrayList<Integer>> session_master_count;
-	private static ArrayList<ArrayList<Integer>> session_faulted_count;
-	private static ArrayList<ArrayList<Integer>> session_failed_count;
+	private static ArrayList<ArrayList<String>> session_words; //words attempted this session of program
+	private static ArrayList<ArrayList<Integer>> session_master_count; //times word in current session mastered
+	private static ArrayList<ArrayList<Integer>> session_faulted_count; //times word in current session faulted
+	private static ArrayList<ArrayList<Integer>> session_failed_count; // times word in current session failed
 
-	private static ArrayList<String> latest_mastered_words;
-	private static ArrayList<String> latest_faulted_words;
-	private static ArrayList<String> latest_failed_words;
+	private static ArrayList<String> latest_mastered_words; //list of mastered words from last quiz (for QuizComplete table)
+	private static ArrayList<String> latest_faulted_words; //list of faulted words from last quiz (for QuizComplete table)
+	private static ArrayList<String> latest_failed_words; //list of failed words from last quiz (for QuizComplete table)
 
 	private static int current_level=0; //initialised so if settings file is empty/wiped
 
 	/**
-	 * Constructor
+	 * Constructor for single instance, reference parent frame and starts reading files
 	 */
 	private DataHandler(Voxspell parent){
 		parent_frame=parent;
@@ -55,6 +67,11 @@ public class DataHandler {
 		readFiles();
 	}
 
+	/**
+	 * Gets single instance of DataHandler
+	 * @param parent 	parent frame
+	 * @return instance of itself (or creates one if first time called)
+	 */
 	public static DataHandler getInstance(Voxspell parent){
 		if (instance==null){
 			instance=new DataHandler(parent);
@@ -62,10 +79,8 @@ public class DataHandler {
 		return instance;
 	}
 
-
-
 	/*
-	 * FOR READING FILES
+	 * Reading Files
 	 */
 	/**
 	 * Method that reads contents of files and stores them into data structure.
@@ -133,7 +148,7 @@ public class DataHandler {
 	}
 
 	/**
-	 * Sets up data structure infrasture
+	 * Sets up data structure infrastructure
 	 */
 	private static void declareDataStructures() {
 		wordlist_words = new ArrayList<ArrayList<String>>();
@@ -270,6 +285,7 @@ public class DataHandler {
 			String string_input;
 			while ((string_input = current_BR.readLine()) != null) {
 				if (!string_input.isEmpty()){
+					//go to next level in data structure
 					if (string_input.charAt(0)=='%'){
 						level++;
 					} else {
@@ -286,6 +302,11 @@ public class DataHandler {
 		}
 	}
 
+	/**
+	 * Gets contents of settings files and sets
+	 * Settings file structure:
+	 * 		<current level> <festival speed> <festival voice>
+	 */
 	private static void readInSettings() {
 		try {
 			BufferedReader current_BR = new BufferedReader(new FileReader(settings));
@@ -338,14 +359,12 @@ public class DataHandler {
 		}
 	}
 
-
-
 	/*
-	 * FOR WRITING TO FILES
+	 * Writing to files
 	 */
 	/**
 	 * writes to stats file in the format
-	 * <word level> <mastered count> <faulted count> <failed count> <the word>
+	 * <word level> <mastered count> <faulted count> <failed count> <word>
 	 */
 	private void writeStats(){
 		try {
@@ -461,6 +480,7 @@ public class DataHandler {
 			JOptionPane.showMessageDialog(null, "EMPTY " + id.toString() + " FILE, nothing to test\nWill return to main menu" ,"Error",JOptionPane.WARNING_MESSAGE);
 			parent_frame.changePanel(PanelID.MainMenu);
 		} else {
+			//randomising of words without messing with order of original array (no deep copy needed)
 			int[] indices = new int[relevant_bank_of_words.size()];
 			for(int i = 0; i<relevant_bank_of_words.size(); i++){
 				indices[i] = i;
@@ -493,9 +513,6 @@ public class DataHandler {
 			indices[position2] = temp;
 		}
 	}
-
-
-
 
 	/*
 	 * Post-quiz logic
@@ -588,6 +605,9 @@ public class DataHandler {
 		}
 	}
 
+	/**TODO not_faulted?
+	 * Removes given list of words from reviewlist
+	 */
 	private void removeFromReviewList(ArrayList<String> not_faulted_words){
 		for (String w:not_faulted_words){
 			if (reviewlist_words.get(current_level).contains(w)){
@@ -596,6 +616,9 @@ public class DataHandler {
 		}
 	}
 
+	/**
+	 * Adds list of failed words into reviewlist
+	 */
 	private void addToReviewList(ArrayList<String> failed_words){
 		for (String w:failed_words){
 			if (!reviewlist_words.get(current_level).contains(w)){
@@ -605,8 +628,7 @@ public class DataHandler {
 	}
 
 	/**
-	 * number of words attempted in current level
-	 * @return
+	 * @Return number of words attempted in current level
 	 */
 	private int getAttemptedCount() {
 		int attempted_count=0;
@@ -619,8 +641,7 @@ public class DataHandler {
 	}
 
 	/**
-	 * whether at least 50% of words in current level is completed
-	 * @return
+	 * @return whether at least 50% of words in current level is completed
 	 */
 	public boolean halfAttempted() {
 		int attempted_count=getAttemptedCount();
@@ -633,8 +654,7 @@ public class DataHandler {
 	}
 
 	/**
-	 * return whether there are no words to review in current level (i.e. none failed)
-	 * @return
+	 * @return whether there are no words to review in current level (i.e. none failed)
 	 */
 	public boolean noReview() {
 		if(reviewlist_words.get(current_level).size()==0){
@@ -645,13 +665,11 @@ public class DataHandler {
 	}
 
 	/**
-	 * level up
+	 * Increments current level
 	 */
 	public void increaseLevel(){
 		current_level++;
 	}
-
-
 
 
 	/*
@@ -703,9 +721,9 @@ public class DataHandler {
 
 	/**
 	 * selects type and level for the word data asked for
-	 * @param level
-	 * @param type
-	 * @return
+	 * @param level		level of data requested
+	 * @param type		type of data requested
+	 * @return the pointers to arrays requested
 	 */
 	public ArrayList<Object[]> returnWordDataForLevel(int level, StatsChooser.StatsType type){
 		ArrayList<ArrayList<String>> words;
@@ -717,7 +735,7 @@ public class DataHandler {
 			faulted_count=persistent_faulted_count;
 			failed_count=persistent_failed_count;
 			break;
-		default:
+		default: //Session
 			words=session_words;
 			master_count=session_master_count;
 			faulted_count=session_faulted_count;
@@ -745,7 +763,7 @@ public class DataHandler {
 
 	/**
 	 * gets accuracy rates message for current level to be displayed to the user at all relevant times
-	 * @return
+	 * @return string representation of accuracy rate
 	 */
 	public String getAccuracyRates(){
 		String to_return="";

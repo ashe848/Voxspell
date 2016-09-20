@@ -52,7 +52,7 @@ public class Video extends JPanel{
         
         frame.setContentPane(panel);
 
-        String video = parent_frame.getResourceFileLocation()+"big_buck_bunny_1_minute.avi";
+        String video = parent_frame.getResourceFileLocation()+"new_better_reward_video.avi";
         player.playMedia(video);
         
         setupStartButton();

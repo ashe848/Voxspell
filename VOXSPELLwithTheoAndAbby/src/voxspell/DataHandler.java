@@ -115,7 +115,6 @@ public class DataHandler {
 		
 		festival_scheme = parent_frame.getResourceFileLocation()+"festival.scm";
 		spelling_list = parent_frame.getResourceFileLocation()+"NZCER-spelling-lists.txt";
-		//TODO make these files hidden
 		reviewlist = parent_frame.getResourceFileLocation()+"reviewlist";
 		statsfile = parent_frame.getResourceFileLocation()+"statsfile";
 		settings = parent_frame.getResourceFileLocation()+"settings";
@@ -605,11 +604,11 @@ public class DataHandler {
 		}
 	}
 
-	/**TODO not_faulted?
+	/**
 	 * Removes given list of words from reviewlist
 	 */
-	private void removeFromReviewList(ArrayList<String> not_faulted_words){
-		for (String w:not_faulted_words){
+	private void removeFromReviewList(ArrayList<String> not_failed_words){
+		for (String w:not_failed_words){
 			if (reviewlist_words.get(current_level).contains(w)){
 				reviewlist_words.get(current_level).remove(w);
 			}

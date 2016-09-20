@@ -21,8 +21,7 @@ import voxspell.StatsChooser.StatsType;
  * Is the frame for the Voxspell program
  */
 public class Voxspell extends JFrame{
-	//TODO make this folder hidden
-	private static final String RESOURCE_FILE_LOCATION = System.getProperty("user.dir")+"/resources/";
+	private static final String RESOURCE_FILE_LOCATION = System.getProperty("user.dir")+"/.resources/";
 
 	//Contains the DataHandler and Festival instances which panels get
 	private static DataHandler data_handler;
@@ -36,18 +35,14 @@ public class Voxspell extends JFrame{
 		festival = Festival.getInstance(this);
 		data_handler=DataHandler.getInstance(this);
 
-		//TODO setup code from Theo's A2 code
+		//setup code from Theo's A2 code
 		setTitle("Voxspell version 0.0000000001 Post-PreAlpha (but still in Alpha)");
-		if (System.getProperty("os.name").equals("Linux")) {
-			setSize(800,570);
-		} else {
-			setSize(800,600);
-		}
+		setSize(800,570);
 		setLocationRelativeTo(null);
 		setResizable(false);
 
 		//Make the power button on main menu the only way to exit the application
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				JOptionPane.showMessageDialog(null, "Closing the window will result in loss of data\nPlease exit using the power button on main menu", "Error", JOptionPane.WARNING_MESSAGE);

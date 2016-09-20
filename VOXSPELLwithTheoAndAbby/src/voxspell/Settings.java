@@ -27,8 +27,6 @@ import voxspell.Voxspell.PanelID;
  * Allows user to change festival voice and speed
  * Also allows user to reset all data (settings & stats)
  */
-
-//TODO make dropdown not look terrible
 public class Settings extends JPanel {
 	private Voxspell parent_frame;
 	private Image bg_image;
@@ -81,13 +79,8 @@ public class Settings extends JPanel {
 		change_voice_label.setForeground(Color.YELLOW);
 		add(change_voice_label);
 
-		//TODO: select from voice.list on user's machine
-		//Would introduce changes to DataHandler methods dealing with stats
-		//Way out could be to use String instead of enum
 		FestivalVoice[] voices={FestivalVoice.American, FestivalVoice.Kiwi};
 		final JComboBox voice_chooser = new JComboBox(voices);
-		
-		//TODO
 		voice_chooser.setForeground(Color.BLACK);
 		voice_chooser.setBackground(Color.WHITE);
 

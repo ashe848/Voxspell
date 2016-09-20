@@ -47,8 +47,7 @@ public class Quiz extends JPanel {
 	private int current_word_number; //indicates which word the user is up to in quiz
 	private int current_attempt_number; //indicates which attempt user is up to when spelling
 	private boolean attempted_once; //flag indicating which attempt user is up to
-	//	TODO: change back to 10 after testing
-	private int words_in_quiz=3; //number of words in each quiz
+	private int words_in_quiz=10; //number of words in each quiz
 
 	private ArrayList<String> words_mastered; //list of words user got first try in quiz
 	private ArrayList<String> words_faulted; //list of words user got second try in quiz
@@ -128,9 +127,6 @@ public class Quiz extends JPanel {
 		add(scrolling_pane);
 		scrolling_pane.setSize(700, 250);
 		scrolling_pane.setLocation(50, 80);
-//		TODO makes background of progress text transparent
-//		scrolling_pane.getViewport().setOpaque(false);
-//		scrolling_pane.setOpaque(false);	
 		scrolling_pane.setBackground(Color.WHITE);
 	}
 

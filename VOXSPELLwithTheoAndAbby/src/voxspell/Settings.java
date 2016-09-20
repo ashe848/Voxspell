@@ -75,7 +75,7 @@ public class Settings extends JPanel {
 	 */
 	private void setupChangeVoice() {
 		JLabel change_voice_label = new JLabel("Change voice");
-		change_voice_label.setBounds(31, 146, 166, 15);
+		change_voice_label.setBounds(31, 209, 166, 15);
 		change_voice_label.setForeground(Color.YELLOW);
 		add(change_voice_label);
 
@@ -84,6 +84,10 @@ public class Settings extends JPanel {
 		//Way out could be to use String instead of enum
 		FestivalVoice[] voices={FestivalVoice.American, FestivalVoice.Kiwi};
 		JComboBox voice_chooser = new JComboBox(voices);
+		
+		//TODO
+		voice_chooser.setForeground(Color.BLACK);
+		voice_chooser.setBackground(Color.WHITE);
 
 		//set shown item to be the current voice
 		voice_chooser.setSelectedItem(parent_frame.getFestival().getFestivalVoice());
@@ -94,7 +98,7 @@ public class Settings extends JPanel {
 			}
 		});
 
-		voice_chooser.setBounds(31, 193, 166, 72);
+		voice_chooser.setBounds(31, 234, 166, 40);
 		add(voice_chooser);
 	}
 
@@ -103,12 +107,14 @@ public class Settings extends JPanel {
 	 */
 	private void setupChangeSpeed() {
 		JLabel change_speed_label = new JLabel("Change speed");
-		change_speed_label.setBounds(31, 309, 166, 15);
+		change_speed_label.setBounds(31, 330, 166, 15);
 		change_speed_label.setForeground(Color.YELLOW);
 		add(change_speed_label);
 
 		FestivalSpeed[] speeds={FestivalSpeed.slow, FestivalSpeed.normal, FestivalSpeed.fast};
 		JComboBox speed_chooser = new JComboBox(speeds);
+		speed_chooser.setForeground(Color.BLACK);
+		speed_chooser.setBackground(Color.WHITE);
 
 		//set shown item to be the current voice
 		speed_chooser.setSelectedItem(parent_frame.getFestival().getFestivalSpeed());
@@ -119,7 +125,7 @@ public class Settings extends JPanel {
 			}
 		});
 
-		speed_chooser.setBounds(31, 359, 166, 72);
+		speed_chooser.setBounds(31, 355, 166, 40);
 		add(speed_chooser);
 	}
 

@@ -1,5 +1,6 @@
 package voxspell;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -150,6 +151,8 @@ public class LevelStats extends JPanel{
 		add(level_chooser);
 		level_chooser.setLocation(50,500);
 		level_chooser.setSize(100,50);
+		//TODO
+		level_chooser.setBackground(Color.WHITE);
 	}
 
 	/**

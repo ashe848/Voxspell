@@ -4,7 +4,7 @@
 1 0 0 0 the
 1 0 0 0 was
 1 0 0 0 and
-1 0 0 0 in
+1 2 0 0 in
 1 0 0 0 my
 1 0 0 0 to
 1 0 0 0 we
@@ -25,7 +25,7 @@
 2 0 0 0 when
 2 0 0 0 got
 2 0 0 0 me
-2 0 0 0 so
+2 1 0 0 so
 2 0 0 0 they
 2 0 0 0 you
 3 0 0 0 about
@@ -452,7 +452,7 @@
 10 0 0 0 beautiful
 10 0 0 0 disappear
 10 1 0 0 honour
-10 0 0 1 natural
+10 1 0 1 natural
 10 0 0 0 separate
 10 0 0 0 capital
 10 0 0 0 edge
@@ -588,4 +588,4 @@
 11 0 0 0 forty
 11 0 0 0 observation
 11 0 0 0 responsibility
-11 0 0 0 wealth
+11 11 0 0 wealth

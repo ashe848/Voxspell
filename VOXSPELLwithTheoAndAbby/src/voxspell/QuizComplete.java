@@ -99,7 +99,7 @@ public class QuizComplete extends JPanel{
 
 		//Disallow reording of columns
 		table.getTableHeader().setReorderingAllowed(false);
-		
+
 		//Alignment for the cells http://stackoverflow.com/a/7433758
 		DefaultTableCellRenderer alignment_renderer = new DefaultTableCellRenderer();
 		alignment_renderer.setHorizontalAlignment(JLabel.CENTER);
@@ -120,7 +120,13 @@ public class QuizComplete extends JPanel{
 		//at most 1 incorrect
 		if(latest_failed_words.size()<2) {
 			setupVideoButton();
-			setupLevelUpButton();//just for assignment 3 purposes to go with specs
+			
+			//whether user has already levelled up before playing video
+			if(!parent_frame.getDataHandler().getLevelledUp()){
+				setupLevelUpButton();//set up when just 1 failed just for assignment 3 purposes to go with specs
+			} else {
+				setupLevelledUpLabel("");
+			}
 		}
 
 		/* GOOD IDEA FOR FINAL PROJECT, BUT MAY BE GOING AGAINST A3 SPECS SO COMMENTED OUT ON NASSER'S RECOMMENDATION
@@ -138,18 +144,23 @@ public class QuizComplete extends JPanel{
 	private void setupLevelUpButton() {
 		ImageIcon levelup_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "levelup_button.png");
 		final JButton level_up_button = new JButton("", levelup_button_image);
-		
+
 		level_up_button.setBounds(550, 39, 200, 200);
 		level_up_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//if not on highest level, increase level
+				//if not on highest level
 				if (parent_frame.getDataHandler().getCurrentLevel()<parent_frame.getDataHandler().getNumberOfLevels()-1){
 					parent_frame.getDataHandler().increaseLevel();
-					setupLevelledUpLabel();
+					parent_frame.getDataHandler().setLevelledUp(true);
+					setupLevelledUpLabel("up ");
 				} else {
-					//prompt user to choose which level they want to go to
-					parent_frame.getDataHandler().chooseLevel("All levels completed!\n");
+					//on highest level, so prompt user to choose which level they want to go to
+					//if user made a choice, then create label behind button
+					if(parent_frame.getDataHandler().chooseLevel("All levels completed!\n", true)){
+						parent_frame.getDataHandler().setLevelledUp(true);
+						setupLevelledUpLabel("");
+					}
 				}
 				level_up_button.setVisible(false);
 			}
@@ -157,14 +168,14 @@ public class QuizComplete extends JPanel{
 		add(level_up_button);
 		level_up_button.setVisible(true);
 	}
-	
+
 	/**
 	 * label created once user clicks level up. Notifies them that they have leveled up
 	 * to a new level.
 	 */
-	private void setupLevelledUpLabel() {
-		JLabel level_up_button = new JLabel("Moved up to level "+parent_frame.getDataHandler().getCurrentLevel(), JLabel.CENTER);
-		
+	private void setupLevelledUpLabel(String direction) {
+		JLabel level_up_button = new JLabel("Moved " + direction + "to level "+parent_frame.getDataHandler().getCurrentLevel(), JLabel.CENTER);
+
 		level_up_button.setBounds(550, 39, 200, 200);
 		level_up_button.setForeground(Color.YELLOW);
 		add(level_up_button);
@@ -177,7 +188,7 @@ public class QuizComplete extends JPanel{
 	private void setupVideoButton() {
 		ImageIcon videoreward_image = new ImageIcon(parent_frame.getResourceFileLocation() + "video_reward_button.png");
 		JButton video_button = new JButton("", videoreward_image);		
-		
+
 		video_button.setBounds(550, 268, 200, 200);
 		video_button.addActionListener(new ActionListener() {
 			@Override
@@ -197,6 +208,8 @@ public class QuizComplete extends JPanel{
 		back_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//resets flag for level up
+				parent_frame.getDataHandler().setLevelledUp(false);
 				parent_frame.changePanel(PanelID.MainMenu);
 			}
 		});
@@ -218,7 +231,7 @@ public class QuizComplete extends JPanel{
 		accuracy_rate_label.setSize(300, 50);
 		accuracy_rate_label.setOpaque(true);
 	}
-	
+
 	/**
 	 * Puts the background image, overriding paintComponent method(below) to ensure functionality
 	 */
@@ -232,7 +245,7 @@ public class QuizComplete extends JPanel{
 		setLocation(0,0);
 		setSize(800, 600);
 	}
-	
+
 	/**
 	 * Overriding the paintComponent method to place background
 	 */

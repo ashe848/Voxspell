@@ -36,8 +36,9 @@ public class Voxspell extends JFrame{
 		festival = Festival.getInstance(this);
 		data_handler=DataHandler.getInstance(this);
 
-		//TODO setup code from Theo's A2 code
+		//setup code from Theo's A2 code
 		setTitle("Voxspell version 0.0000000001 Post-PreAlpha (but still in Alpha)");
+		//TODO
 		if (System.getProperty("os.name").equals("Linux")) {
 			setSize(800,570);
 		} else {
@@ -46,6 +47,7 @@ public class Voxspell extends JFrame{
 		setLocationRelativeTo(null);
 		setResizable(false);
 
+		//TODO back to DO_NOTHING_ON_CLOSE
 		//Make the power button on main menu the only way to exit the application
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {

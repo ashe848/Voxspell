@@ -55,7 +55,8 @@ public class DataHandler {
 	private static ArrayList<String> latest_mastered_words; //list of mastered words from last quiz (for QuizComplete table)
 	private static ArrayList<String> latest_faulted_words; //list of faulted words from last quiz (for QuizComplete table)
 	private static ArrayList<String> latest_failed_words; //list of failed words from last quiz (for QuizComplete table)
-
+	private static boolean levelled_up=false; //flag for whether user had decided to level up
+	
 	private static int current_level=0; //initialised so if settings file is empty/wiped
 
 	/**
@@ -115,7 +116,6 @@ public class DataHandler {
 		
 		festival_scheme = parent_frame.getResourceFileLocation()+"festival.scm";
 		spelling_list = parent_frame.getResourceFileLocation()+"NZCER-spelling-lists.txt";
-		//TODO make these files hidden
 		reviewlist = parent_frame.getResourceFileLocation()+"reviewlist";
 		statsfile = parent_frame.getResourceFileLocation()+"statsfile";
 		settings = parent_frame.getResourceFileLocation()+"settings";
@@ -350,7 +350,7 @@ public class DataHandler {
 			parent_frame.getFestival().setFestivalSpeed(speed);
 			parent_frame.getFestival().setFestivalVoice(voice);
 			if (current_level==0){
-				chooseLevel("");
+				chooseLevel("", false);
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -605,11 +605,11 @@ public class DataHandler {
 		}
 	}
 
-	/**TODO not_faulted?
+	/**
 	 * Removes given list of words from reviewlist
 	 */
-	private void removeFromReviewList(ArrayList<String> not_faulted_words){
-		for (String w:not_faulted_words){
+	private void removeFromReviewList(ArrayList<String> not_failed_words){
+		for (String w:not_failed_words){
 			if (reviewlist_words.get(current_level).contains(w)){
 				reviewlist_words.get(current_level).remove(w);
 			}
@@ -670,6 +670,21 @@ public class DataHandler {
 	public void increaseLevel(){
 		current_level++;
 	}
+	
+	/**
+	 * @return whether user decided to level up
+	 */
+	public boolean getLevelledUp(){
+		return levelled_up;
+	}
+	
+	/**
+	 * sets on user deciding to level up
+	 * @param flag
+	 */
+	public void setLevelledUp(boolean flag){
+		levelled_up=flag;
+	}
 
 
 	/*
@@ -707,15 +722,22 @@ public class DataHandler {
 	/**
 	 * level chooser pop up asking user to select a level to quiz at
 	 * @param additional_message
+	 * @return whether user chose a level
 	 */
-	public static void chooseLevel(String additional_message) {
+	public static boolean chooseLevel(String additional_message, boolean back_to_quiz_complete) {
 		Integer[] levels = getLevelArray();
 		Integer choice = (Integer)JOptionPane.showInputDialog(parent_frame.getContentPane(), additional_message+"Please select a level to start at", "Which level?", JOptionPane.QUESTION_MESSAGE, null, levels, null);
 		if (choice==null){
-			System.exit(0);
+			if(back_to_quiz_complete){
+				parent_frame.changePanel(PanelID.QuizComplete);
+			} else {
+				System.exit(0);
+			}
+			return false;
 		} else {
 			current_level=choice;
 			writeToSettings();
+			return true;
 		}
 	}
 

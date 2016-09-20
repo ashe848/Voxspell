@@ -128,9 +128,6 @@ public class Quiz extends JPanel {
 		add(scrolling_pane);
 		scrolling_pane.setSize(700, 250);
 		scrolling_pane.setLocation(50, 80);
-//		TODO makes background of progress text transparent
-//		scrolling_pane.getViewport().setOpaque(false);
-//		scrolling_pane.setOpaque(false);	
 		scrolling_pane.setBackground(Color.WHITE);
 	}
 

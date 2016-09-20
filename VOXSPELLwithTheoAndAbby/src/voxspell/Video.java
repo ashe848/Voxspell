@@ -72,6 +72,16 @@ public class Video extends JPanel{
         if(perfect_quiz){
         	video = parent_frame.getResourceFileLocation()+"reward_video.avi";
         } else { //1 wrong
+        	/* 
+        	 * ffmpeg -i reward_video.avi  \ 
+        	 * -vf vflip,hflip,negate,reverse,drawtext="text='CONGRATULATIONS ON GOOD QUIZ': \ 
+        	 * fontsize=40: box=1: boxcolor=white@0.8: x=(w-text_w)/2: y=(h-text_h)/2"  \ 
+        	 * -af aecho,areverse,ashowinfo ffmpeg_reward_video.avi
+        	 * 
+        	 * Skeleton from Nasser's Lecture 9 slides
+        	 * Filters from `ffmpeg -filters`
+        	 * drawtext code from http://stackoverflow.com/questions/17623676/text-on-video-ffmpeg
+        	 */
         	video = parent_frame.getResourceFileLocation()+"ffmpeg_reward_video.avi";
         }
         player.playMedia(video);

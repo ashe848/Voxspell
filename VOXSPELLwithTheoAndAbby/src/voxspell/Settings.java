@@ -85,7 +85,7 @@ public class Settings extends JPanel {
 		//Would introduce changes to DataHandler methods dealing with stats
 		//Way out could be to use String instead of enum
 		FestivalVoice[] voices={FestivalVoice.American, FestivalVoice.Kiwi};
-		JComboBox voice_chooser = new JComboBox(voices);
+		final JComboBox voice_chooser = new JComboBox(voices);
 		
 		//TODO
 		voice_chooser.setForeground(Color.BLACK);
@@ -114,7 +114,7 @@ public class Settings extends JPanel {
 		add(change_speed_label);
 
 		FestivalSpeed[] speeds={FestivalSpeed.slow, FestivalSpeed.normal, FestivalSpeed.fast};
-		JComboBox speed_chooser = new JComboBox(speeds);
+		final JComboBox speed_chooser = new JComboBox(speeds);
 		speed_chooser.setForeground(Color.BLACK);
 		speed_chooser.setBackground(Color.WHITE);
 

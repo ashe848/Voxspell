@@ -443,7 +443,7 @@
 10 0 0 0 defence
 10 1 0 0 grammar
 10 0 0 0 minister
-10 0 0 0 secret
+10 1 0 0 secret
 10 0 0 0 barrier
 10 1 0 1 democracy
 10 0 0 0 graph
@@ -452,7 +452,7 @@
 10 0 0 0 beautiful
 10 0 0 0 disappear
 10 1 0 0 honour
-10 0 0 0 natural
+10 0 0 1 natural
 10 0 0 0 separate
 10 0 0 0 capital
 10 0 0 0 edge
@@ -467,7 +467,7 @@
 10 0 0 0 climate
 10 0 0 0 election
 10 0 0 0 instruction
-10 1 0 0 paragraph
+10 2 0 0 paragraph
 10 1 0 0 subtraction
 10 0 0 0 compare
 10 1 0 1 encourage

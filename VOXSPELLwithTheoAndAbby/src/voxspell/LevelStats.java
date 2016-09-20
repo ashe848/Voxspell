@@ -136,9 +136,9 @@ public class LevelStats extends JPanel{
 	 * Set up level chooser for the number of levels in this word list
 	 * @param type		type of data to fetch for when combobox changes
 	 */
-	private void setupLevelChooser(StatsType type) {
+	private void setupLevelChooser(final StatsType type) {
 		Integer[] levels = parent_frame.getDataHandler().getLevelArray();
-		JComboBox level_chooser = new JComboBox(levels);
+		final JComboBox level_chooser = new JComboBox(levels);
 
 		//default to current level
 		level_chooser.setSelectedItem(parent_frame.getDataHandler().getCurrentLevel());

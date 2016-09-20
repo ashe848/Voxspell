@@ -137,7 +137,7 @@ public class QuizComplete extends JPanel{
 	 */
 	private void setupLevelUpButton() {
 		ImageIcon levelup_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "levelup_button.png");
-		JButton level_up_button = new JButton("", levelup_button_image);
+		final JButton level_up_button = new JButton("", levelup_button_image);
 		
 		level_up_button.setBounds(550, 39, 200, 200);
 		level_up_button.addActionListener(new ActionListener() {

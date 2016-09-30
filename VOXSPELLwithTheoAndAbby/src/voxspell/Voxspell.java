@@ -50,11 +50,11 @@ public class Voxspell extends JFrame{
 		//TODO back to DO_NOTHING_ON_CLOSE
 		//Make the power button on main menu the only way to exit the application
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				JOptionPane.showMessageDialog(null, "Closing the window will result in loss of data\nPlease exit using the power button on main menu", "Error", JOptionPane.WARNING_MESSAGE);
-			}
-		});
+//		addWindowListener(new WindowAdapter() {
+//			public void windowClosing(WindowEvent e) {
+//				JOptionPane.showMessageDialog(null, "Closing the window will result in loss of data\nPlease exit using the power button on main menu", "Error", JOptionPane.WARNING_MESSAGE);
+//			}
+//		});
 
 		//make MainMenu the panel to display
 		add(new MainMenu(this));

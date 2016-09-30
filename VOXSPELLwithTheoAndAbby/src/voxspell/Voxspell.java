@@ -16,6 +16,12 @@ import voxspell.StatsChooser.StatsType;
 
 @SuppressWarnings("serial")
 
+/*
+parent_frame.setEnabled(false);
+set it back to true on X of dialog
+ */
+
+
 /**
  * The class containing the main method 
  * Is the frame for the Voxspell program

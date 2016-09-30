@@ -43,8 +43,6 @@ public class Quiz extends JPanel {
 	private JTextArea display_to_user; //progress text area to show previous information
 	private JTextField input_from_user; //what user puts as guess for spelling quiz
 	
-	private ActionListener submitActionListener;
-
 	private ArrayList<String> words_to_spell; //list of words to spell in quiz
 	private int current_word_number; //indicates which word the user is up to in quiz
 	private int current_attempt_number; //indicates which attempt user is up to when spelling
@@ -76,7 +74,6 @@ public class Quiz extends JPanel {
 			setupSpellHereLabel();
 			setupSpellHereField();
 			setupSubmitButton();
-			setupSubmitActionListener();
 			setupSayAgainButton();
 			setupBackButton();
 			setupBackground();
@@ -146,19 +143,6 @@ public class Quiz extends JPanel {
 		spell_here_text.setSize(300, 50);
 		spell_here_text.setOpaque(false);
 	}
-	
-	/**
-	 * @author Abby S
-	 */
-	private void setupSubmitActionListener(){
-		submitActionListener = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				checkCorrectSpelling(input_from_user.getText());
-				input_from_user.requestFocusInWindow();
-			}
-		};
-	}
 
 	/**
 	 * Adds the field in which user types word
@@ -167,7 +151,13 @@ public class Quiz extends JPanel {
 		input_from_user = new JTextField();
 		input_from_user.setFont(new Font("Courier New", Font.BOLD, 25));
 		input_from_user.setEditable(true);
-		input_from_user.addActionListener(submitActionListener);
+		input_from_user.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				checkCorrectSpelling(input_from_user.getText());
+				input_from_user.requestFocusInWindow();
+			}
+		});
 		
 		add(input_from_user);
 		input_from_user.setSize(400, 40);
@@ -180,13 +170,18 @@ public class Quiz extends JPanel {
 	private void setupSubmitButton() {
 		ImageIcon submit_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "submit_button.png");
 		JButton submit_button = new JButton("", submit_button_image);
-		submit_button.addActionListener(submitActionListener);
+		submit_button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				checkCorrectSpelling(input_from_user.getText());
+				input_from_user.requestFocusInWindow();
+			}
+		});
 
 		add(submit_button);
 		submit_button.setSize(300,150);
 		submit_button.setLocation(50,400);
 	}
-	
 
 	/**
 	 * adds button that lets user re-hear word to spell

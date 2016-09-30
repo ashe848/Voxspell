@@ -29,11 +29,11 @@
 2 0 0 0 they
 2 0 0 0 you
 3 0 0 0 about
-3 0 0 0 be
+3 0 0 1 be
 3 0 0 0 go
 3 0 0 0 into
 3 0 0 0 our
-3 0 0 0 after
+3 0 0 1 after
 3 0 0 0 because
 3 0 0 0 going
 3 0 0 0 just
@@ -53,7 +53,7 @@
 3 0 0 0 his
 3 0 0 0 not
 3 0 0 0 were
-3 0 0 0 back
+3 0 0 1 back
 3 0 0 0 get
 3 0 0 0 home
 3 0 0 0 one

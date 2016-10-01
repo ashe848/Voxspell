@@ -15,8 +15,8 @@ public class Festival {
 	private static Festival instance=null; //since singleton class
 
 	//initialised by readfiles in DataHandler
-	private static FestivalSpeed festival_speed;
-	private static FestivalVoice festival_voice;
+	static FestivalSpeed festival_speed;
+	static FestivalVoice festival_voice;
 
 	//queuing of SwingWorkers to avoid voice overlapping
 	//inspired by http://stackoverflow.com/questions/22412544/swingworker-queue-and-single-using
@@ -117,7 +117,7 @@ public class Festival {
 		} else {
 			//TODO for Windows
 			parent_frame.getDataHandler().writeToScheme(speech, festival_speed, festival_voice);
-			System.out.println(speech);
+			System.out.println(speech + " " + festival_speed.getSpeedValue() + " " + festival_voice.getVoiceValue());
 		}
 	}
 	

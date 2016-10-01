@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -20,6 +21,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import voxspell.Festival.FestivalSpeed;
+import voxspell.Festival.FestivalVoice;
 import voxspell.Voxspell.PanelID;
 
 @SuppressWarnings("serial")
@@ -75,6 +78,8 @@ public class Quiz extends JPanel {
 			setupSpellHereField();
 			setupSubmitButton();
 			setupSayAgainButton();
+			setupChangeVoice();
+			setupChangeSpeed();
 			setupBackButton();
 			setupBackground();
 
@@ -199,6 +204,55 @@ public class Quiz extends JPanel {
 		add(sayagain_button);
 		sayagain_button.setSize(150,150);
 		sayagain_button.setLocation(450,400);
+	}
+	
+	/**
+	 * @author Abby S
+	 */
+	private void setupChangeVoice() {
+		FestivalVoice[] voices={FestivalVoice.American, FestivalVoice.Kiwi};
+		final JComboBox voice_chooser = new JComboBox(voices);
+		voice_chooser.setForeground(Color.BLACK);
+		voice_chooser.setBackground(Color.WHITE);
+
+		//set shown item to be the current voice
+		voice_chooser.setSelectedItem(parent_frame.getFestival().getFestivalVoice());
+		voice_chooser.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if((FestivalVoice)voice_chooser.getSelectedItem()!=null){
+					parent_frame.getFestival().setFestivalVoice((FestivalVoice)voice_chooser.getSelectedItem());
+				}
+				
+			}
+		});
+
+		voice_chooser.setBounds(622, 400, 140, 40);
+		add(voice_chooser);
+	}
+
+	/**
+	 * @author Abby S
+	 */
+	private void setupChangeSpeed() {
+		FestivalSpeed[] speeds={FestivalSpeed.slow, FestivalSpeed.normal, FestivalSpeed.fast};
+		final JComboBox speed_chooser = new JComboBox(speeds);
+		speed_chooser.setForeground(Color.BLACK);
+		speed_chooser.setBackground(Color.WHITE);
+
+		//set shown item to be the current voice
+		speed_chooser.setSelectedItem(parent_frame.getFestival().getFestivalSpeed());
+		speed_chooser.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if((FestivalSpeed)speed_chooser.getSelectedItem()!=null){
+					parent_frame.getFestival().setFestivalSpeed((FestivalSpeed)speed_chooser.getSelectedItem());
+				}
+			}
+		});
+
+		speed_chooser.setBounds(622, 450, 140, 40);
+		add(speed_chooser);
 	}
 
 	/**

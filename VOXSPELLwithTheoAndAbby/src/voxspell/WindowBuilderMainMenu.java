@@ -17,20 +17,7 @@ import javax.swing.JPanel;
 
 import voxspell.Voxspell.PanelID;
 
-@SuppressWarnings("serial")
-
-/**
- * JPanel for Main Menu
- * Allows user to either:
- * 		Go do a quiz
- * 		Review failed words
- * 		Enter settings screen
- * 		Show statistics
- * 		Quit program
- * 
- * Based on Theo's A2 code
- */
-public class MainMenu extends JPanel{
+public class WindowBuilderMainMenu extends JPanel {
 	private Voxspell parent_frame;
 
 	private Image bg_image;
@@ -38,15 +25,14 @@ public class MainMenu extends JPanel{
 	/**
 	 * Constructor, initialise panel properties and GUI elements
 	 */
-	MainMenu(Voxspell parent){
+	public WindowBuilderMainMenu(Voxspell parent){
 		super();
 		setSize(800, 600);
 		setLayout(null);
 
 		parent_frame  = parent;
-	
+
 		setupBackground();
-		setupLogInButton();
 		setupNewQuizButton();
 		setupReviewButton();
 		setupSettingsButton();
@@ -76,25 +62,6 @@ public class MainMenu extends JPanel{
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		g.drawImage(bg_image, 0, 0, this);
-	}
-	
-	/**
-	 * @author Abby S
-	 */
-	private void setupLogInButton() {
-		//TODO
-		JButton btnLogIn = new JButton("Log In");
-		btnLogIn.setBounds(184, 50, 93, 23);
-		btnLogIn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				WindowBuilderLogIn logIn=new WindowBuilderLogIn(parent_frame);
-				logIn.setVisible(true);
-//				logIn.setAlwaysOnTop(true);
-//				parent_frame.setEnabled(false);
-			}
-		});
-		add(btnLogIn);
 	}
 
 	/**
@@ -184,7 +151,6 @@ public class MainMenu extends JPanel{
 				if (askquit_result){
 					//saves to settings before exiting (e.g. if the last thing done was click the level up button)
 					parent_frame.getDataHandler().writeToSettingsFiles();
-					parent_frame.getDataHandler().writeToProgramFiles();
 					System.exit(0);
 				}
 			}
@@ -212,14 +178,18 @@ public class MainMenu extends JPanel{
 	/**
 	 * To display accuracy rates for level user is currently on
 	 */
-	void setupAccuracyRateLabel() {
+	private void setupAccuracyRateLabel() {
 		JLabel accuracy_rate_label = new JLabel(parent_frame.getDataHandler().getAccuracyRates()); 
 		accuracy_rate_label.setFont(new Font("Courier New", Font.BOLD, 12));
 
 		add(accuracy_rate_label);
-		accuracy_rate_label.setVisible(true);
 		accuracy_rate_label.setLocation(50, 530);
 		accuracy_rate_label.setSize(400, 30);
 		accuracy_rate_label.setOpaque(true);
+		{
+			JButton btnLogIn = new JButton("Log In");
+			btnLogIn.setBounds(184, 50, 93, 23);
+			add(btnLogIn);
+		}
 	}
 }

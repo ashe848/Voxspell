@@ -29,7 +29,8 @@ set it back to true on X of dialog
 public class Voxspell extends JFrame{
 	//TODO make this folder hidden
 	private static final String RESOURCE_FILE_LOCATION = System.getProperty("user.dir")+"/resources/";
-
+	static MainMenu main_menu;
+	
 	//Contains the DataHandler and Festival instances which panels get
 	private static DataHandler data_handler;
 	private static Festival festival;
@@ -39,9 +40,7 @@ public class Voxspell extends JFrame{
 	 */
 	public Voxspell(){
 		super();
-		festival = Festival.getInstance(this);
-		data_handler=DataHandler.getInstance(this);
-
+		
 		//setup code from Theo's A2 code
 		setTitle("Voxspell version 0.0000000001 Post-PreAlpha (but still in Alpha)");
 		//TODO 570 or 600?
@@ -61,9 +60,13 @@ public class Voxspell extends JFrame{
 //				JOptionPane.showMessageDialog(null, "Closing the window will result in loss of data\nPlease exit using the power button on main menu", "Error", JOptionPane.WARNING_MESSAGE);
 //			}
 //		});
-
+		
+		festival = Festival.getInstance(this);
+		data_handler=DataHandler.getInstance(this);
+		
 		//make MainMenu the panel to display
-		add(new MainMenu(this));
+		main_menu=new MainMenu(this);
+		add(main_menu);
 		revalidate();
 	}
 
@@ -113,7 +116,9 @@ public class Voxspell extends JFrame{
 		//Change panel pased on ID passed into method. Initialise extra constructor parameters if needed.
 		switch (id) {
 		case MainMenu:
-			this.getContentPane().add(new MainMenu(this));
+			main_menu=new MainMenu(this);
+			this.getContentPane().add(main_menu);
+			main_menu.setupAccuracyRateLabel();
 			break;
 		case Settings:
 			this.getContentPane().add(new Settings(this));

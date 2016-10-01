@@ -32,10 +32,14 @@ public class DataHandler {
 
 	private static DataHandler instance=null; //since singleton class
 
-	private static String user;
-	private static String spelling_list_name;
+	static String user;
+	static String spelling_list_name;
 
+	static ArrayList<String> users;
+	
 	//filenames
+	private static String program_stats;
+	private static String users_list;
 	private static String user_settings;
 	private static String festival_scheme; //name of scheme file used to say words
 	private static String spelling_list; //NZ official spelling list
@@ -70,7 +74,12 @@ public class DataHandler {
 	 */
 	private DataHandler(Voxspell parent){
 		parent_frame=parent;
-		user="Abby";
+		
+		//default to visitor
+		user="Visitor";
+
+		readUsers();
+//		readProgramStatsFile();
 		readUserFiles();
 		readListSpecificFiles();
 	}
@@ -93,12 +102,58 @@ public class DataHandler {
 	/**
 	 * @author Abby S
 	 */
-	private static void readUserFiles() {
+	private static void readUsers() {
+		users=new ArrayList<>();
+		users_list=parent_frame.getResourceFileLocation()+"users";
+		try {
+			File users_list_file = new File(users_list);
+			if (!users_list_file.exists()) {
+				users_list_file.createNewFile();
+			}else {
+				BufferedReader current_BR = new BufferedReader(new FileReader(users_list_file));
+				String string_input;
+				while ((string_input = current_BR.readLine()) != null) {
+					users.add(string_input.trim());
+				}
+				current_BR.close();
+			}
+		}catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * @author Abby S
+	 */
+	private static void readProgramStatsFile() {
+		
+		
+		program_stats=parent_frame.getResourceFileLocation()+"programfile";
+		try {
+			File program_file = new File(program_stats);
+			if (!program_file.exists()) {
+				program_file.createNewFile();
+			}
+		}catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/**
+	 * @author Abby S
+	 */
+	static void readUserFiles() {
 		try {
 			//set defaults
 			FestivalSpeed speed=FestivalSpeed.normal;
 			FestivalVoice voice=FestivalVoice.Kiwi;
 			spelling_list_name="NZCER-spelling-lists.txt";
+			words_in_quiz=10;
 			
 			//if resources folder can't be found, abort program now instead of get exceptions thrown everywhere
 			//no barrier against if a png was deleted (could test for all contents and abort program, but that's not the purpose of this project)
@@ -178,7 +233,7 @@ public class DataHandler {
 	 * 		Reviewlist words file			contents put into reviewlist_words arraylist of arraylist(String) by level
 	 * 		Settings file					contents put into current_level field
 	 */
-	private static void readListSpecificFiles(){
+	static void readListSpecificFiles(){
 		setupListSpecificFiles();
 		declareDataStructures();
 		readInWordlist();
@@ -193,8 +248,8 @@ public class DataHandler {
 	 * checks resource and data files
 	 */
 	private static void setupListSpecificFiles() {
-		festival_scheme = parent_frame.getResourceFileLocation()+"festival.scm";
 		spelling_list = System.getProperty("user.dir")+"/spellinglists/"+spelling_list_name;
+		festival_scheme = parent_frame.getResourceFileLocation()+"festival.scm";
 		reviewlist = parent_frame.getResourceFileLocation()+user+"/"+user+"_"+spelling_list_name+"_reviewlist";
 		statsfile = parent_frame.getResourceFileLocation()+user+"/"+user+"_"+spelling_list_name+"_statsfile";
 		list_settings = parent_frame.getResourceFileLocation()+user+"/"+user+"_"+spelling_list_name+"_settings";
@@ -216,9 +271,9 @@ public class DataHandler {
 				stats_file.createNewFile();				
 			}
 
-			File settings_file = new File(list_settings);
-			if (!settings_file.exists()) {
-				settings_file.createNewFile();				
+			File list_settings_file = new File(list_settings);
+			if (!list_settings_file.exists()) {
+				list_settings_file.createNewFile();				
 			}
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Fatal error concerning data files\nAborting", "Fatal Error", JOptionPane.WARNING_MESSAGE);
@@ -387,6 +442,8 @@ public class DataHandler {
 	 * 		<current level> <festival speed> <festival voice>
 	 */
 	private static void readInListSettings() {
+		//sets default
+		current_level=0;
 		try {
 			BufferedReader current_BR = new BufferedReader(new FileReader(list_settings));
 
@@ -483,6 +540,23 @@ public class DataHandler {
 			fw.write("(Parameter.set 'Duration_Stretch " + speed.getSpeedValue() +")\n");
 			fw.write("(SayText \""+speech+"\")");			
 			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * @author Abby S
+	 */
+	public void writeToProgramFiles(){
+		try {
+			FileWriter fw = new FileWriter(new File(users_list), false);
+			for (String u:users){
+				fw.write(u+"\n");
+			}
+			fw.close();
+//			fw = new FileWriter(new File(program_stats), false);
+//			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -848,7 +922,7 @@ public class DataHandler {
 	 * @return string representation of accuracy rate
 	 */
 	public String getAccuracyRates(){
-		String to_return="";
+		String to_return=user;
 		to_return+="[level "+this.getCurrentLevel();
 		to_return+="]\t[Attempted: "+getAttemptedCount()+"/"+persistent_allwords.get(current_level).size();
 		to_return+="]\t["+reviewlist_words.get(current_level).size()+" failed out of "+persistent_allwords.get(current_level).size()+"]";

@@ -355,7 +355,10 @@ public class DataHandler {
 
 			parent_frame.getFestival().setFestivalSpeed(speed);
 			parent_frame.getFestival().setFestivalVoice(voice);
+			
+			//first launch or cleared data
 			if (current_level==0){
+				words_in_quiz=10;
 				chooseLevel("", false);
 			}
 		} catch (FileNotFoundException e) {

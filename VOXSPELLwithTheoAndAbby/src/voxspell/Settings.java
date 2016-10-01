@@ -39,6 +39,7 @@ public class Settings extends JPanel {
 	//temporary values selected by user. Only saved if user confirms
 	private FestivalVoice temp_voice_selection=null;
 	private FestivalSpeed temp_speed_selection=null;
+	private Integer temp_word_selection=null;
 	private JFormattedTextField field;
 
 	/**
@@ -135,26 +136,27 @@ public class Settings extends JPanel {
 	 * @author Abby S
 	 */
 	private void setupWordInQuizField(){
-		JLabel lblChangeNumberOf = new JLabel("preferred number of words in quiz (0-100)");
+		JLabel lblChangeNumberOf = new JLabel("Change preferred number of words in quiz");
 		lblChangeNumberOf.setForeground(Color.YELLOW);
 		lblChangeNumberOf.setBounds(31, 416, 254, 15);
 		add(lblChangeNumberOf);
 
+		Integer[] words={5, 10, 15, 20, 50, 100};
+		final JComboBox word_number_chooser = new JComboBox(words);
+		word_number_chooser.setForeground(Color.BLACK);
+		word_number_chooser.setBackground(Color.WHITE);
 
-		//modified from http://stackoverflow.com/a/16228698
-		NumberFormat format = NumberFormat.getInstance();
-		NumberFormatter formatter = new NumberFormatter(format);
-		formatter.setValueClass(Integer.class);
-		formatter.setMinimum(0);
-		formatter.setMaximum(100);
-		formatter.setAllowsInvalid(false);
-		// If you want the value to be committed on each keystroke instead of focus lost
-		formatter.setCommitsOnValidEdit(true);
-		field = new JFormattedTextField(formatter);
+		//set shown item to be the current voice
+		word_number_chooser.setSelectedItem(parent_frame.getDataHandler().words_in_quiz);
+		word_number_chooser.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				temp_word_selection=(Integer) word_number_chooser.getSelectedItem();
+			}
+		});
 
-		field.setBounds(31, 443, 166, 40);
-		add(field);
-		field.setColumns(10);
+		word_number_chooser.setBounds(31, 443, 166, 40);
+		add(word_number_chooser);
 	}
 
 	/**
@@ -177,7 +179,9 @@ public class Settings extends JPanel {
 					if(temp_speed_selection!=null){
 						parent_frame.getFestival().setFestivalSpeed(temp_speed_selection);
 					}
-					parent_frame.getDataHandler().words_in_quiz=(int) field.getValue();
+					if(temp_word_selection!=null){
+						parent_frame.getDataHandler().words_in_quiz=temp_word_selection;
+					}
 					parent_frame.getDataHandler().writeToSettings();
 				}
 				parent_frame.changePanel(PanelID.MainMenu); //else doesn't save

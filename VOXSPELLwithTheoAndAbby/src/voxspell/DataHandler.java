@@ -36,6 +36,8 @@ public class DataHandler {
 	static String spelling_list_name;
 
 	static ArrayList<String> users;
+	static String global_top;
+	static double personal_best;
 	
 	//filenames
 	private static String program_stats;
@@ -79,7 +81,7 @@ public class DataHandler {
 		user="Visitor";
 
 		readUsers();
-//		readProgramStatsFile();
+		readProgramStatsFile();
 		readUserFiles();
 		readListSpecificFiles();
 	}
@@ -128,13 +130,19 @@ public class DataHandler {
 	 * @author Abby S
 	 */
 	private static void readProgramStatsFile() {
-		
-		
-		program_stats=parent_frame.getResourceFileLocation()+"programfile";
+		global_top="0";
+		program_stats=parent_frame.getResourceFileLocation()+"programstats";
 		try {
 			File program_file = new File(program_stats);
 			if (!program_file.exists()) {
 				program_file.createNewFile();
+			} else {
+				BufferedReader current_BR = new BufferedReader(new FileReader(program_file));
+				String string_input;
+				while ((string_input = current_BR.readLine()) != null) {
+					global_top=string_input;
+				}
+				current_BR.close();
 			}
 		}catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -154,6 +162,7 @@ public class DataHandler {
 			FestivalVoice voice=FestivalVoice.Kiwi;
 			spelling_list_name="NZCER-spelling-lists.txt";
 			words_in_quiz=10;
+			personal_best=0;
 			
 			//if resources folder can't be found, abort program now instead of get exceptions thrown everywhere
 			//no barrier against if a png was deleted (could test for all contents and abort program, but that's not the purpose of this project)
@@ -211,8 +220,9 @@ public class DataHandler {
 						voice=FestivalVoice.Kiwi;
 					}
 
-					String word_in_quiz_string=split_line[3];
-					words_in_quiz=Integer.parseInt(word_in_quiz_string);
+					words_in_quiz=Integer.parseInt(split_line[3]);
+					
+					personal_best=Double.parseDouble(split_line[4]);
 				}
 				current_BR.close();
 			}
@@ -522,7 +532,7 @@ public class DataHandler {
 			fw_list_settings.close();
 
 			FileWriter fw_user_sesttings = new FileWriter(new File(user_settings), false);
-			fw_user_sesttings.write(spelling_list_name+" "+parent_frame.getFestival().getFestivalSpeed().getSpeedValue()+" "+parent_frame.getFestival().getFestivalVoice().getVoiceValue()+" "+words_in_quiz);
+			fw_user_sesttings.write(spelling_list_name+" "+parent_frame.getFestival().getFestivalSpeed().getSpeedValue()+" "+parent_frame.getFestival().getFestivalVoice().getVoiceValue()+" "+words_in_quiz+" "+personal_best);
 			fw_user_sesttings.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -555,8 +565,9 @@ public class DataHandler {
 				fw.write(u+"\n");
 			}
 			fw.close();
-//			fw = new FileWriter(new File(program_stats), false);
-//			fw.close();
+			fw = new FileWriter(new File(program_stats), false);
+			fw.write(global_top);
+			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

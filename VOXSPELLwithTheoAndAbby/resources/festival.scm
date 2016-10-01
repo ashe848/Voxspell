@@ -1,3 +1,3 @@
-(voice_kal_diphone)
-(Parameter.set 'Duration_Stretch 2.0)
-(SayText "Please spell social")
+(voice_akl_nz_jdt_diphone)
+(Parameter.set 'Duration_Stretch 1.5)
+(SayText "Correct")

@@ -22,18 +22,8 @@ import javax.swing.table.DefaultTableModel;
 
 import voxspell.Voxspell.PanelID;
 
-@SuppressWarnings("serial")
+public class WindowBuilderQuizComplete extends JPanel {
 
-/**
- * JPanel class displayed when user finishes the quiz or review quiz
- * Shows user table of words attempted and if they got it right or not
- * as well as how many attempts taken if they got it correct.
- * 
- * Also allows user to level up and watch reward video
- * if user has completed quiz well.
- * @author theooswanditosw164
- */
-public class QuizComplete extends JPanel{
 	private Voxspell parent_frame;
 	private Image bg_image;
 
@@ -47,7 +37,7 @@ public class QuizComplete extends JPanel{
 	/**
 	 * Constructor, initialise panel parameters and GUI elements
 	 */
-	public QuizComplete(Voxspell parent){
+	public WindowBuilderQuizComplete(Voxspell parent){
 		setSize(800,600);
 		setLayout(null);
 
@@ -120,17 +110,13 @@ public class QuizComplete extends JPanel{
 	 */
 	private void determineDisplay(){
 		//at most 1 incorrect
-		if(latest_failed_words.size()<2) {
+		
 			setupVideoButton();
 			
-			//whether user has already levelled up before playing video
-			if(!parent_frame.getDataHandler().getLevelledUp()){
+		
 				setupLevelUpButton();//set up when just 1 failed just for assignment 3 purposes to go with specs
-			} else {
-				setupLevelledUpLabel("");
-			}
-		}
-
+		
+				setupLevelledUpLabel("up ");
 		/* GOOD IDEA FOR FINAL PROJECT, BUT MAY BE GOING AGAINST A3 SPECS SO COMMENTED OUT ON NASSER'S RECOMMENDATION
 
 		//complete level when 50% attempted with no fails
@@ -140,17 +126,15 @@ public class QuizComplete extends JPanel{
 		 */
 		
 		//3 points for mastered, 1 point for faulted. None for failed. As a percentage
-		double score=(double)(latest_mastered_words.size()*3 + latest_faulted_words.size())/parent_frame.getDataHandler().words_in_quiz;
+		double score=(latest_mastered_words.size()*3 + latest_faulted_words.size()*1)/parent_frame.getDataHandler().words_in_quiz;
+		
 		if(score > parent_frame.getDataHandler().personal_best){
-			setupNewPB(score);
 			parent_frame.getDataHandler().personal_best=score;
-			
-			double global_top_score=Double.parseDouble(parent_frame.getDataHandler().global_top.split("\\s+")[0]);
-			if (score > global_top_score){
+			if (score > Double.parseDouble(parent_frame.getDataHandler().global_top.split("\\s+")[0])){
 				parent_frame.getDataHandler().global_top=score+" "+parent_frame.getDataHandler().user+" "+parent_frame.getDataHandler().spelling_list_name;
-				setupNewGlobalTop(score,global_top_score);
+				setupNewGlobalTop();
 			} else {
-				setupJustNewPB(score,parent_frame.getDataHandler().global_top.split("\\s+"));
+				setupNewPB();
 			}
 		}
 	}
@@ -159,8 +143,7 @@ public class QuizComplete extends JPanel{
 	 * Button to move up a level
 	 */
 	private void setupLevelUpButton() {
-		ImageIcon levelup_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "levelup_button.png");
-		final JButton level_up_button = new JButton("", levelup_button_image);
+		final JButton level_up_button = new JButton();
 
 		level_up_button.setBounds(550, 213, 200, 114);
 		level_up_button.addActionListener(new ActionListener() {
@@ -203,8 +186,7 @@ public class QuizComplete extends JPanel{
 	 * Button to play video
 	 */
 	private void setupVideoButton() {
-		ImageIcon videoreward_image = new ImageIcon(parent_frame.getResourceFileLocation() + "video_reward_button.png");
-		JButton video_button = new JButton("", videoreward_image);		
+		JButton video_button = new JButton();		
 
 		video_button.setBounds(550, 354, 200, 114);
 		video_button.addActionListener(new ActionListener() {
@@ -219,28 +201,15 @@ public class QuizComplete extends JPanel{
 	/**
 	 * @author Abby S
 	 */
-	private void setupNewPB(double record_score){
-		JLabel lblNewPersonalBest = new JLabel("New personal best score: "+record_score+"!");
-		lblNewPersonalBest.setBounds(550, 119, 200, 15);
-		add(lblNewPersonalBest);
+	private void setupNewGlobalTop() {
+		
 	}
 	
 	/**
 	 * @author Abby S
 	 */
-	private void setupJustNewPB(double record_score, String[] global){		
-		JLabel label = new JLabel("Global top is "+global[0]+" by "+global[1]+" in "+global[2]);
-		label.setBounds(550, 150, 200, 15);
-		add(label);
-	}
-	
-	/**
-	 * @author Abby S
-	 */
-	private void setupNewGlobalTop(double record_score, double global) {
-			JLabel label = new JLabel("Bet previous global top by "+(record_score-global)+"!");
-			label.setBounds(550, 150, 2000, 15);
-			add(label);
+	private void setupNewPB() {
+		
 	}
 	
 	/**
@@ -276,6 +245,14 @@ public class QuizComplete extends JPanel{
 		accuracy_rate_label.setLocation(50, 500);
 		accuracy_rate_label.setSize(300, 50);
 		accuracy_rate_label.setOpaque(true);
+		
+		JLabel lblNewPersonalBest = new JLabel("New Personal Best!");
+		lblNewPersonalBest.setBounds(550, 119, 200, 15);
+		add(lblNewPersonalBest);
+		
+		JLabel label = new JLabel("New Personal Best!");
+		label.setBounds(550, 150, 200, 15);
+		add(label);
 	}
 
 	/**

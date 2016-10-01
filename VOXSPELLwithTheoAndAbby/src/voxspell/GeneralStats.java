@@ -63,7 +63,7 @@ public class GeneralStats extends JPanel {
 	 */
 	private void setupTable(StatsType type) {
 		//creates table model with said column names, currently no rows, and disallowing the editing of cells
-		String[] column_names = {"Level","Word","Mastered","Faulted","Failed"};
+		String[] column_names = {"Level","Word","Strike!","Spare!","Still Incorrect"};
 		int row_count = 0;
 		DefaultTableModel model = new DefaultTableModel(column_names, row_count){
 			public boolean isCellEditable(int row, int col) {

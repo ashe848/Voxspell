@@ -89,11 +89,11 @@ public class QuizComplete extends JPanel{
 
 		//add columns to table with count in column names
 		Object[] mastered_col=new Object[latest_mastered_words.size()];
-		model.addColumn("First try! ("+latest_mastered_words.size()+")", latest_mastered_words.toArray(mastered_col));
+		model.addColumn("Strike! ("+latest_mastered_words.size()+")", latest_mastered_words.toArray(mastered_col));
 		Object[] faulted_col=new Object[latest_mastered_words.size()];
-		model.addColumn("Second try! ("+latest_faulted_words.size()+")", latest_faulted_words.toArray(faulted_col));
+		model.addColumn("Spare! ("+latest_faulted_words.size()+")", latest_faulted_words.toArray(faulted_col));
 		Object[] failed_col=new Object[latest_mastered_words.size()];
-		model.addColumn("Didn't get it ("+latest_failed_words.size()+")", latest_failed_words.toArray(failed_col));
+		model.addColumn("Still Incorrect ("+latest_failed_words.size()+")", latest_failed_words.toArray(failed_col));
 
 		table.setModel(model);
 

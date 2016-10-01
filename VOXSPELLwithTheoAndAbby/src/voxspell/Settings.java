@@ -141,7 +141,7 @@ public class Settings extends JPanel {
 		lblChangeNumberOf.setBounds(31, 416, 254, 15);
 		add(lblChangeNumberOf);
 
-		Integer[] words={5, 10, 15, 20, 50, 100};
+		Integer[] words={1, 5, 10, 15, 20, 50, 100};
 		final JComboBox word_number_chooser = new JComboBox(words);
 		word_number_chooser.setForeground(Color.BLACK);
 		word_number_chooser.setBackground(Color.WHITE);

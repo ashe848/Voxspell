@@ -138,7 +138,7 @@ public class WindowBuilderSettings extends JPanel {
 					if(temp_speed_selection!=null){
 						parent_frame.getFestival().setFestivalSpeed(temp_speed_selection);
 					}
-					parent_frame.getDataHandler().writeToSettings();
+					parent_frame.getDataHandler().writeToSettingsFiles();
 				}
 				parent_frame.changePanel(PanelID.MainMenu); //else doesn't save
 			}

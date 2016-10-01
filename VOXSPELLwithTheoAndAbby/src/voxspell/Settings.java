@@ -141,6 +141,7 @@ public class Settings extends JPanel {
 		lblChangeNumberOf.setBounds(31, 416, 254, 15);
 		add(lblChangeNumberOf);
 
+//		TODO: remove 1 after testing
 		Integer[] words={1, 5, 10, 15, 20, 50, 100};
 		final JComboBox word_number_chooser = new JComboBox(words);
 		word_number_chooser.setForeground(Color.BLACK);
@@ -182,7 +183,7 @@ public class Settings extends JPanel {
 					if(temp_word_selection!=null){
 						parent_frame.getDataHandler().words_in_quiz=temp_word_selection;
 					}
-					parent_frame.getDataHandler().writeToSettings();
+					parent_frame.getDataHandler().writeToSettingsFiles();
 				}
 				parent_frame.changePanel(PanelID.MainMenu); //else doesn't save
 			}

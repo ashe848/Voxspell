@@ -107,9 +107,16 @@ public class DataHandler {
 				JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary resources folder has been removed\nAborting", "Fatal Error", JOptionPane.WARNING_MESSAGE);
 				System.exit(1);
 			}
+			
 			File user_folder = new File(parent_frame.getResourceFileLocation()+user+"/");
 			if (!user_folder.exists()) {
 				user_folder.mkdir();
+			}
+			
+			File spelling_lists_folder = new File(System.getProperty("user.dir")+"/spellinglists/");
+			if (!spelling_lists_folder.exists()){
+				spelling_lists_folder.mkdir();
+				//TODO pop up to add list into this folder
 			}
 			
 			user_settings=parent_frame.getResourceFileLocation()+user+"/"+user+"_settings";
@@ -187,7 +194,7 @@ public class DataHandler {
 	 */
 	private static void setupListSpecificFiles() {
 		festival_scheme = parent_frame.getResourceFileLocation()+"festival.scm";
-		spelling_list = parent_frame.getResourceFileLocation()+spelling_list_name;
+		spelling_list = System.getProperty("user.dir")+"/spellinglists/"+spelling_list_name;
 		reviewlist = parent_frame.getResourceFileLocation()+user+"/"+user+"_"+spelling_list_name+"_reviewlist";
 		statsfile = parent_frame.getResourceFileLocation()+user+"/"+user+"_"+spelling_list_name+"_statsfile";
 		list_settings = parent_frame.getResourceFileLocation()+user+"/"+user+"_"+spelling_list_name+"_settings";

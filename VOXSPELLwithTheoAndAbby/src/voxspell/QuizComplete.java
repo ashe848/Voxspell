@@ -93,7 +93,7 @@ public class QuizComplete extends JPanel{
 		Object[] faulted_col=new Object[latest_mastered_words.size()];
 		model.addColumn("Spare! ("+latest_faulted_words.size()+")", latest_faulted_words.toArray(faulted_col));
 		Object[] failed_col=new Object[latest_mastered_words.size()];
-		model.addColumn("Still Incorrect ("+latest_failed_words.size()+")", latest_failed_words.toArray(failed_col));
+		model.addColumn("Didn't get it ("+latest_failed_words.size()+")", latest_failed_words.toArray(failed_col));
 
 		table.setModel(model);
 

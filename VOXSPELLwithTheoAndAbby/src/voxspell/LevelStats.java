@@ -71,7 +71,7 @@ public class LevelStats extends JPanel{
 	 */
 	private void refreshTable(int level, StatsType type){
 		//creates table model with said column names, currently no rows, and disallowing the editing of cells
-		String[] column_names = {"Word","Strike!","Spare!","Still Incorrect"};
+		String[] column_names = {"Word","Strike!","Spare!","Didn't get it"};
 		int row_count = 0;
 
 		DefaultTableModel model = new DefaultTableModel(column_names, row_count){

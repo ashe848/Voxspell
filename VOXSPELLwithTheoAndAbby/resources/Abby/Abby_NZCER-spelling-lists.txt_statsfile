@@ -12,7 +12,7 @@
 2 0 0 0 had
 2 0 0 0 of
 2 0 0 0 that
-2 0 0 1 up
+2 0 0 0 up
 2 0 0 0 but
 2 0 0 0 he
 2 0 0 0 on
@@ -274,7 +274,7 @@
 7 0 0 0 road
 7 0 0 0 wait
 7 0 0 0 dead
-7 0 0 0 game
+7 1 0 1 game
 7 0 0 0 let
 7 0 0 0 side
 7 0 0 0 work
@@ -307,7 +307,7 @@
 8 0 0 0 exercise
 8 0 0 0 jumped
 8 0 0 0 safety
-8 0 0 0 surprise
+8 1 0 0 surprise
 8 0 0 0 better
 8 0 0 0 February
 8 0 0 0 light
@@ -342,7 +342,7 @@
 8 0 0 0 city
 8 0 0 0 hoping
 8 0 0 0 peace
-8 0 0 0 since
+8 1 0 0 since
 8 0 0 0 writing
 8 0 0 0 diary
 8 0 0 0 hungry

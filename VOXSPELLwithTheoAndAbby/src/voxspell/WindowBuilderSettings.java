@@ -7,44 +7,32 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.text.NumberFormat;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.text.NumberFormatter;
 
 import voxspell.Festival.FestivalSpeed;
 import voxspell.Festival.FestivalVoice;
 import voxspell.Voxspell.PanelID;
+import javax.swing.JTextField;
 
-@SuppressWarnings("serial")
-
-/**
- * Settings JPanel class
- * Allows user to change festival voice and speed
- * Also allows user to reset all data (settings & stats)
- */
-
-public class Settings extends JPanel {
+public class WindowBuilderSettings extends JPanel {
 	private Voxspell parent_frame;
 	private Image bg_image;
 
 	//temporary values selected by user. Only saved if user confirms
 	private FestivalVoice temp_voice_selection=null;
 	private FestivalSpeed temp_speed_selection=null;
-	private JFormattedTextField field;
-
+	private JTextField textField;
 	/**
-	 * Constructor, initialise panel properties and GUI elements
+	 * Create the panel.
 	 */
-	public Settings(Voxspell parent){
+	public WindowBuilderSettings(Voxspell parent) {
 		setSize(800,600);
 		setLayout(null);
 
@@ -52,7 +40,6 @@ public class Settings extends JPanel {
 		seupReset();
 		setupChangeVoice();
 		setupChangeSpeed();
-		setupWordInQuizField();
 		setupBackButton();
 		setupBackground();
 	}
@@ -63,7 +50,7 @@ public class Settings extends JPanel {
 	private void seupReset() {
 		ImageIcon clearall_image = new ImageIcon(parent_frame.getResourceFileLocation() + "clear_stats_button_alt.png");
 		JButton clear_stats_button = new JButton("", clearall_image);
-
+		
 		clear_stats_button.setBounds(400, 200, 300, 200);
 		add(clear_stats_button);
 		clear_stats_button.addActionListener(new ActionListener() {
@@ -132,32 +119,6 @@ public class Settings extends JPanel {
 	}
 
 	/**
-	 * @author Abby S
-	 */
-	private void setupWordInQuizField(){
-		JLabel lblChangeNumberOf = new JLabel("preferred number of words in quiz (0-100)");
-		lblChangeNumberOf.setForeground(Color.YELLOW);
-		lblChangeNumberOf.setBounds(31, 416, 254, 15);
-		add(lblChangeNumberOf);
-
-
-		//modified from http://stackoverflow.com/a/16228698
-		NumberFormat format = NumberFormat.getInstance();
-		NumberFormatter formatter = new NumberFormatter(format);
-		formatter.setValueClass(Integer.class);
-		formatter.setMinimum(0);
-		formatter.setMaximum(100);
-		formatter.setAllowsInvalid(false);
-		// If you want the value to be committed on each keystroke instead of focus lost
-		formatter.setCommitsOnValidEdit(true);
-		field = new JFormattedTextField(formatter);
-
-		field.setBounds(31, 443, 166, 40);
-		add(field);
-		field.setColumns(10);
-	}
-
-	/**
 	 * Back button to return to previous panel (user prompted to save before actually doing so)
 	 */
 	private void setupBackButton(){
@@ -177,7 +138,6 @@ public class Settings extends JPanel {
 					if(temp_speed_selection!=null){
 						parent_frame.getFestival().setFestivalSpeed(temp_speed_selection);
 					}
-					parent_frame.getDataHandler().words_in_quiz=(int) field.getValue();
 					parent_frame.getDataHandler().writeToSettings();
 				}
 				parent_frame.changePanel(PanelID.MainMenu); //else doesn't save
@@ -187,6 +147,16 @@ public class Settings extends JPanel {
 		add(back_button);
 		back_button.setSize(50,50);
 		back_button.setLocation(700,500);
+		
+		JLabel lblChangeNumberOf = new JLabel("Change preferred number of words in quiz");
+		lblChangeNumberOf.setForeground(Color.YELLOW);
+		lblChangeNumberOf.setBounds(31, 416, 254, 15);
+		add(lblChangeNumberOf);
+		
+		textField = new JTextField();
+		textField.setBounds(31, 443, 166, 40);
+		add(textField);
+		textField.setColumns(10);
 	}
 
 	/**
@@ -204,7 +174,7 @@ public class Settings extends JPanel {
 		}
 		return false;
 	}
-
+	
 	/**
 	 * Puts the background image, overriding paintComponent method(below) to ensure functionality
 	 */
@@ -218,7 +188,7 @@ public class Settings extends JPanel {
 		setLocation(0,0);
 		setSize(800, 600);
 	}
-
+	
 	/**
 	 * Overriding the paintComponent method to place background
 	 */

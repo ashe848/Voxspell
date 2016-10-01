@@ -39,6 +39,9 @@ public class DataHandler {
 	private static String reviewlist; //Holds words that have been failed and not mastered/faulted after
 	private static String settings; //name of file that holds various settings
 
+//	TODO: change back to 10 after testing
+	static int words_in_quiz; //number of words in each quiz
+	
 	private static ArrayList<ArrayList<String>> wordlist_words; //words from wordlist file
 	private static ArrayList<ArrayList<String>> reviewlist_words; //words from reviewlist file
 
@@ -339,7 +342,10 @@ public class DataHandler {
 					case "kal_diphone":
 						voice=FestivalVoice.American;
 						break;
-					}		
+					}
+					
+					String word_in_quiz_string=split_line[3];
+					words_in_quiz=Integer.parseInt(word_in_quiz_string);
 				} else {
 					current_level=0;
 				}
@@ -405,7 +411,7 @@ public class DataHandler {
 	public static void writeToSettings(){
 		try {
 			FileWriter fw = new FileWriter(new File(settings), false);
-			fw.write(current_level+" "+parent_frame.getFestival().getFestivalSpeed().getSpeedValue()+" "+parent_frame.getFestival().getFestivalVoice().getVoiceValue());
+			fw.write(current_level+" "+parent_frame.getFestival().getFestivalSpeed().getSpeedValue()+" "+parent_frame.getFestival().getFestivalVoice().getVoiceValue()+" "+words_in_quiz);
 			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();

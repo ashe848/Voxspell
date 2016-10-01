@@ -50,8 +50,7 @@ public class Quiz extends JPanel {
 	private int current_word_number; //indicates which word the user is up to in quiz
 	private int current_attempt_number; //indicates which attempt user is up to when spelling
 	private boolean attempted_once; //flag indicating which attempt user is up to
-	//	TODO: change back to 10 after testing
-	private int words_in_quiz=3; //number of words in each quiz
+	
 
 	private ArrayList<String> words_mastered; //list of words user got first try in quiz
 	private ArrayList<String> words_faulted; //list of words user got second try in quiz
@@ -101,9 +100,9 @@ public class Quiz extends JPanel {
 	private void initialiseWordsToSpell(){
 		//normal quiz
 		if(quiz_type==PanelID.Quiz){
-			words_to_spell = parent_frame.getDataHandler().getWordsForSpellingQuiz(words_in_quiz, PanelID.Quiz);
+			words_to_spell = parent_frame.getDataHandler().getWordsForSpellingQuiz(parent_frame.getDataHandler().words_in_quiz, PanelID.Quiz);
 		} else { //review quiz
-			words_to_spell = parent_frame.getDataHandler().getWordsForSpellingQuiz(words_in_quiz, PanelID.Review);
+			words_to_spell = parent_frame.getDataHandler().getWordsForSpellingQuiz(parent_frame.getDataHandler().words_in_quiz, PanelID.Review);
 		}		 
 	}
 

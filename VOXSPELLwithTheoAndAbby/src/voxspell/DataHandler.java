@@ -38,7 +38,7 @@ public class DataHandler {
 	static ArrayList<String> users;
 	static String global_top;
 	static double personal_best;
-	
+
 	//filenames
 	private static String program_stats;
 	private static String users_list;
@@ -77,7 +77,7 @@ public class DataHandler {
 	 */
 	private DataHandler(Voxspell parent){
 		parent_frame=parent;
-		
+
 		//default to visitor
 		user="Visitor";
 
@@ -126,7 +126,7 @@ public class DataHandler {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * @author Abby S
 	 */
@@ -151,8 +151,8 @@ public class DataHandler {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+
 	/**
 	 * @author Abby S
 	 */
@@ -164,7 +164,7 @@ public class DataHandler {
 			spelling_list_name="NZCER-spelling-lists.txt";
 			words_in_quiz=10;
 			personal_best=0;
-			
+
 			//if resources folder can't be found, abort program now instead of get exceptions thrown everywhere
 			//no barrier against if a png was deleted (could test for all contents and abort program, but that's not the purpose of this project)
 			File resources_folder = new File(parent_frame.getResourceFileLocation());
@@ -172,18 +172,18 @@ public class DataHandler {
 				JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary resources folder has been removed\nAborting", "Fatal Error", JOptionPane.WARNING_MESSAGE);
 				System.exit(1);
 			}
-			
+
 			File user_folder = new File(parent_frame.getResourceFileLocation()+user+"/");
 			if (!user_folder.exists()) {
 				user_folder.mkdir();
 			}
-			
+
 			File spelling_lists_folder = new File(System.getProperty("user.dir")+"/spellinglists/");
 			if (!spelling_lists_folder.exists()){
 				spelling_lists_folder.mkdir();
 				//TODO pop up to add list into this folder
 			}
-			
+
 			user_settings=parent_frame.getResourceFileLocation()+user+"/"+user+"_settings";
 			File user_settings_file = new File(user_settings);
 			if (!user_settings_file.exists()) {
@@ -196,7 +196,11 @@ public class DataHandler {
 					String[] split_line = string_input.split(" ");
 
 					spelling_list_name =split_line[0];
-
+					File saved_spelling_list = new File(System.getProperty("user.dir")+"/spellinglists/"+spelling_list_name);
+					if (!saved_spelling_list.exists()) {
+						spelling_list_name="NZCER-spelling-lists.txt";
+					}
+					
 					//get festival speed
 					String speed_string=split_line[1];
 					switch(speed_string){
@@ -222,7 +226,7 @@ public class DataHandler {
 					}
 
 					words_in_quiz=Integer.parseInt(split_line[3]);
-					
+
 					personal_best=Double.parseDouble(split_line[4]);
 				}
 				current_BR.close();
@@ -235,7 +239,7 @@ public class DataHandler {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Method that reads contents of files and stores them into data structure.
 	 * Files read from:
@@ -259,7 +263,7 @@ public class DataHandler {
 	 * checks resource and data files
 	 */
 	private static void setupListSpecificFiles() {
-//		System.out.println(System.getProperty("user.dir"));
+		//		System.out.println(System.getProperty("user.dir"));
 		spelling_list = System.getProperty("user.dir")+"/spellinglists/"+spelling_list_name;
 		festival_scheme = parent_frame.getResourceFileLocation()+"festival.scm";
 		reviewlist = parent_frame.getResourceFileLocation()+user+"/"+user+"_"+spelling_list_name+"_reviewlist";
@@ -321,7 +325,7 @@ public class DataHandler {
 			String string_input;
 			ArrayList<String> temp_string_array = new ArrayList<String>();
 			level_names.add(" ");
-			
+
 			while ((string_input = current_BR.readLine()) != null) {
 				if (!string_input.isEmpty()){
 					if (string_input.charAt(0)=='%'){ //new level, offload previous level
@@ -486,35 +490,38 @@ public class DataHandler {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-	
+
+
+
+
 
 	/**
 	 * @author Abby S
 	 */
 	static boolean errorCheckSelectedFile(File selected) {
+		if(selected.getName().contains(" ")){
+			return false;
+		}
+		
 		try {
 			BufferedReader current_BR = new BufferedReader(new FileReader(selected));
 
 			String input_line = current_BR.readLine();
-			System.out.println(input_line);
+			//must have % on first line followed by something (not empty or spaces) for level name
 			if (input_line.isEmpty() || input_line.charAt(0)!='%' || input_line.trim().equals("%")){
 				current_BR.close();
 				return false;
-			//level line okay
 			} 
-				input_line=current_BR.readLine();	
-				System.out.println(input_line);
-				if(input_line==null || input_line.trim().isEmpty()) {
+			
+			input_line=current_BR.readLine();	
+			//must have something on next line so at least 1 "word" to quiz
+			if(input_line==null || input_line.trim().isEmpty()) {
 				current_BR.close();
 				return false;
 			} else {
 				current_BR.close();
 				return true;
 			}
-			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return false;
@@ -522,9 +529,8 @@ public class DataHandler {
 			e.printStackTrace();
 			return false;
 		}
-		
 	}
-	
+
 
 	/*
 	 * Writing to files
@@ -598,7 +604,7 @@ public class DataHandler {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * @author Abby S
 	 */

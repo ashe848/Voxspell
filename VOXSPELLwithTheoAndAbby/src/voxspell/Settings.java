@@ -7,23 +7,26 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.text.NumberFormat;
 import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.text.NumberFormatter;
+import javax.swing.JTextArea;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 
 import voxspell.Festival.FestivalSpeed;
 import voxspell.Festival.FestivalVoice;
 import voxspell.Voxspell.PanelID;
+
+//import java.io.*;
+//import javax.swing.filechooser.*;
 
 @SuppressWarnings("serial")
 
@@ -42,6 +45,8 @@ public class Settings extends JPanel {
 	private FestivalSpeed temp_speed_selection=null;
 	private Integer temp_word_selection=null;
 	private String temp_level_selection=null;
+	private String temp_list_selection=null;
+	private boolean changedWordList=false;
 	/**
 	 * Constructor, initialise panel properties and GUI elements
 	 */
@@ -55,6 +60,7 @@ public class Settings extends JPanel {
 		setupChangeSpeed();
 		setupWordInQuiz();
 		setupChooseLevel();
+		setupChooseWordList();
 		setupBackButton();
 		setupBackground();
 	}
@@ -142,7 +148,7 @@ public class Settings extends JPanel {
 		lblChangeNumberOf.setBounds(31, 416, 254, 15);
 		add(lblChangeNumberOf);
 
-//		TODO: remove 1 after testing
+		//		TODO: remove 1 after testing
 		Integer[] words={1, 5, 10, 15, 25, 50};
 		final JComboBox word_number_chooser = new JComboBox(words);
 		word_number_chooser.setForeground(Color.BLACK);
@@ -160,18 +166,18 @@ public class Settings extends JPanel {
 		word_number_chooser.setBounds(31, 443, 166, 40);
 		add(word_number_chooser);
 	}
-	
-	
+
+
 	/**
 	 * @author Abby S
 	 */
 	private void setupChooseLevel() {
-		JLabel lblChooseLevel = new JLabel("Choose Level");
+		JLabel lblChooseLevel = new JLabel("Choose Level (for current list)");
 		lblChooseLevel.setForeground(Color.YELLOW);
 		lblChooseLevel.setBounds(335, 418, 166, 15);
 		add(lblChooseLevel);
-		
-		
+
+
 		String[] levels = parent_frame.getDataHandler().getLevelArray();
 		//only shows levels up to and including current level
 		final JComboBox level_chooser = new JComboBox(Arrays.copyOf(levels, parent_frame.getDataHandler().getCurrentLevel()));
@@ -191,12 +197,55 @@ public class Settings extends JPanel {
 	}
 
 	/**
+	 * @author Abby S
+	 */
+	private void setupChooseWordList(){
+		JLabel label_1=new JLabel("");
+		add(label_1);
+		JButton btnNewButton = new JButton("Choose another list");
+		btnNewButton.setBounds(31, 527, 93, 23);
+		btnNewButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {	
+				File spelling_lists_folder = new File(System.getProperty("user.dir")+"/spellinglists/");
+				FileSystemView fileSystemView = new SingleRootFileSystemView(spelling_lists_folder);
+
+				JFileChooser chooser = new JFileChooser(spelling_lists_folder, fileSystemView);
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("Plain text files", "txt");
+				chooser.setFileFilter(filter);
+				int returnVal = chooser.showDialog(parent_frame, "Choose this word list");
+				if(returnVal == JFileChooser.APPROVE_OPTION) {
+					temp_list_selection=chooser.getSelectedFile().getName();
+					
+//						JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary resources folder has been removed\nAborting", "Fatal Error", JOptionPane.WARNING_MESSAGE);
+
+						changedWordList=true;
+						//					label_1 = new JLabel("Will change to "+temp_list_selection+" on save");
+						label_1.setText("Will change to "+temp_list_selection+" on save.");
+						label_1.setForeground(Color.YELLOW);
+						label_1.setBounds(150, 531, 254, 15);
+						
+					}
+				
+			}
+		});
+		add(btnNewButton);
+
+		JLabel label = new JLabel("Current word list: "+parent_frame.getDataHandler().spelling_list_name);
+		label.setForeground(Color.YELLOW);
+		label.setBounds(31, 500, 254, 15);
+		add(label);
+	}
+
+	/**
 	 * Back button to return to previous panel (user prompted to save before actually doing so)
 	 */
 	private void setupBackButton(){
 		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
 		JButton back_button = new JButton("", back_button_image);
 		back_button.addActionListener(new ActionListener() {
+
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				boolean asksave_result = askToConfirm("Would you like to Save?", "Save Settings");
@@ -215,6 +264,11 @@ public class Settings extends JPanel {
 					}
 					if(temp_level_selection!=null){
 						parent_frame.getDataHandler().current_level=parent_frame.getDataHandler().level_names.indexOf(temp_level_selection);
+					}
+					parent_frame.getDataHandler().writeToSettingsFiles();
+					if(changedWordList && temp_list_selection!=null){
+						parent_frame.getDataHandler().spelling_list_name=temp_list_selection;
+						parent_frame.getDataHandler().readListSpecificFiles();
 					}
 					parent_frame.getDataHandler().writeToSettingsFiles();
 				}
@@ -263,5 +317,70 @@ public class Settings extends JPanel {
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		g.drawImage(bg_image, 0, 0, this);
+	}
+
+
+
+	/**
+	 *  A FileSystemView class that limits the file selections to a single root.
+	 *
+	 *  When used with the JFileChooser component the user will only be able to
+	 *  traverse the directories contained within the specified root fill.
+	 *
+	 *  The "Look In" combo box will only display the specified root.
+	 *
+	 *  The "Up One Level" button will be disable when at the root.
+	 * https://tips4java.wordpress.com/2009/01/28/single-root-file-chooser/
+	 * http://www.camick.com/java/source/SingleRootFileSystemView.java
+	 */
+	class SingleRootFileSystemView extends FileSystemView
+	{
+		File root;
+		File[] roots = new File[1];
+
+		public SingleRootFileSystemView(File path)
+		{
+			super();
+
+			try
+			{
+				root = path.getCanonicalFile();
+				roots[0] = root;
+			}
+			catch(IOException e)
+			{
+				throw new IllegalArgumentException( e );
+			}
+
+			if ( !root.isDirectory() )
+			{
+				String message = root + " is not a directory";
+				throw new IllegalArgumentException( message );
+			}
+		}
+
+		@Override
+		public File createNewFolder(File containingDir)
+		{
+			return null;
+		}
+
+		@Override
+		public File getDefaultDirectory()
+		{
+			return root;
+		}
+
+		@Override
+		public File getHomeDirectory()
+		{
+			return root;
+		}
+
+		@Override
+		public File[] getRoots()
+		{
+			return roots;
+		}
 	}
 }

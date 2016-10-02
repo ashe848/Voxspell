@@ -168,6 +168,20 @@ public class WindowBuilderSettings extends JPanel {
 		comboBox.setBackground(Color.WHITE);
 		comboBox.setBounds(335, 443, 166, 40);
 		add(comboBox);
+		
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.setBounds(31, 527, 93, 23);
+		add(btnNewButton);
+		
+		JLabel label = new JLabel("Change preferred number of words in quiz");
+		label.setForeground(Color.YELLOW);
+		label.setBounds(31, 500, 254, 15);
+		add(label);
+		
+		JLabel label_1 = new JLabel("Change preferred number of words in quiz");
+		label_1.setForeground(Color.YELLOW);
+		label_1.setBounds(150, 531, 254, 15);
+		add(label_1);
 	}
 
 	/**

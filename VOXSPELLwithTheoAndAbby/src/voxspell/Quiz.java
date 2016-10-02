@@ -130,6 +130,7 @@ public class Quiz extends JPanel {
 	/**
 	 * Colour is result of last word, because text area clears once move on
 	 * But for the colour-blind, they can hear the result said by festival anyway
+	 * Using JLabel only seems to work if it's a local variable, but that doesn't do the job as it can't be changed
 	 * @author Abby S
 	 */
 	private void setupProgressBar() {

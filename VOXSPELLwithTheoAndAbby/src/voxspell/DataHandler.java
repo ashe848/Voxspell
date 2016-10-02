@@ -259,6 +259,7 @@ public class DataHandler {
 	 * checks resource and data files
 	 */
 	private static void setupListSpecificFiles() {
+//		System.out.println(System.getProperty("user.dir"));
 		spelling_list = System.getProperty("user.dir")+"/spellinglists/"+spelling_list_name;
 		festival_scheme = parent_frame.getResourceFileLocation()+"festival.scm";
 		reviewlist = parent_frame.getResourceFileLocation()+user+"/"+user+"_"+spelling_list_name+"_reviewlist";

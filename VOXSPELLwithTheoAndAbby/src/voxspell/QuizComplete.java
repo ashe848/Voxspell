@@ -191,7 +191,7 @@ public class QuizComplete extends JPanel{
 	 * to a new level.
 	 */
 	private void setupLevelledUpLabel(String direction) {
-		JLabel level_up_button = new JLabel("Moved " + direction + "to level "+parent_frame.getDataHandler().getCurrentLevel(), JLabel.CENTER);
+		JLabel level_up_button = new JLabel("Moved " + direction + "to "+parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().getCurrentLevel()), JLabel.CENTER);
 
 		level_up_button.setBounds(550, 213, 200, 114);
 		level_up_button.setForeground(Color.YELLOW);

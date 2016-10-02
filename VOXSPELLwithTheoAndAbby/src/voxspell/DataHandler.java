@@ -514,7 +514,7 @@ public class DataHandler {
 		try {
 			FileWriter fw = new FileWriter(new File(reviewlist), false);
 			for (int i=1; i<getNumberOfLevels(); i++){
-				fw.write("%Level "+i+"\n");
+				fw.write("%"+level_names.get(i)+"\n");
 				for (String w:reviewlist_words.get(i)){
 					fw.write(w+"\n");
 				}
@@ -938,7 +938,7 @@ public class DataHandler {
 	 */
 	public String getAccuracyRates(){
 		String to_return=user;
-		to_return+="[level "+this.getCurrentLevel();
+		to_return+="[level "+level_names.get(getCurrentLevel());
 		to_return+="]\t[Attempted: "+getAttemptedCount()+"/"+persistent_allwords.get(current_level).size();
 		to_return+="]\t["+reviewlist_words.get(current_level).size()+" failed out of "+persistent_allwords.get(current_level).size()+"]";
 

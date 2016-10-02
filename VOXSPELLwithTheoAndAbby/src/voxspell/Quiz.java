@@ -17,6 +17,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -45,6 +46,9 @@ public class Quiz extends JPanel {
 
 	private JTextArea display_to_user; //progress text area to show previous information
 	private JTextField input_from_user; //what user puts as guess for spelling quiz
+	private JProgressBar progressBar;
+	private JLabel lblNewLabel;
+	private JLabel label;
 	
 	private ArrayList<String> words_to_spell; //list of words to spell in quiz
 	private int current_word_number; //indicates which word the user is up to in quiz
@@ -72,7 +76,9 @@ public class Quiz extends JPanel {
 
 		if (words_to_spell.size()!=0){
 			setupTitle();
+			setupProgressBar();
 			setupProgressTextArea();
+//			setupFeedBackLabel();
 			setupSpellHereLabel();
 			setupSpellHereField();
 			setupSubmitButton();
@@ -120,6 +126,18 @@ public class Quiz extends JPanel {
 		title_to_display.setSize(700, 50);
 		title_to_display.setOpaque(false);
 	}
+	
+	/**
+	 * Colour is result of last word, because text area clears once move on
+	 * But for the colour-blind, they can hear the result said by festival anyway
+	 * @author Abby S
+	 */
+	private void setupProgressBar() {
+		progressBar = new JProgressBar(0,parent_frame.getDataHandler().words_in_quiz);
+		progressBar.setBounds(50, 207, 700, 23);
+		progressBar.setBackground(Color.WHITE);
+		add(progressBar);
+	}
 
 	/**
 	 * Sets up text area that shows user history of guesses and progress of quiz
@@ -132,11 +150,31 @@ public class Quiz extends JPanel {
 		
 		JScrollPane scrolling_pane = new JScrollPane(display_to_user);
 		add(scrolling_pane);
-		scrolling_pane.setSize(700, 250);
+		scrolling_pane.setSize(700, 117);
 		scrolling_pane.setLocation(50, 80);
 		scrolling_pane.setBackground(Color.WHITE);
 	}
-
+	
+	/**
+	 * @author Abby S
+	 */
+	private void setupFeedBackLabel() {
+		JLabel lblNewLabel = new JLabel("Previous word was: CORRECT");
+		lblNewLabel.setBounds(50, 240, 700, 40);
+		add(lblNewLabel);
+		lblNewLabel.setOpaque(true);
+		
+		JLabel label = new JLabel("Previous word was: INCORRECT");
+		label.setBounds(50, 290, 700, 40);
+		add(label);
+		label.setOpaque(true);
+		
+		lblNewLabel.setVisible(false);
+		label.setVisible(false);
+		
+		this.label=label;
+		this.lblNewLabel=lblNewLabel;
+	}
 	/**
 	 * Adds label next to field where user types
 	 */
@@ -162,6 +200,8 @@ public class Quiz extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				checkCorrectSpelling(input_from_user.getText());
 				input_from_user.requestFocusInWindow();
+//				lblNewLabel.setVisible(false);
+//				label.setVisible(false);
 			}
 		});
 		
@@ -181,6 +221,8 @@ public class Quiz extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				checkCorrectSpelling(input_from_user.getText());
 				input_from_user.requestFocusInWindow();
+//				lblNewLabel.setVisible(false);
+//				label.setVisible(false);
 			}
 		});
 
@@ -320,8 +362,10 @@ public class Quiz extends JPanel {
 	 * Says word to spell and updates text progress area
 	 */
 	private void startQuiz(){
-		parent_frame.getFestival().speak("Please spell "+words_to_spell.get(current_word_number),false);
-		display_to_user.append("Please spell word "+(current_word_number+1)+" out of "+words_to_spell.size()+"\tAttempt: "+(current_attempt_number)+"/2\n");
+		parent_frame.getFestival().speak("Please spell the word... "+words_to_spell.get(current_word_number),false);
+		display_to_user.append("Word: "+(current_word_number+1)+" out of "+words_to_spell.size()+"\nAttempt: "+(current_attempt_number)+" out of 2\n");
+		progressBar.setValue(current_word_number);
+//		lblNewLabel.setText("");
 	}
 
 	/**
@@ -332,10 +376,10 @@ public class Quiz extends JPanel {
 		input_from_user.setText("");//clear input field	
 		
 		if(!attempt.matches(".*[a-zA-Z]+.*")){ //user doesn't enters any alphabetical characters
-			display_to_user.append("\t\tWord includes alphabet characters, try again\n\n");
+			display_to_user.append("Feedback: Word includes alphabet characters, try again\n\n");
 		}
 		else{
-			display_to_user.append("\tYour guess was: "+attempt);//updates progress area with user guess
+			display_to_user.append("Feedback: \""+attempt+"\" is ");//updates progress area with user guess
 			
 			//if correct spelling (case-sensitive)
 			if(attempt.equals(words_to_spell.get(current_word_number))){
@@ -348,13 +392,15 @@ public class Quiz extends JPanel {
 					words_faulted.add(words_to_spell.get(current_word_number));
 				}
 
-				display_to_user.append("\tCORRECT\n\n");
+				progressBar.setForeground(Color.GREEN);
 				current_word_number+=1;
 				current_attempt_number=1;
 				attempted_once = true;
+				display_to_user.setText("");//clear display
+//				lblNewLabel.setVisible(true);
 			} else{//incorrect spelling
 				parent_frame.getFestival().speak("Incorrect", false);
-				display_to_user.append("\tINCORRECT\n\n");
+				display_to_user.append("INCORRECT\n\n");
 
 				//second time getting it wrong(failed)
 				if(current_attempt_number == 2){
@@ -362,6 +408,9 @@ public class Quiz extends JPanel {
 					current_attempt_number=1;
 					current_word_number+=1;
 					attempted_once = true;
+					display_to_user.setText("");//clear display
+					progressBar.setForeground(Color.RED);
+//					label.setVisible(true);
 				} else{	//first time getting it wrong(faulted so far, maybe failed later)
 					parent_frame.getFestival().speak("Please try again", false);
 					attempted_once=false;

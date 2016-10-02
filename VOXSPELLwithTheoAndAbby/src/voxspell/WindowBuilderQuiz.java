@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 
 import voxspell.Voxspell.PanelID;
 import javax.swing.JComboBox;
+import javax.swing.JProgressBar;
 
 public class WindowBuilderQuiz extends JPanel {
 
@@ -64,7 +65,7 @@ public class WindowBuilderQuiz extends JPanel {
 
 		JScrollPane scrolling_pane = new JScrollPane(display_to_user);
 		add(scrolling_pane);
-		scrolling_pane.setSize(700, 250);
+		scrolling_pane.setSize(700, 117);
 		scrolling_pane.setLocation(50, 80);
 		scrolling_pane.setBackground(Color.WHITE);
 
@@ -135,6 +136,22 @@ public class WindowBuilderQuiz extends JPanel {
 		JButton btnAddToReview = new JButton("Add to review");
 		btnAddToReview.setBounds(290, 400, 130, 23);
 		add(btnAddToReview);
+		
+		JProgressBar progressBar = new JProgressBar();
+		progressBar.setValue(3);
+		progressBar.setMaximum(20);
+		progressBar.setToolTipText("Word");
+		progressBar.setForeground(Color.GREEN);
+		progressBar.setBounds(50, 207, 700, 23);
+		add(progressBar);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setBounds(50, 240, 700, 40);
+		add(lblNewLabel);
+		
+		JLabel label = new JLabel("New label");
+		label.setBounds(50, 290, 700, 40);
+		add(label);
 
 
 	}	

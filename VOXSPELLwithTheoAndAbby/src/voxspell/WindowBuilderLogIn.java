@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import voxspell.Voxspell.PanelID;
 import voxspell.WindowBuilderInputError.InputError;
 
 import javax.swing.JLabel;
@@ -92,7 +93,7 @@ public class WindowBuilderLogIn extends JFrame {
 					parent_frame.getDataHandler().readUserFiles();
 					parent_frame.getDataHandler().readListSpecificFiles();
 //					parent_frame.setEnabled(true);
-					parent_frame.main_menu.setupAccuracyRateLabel();
+					parent_frame.changePanel(PanelID.MainMenu);
 					logInFrame.dispose();
 				}
 			}

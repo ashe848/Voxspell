@@ -215,19 +215,25 @@ public class Settings extends JPanel {
 				chooser.setFileFilter(filter);
 				int returnVal = chooser.showDialog(parent_frame, "Choose this word list");
 				if(returnVal == JFileChooser.APPROVE_OPTION) {
-					temp_list_selection=chooser.getSelectedFile().getName();
 					
-//						JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary resources folder has been removed\nAborting", "Fatal Error", JOptionPane.WARNING_MESSAGE);
+					if (!parent_frame.getDataHandler().errorCheckSelectedFile(chooser.getSelectedFile())){
+							JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary resources folder has been removed\nAborting", "Fatal Error", JOptionPane.WARNING_MESSAGE);
 
+					} else {
+						temp_list_selection=chooser.getSelectedFile().getName();
 						changedWordList=true;
 						//					label_1 = new JLabel("Will change to "+temp_list_selection+" on save");
 						label_1.setText("Will change to "+temp_list_selection+" on save.");
 						label_1.setForeground(Color.YELLOW);
 						label_1.setBounds(150, 531, 254, 15);
+					}
+
 						
 					}
 				
 			}
+
+			
 		});
 		add(btnNewButton);
 
@@ -236,6 +242,7 @@ public class Settings extends JPanel {
 		label.setBounds(31, 500, 254, 15);
 		add(label);
 	}
+	
 
 	/**
 	 * Back button to return to previous panel (user prompted to save before actually doing so)

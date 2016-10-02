@@ -486,6 +486,45 @@ public class DataHandler {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	
+
+	/**
+	 * @author Abby S
+	 */
+	static boolean errorCheckSelectedFile(File selected) {
+		try {
+			BufferedReader current_BR = new BufferedReader(new FileReader(selected));
+
+			String input_line = current_BR.readLine();
+			System.out.println(input_line);
+			if (input_line.isEmpty() || input_line.charAt(0)!='%' || input_line.trim().equals("%")){
+				current_BR.close();
+				return false;
+			//level line okay
+			} 
+				input_line=current_BR.readLine();	
+				System.out.println(input_line);
+				if(input_line==null || input_line.trim().isEmpty()) {
+				current_BR.close();
+				return false;
+			} else {
+				current_BR.close();
+				return true;
+			}
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+	
 
 	/*
 	 * Writing to files

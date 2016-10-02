@@ -157,6 +157,17 @@ public class WindowBuilderSettings extends JPanel {
 		textField.setBounds(31, 443, 166, 40);
 		add(textField);
 		textField.setColumns(10);
+		
+		JLabel lblChooseLevel = new JLabel("Choose Level");
+		lblChooseLevel.setForeground(Color.YELLOW);
+		lblChooseLevel.setBounds(335, 418, 166, 15);
+		add(lblChooseLevel);
+		
+		JComboBox comboBox = new JComboBox(new Object[]{});
+		comboBox.setForeground(Color.BLACK);
+		comboBox.setBackground(Color.WHITE);
+		comboBox.setBounds(335, 443, 166, 40);
+		add(comboBox);
 	}
 
 	/**

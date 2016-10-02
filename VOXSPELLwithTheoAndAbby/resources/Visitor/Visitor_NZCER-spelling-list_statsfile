@@ -5,7 +5,7 @@
 1 0 0 0 was
 1 0 0 0 and
 1 0 0 0 in
-1 0 0 0 my
+1 1 0 0 my
 1 0 0 0 to
 1 0 0 0 we
 2 0 0 0 at
@@ -19,7 +19,7 @@
 2 0 0 0 then
 2 0 0 0 went
 2 0 0 0 for
-2 1 0 0 is
+2 2 0 0 is
 2 0 0 0 she
 2 1 0 1 there
 2 0 0 0 when
@@ -32,5 +32,5 @@
 3 0 0 0 be
 3 0 0 0 go
 3 0 0 0 into
-3 0 0 0 our
+3 0 0 1 our
 3 1 0 0 after

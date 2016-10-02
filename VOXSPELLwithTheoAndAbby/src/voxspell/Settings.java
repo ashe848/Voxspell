@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -40,8 +41,7 @@ public class Settings extends JPanel {
 	private FestivalVoice temp_voice_selection=null;
 	private FestivalSpeed temp_speed_selection=null;
 	private Integer temp_word_selection=null;
-	private JFormattedTextField field;
-
+	private String temp_level_selection=null;
 	/**
 	 * Constructor, initialise panel properties and GUI elements
 	 */
@@ -53,7 +53,8 @@ public class Settings extends JPanel {
 		seupReset();
 		setupChangeVoice();
 		setupChangeSpeed();
-		setupWordInQuizField();
+		setupWordInQuiz();
+		setupChooseLevel();
 		setupBackButton();
 		setupBackground();
 	}
@@ -135,14 +136,14 @@ public class Settings extends JPanel {
 	/**
 	 * @author Abby S
 	 */
-	private void setupWordInQuizField(){
+	private void setupWordInQuiz(){
 		JLabel lblChangeNumberOf = new JLabel("Change preferred number of words in quiz");
 		lblChangeNumberOf.setForeground(Color.YELLOW);
 		lblChangeNumberOf.setBounds(31, 416, 254, 15);
 		add(lblChangeNumberOf);
 
 //		TODO: remove 1 after testing
-		Integer[] words={1, 5, 10, 15, 20, 50, 100};
+		Integer[] words={1, 5, 10, 15, 25, 50};
 		final JComboBox word_number_chooser = new JComboBox(words);
 		word_number_chooser.setForeground(Color.BLACK);
 		word_number_chooser.setBackground(Color.WHITE);
@@ -158,6 +159,35 @@ public class Settings extends JPanel {
 
 		word_number_chooser.setBounds(31, 443, 166, 40);
 		add(word_number_chooser);
+	}
+	
+	
+	/**
+	 * @author Abby S
+	 */
+	private void setupChooseLevel() {
+		JLabel lblChooseLevel = new JLabel("Choose Level");
+		lblChooseLevel.setForeground(Color.YELLOW);
+		lblChooseLevel.setBounds(335, 418, 166, 15);
+		add(lblChooseLevel);
+		
+		
+		String[] levels = parent_frame.getDataHandler().getLevelArray();
+		//only shows levels up to and including current level
+		final JComboBox level_chooser = new JComboBox(Arrays.copyOf(levels, parent_frame.getDataHandler().getCurrentLevel()));
+
+		//default to current level
+		level_chooser.setSelectedItem(parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().getCurrentLevel()));
+		level_chooser.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				temp_level_selection = (String)level_chooser.getSelectedItem();
+			}
+		});
+		level_chooser.setForeground(Color.BLACK);
+		level_chooser.setBackground(Color.WHITE);
+		level_chooser.setBounds(335, 443, 166, 40);
+		add(level_chooser);
 	}
 
 	/**
@@ -182,6 +212,9 @@ public class Settings extends JPanel {
 					}
 					if(temp_word_selection!=null){
 						parent_frame.getDataHandler().words_in_quiz=temp_word_selection;
+					}
+					if(temp_level_selection!=null){
+						parent_frame.getDataHandler().current_level=parent_frame.getDataHandler().level_names.indexOf(temp_level_selection);
 					}
 					parent_frame.getDataHandler().writeToSettingsFiles();
 				}

@@ -141,7 +141,7 @@ public class LevelStats extends JPanel{
 		final JComboBox level_chooser = new JComboBox(levels);
 
 		//default to current level
-		level_chooser.setSelectedItem(parent_frame.getDataHandler().getCurrentLevel());
+		level_chooser.setSelectedItem(parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().getCurrentLevel()));
 		level_chooser.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

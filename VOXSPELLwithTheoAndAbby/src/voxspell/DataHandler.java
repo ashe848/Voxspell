@@ -70,7 +70,7 @@ public class DataHandler {
 	private static ArrayList<String> latest_failed_words; //list of failed words from last quiz (for QuizComplete table)
 	private static boolean levelled_up=false; //flag for whether user had decided to level up
 
-	private static int current_level=0; //initialised so if settings file is empty/wiped
+	static int current_level=0; //initialised so if settings file is empty/wiped
 
 	/**
 	 * Constructor for single instance, reference parent frame and starts reading files

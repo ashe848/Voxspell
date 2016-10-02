@@ -196,7 +196,7 @@ public class Quiz extends JPanel {
 		sayagain_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				parent_frame.getFestival().speak(words_to_spell.get(current_word_number));
+				parent_frame.getFestival().speak(words_to_spell.get(current_word_number),true);
 			}
 		});
 
@@ -297,7 +297,7 @@ public class Quiz extends JPanel {
 	 * Says word to spell and updates text progress area
 	 */
 	private void startQuiz(){
-		parent_frame.getFestival().speak("Please spell "+words_to_spell.get(current_word_number));
+		parent_frame.getFestival().speak("Please spell "+words_to_spell.get(current_word_number),false);
 		display_to_user.append("Please spell word "+(current_word_number+1)+" out of "+words_to_spell.size()+"\tAttempt: "+(current_attempt_number)+"/2\n");
 	}
 
@@ -316,7 +316,7 @@ public class Quiz extends JPanel {
 			
 			//if correct spelling (case-sensitive)
 			if(attempt.equals(words_to_spell.get(current_word_number))){
-				parent_frame.getFestival().speak("Correct");
+				parent_frame.getFestival().speak("Correct", false);
 
 				//adds to respective arraylist based on which attempt they get it right
 				if(attempted_once==true){
@@ -330,7 +330,7 @@ public class Quiz extends JPanel {
 				current_attempt_number=1;
 				attempted_once = true;
 			} else{//incorrect spelling
-				parent_frame.getFestival().speak("Incorrect");
+				parent_frame.getFestival().speak("Incorrect", false);
 				display_to_user.append("\tINCORRECT\n\n");
 
 				//second time getting it wrong(failed)
@@ -340,7 +340,7 @@ public class Quiz extends JPanel {
 					current_word_number+=1;
 					attempted_once = true;
 				} else{	//first time getting it wrong(faulted so far, maybe failed later)
-					parent_frame.getFestival().speak("Please try again");
+					parent_frame.getFestival().speak("Please try again", false);
 					attempted_once=false;
 					current_attempt_number+=1;
 				}

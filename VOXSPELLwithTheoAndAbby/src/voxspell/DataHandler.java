@@ -875,7 +875,7 @@ public class DataHandler {
 	 */
 	public static boolean chooseLevel(String additional_message, boolean back_to_quiz_complete) {
 		String[] levels = getLevelArray();
-		String choice = (String)JOptionPane.showInputDialog(parent_frame.getContentPane(), additional_message+"Please select a level to start at", "Which level?", JOptionPane.QUESTION_MESSAGE, null, levels, null);
+		String choice = (String)JOptionPane.showInputDialog(parent_frame.getContentPane(), additional_message+"Please select a level to start at\nIf you find it too difficult, can change in Settings", "Which level?", JOptionPane.QUESTION_MESSAGE, null, levels, null);
 		if (choice==null){
 			if(back_to_quiz_complete){
 				parent_frame.changePanel(PanelID.QuizComplete);

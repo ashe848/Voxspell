@@ -103,11 +103,11 @@ public class Festival {
 	 * Else adds to a queue to avoid the overlapping of voices
 	 * @param speech
 	 */
-	public void speak(String speech){
+	public void speak(String speech, boolean say_again){
 		//Only makes Festival calls on Linux to avoid issues on other OS
 		//For development purposes to speed up testing
 		if (System.getProperty("os.name").equals("Linux")) {
-			FestivalWorker worker = new FestivalWorker(speech);
+			FestivalWorker worker = new FestivalWorker(speech, say_again);
 			worker_queue.add(worker);
 			if (!locked){
 				locked=true;
@@ -116,7 +116,11 @@ public class Festival {
 			}
 		} else {
 			//TODO for Windows
-			parent_frame.getDataHandler().writeToScheme(speech, festival_speed, festival_voice);
+			if (say_again){
+				parent_frame.getDataHandler().writeToScheme(speech, festival_speed.slow, festival_voice);
+			} else {
+				parent_frame.getDataHandler().writeToScheme(speech, festival_speed, festival_voice);
+			}
 			System.out.println(speech + " " + festival_speed.getSpeedValue() + " " + festival_voice.getVoiceValue());
 		}
 	}
@@ -133,23 +137,31 @@ public class Festival {
 	static class FestivalWorker extends SwingWorker<Void, Void> {
 		//what to speak
 		private String speech;
+		private boolean say_again;
 
 		/**
 		 * Constructor
 		 * @param speech
 		 */
-		private FestivalWorker(String speech){
+		private FestivalWorker(String speech, boolean say_again){
 			this.speech=speech;
+			this.say_again=say_again;
 		}
 
 		/**
 		 * The time-consuming task done on a background worker thread
 		 */
 		protected Void doInBackground(){
-			//writes to .scm file
-			parent_frame.getDataHandler().writeToScheme(speech, festival_speed, festival_voice);
+			//writes to .scm file, slow speed for say again
+			if (say_again){
+				parent_frame.getDataHandler().writeToScheme(speech, festival_speed.slow, festival_voice);
+			} else {
+				parent_frame.getDataHandler().writeToScheme(speech, festival_speed, festival_voice);
+			}
+			
 
 			//makes call to festival to execute the scm file in batch mode
+			//TODO Add in quotes to file location (like in write to scheme) so festival works in folderrs with spaces in name
 			String command = "festival -b "+parent_frame.getResourceFileLocation()+"festival.scm";
 			ProcessBuilder pb = new ProcessBuilder("bash", "-c", command);
 			try {

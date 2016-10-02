@@ -108,7 +108,7 @@ public class WindowBuilderQuiz extends JPanel {
 		sayagain_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				parent_frame.getFestival().speak(words_to_spell.get(current_word_number));
+//				parent_frame.getFestival().speak(words_to_spell.get(current_word_number));
 			}
 		});
 

@@ -768,7 +768,7 @@ public class DataHandler {
 	/**
 	 * Adds list of failed words into reviewlist
 	 */
-	private void addToReviewList(ArrayList<String> failed_words){
+	void addToReviewList(ArrayList<String> failed_words){
 		for (String w:failed_words){
 			if (!reviewlist_words.get(current_level).contains(w)){
 				reviewlist_words.get(current_level).add(w);

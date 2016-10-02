@@ -79,6 +79,7 @@ public class Quiz extends JPanel {
 			setupSayAgainButton();
 			setupChangeVoice();
 			setupChangeSpeed();
+			setupAddToReviewButton();
 			setupBackButton();
 			setupBackground();
 
@@ -93,6 +94,7 @@ public class Quiz extends JPanel {
 			startQuiz(); //begins quiz logic
 		}
 	}
+
 
 	/**
 	 * Method that determines what will be tested in quiz based on type of quiz
@@ -183,7 +185,7 @@ public class Quiz extends JPanel {
 		});
 
 		add(submit_button);
-		submit_button.setSize(300,150);
+		submit_button.setSize(230,150);
 		submit_button.setLocation(50,400);
 	}
 
@@ -253,6 +255,27 @@ public class Quiz extends JPanel {
 		speed_chooser.setBounds(622, 450, 140, 40);
 		add(speed_chooser);
 	}
+	
+	/**
+	 * Doesn't affect stats
+	 * @author Abby S
+	 */
+	private void setupAddToReviewButton() {
+		JButton btnAddToReview = new JButton("Add to review");
+		btnAddToReview.setBounds(290, 400, 130, 23);
+		btnAddToReview.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ArrayList<String> word_to_add=new ArrayList<>();
+				word_to_add.add(words_to_spell.get(current_word_number));
+				parent_frame.getDataHandler().addToReviewList(word_to_add);
+				
+			}
+		});
+		add(btnAddToReview);
+	}
+
 
 	/**
 	 * Back button to return to previous panel (user prompted before actually doing so)

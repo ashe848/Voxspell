@@ -100,7 +100,7 @@ public class WindowBuilderQuiz extends JPanel {
 		});
 
 		add(submit_button);
-		submit_button.setSize(300,150);
+		submit_button.setSize(230,150);
 		submit_button.setLocation(50,400);
 
 		ImageIcon sayagain_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "sayagain_button_alt.png");
@@ -131,6 +131,10 @@ public class WindowBuilderQuiz extends JPanel {
 		JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setBounds(622, 450, 140, 40);
 		add(comboBox_1);
+		
+		JButton btnAddToReview = new JButton("Add to review");
+		btnAddToReview.setBounds(290, 400, 130, 23);
+		add(btnAddToReview);
 
 
 	}	

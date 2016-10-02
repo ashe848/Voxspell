@@ -110,7 +110,7 @@ public class Quiz extends JPanel {
 	 * sets up title at top of panel
 	 */
 	private void setupTitle(){
-		JLabel title_to_display = new JLabel(quiz_type.toString()+" (Level: "+parent_frame.getDataHandler().getCurrentLevel()+")"); 
+		JLabel title_to_display = new JLabel(quiz_type.toString()+": "+parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().getCurrentLevel())); 
 		title_to_display.setFont(new Font("Courier New", Font.BOLD, 50));
 
 		add(title_to_display);

@@ -50,6 +50,7 @@ public class DataHandler {
 	private static String list_settings; //name of file that holds various settings
 
 	static int words_in_quiz; //number of words in each quiz
+	static ArrayList<String> level_names;
 
 	private static ArrayList<ArrayList<String>> wordlist_words; //words from wordlist file
 	private static ArrayList<ArrayList<String>> reviewlist_words; //words from reviewlist file
@@ -295,6 +296,7 @@ public class DataHandler {
 	 * Sets up data structure infrastructure
 	 */
 	private static void declareDataStructures() {
+		level_names=new ArrayList<>();
 		wordlist_words = new ArrayList<ArrayList<String>>();
 		reviewlist_words = new ArrayList<ArrayList<String>>();
 
@@ -317,10 +319,12 @@ public class DataHandler {
 			BufferedReader current_BR = new BufferedReader(new FileReader(spelling_list));
 			String string_input;
 			ArrayList<String> temp_string_array = new ArrayList<String>();
-
+			level_names.add(" ");
+			
 			while ((string_input = current_BR.readLine()) != null) {
 				if (!string_input.isEmpty()){
 					if (string_input.charAt(0)=='%'){ //new level, offload previous level
+						level_names.add(string_input.substring(1));
 						wordlist_words.add(temp_string_array);
 						temp_string_array= new ArrayList<String>();	
 					} else { //add to list for current level
@@ -855,11 +859,11 @@ public class DataHandler {
 	 * Returns the levels as an Integer array
 	 * @return
 	 */
-	public static Integer[] getLevelArray() {
+	public static String[] getLevelArray() {
 		//-1 to exclude level 0
-		Integer[] levels = new Integer[getNumberOfLevels()-1];
+		String[] levels = new String[getNumberOfLevels()-1];
 		for(int level=1; level<getNumberOfLevels(); level++){
-			levels[level-1]=level;
+			levels[level-1]=level_names.get(level);
 		}
 		return levels;
 	}
@@ -870,8 +874,8 @@ public class DataHandler {
 	 * @return whether user chose a level
 	 */
 	public static boolean chooseLevel(String additional_message, boolean back_to_quiz_complete) {
-		Integer[] levels = getLevelArray();
-		Integer choice = (Integer)JOptionPane.showInputDialog(parent_frame.getContentPane(), additional_message+"Please select a level to start at", "Which level?", JOptionPane.QUESTION_MESSAGE, null, levels, null);
+		String[] levels = getLevelArray();
+		String choice = (String)JOptionPane.showInputDialog(parent_frame.getContentPane(), additional_message+"Please select a level to start at", "Which level?", JOptionPane.QUESTION_MESSAGE, null, levels, null);
 		if (choice==null){
 			if(back_to_quiz_complete){
 				parent_frame.changePanel(PanelID.QuizComplete);
@@ -880,7 +884,7 @@ public class DataHandler {
 			}
 			return false;
 		} else {
-			current_level=choice;
+			current_level=level_names.indexOf(choice);
 			writeToSettingsFiles();
 			return true;
 		}

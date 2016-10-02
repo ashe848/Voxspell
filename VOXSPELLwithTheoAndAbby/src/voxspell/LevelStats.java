@@ -137,7 +137,7 @@ public class LevelStats extends JPanel{
 	 * @param type		type of data to fetch for when combobox changes
 	 */
 	private void setupLevelChooser(final StatsType type) {
-		Integer[] levels = parent_frame.getDataHandler().getLevelArray();
+		String[] levels = parent_frame.getDataHandler().getLevelArray();
 		final JComboBox level_chooser = new JComboBox(levels);
 
 		//default to current level
@@ -145,7 +145,8 @@ public class LevelStats extends JPanel{
 		level_chooser.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int level=(int)level_chooser.getSelectedItem();
+				String choice = (String)level_chooser.getSelectedItem();
+				int level=parent_frame.getDataHandler().level_names.indexOf(choice);
 				removeTableFromPanel();
 				refreshTable(level,type);			
 			}

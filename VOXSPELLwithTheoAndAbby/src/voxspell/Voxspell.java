@@ -138,6 +138,9 @@ public class Voxspell extends JFrame{
 		case SessionLevelStats:
 			this.getContentPane().add(new LevelStats(this, StatsType.Session));
 			break;
+		case ListBuilder:
+			this.getContentPane().add(new WindowBuilderListBuilder(this));
+			break;
 		case Quiz:
 			this.getContentPane().add(new Quiz(this, PanelID.Quiz));
 			break;
@@ -165,6 +168,6 @@ public class Voxspell extends JFrame{
 	 * The different panels IDs used to differentiate different panels
 	 */
 	public enum PanelID{
-		MainMenu, Settings, StatSelection, PersistentAllStats, PersistentLevelStats, SessionAllStats, SessionLevelStats, Quiz, Review, QuizComplete, Video;
+		MainMenu, Settings, StatSelection, PersistentAllStats, PersistentLevelStats, SessionAllStats, SessionLevelStats, ListBuilder, Quiz, Review, QuizComplete, Video;
 	}
 }

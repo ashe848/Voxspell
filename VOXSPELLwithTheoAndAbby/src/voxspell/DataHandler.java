@@ -678,6 +678,7 @@ public class DataHandler {
 				fw.write(u+"\n");
 			}
 			fw.close();
+			
 			fw = new FileWriter(new File(program_stats), false);
 			fw.write(global_top);
 			fw.close();
@@ -685,7 +686,29 @@ public class DataHandler {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * @author Abby S
+	 */
+	void writeCustomList(String list_name, ArrayList<String> words_to_add, ArrayList<String> sentences_to_add){
+		try {
+			FileWriter fw = new FileWriter(new File(System.getProperty("user.dir")+"/spellinglists/"+list_name+".txt"), false);
+			fw.write("%"+list_name+"\n");
+			for (String w:words_to_add){
+				fw.write(w+"\n");
+			}
+			fw.close();
+			
+			fw = new FileWriter(new File(System.getProperty("user.dir")+"/samplesentences/"+list_name+".txt"), false);
+			fw.write("%"+list_name+"\n");
+			for (String s:sentences_to_add){
+				fw.write(s+"\n");
+			}
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	
 	/**

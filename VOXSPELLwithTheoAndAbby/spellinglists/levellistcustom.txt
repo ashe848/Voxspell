@@ -1,0 +1,6 @@
+%levellistcustom.txt
+word 1
+word2nosentence
+word3weridsenten
+word4randomsymbol]][\\\/\
+5wtab

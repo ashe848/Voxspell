@@ -47,6 +47,7 @@ public class MainMenu extends JPanel{
 	
 		setupBackground();
 		setupLogInButton();
+		setupListBuilderButton();
 		setupNewQuizButton();
 		setupReviewButton();
 		setupSettingsButton();
@@ -94,6 +95,24 @@ public class MainMenu extends JPanel{
 		});
 		add(btnLogIn);
 	}
+	
+	/**
+	 * @author Abby S
+	 */
+	private void setupListBuilderButton(){
+		JButton list_builder_button = new JButton("Custom List Builder");
+
+		list_builder_button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				parent_frame.changePanel(PanelID.ListBuilder);
+			}
+		});
+
+		add(list_builder_button);
+		list_builder_button.setSize(200, 50);
+		list_builder_button.setLocation(550, 260);
+	}
 
 	/**
 	 * New Spelling Quiz button creation
@@ -111,7 +130,7 @@ public class MainMenu extends JPanel{
 
 		add(new_quiz_button);
 		new_quiz_button.setSize(200, 50);
-		new_quiz_button.setLocation(550, 300);
+		new_quiz_button.setLocation(550, 330);
 	}
 
 	/**

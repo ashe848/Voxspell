@@ -120,7 +120,7 @@ public class QuizComplete extends JPanel{
 	 */
 	private void determineDisplay(){
 		//at most 10% incorrect (truncated to whole number)
-		if(latest_failed_words.size()<=(int)(0.1*parent_frame.getDataHandler().words_in_quiz)) {
+		if(latest_failed_words.size()<=(int)(0.1*parent_frame.getDataHandler().latest_quiz_length)) {
 			setupVideoButton();
 			
 			//whether user has already levelled up before playing video
@@ -132,17 +132,9 @@ public class QuizComplete extends JPanel{
 				setupLevelledUpLabel("");
 			}
 		}
-
-		/* GOOD IDEA FOR FINAL PROJECT, BUT MAY BE GOING AGAINST A3 SPECS SO COMMENTED OUT ON NASSER'S RECOMMENDATION
-
-		//complete level when 50% attempted with no fails
-		if (parent_frame.getDataHandler().halfAttempted() && parent_frame.getgetDataHandler().noReview() && parent_frame.getgetDataHandler().getCurrentLevel()<parent_frame.getgetDataHandler().getNumberOfLevels()){
-			setupLevelUpButton();
-		}
-		 */
 		
 		//3 points for mastered, 1 point for faulted. None for failed. As a percentage
-		double score=(double)(latest_mastered_words.size()*3 + latest_faulted_words.size())/parent_frame.getDataHandler().words_in_quiz;
+		double score=(double)(latest_mastered_words.size()*3 + latest_faulted_words.size())/parent_frame.getDataHandler().latest_quiz_length;
 		if(score > parent_frame.getDataHandler().personal_best){
 			setupNewPB(score);
 			parent_frame.getDataHandler().personal_best=score;

@@ -134,7 +134,7 @@ public class Quiz extends JPanel {
 	 * @author Abby S
 	 */
 	private void setupProgressBar() {
-		progressBar = new JProgressBar(0,parent_frame.getDataHandler().words_in_quiz);
+		progressBar = new JProgressBar(0,words_to_spell.size());
 		progressBar.setBounds(50, 207, 700, 23);
 		progressBar.setBackground(Color.WHITE);
 		add(progressBar);
@@ -424,7 +424,7 @@ public class Quiz extends JPanel {
 		if (current_word_number == words_to_spell.size()){
 			//no point speaking any more things if quiz has already completed
 			parent_frame.getFestival().emptyWorkerQueue();
-			parent_frame.getDataHandler().processQuizResults(words_mastered,words_faulted,words_failed,quiz_type);
+			parent_frame.getDataHandler().processQuizResults(words_mastered,words_faulted,words_failed,quiz_type,words_to_spell.size());
 			parent_frame.changePanel(PanelID.QuizComplete);
 		} else{ //Otherwise keep going with quiz
 			startQuiz();

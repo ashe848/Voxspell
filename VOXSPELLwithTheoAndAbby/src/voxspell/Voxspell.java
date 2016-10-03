@@ -42,7 +42,7 @@ public class Voxspell extends JFrame{
 		super();
 		
 		//setup code from Theo's A2 code
-		setTitle("Voxspell version 0.0000000001 Post-PreAlpha (but still in Alpha)");
+		setTitle("Voxspell");
 		//TODO 570 or 600?
 		if (System.getProperty("os.name").equals("Linux")) {
 			setSize(800,570);

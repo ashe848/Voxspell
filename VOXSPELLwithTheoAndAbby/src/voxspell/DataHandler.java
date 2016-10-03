@@ -69,6 +69,7 @@ public class DataHandler {
 	private static ArrayList<String> latest_mastered_words; //list of mastered words from last quiz (for QuizComplete table)
 	private static ArrayList<String> latest_faulted_words; //list of faulted words from last quiz (for QuizComplete table)
 	private static ArrayList<String> latest_failed_words; //list of failed words from last quiz (for QuizComplete table)
+	static int latest_quiz_length;
 	private static boolean levelled_up=false; //flag for whether user had decided to level up
 
 	static int current_level=0; //initialised so if settings file is empty/wiped
@@ -552,7 +553,7 @@ public class DataHandler {
 			FileWriter fw = new FileWriter(new File(statsfile), false);
 			for (int i=0; i<getNumberOfLevels(); i++){
 				for (Object[] o:returnWordDataForLevel(i, StatsType.Persistent)){
-					fw.write(o[0]+" "+ o[2]+" "+o[3]+" "+o[4]+" "+o[1]+"\n");
+					fw.write(o[0]+" "+ o[3]+" "+o[4]+" "+o[5]+" "+o[2]+"\n");
 				}
 			}
 			fw.close();
@@ -743,7 +744,7 @@ public class DataHandler {
 	 * @param failed_words
 	 * @param quiz_type
 	 */
-	public void processQuizResults(ArrayList<String> mastered_words, ArrayList<String> faulted_words, ArrayList<String> failed_words, PanelID quiz_type){
+	public void processQuizResults(ArrayList<String> mastered_words, ArrayList<String> faulted_words, ArrayList<String> failed_words, PanelID quiz_type, int quiz_length){
 		enterResultsIntoDataStructure(mastered_words, WordResult.Mastered);
 		enterResultsIntoDataStructure(faulted_words, WordResult.Faulted);
 		enterResultsIntoDataStructure(failed_words, WordResult.Failed);
@@ -758,6 +759,7 @@ public class DataHandler {
 		latest_mastered_words=mastered_words;
 		latest_faulted_words=faulted_words;
 		latest_failed_words=failed_words;
+		latest_quiz_length=quiz_length;
 		writeStats();
 		writeToReview();
 	}
@@ -836,35 +838,11 @@ public class DataHandler {
 	private int getAttemptedCount() {
 		int attempted_count=0;
 		for (Object[] o:returnWordDataForLevel(current_level, StatsType.Persistent)){
-			if(!(o[2].equals(0)&&o[3].equals(0)&&o[4].equals(0))){
+			if(!(o[5].equals(0)&&o[3].equals(0)&&o[4].equals(0))){
 				attempted_count++;
 			}
 		}
 		return attempted_count;
-	}
-
-	/**
-	 * @return whether at least 50% of words in current level is completed
-	 */
-	public boolean halfAttempted() {
-		int attempted_count=getAttemptedCount();
-
-		if(attempted_count>=persistent_allwords.get(current_level).size()/2){
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	/**
-	 * @return whether there are no words to review in current level (i.e. none failed)
-	 */
-	public boolean noReview() {
-		if(reviewlist_words.get(current_level).size()==0){
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	/**

@@ -12,6 +12,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import uk.co.caprica.vlcj.log.LogEventListener;
 import voxspell.Voxspell.PanelID;
 
 public class WindowBuilderLogIn extends JFrame {
@@ -25,6 +26,7 @@ public class WindowBuilderLogIn extends JFrame {
 	 */
 	public WindowBuilderLogIn(Voxspell parent) {
 		parent_frame=parent;
+		setTitle("Log In");
 		setResizable(false);
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -33,10 +35,6 @@ public class WindowBuilderLogIn extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		JLabel lblLogIn = new JLabel("Log In");
-		lblLogIn.setBounds(174, 10, 54, 15);
-		contentPane.add(lblLogIn);
 		
 		JLabel lblIfYourName = new JLabel("If your name is in the list, please enter your name to log in");
 		lblIfYourName.setBounds(10, 34, 414, 15);

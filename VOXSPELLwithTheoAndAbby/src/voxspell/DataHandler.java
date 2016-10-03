@@ -735,6 +735,9 @@ public class DataHandler {
 	/**
 	 * wipe files and calls read files to read in empty into the data structures
 	 * will be as if this was the user's first launch
+	 * 
+	 * based on http://www.adam-bien.com/roller/abien/entry/java_7_deleting_recursively_a
+	 * 
 	 * @author Abby S
 	 */
 	public void resetUser() throws IOException {

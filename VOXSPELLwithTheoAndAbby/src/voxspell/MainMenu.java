@@ -90,8 +90,6 @@ public class MainMenu extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				WindowBuilderLogIn logIn=new WindowBuilderLogIn(parent_frame);
 				logIn.setVisible(true);
-//				logIn.setAlwaysOnTop(true);
-//				parent_frame.setEnabled(false);
 			}
 		});
 		add(btnLogIn);

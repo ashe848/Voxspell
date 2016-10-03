@@ -229,7 +229,7 @@ public class QuizComplete extends JPanel{
 	 * @author Abby S
 	 */
 	private void setupJustNewPB(double record_score, String[] global){		
-		JLabel label = new JLabel("Global top is "+global[0]+" by "+global[1]+" in "+global[2]);
+		JLabel label = new JLabel("Didn't beat global top of "+global[0]+" by "+global[1]+" in "+global[2]);
 		label.setBounds(550, 150, 200, 15);
 		add(label);
 	}

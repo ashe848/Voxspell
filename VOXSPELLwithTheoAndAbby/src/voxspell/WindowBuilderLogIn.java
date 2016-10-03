@@ -1,24 +1,18 @@
 package voxspell;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import voxspell.Voxspell.PanelID;
-import voxspell.WindowBuilderInputError.InputError;
-
-import javax.swing.JLabel;
-import javax.swing.JTextPane;
-import javax.swing.JTextArea;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
-import javax.swing.JButton;
-import javax.swing.JTextField;
 
 public class WindowBuilderLogIn extends JFrame {
 	private static Voxspell parent_frame;
@@ -52,29 +46,37 @@ public class WindowBuilderLogIn extends JFrame {
 		lblElseEnterYour.setBounds(10, 59, 414, 15);
 		contentPane.add(lblElseEnterYour);
 		
+		JLabel label = new JLabel("Registered Users (Case Sensitive):");
+		label.setBounds(10, 84, 414, 15);
+		contentPane.add(label);
 		
-		
-		JLabel lblYourName = new JLabel("Your Name:");
-		lblYourName.setBounds(10, 395, 77, 15);
+		JLabel lblYourName = new JLabel("Your name:");
+		lblYourName.setBounds(10, 381, 77, 15);
 		contentPane.add(lblYourName);
 		
 		textField = new JTextField();
-		textField.setBounds(84, 392, 340, 21);
+		textField.setBounds(84, 378, 340, 21);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		JButton btnOk = new JButton("OK");
 		btnOk.setBounds(162, 438, 93, 23);
 		contentPane.add(btnOk);
+		JLabel lblOnlyAlphabeticalCharacters = new JLabel("");
+		contentPane.add(lblOnlyAlphabeticalCharacters);
 		
 		JTextArea txtrRegisteredUsers = new JTextArea();
 		JScrollPane scrollBar = new JScrollPane(txtrRegisteredUsers);
-		scrollBar.setBounds(10, 84, 414, 284);
+		scrollBar.setBounds(10, 110, 414, 258);
 		contentPane.add(scrollBar);
 		txtrRegisteredUsers.setEditable(false);
-		txtrRegisteredUsers.setText("Registered Users (Case Sensitive):\n");
+		txtrRegisteredUsers.setLineWrap(true);
+		txtrRegisteredUsers.setWrapStyleWord(true);
+		txtrRegisteredUsers.setText("Visitor\n");
 		for (String u:parent_frame.getDataHandler().users){
-			txtrRegisteredUsers.append(u+"\n");
+			if (!u.equals("Visitor")){
+				txtrRegisteredUsers.append(u+"\n");
+			}
 		}
 		
 		btnOk.addActionListener(new ActionListener() {
@@ -82,9 +84,8 @@ public class WindowBuilderLogIn extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String username=textField.getText();
 				if(!username.matches("[a-zA-Z]+")){
-					WindowBuilderInputError input_error_poup = new WindowBuilderInputError(InputError.Alpha);
-					input_error_poup.setVisible(true);
-					input_error_poup.setAlwaysOnTop(true);
+					lblOnlyAlphabeticalCharacters.setText("Only alphabetical characters allowed!");
+					lblOnlyAlphabeticalCharacters.setBounds(10, 413, 414, 15);
 				} else {
 					parent_frame.getDataHandler().user=username;
 					if(!parent_frame.getDataHandler().users.contains(username)){
@@ -92,7 +93,6 @@ public class WindowBuilderLogIn extends JFrame {
 					}
 					parent_frame.getDataHandler().readUserFiles();
 					parent_frame.getDataHandler().readListSpecificFiles();
-//					parent_frame.setEnabled(true);
 					parent_frame.changePanel(PanelID.MainMenu);
 					logInFrame.dispose();
 				}

@@ -182,6 +182,20 @@ public class WindowBuilderSettings extends JPanel {
 		label_1.setForeground(Color.YELLOW);
 		label_1.setBounds(150, 531, 254, 15);
 		add(label_1);
+		
+		JLabel label_2 = new JLabel("Change preferred number of words in quiz");
+		label_2.setForeground(Color.YELLOW);
+		label_2.setBounds(31, 171, 254, 15);
+		add(label_2);
+		
+		JButton button = new JButton("New button");
+		button.setBounds(327, 167, 93, 23);
+		add(button);
+		
+		JLabel label_3 = new JLabel("Change preferred number of words in quiz");
+		label_3.setForeground(Color.YELLOW);
+		label_3.setBounds(446, 171, 254, 15);
+		add(label_3);
 	}
 
 	/**

@@ -489,10 +489,10 @@
 10 0 0 0 justice
 10 0 0 0 position
 10 0 0 0 wholesale
-11 0 0 0 acceptance
+11 1 0 0 acceptance
 11 0 0 0 conductor
 11 0 0 0 future
-11 0 0 0 observe
+11 1 0 0 observe
 11 0 0 0 schedule
 11 0 0 0 ache
 11 0 0 0 consequence
@@ -518,11 +518,11 @@
 11 0 0 0 criticise
 11 0 0 0 inspiration
 11 0 0 0 photograph
-11 0 0 0 social
+11 1 0 0 social
 11 0 0 0 associate
 11 0 0 0 criticism
 11 0 0 0 instructor
-11 0 0 0 physical
+11 1 0 0 physical
 11 0 0 0 source
 11 0 0 0 association
 11 0 0 0 cultural
@@ -549,7 +549,7 @@
 11 0 0 0 major
 11 0 0 0 principle
 11 0 0 0 surgery
-11 0 0 0 business
+11 1 0 0 business
 11 0 0 0 dissolve
 11 0 0 0 majority
 11 0 0 0 problem
@@ -568,7 +568,7 @@
 11 0 0 0 experiment
 11 0 0 0 Maori
 11 0 0 0 receipt
-11 0 0 0 tough
+11 1 0 0 tough
 11 0 0 0 circular
 11 0 0 0 extensive
 11 0 0 0 moisture

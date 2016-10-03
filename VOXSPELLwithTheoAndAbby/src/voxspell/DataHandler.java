@@ -34,6 +34,7 @@ public class DataHandler {
 
 	static String user;
 	static String spelling_list_name;
+	static String video_name;
 
 	static ArrayList<String> users;
 	static String global_top;
@@ -162,6 +163,7 @@ public class DataHandler {
 			FestivalSpeed speed=FestivalSpeed.normal;
 			FestivalVoice voice=FestivalVoice.Kiwi;
 			spelling_list_name="NZCER-spelling-lists.txt";
+			video_name="ffmpeg_reward_video.avi";
 			words_in_quiz=10;
 			personal_best=0;
 
@@ -228,6 +230,12 @@ public class DataHandler {
 					words_in_quiz=Integer.parseInt(split_line[3]);
 
 					personal_best=Double.parseDouble(split_line[4]);
+					
+					video_name =split_line[5];
+					File saved_reward_video = new File(System.getProperty("user.dir")+"/rewardvideos/"+video_name);
+					if (!saved_reward_video.exists()) {
+						video_name="ffmpeg_reward_video.avi";
+					}
 				}
 				current_BR.close();
 			}
@@ -582,7 +590,7 @@ public class DataHandler {
 			fw_list_settings.close();
 
 			FileWriter fw_user_sesttings = new FileWriter(new File(user_settings), false);
-			fw_user_sesttings.write(spelling_list_name+" "+parent_frame.getFestival().getFestivalSpeed().getSpeedValue()+" "+parent_frame.getFestival().getFestivalVoice().getVoiceValue()+" "+words_in_quiz+" "+personal_best);
+			fw_user_sesttings.write(spelling_list_name+" "+parent_frame.getFestival().getFestivalSpeed().getSpeedValue()+" "+parent_frame.getFestival().getFestivalVoice().getVoiceValue()+" "+words_in_quiz+" "+personal_best+" "+video_name);
 			fw_user_sesttings.close();
 		} catch (IOException e) {
 			e.printStackTrace();

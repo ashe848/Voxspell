@@ -46,7 +46,8 @@ public class Settings extends JPanel {
 	private Integer temp_word_selection=null;
 	private String temp_level_selection=null;
 	private String temp_list_selection=null;
-	private boolean changedWordList=false;
+	private String temp_video_selection=null;
+//	private boolean changedWordList=false;
 	/**
 	 * Constructor, initialise panel properties and GUI elements
 	 */
@@ -61,6 +62,7 @@ public class Settings extends JPanel {
 		setupWordInQuiz();
 		setupChooseLevel();
 		setupChooseWordList();
+		setupChooseRewardVideo();
 		setupBackButton();
 		setupBackground();
 	}
@@ -200,6 +202,11 @@ public class Settings extends JPanel {
 	 * @author Abby S
 	 */
 	private void setupChooseWordList(){
+		JLabel label = new JLabel("Current word list: "+parent_frame.getDataHandler().spelling_list_name);
+		label.setForeground(Color.YELLOW);
+		label.setBounds(31, 500, 254, 15);
+		add(label);
+		
 		JLabel label_1=new JLabel("");
 		add(label_1);
 		JButton btnNewButton = new JButton("Choose another list");
@@ -219,7 +226,7 @@ public class Settings extends JPanel {
 						JOptionPane.showMessageDialog(null, "Chosen list is not in correct format\nPlease choose another list", "List Format Error", JOptionPane.WARNING_MESSAGE);
 					} else {
 						temp_list_selection=chooser.getSelectedFile().getName();
-						changedWordList=true;
+//						changedWordList=true;
 						label_1.setText("Will change to "+temp_list_selection+" on save.");
 						label_1.setForeground(Color.YELLOW);
 						label_1.setBounds(150, 531, 254, 15);
@@ -228,13 +235,45 @@ public class Settings extends JPanel {
 			}
 		});
 		add(btnNewButton);
-
-		JLabel label = new JLabel("Current word list: "+parent_frame.getDataHandler().spelling_list_name);
-		label.setForeground(Color.YELLOW);
-		label.setBounds(31, 500, 254, 15);
-		add(label);
 	}
+	
+	/**
+	 * @author Abby S
+	 */
+	private void setupChooseRewardVideo(){
+		JLabel label = new JLabel("Current Reward Video: "+parent_frame.getDataHandler().video_name);
+		label.setForeground(Color.YELLOW);
+		label.setBounds(31, 171, 254, 15);
+		add(label);
+		
+		JLabel label_1=new JLabel("");
+		add(label_1);
+		JButton btnNewButton = new JButton("Choose another video");
+		btnNewButton.setBounds(327, 167, 93, 23);
+		btnNewButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {	
+				File reward_videos_folder = new File(System.getProperty("user.dir")+"/rewardvideos/");
+				FileSystemView fileSystemView = new SingleRootFileSystemView(reward_videos_folder);
 
+				JFileChooser chooser = new JFileChooser(reward_videos_folder, fileSystemView);
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("AVI files", "avi");
+				chooser.setFileFilter(filter);
+				int returnVal = chooser.showDialog(parent_frame, "Choose this video");
+				if(returnVal == JFileChooser.APPROVE_OPTION) {
+					if (chooser.getSelectedFile().getName().contains(" ")){
+						JOptionPane.showMessageDialog(null, "Chosen video has space(s) in its name\nPlease rename", "Filename Format Error", JOptionPane.WARNING_MESSAGE);
+					} else {
+						temp_video_selection=chooser.getSelectedFile().getName();
+						label_1.setText("Will change to "+temp_video_selection+" on save.");
+						label_1.setForeground(Color.YELLOW);
+						label_1.setBounds(446, 171, 254, 15);
+					}
+				}
+			}
+		});
+		add(btnNewButton);
+	}
 
 	/**
 	 * Back button to return to previous panel (user prompted to save before actually doing so)
@@ -264,12 +303,16 @@ public class Settings extends JPanel {
 					if(temp_level_selection!=null){
 						parent_frame.getDataHandler().current_level=parent_frame.getDataHandler().level_names.indexOf(temp_level_selection);
 					}
-					parent_frame.getDataHandler().writeToSettingsFiles();
-					if(changedWordList && temp_list_selection!=null){
-						parent_frame.getDataHandler().spelling_list_name=temp_list_selection;
-						parent_frame.getDataHandler().readListSpecificFiles();
+					if(temp_video_selection!=null){
+						parent_frame.getDataHandler().video_name=temp_video_selection;
 					}
 					parent_frame.getDataHandler().writeToSettingsFiles();
+					
+					if(temp_list_selection!=null){
+						parent_frame.getDataHandler().spelling_list_name=temp_list_selection;
+						parent_frame.getDataHandler().readListSpecificFiles();
+						parent_frame.getDataHandler().writeToSettingsFiles();
+					}
 				}
 				parent_frame.changePanel(PanelID.MainMenu); //else doesn't save
 			}

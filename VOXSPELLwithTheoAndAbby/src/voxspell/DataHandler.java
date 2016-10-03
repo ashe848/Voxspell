@@ -175,16 +175,22 @@ public class DataHandler {
 				JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary resources folder has been removed\nAborting", "Fatal Error", JOptionPane.WARNING_MESSAGE);
 				System.exit(1);
 			}
+			
+			File default_spelling_list = new File(System.getProperty("user.dir")+"/spellinglists/"+spelling_list_name);
+			if (!default_spelling_list.exists()) {
+				JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary NZCER-spelling-lists.txt has been removed\n(should be in spellinglists folder)\nPlease put it back and restart Voxspell", "Fatal Error", JOptionPane.WARNING_MESSAGE);
+				System.exit(1);
+			}
+			
+			File default_reward_video = new File(System.getProperty("user.dir")+"/rewardvideos/"+parent_frame.getDataHandler().video_name);
+			if (!default_reward_video.exists()) {
+				JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary ffmpeg_reward_video.avi has been removed\n(should be in rewardvideos folder)\nPlease put it back and restart Voxspell", "Fatal Error", JOptionPane.WARNING_MESSAGE);
+				System.exit(1);
+			}
 
 			File user_folder = new File(parent_frame.getResourceFileLocation()+user+"/");
 			if (!user_folder.exists()) {
 				user_folder.mkdir();
-			}
-
-			File spelling_lists_folder = new File(System.getProperty("user.dir")+"/spellinglists/");
-			if (!spelling_lists_folder.exists()){
-				spelling_lists_folder.mkdir();
-				//TODO pop up to add list into this folder
 			}
 
 			user_settings=parent_frame.getResourceFileLocation()+user+"/"+user+"_settings";

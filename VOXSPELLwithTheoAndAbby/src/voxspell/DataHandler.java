@@ -6,6 +6,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -72,7 +78,7 @@ public class DataHandler {
 	static int latest_quiz_length;
 	private static boolean levelled_up=false; //flag for whether user had decided to level up
 
-	static int current_level=0; //initialised so if settings file is empty/wiped
+	static int current_level; //initialised so if settings file is empty/wiped
 
 	/**
 	 * Constructor for single instance, reference parent frame and starts reading files
@@ -638,11 +644,12 @@ public class DataHandler {
 		}
 	}
 
+	
+	
 	/**
-	 * wipe files and calls read files to read in empty into the data structures
-	 * will be as if this was the user's first launch
+	 * @author Abby S
 	 */
-	public void clearFiles() {
+	public void resetListStats() {
 		try {
 			FileWriter fw = new FileWriter(new File(reviewlist), false);
 			fw.close();
@@ -659,6 +666,40 @@ public class DataHandler {
 
 		parent_frame.changePanel(PanelID.MainMenu);
 	}
+	
+	/**
+	 * wipe files and calls read files to read in empty into the data structures
+	 * will be as if this was the user's first launch
+	 * @author Abby S
+	 */
+	public void resetUser() throws IOException {
+		users.remove(user);
+		writeToProgramFiles();
+		
+		Path user_folder_path=Paths.get(parent_frame.getResourceFileLocation()+user+"/", "");
+		Files.walkFileTree(user_folder_path, new SimpleFileVisitor<Path>(){
+			public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+				Files.delete(file);
+				return FileVisitResult.CONTINUE;
+			}
+		});
+		File user_folder = new File(parent_frame.getResourceFileLocation()+user+"/");
+        user_folder.delete();
+        
+        user="Visitor";
+        readUserFiles();
+        readListSpecificFiles();
+        parent_frame.changePanel(PanelID.MainMenu);
+	}
+	
+	public void resetToDefaults() {
+		File user_settings_file = new File(user_settings);
+		user_settings_file.delete();
+		readUserFiles();
+		
+		parent_frame.changePanel(PanelID.MainMenu);
+	}
+	
 
 
 

@@ -49,19 +49,6 @@ public class WindowBuilderSettings extends JPanel {
 	 */
 	private void seupReset() {
 		ImageIcon clearall_image = new ImageIcon(parent_frame.getResourceFileLocation() + "clear_stats_button_alt.png");
-		JButton clear_stats_button = new JButton("", clearall_image);
-		
-		clear_stats_button.setBounds(400, 200, 300, 200);
-		add(clear_stats_button);
-		clear_stats_button.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				boolean askclear_result = askToConfirm("Are you sure you want to reset all?", "Reset All");
-				if (askclear_result){
-					parent_frame.getDataHandler().clearFiles();
-				}
-			}
-		});
 	}
 
 	/**
@@ -196,6 +183,26 @@ public class WindowBuilderSettings extends JPanel {
 		label_3.setForeground(Color.YELLOW);
 		label_3.setBounds(446, 171, 254, 15);
 		add(label_3);
+		
+		JButton btnResetStatsFor = new JButton("Reset Stats for Current List");
+		btnResetStatsFor.setBounds(335, 257, 254, 23);
+		add(btnResetStatsFor);
+		
+		JButton btnNewButton_1 = new JButton("Clear All My Stats");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_1.setBounds(335, 326, 254, 23);
+		add(btnNewButton_1);
+		
+		JButton btnResetMySettings = new JButton("Reset My Settings Back to Defaults");
+		btnResetMySettings.setBounds(335, 293, 254, 23);
+		add(btnResetMySettings);
+		
+		JLabel lblOtherSettingsWont = new JLabel("Other Settings Won't be Saved");
+		lblOtherSettingsWont.setBounds(335, 232, 254, 15);
+		add(lblOtherSettingsWont);
 	}
 
 	/**

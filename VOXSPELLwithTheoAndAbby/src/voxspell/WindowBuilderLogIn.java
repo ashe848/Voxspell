@@ -88,6 +88,7 @@ public class WindowBuilderLogIn extends JFrame {
 					parent_frame.getDataHandler().user=username;
 					if(!parent_frame.getDataHandler().users.contains(username)){
 						parent_frame.getDataHandler().users.add(username);
+						parent_frame.getDataHandler().writeToProgramFiles();
 					}
 					parent_frame.getDataHandler().readUserFiles();
 					parent_frame.getDataHandler().readListSpecificFiles();

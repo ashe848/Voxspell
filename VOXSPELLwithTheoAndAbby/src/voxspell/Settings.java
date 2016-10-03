@@ -56,7 +56,13 @@ public class Settings extends JPanel {
 		setLayout(null);
 
 		parent_frame = parent;
-		seupReset();
+		JLabel lblOtherSettingsWont = new JLabel("Other Settings Won't be Saved");
+		lblOtherSettingsWont.setBounds(335, 232, 254, 15);
+		add(lblOtherSettingsWont);
+		seupResetListStats();
+		seupResetUser();
+		seupResetToDefaultSettings();
+		
 		setupChangeVoice();
 		setupChangeSpeed();
 		setupWordInQuiz();
@@ -70,21 +76,59 @@ public class Settings extends JPanel {
 	/**
 	 * Resets all stats to as if it was the user's first launch (prompts user for confirmation)
 	 */
-	private void seupReset() {
-		ImageIcon clearall_image = new ImageIcon(parent_frame.getResourceFileLocation() + "clear_stats_button_alt.png");
-		JButton clear_stats_button = new JButton("", clearall_image);
-
-		clear_stats_button.setBounds(400, 200, 300, 200);
-		add(clear_stats_button);
-		clear_stats_button.addActionListener(new ActionListener() {
+	private void seupResetListStats() {
+		
+		JButton btnResetStatsFor = new JButton("Reset Stats for Current List");
+		btnResetStatsFor.setBounds(335, 257, 254, 23);
+		add(btnResetStatsFor);
+		btnResetStatsFor.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				boolean askclear_result = askToConfirm("Are you sure you want to reset all?", "Reset All");
+				boolean askclear_result = askToConfirm("Are you sure you want to reset Stats for "+parent_frame.getDataHandler().spelling_list_name+"?", "Reset Stats for Current List");
 				if (askclear_result){
-					parent_frame.getDataHandler().clearFiles();
+					parent_frame.getDataHandler().resetListStats();
 				}
 			}
 		});
+	}
+		
+		
+	/**
+	 * @author Abby S
+	 */
+	private void seupResetUser() {
+		JButton btnNewButton_1 = new JButton("Clear All My Data");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				boolean askclear_result = askToConfirm("Are you sure you want to reset all your Data?\nWill be logged into Visitor", "Reset User Stats");
+				if (askclear_result){
+					try {
+						parent_frame.getDataHandler().resetUser();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		btnNewButton_1.setBounds(335, 326, 254, 23);
+		add(btnNewButton_1);
+	}
+		
+	/**
+	 * @author Abby S
+	 */
+	private void seupResetToDefaultSettings() {
+		JButton btnResetMySettings = new JButton("Reset My Settings data Back to Defaults");
+		btnResetMySettings.setBounds(335, 293, 254, 23);
+		btnResetMySettings.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				boolean askclear_result = askToConfirm("Are you sure you want to reset your Settings data Back to Defaults?\nList-specific data will be retained.", "Reset Settings Back to Defaults");
+				if (askclear_result){
+					parent_frame.getDataHandler().resetToDefaults();
+				}
+			}
+		});
+		add(btnResetMySettings);
 	}
 
 	/**

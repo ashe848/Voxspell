@@ -63,7 +63,7 @@ public class GeneralStats extends JPanel {
 	 */
 	private void setupTable(StatsType type) {
 		//creates table model with said column names, currently no rows, and disallowing the editing of cells
-		String[] column_names = {"Level","Word","Strike!","Spare!","Didn't get it"};
+		String[] column_names = {"Level","Level Name","Word","Strike!","Spare!","Didn't get it"};
 		int row_count = 0;
 		DefaultTableModel model = new DefaultTableModel(column_names, row_count){
 			public boolean isCellEditable(int row, int col) {
@@ -75,6 +75,8 @@ public class GeneralStats extends JPanel {
 				switch (column) {
 				case 1:
 					return String.class;
+				case 2:
+					return String.class;
 				default:
 					return Integer.class;
 				}
@@ -85,7 +87,7 @@ public class GeneralStats extends JPanel {
 		//adds row for word into table if it has been attempted
 		for (int i=0; i<parent_frame.getDataHandler().getNumberOfLevels(); i++){
 			for (Object[] o:parent_frame.getDataHandler().returnWordDataForLevel(i, type)){
-				if(!(o[2].equals(0)&&o[3].equals(0)&&o[4].equals(0))){
+				if(!(o[5].equals(0)&&o[3].equals(0)&&o[4].equals(0))){
 					model.addRow(o);
 				}
 			}

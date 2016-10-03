@@ -93,8 +93,8 @@ public class LevelStats extends JPanel{
 
 		//adds row for word into table if it has been attempted
 		for (Object[] o:parent_frame.getDataHandler().returnWordDataForLevel(level, type)){
-			if(!(o[2].equals(0)&&o[3].equals(0)&&o[4].equals(0))){
-				model.addRow(new Object[] {o[1], o[2], o[3], o[4]});
+			if(!(o[5].equals(0)&&o[3].equals(0)&&o[4].equals(0))){
+				model.addRow(new Object[] {o[2], o[3], o[4], o[5]});
 			}
 		}
 		table.setModel(model);

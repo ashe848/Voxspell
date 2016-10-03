@@ -119,12 +119,14 @@ public class QuizComplete extends JPanel{
 	 * Determines, based on result of quiz, which buttons to display
 	 */
 	private void determineDisplay(){
-		//at most 1 incorrect
-		if(latest_failed_words.size()<2) {
+		//at most 10% incorrect (truncated to whole number)
+		if(latest_failed_words.size()<=(int)(0.1*parent_frame.getDataHandler().words_in_quiz)) {
 			setupVideoButton();
 			
 			//whether user has already levelled up before playing video
-			if(!parent_frame.getDataHandler().getLevelledUp()){
+			if(parent_frame.getDataHandler().getNumberOfLevels()-1==1) {
+				//do nothing. Only 1 level.
+			} else if(!parent_frame.getDataHandler().getLevelledUp()){
 				setupLevelUpButton();//set up when just 1 failed just for assignment 3 purposes to go with specs
 			} else {
 				setupLevelledUpLabel("");

@@ -978,7 +978,7 @@ public class DataHandler {
 	private ArrayList<Object[]> getWordDataForLevel(int level, ArrayList<ArrayList<String>> words, ArrayList<ArrayList<Integer>> master_count, ArrayList<ArrayList<Integer>> faulted_count, ArrayList<ArrayList<Integer>> failed_count){
 		ArrayList<Object[]> to_return = new ArrayList<Object[]>();
 		for (int i=0; i<words.get(level).size(); i++){
-			to_return.add(new Object[]{Integer.valueOf(level), words.get(level).get(i),
+			to_return.add(new Object[]{Integer.valueOf(level), level_names.get(level), words.get(level).get(i),
 					master_count.get(level).get(i), 
 					faulted_count.get(level).get(i), 
 					failed_count.get(level).get(i)});

@@ -58,8 +58,11 @@ public class DataHandler {
 
 	static int words_in_quiz; //number of words in each quiz
 	static ArrayList<String> level_names;
+	
+	static boolean has_sample_sentences;
+	static ArrayList<ArrayList<String>> sample_sentences;
 
-	private static ArrayList<ArrayList<String>> wordlist_words; //words from wordlist file
+	static ArrayList<ArrayList<String>> wordlist_words; //words from wordlist file
 	private static ArrayList<ArrayList<String>> reviewlist_words; //words from reviewlist file
 
 	private static ArrayList<ArrayList<String>> persistent_allwords; //all words from wordlist + reviewlist
@@ -359,6 +362,45 @@ public class DataHandler {
 				}
 			}
 			wordlist_words.add(temp_string_array); //offload final level
+
+			current_BR.close();
+			
+				File sample_sentences_file = new File(System.getProperty("user.dir")+"/samplesentences/"+spelling_list_name);
+				if (sample_sentences_file.exists()) {
+					has_sample_sentences=true;
+					readInSampleSentences();
+				} else {
+					has_sample_sentences=false;
+				}
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * @author Abby S
+	 */
+	private static void readInSampleSentences() {
+		sample_sentences = new ArrayList<ArrayList<String>>();
+		try {
+			BufferedReader current_BR = new BufferedReader(new FileReader(System.getProperty("user.dir")+"/samplesentences/"+spelling_list_name));
+			String string_input;
+			ArrayList<String> temp_string_array = new ArrayList<String>();
+
+			while ((string_input = current_BR.readLine()) != null) {
+				if (!string_input.isEmpty()){
+					if (string_input.charAt(0)=='%'){ //new level, offload previous level
+						sample_sentences.add(temp_string_array);
+						temp_string_array= new ArrayList<String>();	
+					} else { //add to list for current level
+						temp_string_array.add(string_input);
+					}
+				}
+			}
+			sample_sentences.add(temp_string_array); //offload final level
 
 			current_BR.close();
 		} catch (FileNotFoundException e) {

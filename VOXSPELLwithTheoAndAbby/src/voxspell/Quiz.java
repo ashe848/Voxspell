@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.SampleModel;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,8 +48,6 @@ public class Quiz extends JPanel {
 	private JTextArea display_to_user; //progress text area to show previous information
 	private JTextField input_from_user; //what user puts as guess for spelling quiz
 	private JProgressBar progressBar;
-	private JLabel lblNewLabel;
-	private JLabel label;
 
 	private ArrayList<String> words_to_spell; //list of words to spell in quiz
 	private int current_word_number; //indicates which word the user is up to in quiz
@@ -111,7 +110,7 @@ public class Quiz extends JPanel {
 			words_to_spell = parent_frame.getDataHandler().getWordsForSpellingQuiz(parent_frame.getDataHandler().words_in_quiz, PanelID.Quiz);
 		} else { //review quiz
 			words_to_spell = parent_frame.getDataHandler().getWordsForSpellingQuiz(parent_frame.getDataHandler().words_in_quiz, PanelID.Review);
-		}		 
+		}	
 	}
 
 	/**
@@ -223,6 +222,16 @@ public class Quiz extends JPanel {
 		sayagain_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//says the word slowly
+				parent_frame.getFestival().speak(words_to_spell.get(current_word_number),true);
+				
+				//says the sample sentence at user's preferred speed
+				if(parent_frame.getDataHandler().has_sample_sentences){
+					int index=parent_frame.getDataHandler().wordlist_words.get(parent_frame.getDataHandler().current_level).indexOf(words_to_spell.get(current_word_number));
+					parent_frame.getFestival().speak(parent_frame.getDataHandler().sample_sentences.get(parent_frame.getDataHandler().current_level).get(index),false);
+				}
+				
+				//says the word slowly again
 				parent_frame.getFestival().speak(words_to_spell.get(current_word_number),true);
 			}
 		});
@@ -346,6 +355,12 @@ public class Quiz extends JPanel {
 	 */
 	private void startQuiz(){
 		parent_frame.getFestival().speak("Please spell the word... "+words_to_spell.get(current_word_number),false);
+		
+		if(parent_frame.getDataHandler().has_sample_sentences){
+			int index=parent_frame.getDataHandler().wordlist_words.get(parent_frame.getDataHandler().current_level).indexOf(words_to_spell.get(current_word_number));
+			parent_frame.getFestival().speak(parent_frame.getDataHandler().sample_sentences.get(parent_frame.getDataHandler().current_level).get(index),false);
+		}
+
 		display_to_user.append("Word: "+(current_word_number+1)+" out of "+words_to_spell.size()+"\nAttempt: "+(current_attempt_number)+" out of 2\n");
 		progressBar.setValue(current_word_number);
 	}

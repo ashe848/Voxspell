@@ -32,7 +32,7 @@ public class Video extends JPanel{
 	private JPanel panel;
 	//Video player contained in the component
 	private EmbeddedMediaPlayer player;
-	
+
 	private int duration;
 	private Timer timer;
 	private JProgressBar progressBar_1;
@@ -57,10 +57,7 @@ public class Video extends JPanel{
 			setupPauseButton();
 			setupStopButton();
 			setupBackButton();
-			
-			
 		} else {
-			
 			System.out.println(video);
 		}	
 	}
@@ -81,33 +78,22 @@ public class Video extends JPanel{
 
 		frame.setContentPane(panel); //sticking new panel on the frame that program is on
 
-		//Getting .avi video file from the resources folder
-		//        String video;
-
-		//Different video displayed if they get all right, then if they get 1 wrong
-		/*boolean perfect_quiz = parent_frame.getDataHandler().getLatestWordResults().get(2).size()==0;
-		if(perfect_quiz){
-			video = parent_frame.getResourceFileLocation()+"reward_video.avi";
-		} else { //1 wrong
-			 
-			 ffmpeg -i reward_video.avi  \ 
-			 * -vf vflip,hflip,negate,reverse,drawtext="text='CONGRATULATIONS ON GOOD QUIZ': \ 
-			 * fontsize=40: box=1: boxcolor=white@0.8: x=(w-text_w)/2: y=(h-text_h)/2"  \ 
-			 * -af aecho,areverse,ashowinfo ffmpeg_reward_video.avi
-			 * 
-			 * Skeleton from Nasser's Lecture 9 slides
-			 * Filters from `ffmpeg -filters`
-			 * drawtext code from http://stackoverflow.com/questions/17623676/text-on-video-ffmpeg
-			
-			 
-			video = parent_frame.getResourceFileLocation()+"ffmpeg_reward_video.avi";
-		}*/
+		/*ffmpeg -i reward_video.avi  \ 
+		 * -vf vflip,hflip,negate,reverse,drawtext="text='CONGRATULATIONS ON GOOD QUIZ': \ 
+		 * fontsize=40: box=1: boxcolor=white@0.8: x=(w-text_w)/2: y=(h-text_h)/2"  \ 
+		 * -af aecho,areverse,ashowinfo ffmpeg_reward_video.avi
+		 * 
+		 * Skeleton from Nasser's Lecture 9 slides
+		 * Filters from `ffmpeg -filters`
+		 * drawtext code from http://stackoverflow.com/questions/17623676/text-on-video-ffmpeg
+		 * video = parent_frame.getResourceFileLocation()+"ffmpeg_reward_video.avi";
+		 */
 		player.playMedia(video);
 	}
-	
+
 	private void setupProgressBar(){
 		player.parseMedia();
-		
+
 		duration=(int)player.getLength()/1000;
 		//Set max to duration in seconds
 		progressBar_1 = new JProgressBar(0,duration);
@@ -117,11 +103,10 @@ public class Video extends JPanel{
 		progressBar_1.setValue(0);
 		panel.add(progressBar_1);
 	}
-	
+
 	/**
 	 * From Nasser
 	 */
-	
 	private void setupTimer(){
 		timer = new Timer(1000, new ActionListener() {
 			@Override
@@ -131,7 +116,7 @@ public class Video extends JPanel{
 				System.out.println(time);
 			}
 		});
-        timer.start();
+		timer.start();
 	}
 
 	/**
@@ -198,6 +183,7 @@ public class Video extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				player.stop();
+				timer.stop();
 				parent_frame.changePanel(PanelID.QuizComplete);
 			}
 		});

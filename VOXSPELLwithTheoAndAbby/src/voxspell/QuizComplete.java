@@ -11,6 +11,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -41,7 +46,7 @@ public class QuizComplete extends JPanel{
 	private static ArrayList<String> latest_mastered_words;
 	private static ArrayList<String> latest_faulted_words;
 	private static ArrayList<String> latest_failed_words;
-	
+	private Clip clip;
 	
 
 	/**
@@ -57,11 +62,37 @@ public class QuizComplete extends JPanel{
 		latest_faulted_words=parent_frame.getDataHandler().getLatestWordResults().get(1);
 		latest_failed_words=parent_frame.getDataHandler().getLatestWordResults().get(2);
 
+		setupAudio();
 		setupTable();
 		determineDisplay();
 		setupBackButton();
 		setupAccuracyRateLabel();
 		setupBackground();
+	}
+
+	/**
+	 * http://stackoverflow.com/a/11025384
+	 * 
+	 * alt: http://stackoverflow.com/questions/2416935/how-to-play-wav-files-with-java
+	 */
+	private void setupAudio() {
+		String audio=parent_frame.getResourceFileLocation()+"11k16bitpcm.wav";
+		try {
+		    File yourFile=new File(audio);
+		    AudioInputStream stream;
+		    AudioFormat format;
+		    DataLine.Info info;
+
+		    stream = AudioSystem.getAudioInputStream(yourFile);
+		    format = stream.getFormat();
+		    info = new DataLine.Info(Clip.class, format);
+		    clip = (Clip) AudioSystem.getLine(info);
+		    clip.open(stream);
+		    clip.start();
+		}
+		catch (Exception e3) {
+		    //whatevers
+		}
 	}
 
 	/**
@@ -204,6 +235,7 @@ public class QuizComplete extends JPanel{
 		video_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				clip.close();
 				parent_frame.changePanel(PanelID.Video);
 			}
 		});
@@ -246,6 +278,7 @@ public class QuizComplete extends JPanel{
 		back_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				clip.close();
 				parent_frame.getDataHandler().writeToProgramFiles();
 				parent_frame.getDataHandler().writeToSettingsFiles();
 				//resets flag for level up

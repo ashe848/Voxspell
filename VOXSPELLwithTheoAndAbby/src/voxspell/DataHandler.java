@@ -81,7 +81,7 @@ public class DataHandler {
 
 		//default to visitor
 		user="Visitor";
-
+		
 		readUsers();
 		readProgramStatsFile();
 		readUserFiles();

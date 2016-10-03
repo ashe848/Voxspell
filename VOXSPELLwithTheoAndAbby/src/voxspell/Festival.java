@@ -162,7 +162,7 @@ public class Festival {
 
 			//makes call to festival to execute the scm file in batch mode
 			//TODO Add in quotes to file location (like in write to scheme) so festival works in folderrs with spaces in name
-			String command = "festival -b "+parent_frame.getResourceFileLocation()+"festival.scm";
+			String command = "festival -b "+"\""+parent_frame.getResourceFileLocation()+"festival.scm"+"\"";
 			ProcessBuilder pb = new ProcessBuilder("bash", "-c", command);
 			try {
 				Process p = pb.start();

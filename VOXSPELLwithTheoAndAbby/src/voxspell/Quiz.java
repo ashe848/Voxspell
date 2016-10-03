@@ -49,12 +49,12 @@ public class Quiz extends JPanel {
 	private JProgressBar progressBar;
 	private JLabel lblNewLabel;
 	private JLabel label;
-	
+
 	private ArrayList<String> words_to_spell; //list of words to spell in quiz
 	private int current_word_number; //indicates which word the user is up to in quiz
 	private int current_attempt_number; //indicates which attempt user is up to when spelling
 	private boolean attempted_once; //flag indicating which attempt user is up to
-	
+
 
 	private ArrayList<String> words_mastered; //list of words user got first try in quiz
 	private ArrayList<String> words_faulted; //list of words user got second try in quiz
@@ -78,7 +78,7 @@ public class Quiz extends JPanel {
 			setupTitle();
 			setupProgressBar();
 			setupProgressTextArea();
-//			setupFeedBackLabel();
+			//			setupFeedBackLabel();
 			setupSpellHereLabel();
 			setupSpellHereField();
 			setupSubmitButton();
@@ -126,7 +126,7 @@ public class Quiz extends JPanel {
 		title_to_display.setSize(700, 50);
 		title_to_display.setOpaque(false);
 	}
-	
+
 	/**
 	 * Colour is result of last word, because text area clears once move on
 	 * But for the colour-blind, they can hear the result said by festival anyway
@@ -147,35 +147,17 @@ public class Quiz extends JPanel {
 		display_to_user = new JTextArea();
 		display_to_user.setFont(new Font("Courier New", Font.BOLD, 18));
 		display_to_user.setEditable(false);
+		display_to_user.setLineWrap(true);
+		display_to_user.setWrapStyleWord(true);
 		display_to_user.setOpaque(true);
-		
+
 		JScrollPane scrolling_pane = new JScrollPane(display_to_user);
 		add(scrolling_pane);
 		scrolling_pane.setSize(700, 117);
 		scrolling_pane.setLocation(50, 80);
 		scrolling_pane.setBackground(Color.WHITE);
 	}
-	
-	/**
-	 * @author Abby S
-	 */
-	private void setupFeedBackLabel() {
-		JLabel lblNewLabel = new JLabel("Previous word was: CORRECT");
-		lblNewLabel.setBounds(50, 240, 700, 40);
-		add(lblNewLabel);
-		lblNewLabel.setOpaque(true);
-		
-		JLabel label = new JLabel("Previous word was: INCORRECT");
-		label.setBounds(50, 290, 700, 40);
-		add(label);
-		label.setOpaque(true);
-		
-		lblNewLabel.setVisible(false);
-		label.setVisible(false);
-		
-		this.label=label;
-		this.lblNewLabel=lblNewLabel;
-	}
+
 	/**
 	 * Adds label next to field where user types
 	 */
@@ -201,11 +183,11 @@ public class Quiz extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				checkCorrectSpelling(input_from_user.getText());
 				input_from_user.requestFocusInWindow();
-//				lblNewLabel.setVisible(false);
-//				label.setVisible(false);
+				//				lblNewLabel.setVisible(false);
+				//				label.setVisible(false);
 			}
 		});
-		
+
 		add(input_from_user);
 		input_from_user.setSize(400, 40);
 		input_from_user.setLocation(280, 340);
@@ -222,8 +204,8 @@ public class Quiz extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				checkCorrectSpelling(input_from_user.getText());
 				input_from_user.requestFocusInWindow();
-//				lblNewLabel.setVisible(false);
-//				label.setVisible(false);
+				//				lblNewLabel.setVisible(false);
+				//				label.setVisible(false);
 			}
 		});
 
@@ -249,7 +231,7 @@ public class Quiz extends JPanel {
 		sayagain_button.setSize(150,150);
 		sayagain_button.setLocation(450,400);
 	}
-	
+
 	/**
 	 * @author Abby S
 	 */
@@ -267,7 +249,7 @@ public class Quiz extends JPanel {
 				if((FestivalVoice)voice_chooser.getSelectedItem()!=null){
 					parent_frame.getFestival().setFestivalVoice((FestivalVoice)voice_chooser.getSelectedItem());
 				}
-				
+
 			}
 		});
 
@@ -298,7 +280,7 @@ public class Quiz extends JPanel {
 		speed_chooser.setBounds(622, 450, 140, 40);
 		add(speed_chooser);
 	}
-	
+
 	/**
 	 * Doesn't affect stats
 	 * @author Abby S
@@ -307,13 +289,13 @@ public class Quiz extends JPanel {
 		JButton btnAddToReview = new JButton("Add to review");
 		btnAddToReview.setBounds(290, 400, 130, 23);
 		btnAddToReview.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<String> word_to_add=new ArrayList<>();
 				word_to_add.add(words_to_spell.get(current_word_number));
 				parent_frame.getDataHandler().addToReviewList(word_to_add);
-				
+
 			}
 		});
 		add(btnAddToReview);
@@ -366,7 +348,6 @@ public class Quiz extends JPanel {
 		parent_frame.getFestival().speak("Please spell the word... "+words_to_spell.get(current_word_number),false);
 		display_to_user.append("Word: "+(current_word_number+1)+" out of "+words_to_spell.size()+"\nAttempt: "+(current_attempt_number)+" out of 2\n");
 		progressBar.setValue(current_word_number);
-//		lblNewLabel.setText("");
 	}
 
 	/**
@@ -375,13 +356,14 @@ public class Quiz extends JPanel {
 	 */
 	private void checkCorrectSpelling(String attempt){
 		input_from_user.setText("");//clear input field	
-		
+
 		if(!attempt.matches(".*[a-zA-Z]+.*")){ //user doesn't enters any alphabetical characters
 			display_to_user.append("Feedback: Word includes alphabet characters, try again\n\n");
-		}
-		else{
+		} else if(!attempt.equals(words_to_spell.get(current_word_number))&&(attempt.toLowerCase()).equals(words_to_spell.get(current_word_number).toLowerCase())){ //differ by capitalisation
+			display_to_user.append("Feedback: \""+attempt+"\" is spelt correctly but incorrect capitalisation, try again\n\n");
+		} else{
 			display_to_user.append("Feedback: \""+attempt+"\" is ");//updates progress area with user guess
-			
+
 			//if correct spelling (case-sensitive)
 			if(attempt.equals(words_to_spell.get(current_word_number))){
 				parent_frame.getFestival().speak("Correct", false);
@@ -398,7 +380,7 @@ public class Quiz extends JPanel {
 				current_attempt_number=1;
 				attempted_once = true;
 				display_to_user.setText("");//clear display
-//				lblNewLabel.setVisible(true);
+				//				lblNewLabel.setVisible(true);
 			} else{//incorrect spelling
 				parent_frame.getFestival().speak("Incorrect", false);
 				display_to_user.append("INCORRECT\n\n");
@@ -411,7 +393,7 @@ public class Quiz extends JPanel {
 					attempted_once = true;
 					display_to_user.setText("");//clear display
 					progressBar.setForeground(Color.RED);
-//					label.setVisible(true);
+					//					label.setVisible(true);
 				} else{	//first time getting it wrong(faulted so far, maybe failed later)
 					parent_frame.getFestival().speak("Please try again", false);
 					attempted_once=false;
@@ -430,7 +412,7 @@ public class Quiz extends JPanel {
 			startQuiz();
 		}
 	}
-	
+
 	/**
 	 * Puts the background image, overriding paintComponent method(below) to ensure functionality
 	 */
@@ -444,7 +426,7 @@ public class Quiz extends JPanel {
 		setLocation(0,0);
 		setSize(800, 600);
 	}
-	
+
 	/**
 	 * Overriding the paintComponent method to place background
 	 */

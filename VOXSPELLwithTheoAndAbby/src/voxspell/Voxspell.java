@@ -152,10 +152,10 @@ public class Voxspell extends JFrame{
 			break;
 		case Video:
 			//Setting up various libraries needed to show video reward after quiz is complete
-			/*NativeLibrary.addSearchPath(
+			NativeLibrary.addSearchPath(
 					RuntimeUtil.getLibVlcLibraryName(), "/Applications/vlc-2.0.0/VLC.app/Contents/MacOS/lib"
 					);
-			Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);*/
+			Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
 			this.getContentPane().add(new Video(this));
 			break;
 		}

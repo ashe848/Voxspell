@@ -1,0 +1,1 @@
+Add that video progress bar sometimes doesn't work on very first time playing.

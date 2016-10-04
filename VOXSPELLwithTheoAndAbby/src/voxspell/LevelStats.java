@@ -36,12 +36,12 @@ import voxspell.Voxspell.PanelID;
  * current session
  */
 public class LevelStats extends JPanel{
-	private static Voxspell parent_frame;
+	private Voxspell parent_frame;
 	private Image bg_image;
-	
-	private static JTable table;
-	private static TableRowSorter<TableModel> sorter;
-	private static JScrollPane scroll_pane;
+
+	private JTable table;
+	private TableRowSorter<TableModel> sorter;
+	private JScrollPane scroll_pane;
 
 	/**
 	 * Constructor, initialise panel properties and adding GUI elements
@@ -54,7 +54,7 @@ public class LevelStats extends JPanel{
 		parent_frame=parent;
 
 		//defaults to user's current level
-		refreshTable(parent_frame.getDataHandler().getCurrentLevel(), type);
+		refreshTable(parent_frame.getDataHandler().current_level, type);
 
 		setupLevelChooser(type);
 		setupBackButton();
@@ -109,7 +109,7 @@ public class LevelStats extends JPanel{
 
 		//Disallow reording of columns
 		table.getTableHeader().setReorderingAllowed(false);
-		
+
 		//Alignment for the cells http://stackoverflow.com/a/7433758
 		DefaultTableCellRenderer alignment_renderer = new DefaultTableCellRenderer();
 		alignment_renderer.setHorizontalAlignment(JLabel.CENTER);
@@ -141,7 +141,7 @@ public class LevelStats extends JPanel{
 		final JComboBox level_chooser = new JComboBox(levels);
 
 		//default to current level
-		level_chooser.setSelectedItem(parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().getCurrentLevel()));
+		level_chooser.setSelectedItem(parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().current_level));
 		level_chooser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String choice = (String)level_chooser.getSelectedItem();
@@ -186,7 +186,7 @@ public class LevelStats extends JPanel{
 		accuracy_rate_label.setSize(300, 50);
 		accuracy_rate_label.setOpaque(true);	
 	}
-	
+
 	/**
 	 * Puts the background image, overriding paintComponent method(below) to ensure functionality
 	 * @param type 	determines which background image is displayed
@@ -207,7 +207,7 @@ public class LevelStats extends JPanel{
 		setLocation(0,0);
 		setSize(800, 600);
 	}
-	
+
 	/**
 	 * Overriding the paintComponent method to place background
 	 */

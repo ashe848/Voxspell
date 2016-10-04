@@ -51,7 +51,6 @@ public class Quiz extends JPanel {
 	private ArrayList<String> words_to_spell; //list of words to spell in quiz
 	private int current_word_number; //indicates which word the user is up to in quiz
 	private int current_attempt_number; //indicates which attempt user is up to when spelling
-//	private boolean attempted_once; //flag indicating which attempt user is up to
 
 	private ArrayList<String> words_mastered; //list of words user got first try in quiz
 	private ArrayList<String> words_faulted; //list of words user got second try in quiz
@@ -87,7 +86,6 @@ public class Quiz extends JPanel {
 
 			current_attempt_number = 1;
 			current_word_number = 0;
-//			attempted_once = true;
 
 			words_mastered = new ArrayList<String>();
 			words_faulted = new ArrayList<String>();
@@ -114,7 +112,7 @@ public class Quiz extends JPanel {
 	 * sets up title at top of panel
 	 */
 	private void setupTitle(){
-		JLabel title_to_display = new JLabel(quiz_type.toString()+": "+parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().getCurrentLevel())); 
+		JLabel title_to_display = new JLabel(quiz_type.toString()+": "+parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().current_level)); 
 		title_to_display.setFont(new Font("Courier New", Font.BOLD, 50));
 
 		add(title_to_display);
@@ -179,8 +177,6 @@ public class Quiz extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				checkCorrectSpelling(input_from_user.getText());
 				input_from_user.requestFocusInWindow();
-				//				lblNewLabel.setVisible(false);
-				//				label.setVisible(false);
 			}
 		});
 
@@ -200,8 +196,6 @@ public class Quiz extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				checkCorrectSpelling(input_from_user.getText());
 				input_from_user.requestFocusInWindow();
-				//				lblNewLabel.setVisible(false);
-				//				label.setVisible(false);
 			}
 		});
 
@@ -221,13 +215,13 @@ public class Quiz extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				//says the word slowly
 				parent_frame.getFestival().speak(words_to_spell.get(current_word_number),true);
-				
+
 				//says the sample sentence at user's preferred speed
 				if(parent_frame.getDataHandler().has_sample_sentences){
 					int index=parent_frame.getDataHandler().wordlist_words.get(parent_frame.getDataHandler().current_level).indexOf(words_to_spell.get(current_word_number));
 					parent_frame.getFestival().speak(parent_frame.getDataHandler().sample_sentences.get(parent_frame.getDataHandler().current_level).get(index),false);
 				}
-				
+
 				//says the word slowly again
 				parent_frame.getFestival().speak(words_to_spell.get(current_word_number),true);
 			}
@@ -352,7 +346,8 @@ public class Quiz extends JPanel {
 	 */
 	private void startQuiz(){
 		parent_frame.getFestival().speak("Please spell the word... "+words_to_spell.get(current_word_number),false);
-		
+
+		//says sample sentence if there is one
 		if(parent_frame.getDataHandler().has_sample_sentences){
 			int index=parent_frame.getDataHandler().wordlist_words.get(parent_frame.getDataHandler().current_level).indexOf(words_to_spell.get(current_word_number));
 			parent_frame.getFestival().speak(parent_frame.getDataHandler().sample_sentences.get(parent_frame.getDataHandler().current_level).get(index),false);
@@ -381,8 +376,7 @@ public class Quiz extends JPanel {
 				parent_frame.getFestival().speak("Correct", false);
 
 				//adds to respective arraylist based on which attempt they get it right
-//				if(attempted_once==true){
-					if (current_attempt_number==1){
+				if (current_attempt_number==1){
 					words_mastered.add(words_to_spell.get(current_word_number));
 				} else {//words is faulted
 					words_faulted.add(words_to_spell.get(current_word_number));
@@ -391,9 +385,7 @@ public class Quiz extends JPanel {
 				progressBar.setForeground(Color.GREEN);
 				current_word_number+=1;
 				current_attempt_number=1;
-//				attempted_once = true;
 				display_to_user.setText("");//clear display
-				//				lblNewLabel.setVisible(true);
 			} else{//incorrect spelling
 				parent_frame.getFestival().speak("Incorrect", false);
 				display_to_user.append("INCORRECT\n\n");
@@ -403,13 +395,10 @@ public class Quiz extends JPanel {
 					words_failed.add(words_to_spell.get(current_word_number));
 					current_attempt_number=1;
 					current_word_number+=1;
-//					attempted_once = true;
 					display_to_user.setText("");//clear display
 					progressBar.setForeground(Color.RED);
-					//					label.setVisible(true);
 				} else{	//first time getting it wrong(faulted so far, maybe failed later)
 					parent_frame.getFestival().speak("Please try again", false);
-//					attempted_once=false;
 					current_attempt_number+=1;
 				}
 			}

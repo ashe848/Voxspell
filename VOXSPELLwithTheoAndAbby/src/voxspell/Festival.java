@@ -12,7 +12,7 @@ import javax.swing.SwingWorker;
  * Based on Abby's A2 code
  */
 public class Festival {
-	private static Voxspell parent_frame;
+	private Voxspell parent_frame;
 
 	private static Festival instance=null; //since singleton class
 
@@ -22,9 +22,9 @@ public class Festival {
 
 	//queuing of SwingWorkers to avoid voice overlapping
 	//inspired by http://stackoverflow.com/questions/22412544/swingworker-queue-and-single-using
-	private static ArrayList<FestivalWorker> worker_queue=new ArrayList<FestivalWorker>();
+	private ArrayList<FestivalWorker> worker_queue=new ArrayList<FestivalWorker>();
 	//flag to indicate if there is already a worker executing Festival calls
-	private static boolean locked=false;
+	private boolean locked=false;
 
 	/**
 	 * Private constructor
@@ -126,7 +126,7 @@ public class Festival {
 			System.out.println(speech + " " + festival_speed.getSpeedValue() + " " + festival_voice.getVoiceValue());
 		}
 	}
-	
+
 	public void emptyWorkerQueue(){
 		worker_queue=new ArrayList<FestivalWorker>();
 	}
@@ -136,7 +136,7 @@ public class Festival {
 	 * Ensures this time consuming task doesn't hold up the ED thread,
 	 * and so ensures the GUI doesn't freeze
 	 */
-	static class FestivalWorker extends SwingWorker<Void, Void> {
+	class FestivalWorker extends SwingWorker<Void, Void> {
 		//what to speak
 		private String speech;
 		private boolean say_again;
@@ -160,10 +160,9 @@ public class Festival {
 			} else {
 				parent_frame.getDataHandler().writeToScheme(speech, festival_speed, festival_voice);
 			}
-			
+
 
 			//makes call to festival to execute the scm file in batch mode
-			//TODO Add in quotes to file location (like in write to scheme) so festival works in folderrs with spaces in name
 			String command = "festival -b "+"\""+parent_frame.getResourceFileLocation()+"festival.scm"+"\"";
 			ProcessBuilder pb = new ProcessBuilder("bash", "-c", command);
 			try {

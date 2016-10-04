@@ -43,7 +43,7 @@ public class Settings extends JPanel {
 	private String temp_level_selection=null;
 	private String temp_list_selection=null;
 	private String temp_video_selection=null;
-//	private boolean changedWordList=false;
+
 	/**
 	 * Constructor, initialise panel properties and GUI elements
 	 */
@@ -52,13 +52,14 @@ public class Settings extends JPanel {
 		setLayout(null);
 
 		parent_frame = parent;
-		JLabel lblOtherSettingsWont = new JLabel("Other Settings Won't be Saved");
+		
+		JLabel lblOtherSettingsWont = new JLabel("Other settings may not be saved:");
 		lblOtherSettingsWont.setBounds(335, 232, 254, 15);
 		add(lblOtherSettingsWont);
 		seupResetListStats();
 		seupResetUser();
 		seupResetToDefaultSettings();
-		
+
 		setupChangeVoice();
 		setupChangeSpeed();
 		setupWordInQuiz();
@@ -73,7 +74,6 @@ public class Settings extends JPanel {
 	 * Resets all stats to as if it was the user's first launch (prompts user for confirmation)
 	 */
 	private void seupResetListStats() {
-		
 		JButton btnResetStatsFor = new JButton("Reset Stats for Current List");
 		btnResetStatsFor.setBounds(335, 257, 254, 23);
 		add(btnResetStatsFor);
@@ -87,8 +87,7 @@ public class Settings extends JPanel {
 			}
 		});
 	}
-		
-		
+
 	/**
 	 * @author Abby S
 	 */
@@ -109,7 +108,7 @@ public class Settings extends JPanel {
 		btnNewButton_1.setBounds(335, 326, 254, 23);
 		add(btnNewButton_1);
 	}
-		
+
 	/**
 	 * @author Abby S
 	 */
@@ -209,7 +208,6 @@ public class Settings extends JPanel {
 		add(word_number_chooser);
 	}
 
-
 	/**
 	 * @author Abby S
 	 */
@@ -219,13 +217,12 @@ public class Settings extends JPanel {
 		lblChooseLevel.setBounds(335, 418, 166, 15);
 		add(lblChooseLevel);
 
-
 		String[] levels = parent_frame.getDataHandler().getLevelArray();
 		//only shows levels up to and including current level
-		final JComboBox level_chooser = new JComboBox(Arrays.copyOf(levels, parent_frame.getDataHandler().getCurrentLevel()));
+		final JComboBox level_chooser = new JComboBox(Arrays.copyOf(levels, parent_frame.getDataHandler().current_level));
 
 		//default to current level
-		level_chooser.setSelectedItem(parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().getCurrentLevel()));
+		level_chooser.setSelectedItem(parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().current_level));
 		level_chooser.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -246,9 +243,10 @@ public class Settings extends JPanel {
 		label.setForeground(Color.YELLOW);
 		label.setBounds(31, 500, 254, 15);
 		add(label);
-		
+
 		JLabel label_1=new JLabel("");
 		add(label_1);
+		
 		JButton btnNewButton = new JButton("Choose another list");
 		btnNewButton.setBounds(31, 527, 93, 23);
 		btnNewButton.addActionListener(new ActionListener() {
@@ -267,7 +265,7 @@ public class Settings extends JPanel {
 						JOptionPane.showMessageDialog(null, "Chosen list is not in correct format\nPlease choose another list", "List Format Error", JOptionPane.WARNING_MESSAGE);
 					} else {
 						temp_list_selection=chooser.getSelectedFile().getName();
-//						changedWordList=true;
+						//						changedWordList=true;
 						label_1.setText("Will change to "+temp_list_selection+" on save.");
 						label_1.setForeground(Color.YELLOW);
 						label_1.setBounds(150, 531, 254, 15);
@@ -277,7 +275,7 @@ public class Settings extends JPanel {
 		});
 		add(btnNewButton);
 	}
-	
+
 	/**
 	 * @author Abby S
 	 */
@@ -286,9 +284,10 @@ public class Settings extends JPanel {
 		label.setForeground(Color.YELLOW);
 		label.setBounds(31, 171, 254, 15);
 		add(label);
-		
+
 		JLabel label_1=new JLabel("");
 		add(label_1);
+		
 		JButton btnNewButton = new JButton("Choose another video");
 		btnNewButton.setBounds(327, 167, 93, 23);
 		btnNewButton.addActionListener(new ActionListener() {
@@ -323,9 +322,6 @@ public class Settings extends JPanel {
 		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
 		JButton back_button = new JButton("", back_button_image);
 		back_button.addActionListener(new ActionListener() {
-
-
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				boolean asksave_result = askToConfirm("Would you like to Save?", "Save Settings");
 				if (asksave_result){
@@ -348,7 +344,7 @@ public class Settings extends JPanel {
 						parent_frame.getDataHandler().video_name=temp_video_selection;
 					}
 					parent_frame.getDataHandler().writeToSettingsFiles();
-					
+
 					if(temp_list_selection!=null){
 						parent_frame.getDataHandler().spelling_list_name=temp_list_selection;
 						parent_frame.getDataHandler().readListSpecificFiles();
@@ -367,7 +363,7 @@ public class Settings extends JPanel {
 	/**
 	 * Pop up to confirm that user wants to commit to their selection
 	 * http://stackoverflow.com/questions/8689122/joptionpane-yes-no-options-confirm-dialog-box-issue-java
-	 * @param body  body of dialog box
+	 * @param body body of dialog box
 	 * @param title	title of dialog box
 	 * @return
 	 */
@@ -402,21 +398,19 @@ public class Settings extends JPanel {
 		g.drawImage(bg_image, 0, 0, this);
 	}
 
-
-
 	/**
 	 * 	Slightly modified from:	
 	 * 	https://tips4java.wordpress.com/2009/01/28/single-root-file-chooser/
 	 * 	http://www.camick.com/java/source/SingleRootFileSystemView.java
 	 * 
-	 *  A FileSystemView class that limits the file selections to a single root.
+	 * A FileSystemView class that limits the file selections to a single root.
 	 *
-	 *  When used with the JFileChooser component the user will only be able to
-	 *  traverse the directories contained within the specified root fill.
+	 * When used with the JFileChooser component the user will only be able to
+	 * traverse the directories contained within the specified root fill.
 	 *
-	 *  The "Look In" combo box will only display the specified root.
+	 * The "Look In" combo box will only display the specified root.
 	 *
-	 *  The "Up One Level" button will be disabled
+	 * The "Up One Level" button will be disabled
 	 * 
 	 */
 	class SingleRootFileSystemView extends FileSystemView

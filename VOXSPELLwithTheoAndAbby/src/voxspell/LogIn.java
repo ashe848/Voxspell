@@ -16,10 +16,11 @@ import voxspell.Voxspell.PanelID;
 @SuppressWarnings({ "static-access", "serial" })
 
 public class LogIn extends JFrame {
-	private static Voxspell parent_frame;
+	private Voxspell parent_frame;
 	private JPanel contentPane;
-	private JTextField textField;
+	
 	private LogIn logInFrame=this;
+	private JTextField textField;
 
 	/**
 	 * Create the frame.
@@ -30,11 +31,11 @@ public class LogIn extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(800, 300, 450, 500);
-		
+
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		setupLabels();
 		setupRegisteredUsers();
 		setupEnterName();
@@ -45,11 +46,11 @@ public class LogIn extends JFrame {
 		JLabel lblIfYourName = new JLabel("If your name is in the list, please enter your name to log in");
 		lblIfYourName.setBounds(10, 34, 414, 15);
 		contentPane.add(lblIfYourName);
-		
+
 		JLabel lblElseEnterYour = new JLabel("If not, WELCOME! Enter your name and you will be registered.");
 		lblElseEnterYour.setBounds(10, 59, 414, 15);
 		contentPane.add(lblElseEnterYour);
-		
+
 		JLabel label = new JLabel("Registered Users (Case Sensitive):");
 		label.setBounds(10, 84, 414, 15);
 		contentPane.add(label);
@@ -75,7 +76,7 @@ public class LogIn extends JFrame {
 		JLabel lblYourName = new JLabel("Your name:");
 		lblYourName.setBounds(10, 381, 77, 15);
 		contentPane.add(lblYourName);
-		
+
 		textField = new JTextField();
 		textField.setBounds(84, 378, 340, 21);
 		textField.setColumns(10);
@@ -85,7 +86,7 @@ public class LogIn extends JFrame {
 	private void setupOKButton() {
 		JLabel lblOnlyAlphabeticalCharacters = new JLabel("");
 		contentPane.add(lblOnlyAlphabeticalCharacters);
-		
+
 		JButton btnOk = new JButton("OK");
 		btnOk.setBounds(162, 438, 93, 23);
 		contentPane.add(btnOk);

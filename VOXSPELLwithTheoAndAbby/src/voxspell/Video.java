@@ -24,12 +24,14 @@ import voxspell.Voxspell.PanelID;
  * Based on Nasser's ACP VLCJ code
  */
 public class Video extends JPanel{
-	private static Voxspell parent_frame; //link to parent frame
-	static String video;
-	//Component on panel used to show video
-	private EmbeddedMediaPlayerComponent media_player_component;
+	private Voxspell parent_frame; //link to parent frame
+
+	private String video;
 	//Panel that video is shown on
 	private JPanel panel;
+
+	//Component on panel used to show video
+	private EmbeddedMediaPlayerComponent media_player_component;
 	//Video player contained in the component
 	private EmbeddedMediaPlayer player;
 
@@ -48,18 +50,14 @@ public class Video extends JPanel{
 
 		parent_frame=parent;
 
-		if (System.getProperty("os.name").equals("Linux")) {
-			video = System.getProperty("user.dir")+"/rewardvideos/"+parent_frame.getDataHandler().video_name;
-			setupPlayer();
-			setupTimer();
-			setupProgressBar();
-			setupStartButton();
-			setupPauseButton();
-			setupStopButton();
-			setupBackButton();
-		} else {
-			System.out.println(video);
-		}	
+		video = System.getProperty("user.dir")+"/rewardvideos/"+parent_frame.getDataHandler().video_name;
+		setupPlayer();
+		setupTimer();
+		setupProgressBar();
+		setupStartButton();
+		setupPauseButton();
+		setupStopButton();
+		setupBackButton();
 	}
 
 	/**
@@ -78,16 +76,6 @@ public class Video extends JPanel{
 
 		frame.setContentPane(panel); //sticking new panel on the frame that program is on
 
-		/*ffmpeg -i reward_video.avi  \ 
-		 * -vf vflip,hflip,negate,reverse,drawtext="text='CONGRATULATIONS ON GOOD QUIZ': \ 
-		 * fontsize=40: box=1: boxcolor=white@0.8: x=(w-text_w)/2: y=(h-text_h)/2"  \ 
-		 * -af aecho,areverse,ashowinfo ffmpeg_reward_video.avi
-		 * 
-		 * Skeleton from Nasser's Lecture 9 slides
-		 * Filters from `ffmpeg -filters`
-		 * drawtext code from http://stackoverflow.com/questions/17623676/text-on-video-ffmpeg
-		 * video = parent_frame.getResourceFileLocation()+"ffmpeg_reward_video.avi";
-		 */
 		player.playMedia(video);
 	}
 

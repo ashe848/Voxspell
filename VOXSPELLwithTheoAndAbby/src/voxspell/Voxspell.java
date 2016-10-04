@@ -12,54 +12,44 @@ import voxspell.StatsChooser.StatsType;
 
 @SuppressWarnings("serial")
 
-/*
-parent_frame.setEnabled(false);
-set it back to true on X of dialog
- */
-
-
 /**
  * The class containing the main method 
  * Is the frame for the Voxspell program
  */
 public class Voxspell extends JFrame{
 	//TODO make this folder hidden
-	private static final String RESOURCE_FILE_LOCATION = System.getProperty("user.dir")+"/resources/";
-	static MainMenu main_menu;
+	private final String RESOURCE_FILE_LOCATION = System.getProperty("user.dir")+"/resources/";
+
+	//Contains the singleton DataHandler and Festival instances which panels get
+	private DataHandler data_handler;
+	private Festival festival;
 	
-	//Contains the DataHandler and Festival instances which panels get
-	private static DataHandler data_handler;
-	private static Festival festival;
+	MainMenu main_menu;
 
 	/**
 	 * Constructor. Initialise frame, create data structure & set original panel to main menu
 	 */
 	public Voxspell(){
 		super();
-		
+
 		//setup code from Theo's A2 code
-		setTitle("Voxspell");
-		//TODO 570 or 600?
-		if (System.getProperty("os.name").equals("Linux")) {
-			setSize(800,570);
-		} else {
+		setTitle("VOXSPELL");
 			setSize(800,600);
-		}
 		setLocationRelativeTo(null);
 		setResizable(false);
 
 		//TODO back to DO_NOTHING_ON_CLOSE
 		//Make the power button on main menu the only way to exit the application
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		addWindowListener(new WindowAdapter() {
-//			public void windowClosing(WindowEvent e) {
-//				JOptionPane.showMessageDialog(null, "Closing the window will result in loss of data\nPlease exit using the power button on main menu", "Error", JOptionPane.WARNING_MESSAGE);
-//			}
-//		});
-		
+		//		addWindowListener(new WindowAdapter() {
+		//			public void windowClosing(WindowEvent e) {
+		//				JOptionPane.showMessageDialog(null, "Closing the window will result in loss of data\nPlease exit using the power button on main menu", "Error", JOptionPane.WARNING_MESSAGE);
+		//			}
+		//		});
+
 		festival = Festival.getInstance(this);
 		data_handler=DataHandler.getInstance(this);
-		
+
 		//make MainMenu the panel to display
 		main_menu=new MainMenu(this);
 		add(main_menu);
@@ -155,7 +145,7 @@ public class Voxspell extends JFrame{
 			this.getContentPane().add(new Video(this));
 			break;
 		}
-		
+
 		//Repaints the panel to the changed one
 		this.revalidate();
 	}

@@ -18,16 +18,16 @@ import voxspell.Voxspell.PanelID;
 @SuppressWarnings({ "serial" })
 
 public class ListBuilder extends JPanel {
-
-	private ArrayList<String> words_to_add = new ArrayList<String>();
-	private ArrayList<String> sentences_to_add = new ArrayList<String>();
-	private String list_name;
-	
 	private Voxspell parent_frame;
+
 	private JTextField textField;
 	private JTextField textField_1;
 	JTextArea txtrWordsAdded;
 	JTextArea textArea;
+
+	private String list_name;
+	private ArrayList<String> words_to_add = new ArrayList<String>();
+	private ArrayList<String> sentences_to_add = new ArrayList<String>();
 
 	/**
 	 * Constructor, initialise panel parameters and GUI elements
@@ -35,9 +35,9 @@ public class ListBuilder extends JPanel {
 	public ListBuilder(Voxspell parent){
 		setSize(800,600);
 		setLayout(null);
-		
+
 		parent_frame = parent;
-		
+
 		setupTitle();		
 		setupWordsAdded();		
 		setupEnterName();		
@@ -53,18 +53,18 @@ public class ListBuilder extends JPanel {
 		lblBuildYourOwn.setBounds(288, 26, 327, 15);
 		add(lblBuildYourOwn);
 	}
-	
+
 	private void setupWordsAdded() {
 		JLabel lblWordsAdded = new JLabel("Words Added:");
 		lblWordsAdded.setBounds(10, 84, 97, 15);
 		add(lblWordsAdded);
-		
+
 		txtrWordsAdded = new JTextArea();
 		txtrWordsAdded.setText("");
 		txtrWordsAdded.setEditable(false);
 		txtrWordsAdded.setLineWrap(true);
 		txtrWordsAdded.setWrapStyleWord(true);
-		
+
 		JScrollPane sPane = new JScrollPane(txtrWordsAdded);
 		sPane.setBounds(10, 108, 302, 418);
 		add(sPane);
@@ -74,7 +74,7 @@ public class ListBuilder extends JPanel {
 		JLabel lblNameOfList = new JLabel("Name of List:");
 		lblNameOfList.setBounds(350, 90, 97, 15);
 		add(lblNameOfList);
-		
+
 		textField = new JTextField();
 		textField.setBounds(457, 81, 302, 34);
 		add(textField);
@@ -85,7 +85,7 @@ public class ListBuilder extends JPanel {
 		JLabel lblWord = new JLabel("Word:");
 		lblWord.setBounds(350, 154, 97, 15);
 		add(lblWord);
-		
+
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
 		textField_1.setBounds(457, 145, 302, 34);
@@ -96,13 +96,13 @@ public class ListBuilder extends JPanel {
 		JLabel lblSampleSentenceoptional = new JLabel("Sample sentence (optional):");
 		lblSampleSentenceoptional.setBounds(350, 218, 176, 15);
 		add(lblSampleSentenceoptional);
-		
+
 		textArea = new JTextArea();
 		textArea.setText("");
 		textArea.setEditable(true);
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
-		
+
 		JScrollPane sp = new JScrollPane(textArea);
 		sp.setBounds(350, 243, 409, 171);
 		add(sp);
@@ -112,7 +112,7 @@ public class ListBuilder extends JPanel {
 		JButton btnAddThisWord = new JButton("Add This Word");
 		btnAddThisWord.setBounds(510, 438, 120, 23);
 		btnAddThisWord.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String word=textField_1.getText();
@@ -138,7 +138,7 @@ public class ListBuilder extends JPanel {
 		JButton btnSave = new JButton("Save");
 		btnSave.setBounds(392, 497, 93, 23);
 		btnSave.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (!textField.getText().matches("[a-zA-Z]+")){
@@ -166,13 +166,13 @@ public class ListBuilder extends JPanel {
 		JButton btnDiscard = new JButton("Discard");
 		btnDiscard.setBounds(626, 497, 93, 23);
 		btnDiscard.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (askForConfirmation("Are you sure you want to discard this list?", "Discard")){
 					parent_frame.changePanel(PanelID.MainMenu);
 				}
-				
+
 			}
 		});
 		add(btnDiscard);

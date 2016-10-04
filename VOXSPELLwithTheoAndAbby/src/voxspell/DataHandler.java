@@ -43,11 +43,12 @@ public class DataHandler {
 	static String user;
 	static String spelling_list_name;
 	static String video_name;
-
+	static int words_in_quiz; //number of words in each quiz
+	
 	static ArrayList<String> users;
 	static String global_top;
 	static double personal_best;
-
+	
 	//filenames
 	private static String program_stats;
 	private static String users_list;
@@ -58,13 +59,12 @@ public class DataHandler {
 	private static String reviewlist; //Holds words that have been failed and not mastered/faulted after
 	private static String list_settings; //name of file that holds various settings
 
-	static int words_in_quiz; //number of words in each quiz
-	static ArrayList<String> level_names;
-	
+	static ArrayList<ArrayList<String>> wordlist_words; //words from wordlist file
 	static boolean has_sample_sentences;
 	static ArrayList<ArrayList<String>> sample_sentences;
+	static ArrayList<String> level_names;
+	static int current_level; //initialised so if settings file is empty/wiped
 
-	static ArrayList<ArrayList<String>> wordlist_words; //words from wordlist file
 	private static ArrayList<ArrayList<String>> reviewlist_words; //words from reviewlist file
 
 	//Persistent and session are all for the current list
@@ -84,8 +84,6 @@ public class DataHandler {
 	static int latest_quiz_length;
 	private static boolean levelled_up=false; //flag for whether user had decided to level up
 
-	static int current_level; //initialised so if settings file is empty/wiped
-
 	/**
 	 * Constructor for single instance, reference parent frame and starts reading files
 	 */
@@ -94,7 +92,7 @@ public class DataHandler {
 
 		//default to visitor
 		user="Visitor";
-		
+
 		readUsers();
 		readProgramStatsFile();
 		readUserFiles();
@@ -187,13 +185,13 @@ public class DataHandler {
 				JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary resources folder has been removed\nAborting", "Fatal Error", JOptionPane.WARNING_MESSAGE);
 				System.exit(1);
 			}
-			
+
 			File default_spelling_list = new File(System.getProperty("user.dir")+"/spellinglists/"+spelling_list_name);
 			if (!default_spelling_list.exists()) {
 				JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary NZCER-spelling-lists.txt has been removed\n(should be in spellinglists folder)\nPlease put it back and restart Voxspell", "Fatal Error", JOptionPane.WARNING_MESSAGE);
 				System.exit(1);
 			}
-			
+
 			File default_reward_video = new File(System.getProperty("user.dir")+"/rewardvideos/"+parent_frame.getDataHandler().video_name);
 			if (!default_reward_video.exists()) {
 				JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary ffmpeg_reward_video.avi has been removed\n(should be in rewardvideos folder)\nPlease put it back and restart Voxspell", "Fatal Error", JOptionPane.WARNING_MESSAGE);
@@ -221,7 +219,7 @@ public class DataHandler {
 					if (!saved_spelling_list.exists()) {
 						spelling_list_name="NZCER-spelling-lists.txt";
 					}
-					
+
 					//get festival speed
 					String speed_string=split_line[1];
 					switch(speed_string){
@@ -249,7 +247,7 @@ public class DataHandler {
 					words_in_quiz=Integer.parseInt(split_line[3]);
 
 					personal_best=Double.parseDouble(split_line[4]);
-					
+
 					video_name =split_line[5];
 					File saved_reward_video = new File(System.getProperty("user.dir")+"/rewardvideos/"+video_name);
 					if (!saved_reward_video.exists()) {
@@ -367,15 +365,15 @@ public class DataHandler {
 			wordlist_words.add(temp_string_array); //offload final level
 
 			current_BR.close();
-			
-				File sample_sentences_file = new File(System.getProperty("user.dir")+"/samplesentences/"+spelling_list_name);
-				if (sample_sentences_file.exists()) {
-					has_sample_sentences=true;
-					readInSampleSentences();
-				} else {
-					has_sample_sentences=false;
-				}
-			
+
+			File sample_sentences_file = new File(System.getProperty("user.dir")+"/samplesentences/"+spelling_list_name);
+			if (sample_sentences_file.exists()) {
+				has_sample_sentences=true;
+				readInSampleSentences();
+			} else {
+				has_sample_sentences=false;
+			}
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -448,7 +446,7 @@ public class DataHandler {
 					word = "";
 					split_line = string_input.split(" ");
 					word_level = Integer.valueOf(split_line[0]);
-					mastered_count  = Integer.valueOf(split_line[1]);
+					mastered_count = Integer.valueOf(split_line[1]);
 					faulted_count = Integer.valueOf(split_line[2]);
 					failed_count = Integer.valueOf(split_line[3]);
 
@@ -568,12 +566,12 @@ public class DataHandler {
 		if(selected.getName().contains(" ")){
 			return false;
 		}
-		
+
 		try {
 			BufferedReader current_BR = new BufferedReader(new FileReader(selected));
 
 			String input_line = current_BR.readLine();
-			
+
 			//must have % on first line followed by something (not empty or spaces) for level name
 			/*
 			 * If the file chosen isn't a text file, input_lines would be something like the below:
@@ -584,7 +582,7 @@ public class DataHandler {
 				current_BR.close();
 				return false;
 			} 
-			
+
 			input_line=current_BR.readLine();	
 			//must have something on next line so at least 1 "word" to quiz
 			if(input_line==null || input_line.trim().isEmpty()) {
@@ -687,7 +685,7 @@ public class DataHandler {
 				fw.write(u+"\n");
 			}
 			fw.close();
-			
+
 			fw = new FileWriter(new File(program_stats), false);
 			fw.write(global_top);
 			fw.close();
@@ -695,7 +693,7 @@ public class DataHandler {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * @author Abby S
 	 */
@@ -707,7 +705,7 @@ public class DataHandler {
 				fw.write(w+"\n");
 			}
 			fw.close();
-			
+
 			fw = new FileWriter(new File(System.getProperty("user.dir")+"/samplesentences/"+list_name+".txt"), false);
 			fw.write("%"+list_name+"\n");
 			for (String s:sentences_to_add){
@@ -718,8 +716,8 @@ public class DataHandler {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+
 	/**
 	 * @author Abby S
 	 */
@@ -740,7 +738,7 @@ public class DataHandler {
 
 		parent_frame.changePanel(PanelID.MainMenu);
 	}
-	
+
 	/**
 	 * wipe files and calls read files to read in empty into the data structures
 	 * will be as if this was the user's first launch
@@ -752,7 +750,7 @@ public class DataHandler {
 	public void resetUser() throws IOException {
 		users.remove(user);
 		writeToProgramFiles();
-		
+
 		Path user_folder_path=Paths.get(parent_frame.getResourceFileLocation()+user+"/", "");
 		Files.walkFileTree(user_folder_path, new SimpleFileVisitor<Path>(){
 			public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
@@ -761,22 +759,22 @@ public class DataHandler {
 			}
 		});
 		File user_folder = new File(parent_frame.getResourceFileLocation()+user+"/");
-        user_folder.delete();
-        
-        user="Visitor";
-        readUserFiles();
-        readListSpecificFiles();
-        parent_frame.changePanel(PanelID.MainMenu);
+		user_folder.delete();
+
+		user="Visitor";
+		readUserFiles();
+		readListSpecificFiles();
+		parent_frame.changePanel(PanelID.MainMenu);
 	}
-	
+
 	public void resetToDefaults() {
 		File user_settings_file = new File(user_settings);
 		user_settings_file.delete();
 		readUserFiles();
-		
+
 		parent_frame.changePanel(PanelID.MainMenu);
 	}
-	
+
 
 
 
@@ -1004,14 +1002,6 @@ public class DataHandler {
 	}
 
 	/**
-	 * Returns current level
-	 * @return
-	 */
-	public int getCurrentLevel(){
-		return current_level;
-	}
-
-	/**
 	 * Returns the levels as an Integer array
 	 * @return
 	 */
@@ -1094,9 +1084,9 @@ public class DataHandler {
 	 */
 	public String getAccuracyRates(){
 		String to_return=user;
-		to_return+="[level "+level_names.get(getCurrentLevel());
-		to_return+="]\t[Attempted: "+getAttemptedCount()+"/"+persistent_allwords.get(current_level).size();
-		to_return+="]\t["+reviewlist_words.get(current_level).size()+" failed out of "+persistent_allwords.get(current_level).size()+"]";
+		to_return+=" [Level: "+level_names.get(current_level);
+		to_return+="] [Attempted "+getAttemptedCount()+"/"+persistent_allwords.get(current_level).size();
+		to_return+=" words] [Didn't get "+reviewlist_words.get(current_level).size()+"]";
 
 		return to_return;
 	}

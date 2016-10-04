@@ -16,6 +16,8 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -42,12 +44,12 @@ public class QuizComplete extends JPanel{
 	private Voxspell parent_frame;
 	private Image bg_image;
 
-	//list of words from quiz just completed
-	private static ArrayList<String> latest_mastered_words;
-	private static ArrayList<String> latest_faulted_words;
-	private static ArrayList<String> latest_failed_words;
 	private Clip clip;
-	
+
+	//list of words from quiz just completed
+	private ArrayList<String> latest_mastered_words;
+	private ArrayList<String> latest_faulted_words;
+	private ArrayList<String> latest_failed_words;
 
 	/**
 	 * Constructor, initialise panel parameters and GUI elements
@@ -71,25 +73,24 @@ public class QuizComplete extends JPanel{
 	}
 
 	/**
-	 * @author http://stackoverflow.com/a/11025384
+	 * Modified from http://stackoverflow.com/a/11025384
 	 */
 	private void setupAudio() {
-		String audio=parent_frame.getResourceFileLocation()+"11k16bitpcm.wav";
-		try {
-		    File yourFile=new File(audio);
-		    AudioInputStream stream;
-		    AudioFormat format;
-		    DataLine.Info info;
+		File audio_file=new File(parent_frame.getResourceFileLocation()+"11k16bitpcm.wav");
 
-		    stream = AudioSystem.getAudioInputStream(yourFile);
-		    format = stream.getFormat();
-		    info = new DataLine.Info(Clip.class, format);
-		    clip = (Clip) AudioSystem.getLine(info);
-		    clip.open(stream);
-//		    clip.start();
-		}
-		catch (Exception e) {
-		   //do nothing
+		try {
+			AudioInputStream stream = AudioSystem.getAudioInputStream(audio_file);
+			AudioFormat format = stream.getFormat();
+			DataLine.Info info = new DataLine.Info(Clip.class, format);
+			clip = (Clip) AudioSystem.getLine(info);
+			clip.open(stream);
+			clip.start();
+		} catch (UnsupportedAudioFileException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -151,7 +152,7 @@ public class QuizComplete extends JPanel{
 		//at most 10% incorrect (truncated to whole number)
 		if(latest_failed_words.size()<=(int)(0.1*parent_frame.getDataHandler().latest_quiz_length)) {
 			setupVideoButton();
-			
+
 			//whether user has already levelled up before playing video
 			if(parent_frame.getDataHandler().getNumberOfLevels()-1==1) {
 				//do nothing. Only 1 level.
@@ -161,13 +162,13 @@ public class QuizComplete extends JPanel{
 				setupLevelledUpLabel("");
 			}
 		}
-		
+
 		//3 points for mastered, 1 point for faulted. None for failed. As a percentage
 		double score=(double)(latest_mastered_words.size()*3 + latest_faulted_words.size())/parent_frame.getDataHandler().latest_quiz_length;
 		if(score > parent_frame.getDataHandler().personal_best){
 			setupNewPB(score);
 			parent_frame.getDataHandler().personal_best=score;
-			
+
 			double global_top_score=Double.parseDouble(parent_frame.getDataHandler().global_top.split("\\s+")[0]);
 			if (score > global_top_score){
 				parent_frame.getDataHandler().global_top=score+" "+parent_frame.getDataHandler().user+" "+parent_frame.getDataHandler().spelling_list_name;
@@ -189,7 +190,7 @@ public class QuizComplete extends JPanel{
 		level_up_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//if not on highest level
-				if (parent_frame.getDataHandler().getCurrentLevel()<parent_frame.getDataHandler().getNumberOfLevels()-1){
+				if (parent_frame.getDataHandler().current_level<parent_frame.getDataHandler().getNumberOfLevels()-1){
 					parent_frame.getDataHandler().increaseLevel();
 					parent_frame.getDataHandler().setLevelledUp(true);
 					setupLevelledUpLabel("up ");
@@ -213,7 +214,7 @@ public class QuizComplete extends JPanel{
 	 * to a new level.
 	 */
 	private void setupLevelledUpLabel(String direction) {
-		JLabel level_up_button = new JLabel("Moved " + direction + "to "+parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().getCurrentLevel()), JLabel.CENTER);
+		JLabel level_up_button = new JLabel("Moved " + direction + "to "+parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().current_level), JLabel.CENTER);
 
 		level_up_button.setBounds(550, 213, 200, 114);
 		level_up_button.setForeground(Color.YELLOW);
@@ -238,7 +239,7 @@ public class QuizComplete extends JPanel{
 		});
 		add(video_button);		
 	}
-	
+
 	/**
 	 * @author Abby S
 	 */
@@ -247,7 +248,7 @@ public class QuizComplete extends JPanel{
 		lblNewPersonalBest.setBounds(550, 119, 200, 15);
 		add(lblNewPersonalBest);
 	}
-	
+
 	/**
 	 * @author Abby S
 	 */
@@ -256,16 +257,16 @@ public class QuizComplete extends JPanel{
 		label.setBounds(550, 150, 200, 15);
 		add(label);
 	}
-	
+
 	/**
 	 * @author Abby S
 	 */
 	private void setupNewGlobalTop(double record_score, double global) {
-			JLabel label = new JLabel("Bet previous global top by "+(record_score-global)+"!");
-			label.setBounds(550, 150, 2000, 15);
-			add(label);
+		JLabel label = new JLabel("Bet previous global top by "+(record_score-global)+"!");
+		label.setBounds(550, 150, 2000, 15);
+		add(label);
 	}
-	
+
 	/**
 	 * Back button to return to previous panel
 	 */

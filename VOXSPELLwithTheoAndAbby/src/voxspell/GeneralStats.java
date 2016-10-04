@@ -35,10 +35,10 @@ import voxspell.Voxspell.PanelID;
  * to sort by the column headers
  */
 public class GeneralStats extends JPanel {
-	private static Voxspell parent_frame;
+	private Voxspell parent_frame;
 	private Image bg_image;
 
-	private static JTable table;
+	private JTable table;
 
 	/**
 	 * Constructor, initialise panel properties and set up GUI elements
@@ -104,7 +104,7 @@ public class GeneralStats extends JPanel {
 
 		//Disallow reordering of columns
 		table.getTableHeader().setReorderingAllowed(false);
-		
+
 		//Alignment for the cells http://stackoverflow.com/a/7433758
 		DefaultTableCellRenderer alignment_renderer = new DefaultTableCellRenderer();
 		alignment_renderer.setHorizontalAlignment(JLabel.CENTER);
@@ -150,7 +150,7 @@ public class GeneralStats extends JPanel {
 		accuracy_rate_label.setVisible(true);
 		accuracy_rate_label.setOpaque(true);
 	}
-	
+
 	/**
 	 * Puts the background image, overriding paintComponent method(below) to ensure functionality
 	 * @param type 		Type of stats, determines which background image to display
@@ -171,7 +171,7 @@ public class GeneralStats extends JPanel {
 		setLocation(0,0);
 		setSize(800, 600);
 	}
-	
+
 	/**
 	 * Overriding the paintComponent method to place background
 	 */

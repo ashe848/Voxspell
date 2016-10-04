@@ -43,8 +43,8 @@ public class MainMenu extends JPanel{
 		setSize(800, 600);
 		setLayout(null);
 
-		parent_frame  = parent;
-	
+		parent_frame = parent;
+
 		setupBackground();
 		setupLogInButton();
 		setupListBuilderButton();
@@ -78,7 +78,7 @@ public class MainMenu extends JPanel{
 		super.paintComponent(g);
 		g.drawImage(bg_image, 0, 0, this);
 	}
-	
+
 	/**
 	 * @author Abby S
 	 */
@@ -93,7 +93,7 @@ public class MainMenu extends JPanel{
 		});
 		add(log_in_button);
 	}
-	
+
 	/**
 	 * @author Abby S
 	 */
@@ -135,7 +135,7 @@ public class MainMenu extends JPanel{
 	private void setupReviewButton(){
 		ImageIcon review_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "review_button.png");
 		JButton review_button = new JButton("", review_button_image);
-		
+
 		review_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				parent_frame.changePanel(PanelID.Review);

@@ -27,7 +27,7 @@ import voxspell.Voxspell.PanelID;
  * 	-Stats for user selected level from current session
  */
 public class StatsChooser extends JPanel{
-	private static Voxspell parent_frame;
+	private Voxspell parent_frame;
 	private Image bg_image;
 
 	/**

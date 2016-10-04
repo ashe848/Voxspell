@@ -15,7 +15,7 @@ import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import voxspell.Voxspell.PanelID;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "static-access", "serial" })
 
 /**
  * Video reward JPanel class

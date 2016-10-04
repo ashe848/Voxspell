@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 
 import voxspell.Voxspell.PanelID;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "static-access", "serial" })
 
 /**
  * JPanel for Main Menu
@@ -83,17 +83,15 @@ public class MainMenu extends JPanel{
 	 * @author Abby S
 	 */
 	private void setupLogInButton() {
-		//TODO
-		JButton btnLogIn = new JButton("Log In");
-		btnLogIn.setBounds(184, 50, 93, 23);
-		btnLogIn.addActionListener(new ActionListener() {
-			@Override
+		JButton log_in_button= new JButton("Log In");
+		log_in_button.setBounds(184, 50, 93, 23);
+		log_in_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				WindowBuilderLogIn logIn=new WindowBuilderLogIn(parent_frame);
+				LogIn logIn=new LogIn(parent_frame);
 				logIn.setVisible(true);
 			}
 		});
-		add(btnLogIn);
+		add(log_in_button);
 	}
 	
 	/**
@@ -103,7 +101,6 @@ public class MainMenu extends JPanel{
 		JButton list_builder_button = new JButton("Custom List Builder");
 
 		list_builder_button.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				parent_frame.changePanel(PanelID.ListBuilder);
 			}
@@ -122,7 +119,6 @@ public class MainMenu extends JPanel{
 		JButton new_quiz_button = new JButton("", newquiz_button_image);
 
 		new_quiz_button.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				parent_frame.changePanel(PanelID.Quiz);
 			}
@@ -141,7 +137,6 @@ public class MainMenu extends JPanel{
 		JButton review_button = new JButton("", review_button_image);
 		
 		review_button.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				parent_frame.changePanel(PanelID.Review);
 			}
@@ -159,7 +154,6 @@ public class MainMenu extends JPanel{
 		ImageIcon setting_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "settings_button.png");
 		JButton settings_button = new JButton("", setting_button_image);
 		settings_button.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				parent_frame.changePanel(PanelID.Settings);
 			}
@@ -177,7 +171,6 @@ public class MainMenu extends JPanel{
 		ImageIcon stats_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "stats_button.png");
 		JButton stats_button = new JButton("", stats_button_image);
 		stats_button.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				parent_frame.changePanel(PanelID.StatSelection);
 			}
@@ -195,7 +188,6 @@ public class MainMenu extends JPanel{
 		ImageIcon exit_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "ext_btn.png");
 		JButton exit_button = new JButton("", exit_button_image);
 		exit_button.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				boolean askquit_result = askToLeave();
 				if (askquit_result){

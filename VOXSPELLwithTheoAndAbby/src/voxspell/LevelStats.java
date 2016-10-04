@@ -28,7 +28,7 @@ import javax.swing.table.TableRowSorter;
 import voxspell.StatsChooser.StatsType;
 import voxspell.Voxspell.PanelID;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "static-access", "serial", "unchecked", "rawtypes" })
 
 /**
  * JPanel class displaying statistics by level selected
@@ -143,7 +143,6 @@ public class LevelStats extends JPanel{
 		//default to current level
 		level_chooser.setSelectedItem(parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().getCurrentLevel()));
 		level_chooser.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				String choice = (String)level_chooser.getSelectedItem();
 				int level=parent_frame.getDataHandler().level_names.indexOf(choice);
@@ -165,7 +164,6 @@ public class LevelStats extends JPanel{
 		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
 		JButton back_button = new JButton("", back_button_image);
 		back_button.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				parent_frame.changePanel(PanelID.StatSelection);
 			}

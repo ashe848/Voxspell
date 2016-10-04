@@ -17,7 +17,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
@@ -25,10 +24,7 @@ import voxspell.Festival.FestivalSpeed;
 import voxspell.Festival.FestivalVoice;
 import voxspell.Voxspell.PanelID;
 
-//import java.io.*;
-//import javax.swing.filechooser.*;
-
-@SuppressWarnings("serial")
+@SuppressWarnings({ "static-access", "serial", "unchecked", "rawtypes" })
 
 /**
  * Settings JPanel class

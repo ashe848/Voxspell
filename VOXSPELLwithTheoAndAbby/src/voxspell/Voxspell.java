@@ -1,10 +1,6 @@
 package voxspell;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import com.sun.jna.Native;
@@ -139,7 +135,7 @@ public class Voxspell extends JFrame{
 			this.getContentPane().add(new LevelStats(this, StatsType.Session));
 			break;
 		case ListBuilder:
-			this.getContentPane().add(new WindowBuilderListBuilder(this));
+			this.getContentPane().add(new ListBuilder(this));
 			break;
 		case Quiz:
 			this.getContentPane().add(new Quiz(this, PanelID.Quiz));

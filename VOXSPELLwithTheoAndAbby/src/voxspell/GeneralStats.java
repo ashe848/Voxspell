@@ -26,7 +26,7 @@ import javax.swing.table.TableRowSorter;
 import voxspell.StatsChooser.StatsType;
 import voxspell.Voxspell.PanelID;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "static-access", "serial", "unchecked", "rawtypes" })
 
 /**
  * JPanel that displays statistics for all levels

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import javax.swing.SwingWorker;
 
+@SuppressWarnings({ "static-access" })
+
 /**
  * Singleton class responsible for making the festival calls
  * Based on Abby's A2 code

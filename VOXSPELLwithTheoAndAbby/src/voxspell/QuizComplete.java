@@ -27,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
 
 import voxspell.Voxspell.PanelID;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "static-access", "serial", "unchecked", "rawtypes" })
 
 /**
  * JPanel class displayed when user finishes the quiz or review quiz
@@ -86,7 +86,7 @@ public class QuizComplete extends JPanel{
 		    info = new DataLine.Info(Clip.class, format);
 		    clip = (Clip) AudioSystem.getLine(info);
 		    clip.open(stream);
-		    clip.start();
+//		    clip.start();
 		}
 		catch (Exception e) {
 		   //do nothing
@@ -187,7 +187,6 @@ public class QuizComplete extends JPanel{
 
 		level_up_button.setBounds(550, 213, 200, 114);
 		level_up_button.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				//if not on highest level
 				if (parent_frame.getDataHandler().getCurrentLevel()<parent_frame.getDataHandler().getNumberOfLevels()-1){
@@ -274,7 +273,6 @@ public class QuizComplete extends JPanel{
 		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
 		JButton back_button = new JButton("", back_button_image);
 		back_button.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				clip.close();
 				parent_frame.getDataHandler().writeToProgramFiles();

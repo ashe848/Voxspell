@@ -22,6 +22,8 @@ import voxspell.Festival.FestivalVoice;
 import voxspell.StatsChooser.StatsType;
 import voxspell.Voxspell.PanelID;
 
+@SuppressWarnings({ "static-access" })
+
 /**
  * Data handling class
  * 

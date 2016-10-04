@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.SampleModel;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ import voxspell.Festival.FestivalSpeed;
 import voxspell.Festival.FestivalVoice;
 import voxspell.Voxspell.PanelID;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "static-access", "serial", "unchecked", "rawtypes" })
 
 /**
  * JPanel class for screen displayed when user does quiz (normal & review)
@@ -52,8 +51,7 @@ public class Quiz extends JPanel {
 	private ArrayList<String> words_to_spell; //list of words to spell in quiz
 	private int current_word_number; //indicates which word the user is up to in quiz
 	private int current_attempt_number; //indicates which attempt user is up to when spelling
-	private boolean attempted_once; //flag indicating which attempt user is up to
-
+//	private boolean attempted_once; //flag indicating which attempt user is up to
 
 	private ArrayList<String> words_mastered; //list of words user got first try in quiz
 	private ArrayList<String> words_faulted; //list of words user got second try in quiz
@@ -77,7 +75,6 @@ public class Quiz extends JPanel {
 			setupTitle();
 			setupProgressBar();
 			setupProgressTextArea();
-			//			setupFeedBackLabel();
 			setupSpellHereLabel();
 			setupSpellHereField();
 			setupSubmitButton();
@@ -90,7 +87,7 @@ public class Quiz extends JPanel {
 
 			current_attempt_number = 1;
 			current_word_number = 0;
-			attempted_once = true;
+//			attempted_once = true;
 
 			words_mastered = new ArrayList<String>();
 			words_faulted = new ArrayList<String>();
@@ -384,7 +381,8 @@ public class Quiz extends JPanel {
 				parent_frame.getFestival().speak("Correct", false);
 
 				//adds to respective arraylist based on which attempt they get it right
-				if(attempted_once==true){
+//				if(attempted_once==true){
+					if (current_attempt_number==1){
 					words_mastered.add(words_to_spell.get(current_word_number));
 				} else {//words is faulted
 					words_faulted.add(words_to_spell.get(current_word_number));
@@ -393,7 +391,7 @@ public class Quiz extends JPanel {
 				progressBar.setForeground(Color.GREEN);
 				current_word_number+=1;
 				current_attempt_number=1;
-				attempted_once = true;
+//				attempted_once = true;
 				display_to_user.setText("");//clear display
 				//				lblNewLabel.setVisible(true);
 			} else{//incorrect spelling
@@ -405,13 +403,13 @@ public class Quiz extends JPanel {
 					words_failed.add(words_to_spell.get(current_word_number));
 					current_attempt_number=1;
 					current_word_number+=1;
-					attempted_once = true;
+//					attempted_once = true;
 					display_to_user.setText("");//clear display
 					progressBar.setForeground(Color.RED);
 					//					label.setVisible(true);
 				} else{	//first time getting it wrong(faulted so far, maybe failed later)
 					parent_frame.getFestival().speak("Please try again", false);
-					attempted_once=false;
+//					attempted_once=false;
 					current_attempt_number+=1;
 				}
 			}

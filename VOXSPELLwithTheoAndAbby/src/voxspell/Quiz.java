@@ -44,10 +44,10 @@ public class Quiz extends JPanel {
 	private Image bg_image;
 	private PanelID quiz_type; //Distinguishes if quiz is normal or review quiz
 
-	private JTextArea display_to_user; //progress text area to show previous information
+	private JProgressBar progress_bar;
+	private JTextArea progressive_display; //progress text area to show previous information
 	private JTextField input_from_user; //what user puts as guess for spelling quiz
-	private JProgressBar progressBar;
-
+	
 	private ArrayList<String> words_to_spell; //list of words to spell in quiz
 	private int current_word_number; //indicates which word the user is up to in quiz
 	private int current_attempt_number; //indicates which attempt user is up to when spelling
@@ -73,7 +73,7 @@ public class Quiz extends JPanel {
 		if (words_to_spell.size()!=0){
 			setupTitle();
 			setupProgressBar();
-			setupProgressTextArea();
+			setupProgressiveDisplayTextArea();
 			setupSpellHereLabel();
 			setupSpellHereField();
 			setupSubmitButton();
@@ -128,24 +128,24 @@ public class Quiz extends JPanel {
 	 * @author Abby S
 	 */
 	private void setupProgressBar() {
-		progressBar = new JProgressBar(0,words_to_spell.size());
-		progressBar.setBounds(50, 207, 700, 23);
-		progressBar.setBackground(Color.WHITE);
-		add(progressBar);
+		progress_bar = new JProgressBar(0,words_to_spell.size());
+		progress_bar.setBounds(50, 207, 700, 23);
+		progress_bar.setBackground(Color.WHITE);
+		add(progress_bar);
 	}
 
 	/**
 	 * Sets up text area that shows user history of guesses and progress of quiz
 	 */
-	private void setupProgressTextArea(){
-		display_to_user = new JTextArea();
-		display_to_user.setFont(new Font("Courier New", Font.BOLD, 18));
-		display_to_user.setEditable(false);
-		display_to_user.setLineWrap(true);
-		display_to_user.setWrapStyleWord(true);
-		display_to_user.setOpaque(true);
+	private void setupProgressiveDisplayTextArea(){
+		progressive_display = new JTextArea();
+		progressive_display.setFont(new Font("Courier New", Font.BOLD, 18));
+		progressive_display.setEditable(false);
+		progressive_display.setLineWrap(true);
+		progressive_display.setWrapStyleWord(true);
+		progressive_display.setOpaque(true);
 
-		JScrollPane scrolling_pane = new JScrollPane(display_to_user);
+		JScrollPane scrolling_pane = new JScrollPane(progressive_display);
 		add(scrolling_pane);
 		scrolling_pane.setSize(700, 117);
 		scrolling_pane.setLocation(50, 80);
@@ -286,21 +286,17 @@ public class Quiz extends JPanel {
 	 * @author Abby S
 	 */
 	private void setupAddToReviewButton() {
-		JButton btnAddToReview = new JButton("Add to review");
-		btnAddToReview.setBounds(290, 400, 130, 23);
-		btnAddToReview.addActionListener(new ActionListener() {
-
-			@Override
+		JButton add_to_review = new JButton("Add to review");
+		add_to_review.setBounds(290, 400, 130, 23);
+		add_to_review.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<String> word_to_add=new ArrayList<>();
 				word_to_add.add(words_to_spell.get(current_word_number));
 				parent_frame.getDataHandler().addToReviewList(word_to_add);
-
 			}
 		});
-		add(btnAddToReview);
+		add(add_to_review);
 	}
-
 
 	/**
 	 * Back button to return to previous panel (user prompted before actually doing so)
@@ -353,8 +349,8 @@ public class Quiz extends JPanel {
 			parent_frame.getFestival().speak(parent_frame.getDataHandler().sample_sentences.get(parent_frame.getDataHandler().current_level).get(index),false);
 		}
 
-		display_to_user.append("Word: "+(current_word_number+1)+" out of "+words_to_spell.size()+"\nAttempt: "+(current_attempt_number)+" out of 2\n");
-		progressBar.setValue(current_word_number);
+		progressive_display.append("Word: "+(current_word_number+1)+" out of "+words_to_spell.size()+"\nAttempt: "+(current_attempt_number)+" out of 2\n");
+		progress_bar.setValue(current_word_number);
 	}
 
 	/**
@@ -365,11 +361,11 @@ public class Quiz extends JPanel {
 		input_from_user.setText("");//clear input field	
 
 		if(!attempt.matches(".*[a-zA-Z]+.*")){ //user doesn't enters any alphabetical characters
-			display_to_user.append("Feedback: Word includes alphabet characters, try again\n\n");
+			progressive_display.append("Feedback: Word includes alphabet characters, try again\n\n");
 		} else if(!attempt.equals(words_to_spell.get(current_word_number))&&(attempt.toLowerCase()).equals(words_to_spell.get(current_word_number).toLowerCase())){ //differ by capitalisation
-			display_to_user.append("Feedback: \""+attempt+"\" is spelt correctly but incorrect capitalisation, try again\n\n");
+			progressive_display.append("Feedback: \""+attempt+"\" is spelt correctly but incorrect capitalisation, try again\n\n");
 		} else{
-			display_to_user.append("Feedback: \""+attempt+"\" is ");//updates progress area with user guess
+			progressive_display.append("Feedback: \""+attempt+"\" is ");//updates progress area with user guess
 
 			//if correct spelling (case-sensitive)
 			if(attempt.equals(words_to_spell.get(current_word_number))){
@@ -382,21 +378,21 @@ public class Quiz extends JPanel {
 					words_faulted.add(words_to_spell.get(current_word_number));
 				}
 
-				progressBar.setForeground(Color.GREEN);
+				progress_bar.setForeground(Color.GREEN);
 				current_word_number+=1;
 				current_attempt_number=1;
-				display_to_user.setText("");//clear display
+				progressive_display.setText("");//clear display
 			} else{//incorrect spelling
 				parent_frame.getFestival().speak("Incorrect", false);
-				display_to_user.append("INCORRECT\n\n");
+				progressive_display.append("INCORRECT\n\n");
 
 				//second time getting it wrong(failed)
 				if(current_attempt_number == 2){
 					words_failed.add(words_to_spell.get(current_word_number));
 					current_attempt_number=1;
 					current_word_number+=1;
-					display_to_user.setText("");//clear display
-					progressBar.setForeground(Color.RED);
+					progressive_display.setText("");//clear display
+					progress_bar.setForeground(Color.RED);
 				} else{	//first time getting it wrong(faulted so far, maybe failed later)
 					parent_frame.getFestival().speak("Please try again", false);
 					current_attempt_number+=1;

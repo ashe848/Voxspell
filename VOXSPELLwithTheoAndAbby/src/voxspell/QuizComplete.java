@@ -244,27 +244,27 @@ public class QuizComplete extends JPanel{
 	 * @author Abby S
 	 */
 	private void setupNewPB(double record_score){
-		JLabel lblNewPersonalBest = new JLabel("New personal best score: "+record_score+"!");
-		lblNewPersonalBest.setBounds(550, 119, 200, 15);
-		add(lblNewPersonalBest);
+		JLabel new_PB = new JLabel("New personal best score: "+record_score+"!");
+		new_PB.setBounds(550, 119, 200, 15);
+		add(new_PB);
 	}
 
 	/**
 	 * @author Abby S
 	 */
 	private void setupJustNewPB(double record_score, String[] global){		
-		JLabel label = new JLabel("Didn't beat global top of "+global[0]+" by "+global[1]+" in "+global[2]);
-		label.setBounds(550, 150, 200, 15);
-		add(label);
+		JLabel didnt_beat_global_label = new JLabel("Didn't beat global top of "+global[0]+" by "+global[1]+" in "+global[2]);
+		didnt_beat_global_label.setBounds(550, 150, 200, 15);
+		add(didnt_beat_global_label);
 	}
 
 	/**
 	 * @author Abby S
 	 */
 	private void setupNewGlobalTop(double record_score, double global) {
-		JLabel label = new JLabel("Bet previous global top by "+(record_score-global)+"!");
-		label.setBounds(550, 150, 2000, 15);
-		add(label);
+		JLabel new_global_label = new JLabel("Also bet previous global top by "+(record_score - global)+"!");
+		new_global_label.setBounds(550, 150, 2000, 15);
+		add(new_global_label);
 	}
 
 	/**

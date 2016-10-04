@@ -37,7 +37,7 @@ public class Video extends JPanel{
 
 	private int duration;
 	private Timer timer;
-	private JProgressBar progressBar_1;
+	private JProgressBar progressbar;
 
 	/**
 	 * Constructor initialising the size and layout of jpanel
@@ -84,12 +84,12 @@ public class Video extends JPanel{
 
 		duration=(int)player.getLength()/1000;
 		//Set max to duration in seconds
-		progressBar_1 = new JProgressBar(0,duration);
-		progressBar_1.setForeground(Color.ORANGE);
-		progressBar_1.setBackground(Color.WHITE);
-		progressBar_1.setBounds(50, 458, 700, 14);
-		progressBar_1.setValue(0);
-		panel.add(progressBar_1);
+		progressbar = new JProgressBar(0,duration);
+		progressbar.setForeground(Color.ORANGE);
+		progressbar.setBackground(Color.WHITE);
+		progressbar.setBounds(50, 458, 700, 14);
+		progressbar.setValue(0);
+		panel.add(progressbar);
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class Video extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int time = (int)(player.getTime()/1000);
-				progressBar_1.setValue(time);
+				progressbar.setValue(time);
 				System.out.println(time);
 			}
 		});

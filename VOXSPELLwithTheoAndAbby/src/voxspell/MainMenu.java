@@ -87,8 +87,8 @@ public class MainMenu extends JPanel{
 		log_in_button.setBounds(184, 50, 93, 23);
 		log_in_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LogIn logIn=new LogIn(parent_frame);
-				logIn.setVisible(true);
+				LogIn log_in_frame=new LogIn(parent_frame);
+				log_in_frame.setVisible(true);
 			}
 		});
 		add(log_in_button);
@@ -99,7 +99,6 @@ public class MainMenu extends JPanel{
 	 */
 	private void setupListBuilderButton(){
 		JButton list_builder_button = new JButton("Custom List Builder");
-
 		list_builder_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				parent_frame.changePanel(PanelID.ListBuilder);
@@ -117,7 +116,6 @@ public class MainMenu extends JPanel{
 	private void setupNewQuizButton(){
 		ImageIcon newquiz_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "quiz_button.png");
 		JButton new_quiz_button = new JButton("", newquiz_button_image);
-
 		new_quiz_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				parent_frame.changePanel(PanelID.Quiz);
@@ -135,7 +133,6 @@ public class MainMenu extends JPanel{
 	private void setupReviewButton(){
 		ImageIcon review_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "review_button.png");
 		JButton review_button = new JButton("", review_button_image);
-
 		review_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				parent_frame.changePanel(PanelID.Review);
@@ -189,8 +186,8 @@ public class MainMenu extends JPanel{
 		JButton exit_button = new JButton("", exit_button_image);
 		exit_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean askquit_result = askToLeave();
-				if (askquit_result){
+				boolean ask_leave_result = askToLeave();
+				if (ask_leave_result){
 					//saves to settings before exiting (e.g. if the last thing done was click the level up button)
 					parent_frame.getDataHandler().writeToSettingsFiles();
 					parent_frame.getDataHandler().writeToProgramFiles();

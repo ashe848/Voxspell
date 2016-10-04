@@ -23,7 +23,7 @@ public class Voxspell extends JFrame{
 	//Contains the singleton DataHandler and Festival instances which panels get
 	private DataHandler data_handler;
 	private Festival festival;
-	
+
 	MainMenu main_menu;
 
 	/**
@@ -34,7 +34,7 @@ public class Voxspell extends JFrame{
 
 		//setup code from Theo's A2 code
 		setTitle("VOXSPELL");
-			setSize(800,600);
+		setSize(800,600);
 		setLocationRelativeTo(null);
 		setResizable(false);
 

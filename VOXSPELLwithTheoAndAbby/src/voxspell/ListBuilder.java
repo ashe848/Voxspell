@@ -20,10 +20,10 @@ import voxspell.Voxspell.PanelID;
 public class ListBuilder extends JPanel {
 	private Voxspell parent_frame;
 
-	private JTextField textField;
-	private JTextField textField_1;
-	JTextArea txtrWordsAdded;
-	JTextArea textArea;
+	private JTextField list_name_field;
+	private JTextField word_field;
+	JTextArea words_added;
+	JTextArea sample_sentence;
 
 	private String list_name;
 	private ArrayList<String> words_to_add = new ArrayList<String>();
@@ -49,104 +49,104 @@ public class ListBuilder extends JPanel {
 	}
 
 	private void setupTitle() {
-		JLabel lblBuildYourOwn = new JLabel("Build Your Own Custom List");
-		lblBuildYourOwn.setBounds(288, 26, 327, 15);
-		add(lblBuildYourOwn);
+		JLabel title = new JLabel("Build Your Own Custom List");
+		title.setBounds(288, 26, 327, 15);
+		add(title);
 	}
 
 	private void setupWordsAdded() {
-		JLabel lblWordsAdded = new JLabel("Words Added:");
-		lblWordsAdded.setBounds(10, 84, 97, 15);
-		add(lblWordsAdded);
+		JLabel words_added_label = new JLabel("Words Added:");
+		words_added_label.setBounds(10, 84, 97, 15);
+		add(words_added_label);
 
-		txtrWordsAdded = new JTextArea();
-		txtrWordsAdded.setText("");
-		txtrWordsAdded.setEditable(false);
-		txtrWordsAdded.setLineWrap(true);
-		txtrWordsAdded.setWrapStyleWord(true);
+		words_added = new JTextArea();
+		words_added.setText("");
+		words_added.setEditable(false);
+		words_added.setLineWrap(true);
+		words_added.setWrapStyleWord(true);
 
-		JScrollPane sPane = new JScrollPane(txtrWordsAdded);
-		sPane.setBounds(10, 108, 302, 418);
-		add(sPane);
+		JScrollPane words_scroll_pane = new JScrollPane(words_added);
+		words_scroll_pane.setBounds(10, 108, 302, 418);
+		add(words_scroll_pane);
 	}
 
 	private void setupEnterName() {
-		JLabel lblNameOfList = new JLabel("Name of List:");
-		lblNameOfList.setBounds(350, 90, 97, 15);
-		add(lblNameOfList);
+		JLabel list_name_label = new JLabel("Name of List:");
+		list_name_label.setBounds(350, 90, 97, 15);
+		add(list_name_label);
 
-		textField = new JTextField();
-		textField.setBounds(457, 81, 302, 34);
-		add(textField);
-		textField.setColumns(10);
+		list_name_field = new JTextField();
+		list_name_field.setBounds(457, 81, 302, 34);
+		add(list_name_field);
+		list_name_field.setColumns(10);
 	}
 
 	private void setupEnterWord() {
-		JLabel lblWord = new JLabel("Word:");
-		lblWord.setBounds(350, 154, 97, 15);
-		add(lblWord);
+		JLabel word_label = new JLabel("Word:");
+		word_label.setBounds(350, 154, 97, 15);
+		add(word_label);
 
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(457, 145, 302, 34);
-		add(textField_1);
+		word_field = new JTextField();
+		word_field.setColumns(10);
+		word_field.setBounds(457, 145, 302, 34);
+		add(word_field);
 	}
 
 	private void setupEnterSentence() {
-		JLabel lblSampleSentenceoptional = new JLabel("Sample sentence (optional):");
-		lblSampleSentenceoptional.setBounds(350, 218, 176, 15);
-		add(lblSampleSentenceoptional);
+		JLabel sample_sentence_label = new JLabel("Sample sentence (optional):");
+		sample_sentence_label.setBounds(350, 218, 176, 15);
+		add(sample_sentence_label);
 
-		textArea = new JTextArea();
-		textArea.setText("");
-		textArea.setEditable(true);
-		textArea.setLineWrap(true);
-		textArea.setWrapStyleWord(true);
+		sample_sentence = new JTextArea();
+		sample_sentence.setText("");
+		sample_sentence.setEditable(true);
+		sample_sentence.setLineWrap(true);
+		sample_sentence.setWrapStyleWord(true);
 
-		JScrollPane sp = new JScrollPane(textArea);
-		sp.setBounds(350, 243, 409, 171);
-		add(sp);
+		JScrollPane sentence_scroll_pane = new JScrollPane(sample_sentence);
+		sentence_scroll_pane.setBounds(350, 243, 409, 171);
+		add(sentence_scroll_pane);
 	}
 
 	private void setupAddButton() {
-		JButton btnAddThisWord = new JButton("Add This Word");
-		btnAddThisWord.setBounds(510, 438, 120, 23);
-		btnAddThisWord.addActionListener(new ActionListener() {
+		JButton add_word_button = new JButton("Add This Word");
+		add_word_button.setBounds(510, 438, 120, 23);
+		add_word_button.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String word=textField_1.getText();
+				String word=word_field.getText();
 				if (!word.matches(".*[a-zA-Z]+.*")){
 					JOptionPane.showMessageDialog(null, "Word must have at least 1 alphabetical character", "Word Format Error", JOptionPane.WARNING_MESSAGE);
 				} else {
 					words_to_add.add(word);
-					if (textArea.getText().trim().equals("")){
+					if (sample_sentence.getText().trim().equals("")){
 						sentences_to_add.add(" ");
 					} else {
-						sentences_to_add.add(textArea.getText());
+						sentences_to_add.add(sample_sentence.getText());
 					}
-					textField_1.setText("");
-					textArea.setText("");
-					txtrWordsAdded.append(word+"\n");
+					word_field.setText("");
+					sample_sentence.setText("");
+					words_added.append(word+"\n");
 				}
 			}	
 		});
-		add(btnAddThisWord);
+		add(add_word_button);
 	}
 
 	private void setupSaveButton() {
-		JButton btnSave = new JButton("Save");
-		btnSave.setBounds(392, 497, 93, 23);
-		btnSave.addActionListener(new ActionListener() {
+		JButton save_Button = new JButton("Save");
+		save_Button.setBounds(392, 497, 93, 23);
+		save_Button.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (!textField.getText().matches("[a-zA-Z]+")){
+				if (!list_name_field.getText().matches("[a-zA-Z]+")){
 					JOptionPane.showMessageDialog(null, "List name must only consist of alphabetical characters", "Name Format Error", JOptionPane.WARNING_MESSAGE);				
 				} else if(words_to_add.size()==0){
 					JOptionPane.showMessageDialog(null, "Spelling list must contain at least 1 word", "Empty List Error", JOptionPane.WARNING_MESSAGE);				
 				} else {
-					list_name=textField.getText();
+					list_name=list_name_field.getText();
 					File to_write_to = new File(System.getProperty("user.dir")+"/spellinglists/"+list_name+".txt");
 					if(to_write_to.exists()){
 						JOptionPane.showMessageDialog(null, "A list with the same name already exists\nPlease rename.", "Duplicate List Name", JOptionPane.WARNING_MESSAGE);				
@@ -159,13 +159,13 @@ public class ListBuilder extends JPanel {
 				}
 			}
 		});
-		add(btnSave);
+		add(save_Button);
 	}
 
 	private void setupDiscardButton() {
-		JButton btnDiscard = new JButton("Discard");
-		btnDiscard.setBounds(626, 497, 93, 23);
-		btnDiscard.addActionListener(new ActionListener() {
+		JButton discard_button = new JButton("Discard");
+		discard_button.setBounds(626, 497, 93, 23);
+		discard_button.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -175,7 +175,7 @@ public class ListBuilder extends JPanel {
 
 			}
 		});
-		add(btnDiscard);
+		add(discard_button);
 	}
 
 	/**

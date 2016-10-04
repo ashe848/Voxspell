@@ -71,9 +71,7 @@ public class QuizComplete extends JPanel{
 	}
 
 	/**
-	 * http://stackoverflow.com/a/11025384
-	 * 
-	 * alt: http://stackoverflow.com/questions/2416935/how-to-play-wav-files-with-java
+	 * @author http://stackoverflow.com/a/11025384
 	 */
 	private void setupAudio() {
 		String audio=parent_frame.getResourceFileLocation()+"11k16bitpcm.wav";
@@ -90,8 +88,8 @@ public class QuizComplete extends JPanel{
 		    clip.open(stream);
 		    clip.start();
 		}
-		catch (Exception e3) {
-		    //whatevers
+		catch (Exception e) {
+		   //do nothing
 		}
 	}
 

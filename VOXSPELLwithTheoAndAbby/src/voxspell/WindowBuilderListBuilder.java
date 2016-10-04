@@ -117,6 +117,8 @@ public class WindowBuilderListBuilder extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (!textField.getText().matches("[a-zA-Z]+")){
 					JOptionPane.showMessageDialog(null, "List name must only consist of alphabetical characters", "Name Format Error", JOptionPane.WARNING_MESSAGE);				
+				} else if(words_to_add.size()==0){
+					JOptionPane.showMessageDialog(null, "Spelling list must contain at least 1 word", "Empty List Error", JOptionPane.WARNING_MESSAGE);				
 				} else {
 					list_name=textField.getText();
 					File to_write_to = new File(System.getProperty("user.dir")+"/spellinglists/"+list_name+".txt");

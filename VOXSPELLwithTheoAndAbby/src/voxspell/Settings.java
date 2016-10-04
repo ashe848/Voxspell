@@ -262,6 +262,7 @@ public class Settings extends JPanel {
 				FileSystemView fileSystemView = new SingleRootFileSystemView(spelling_lists_folder);
 
 				JFileChooser chooser = new JFileChooser(spelling_lists_folder, fileSystemView);
+				//expected format is a .txt file. But if it is another form of text file that can be read to have the correct format, the application will accept it.
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("Plain text files", "txt");
 				chooser.setFileFilter(filter);
 				int returnVal = chooser.showDialog(parent_frame, "Choose this word list");
@@ -408,6 +409,10 @@ public class Settings extends JPanel {
 
 
 	/**
+	 * 	Slightly modified from:	
+	 * 	https://tips4java.wordpress.com/2009/01/28/single-root-file-chooser/
+	 * 	http://www.camick.com/java/source/SingleRootFileSystemView.java
+	 * 
 	 *  A FileSystemView class that limits the file selections to a single root.
 	 *
 	 *  When used with the JFileChooser component the user will only be able to
@@ -415,9 +420,8 @@ public class Settings extends JPanel {
 	 *
 	 *  The "Look In" combo box will only display the specified root.
 	 *
-	 *  The "Up One Level" button will be disable when at the root.
-	 * https://tips4java.wordpress.com/2009/01/28/single-root-file-chooser/
-	 * http://www.camick.com/java/source/SingleRootFileSystemView.java
+	 *  The "Up One Level" button will be disabled
+	 * 
 	 */
 	class SingleRootFileSystemView extends FileSystemView
 	{
@@ -445,6 +449,7 @@ public class Settings extends JPanel {
 			}
 		}
 
+		//Disable creating new folders. The icon will do nothing (as with the home icon)
 		@Override
 		public File createNewFolder(File containingDir)
 		{

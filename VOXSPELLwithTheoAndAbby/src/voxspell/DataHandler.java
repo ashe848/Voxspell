@@ -65,6 +65,7 @@ public class DataHandler {
 	static ArrayList<ArrayList<String>> wordlist_words; //words from wordlist file
 	private static ArrayList<ArrayList<String>> reviewlist_words; //words from reviewlist file
 
+	//Persistent and session are all for the current list
 	private static ArrayList<ArrayList<String>> persistent_allwords; //all words from wordlist + reviewlist
 	private static ArrayList<ArrayList<Integer>> persistent_master_count; //counts of times mastered of words above
 	private static ArrayList<ArrayList<Integer>> persistent_faulted_count; //counts of times faulted of words above
@@ -570,7 +571,13 @@ public class DataHandler {
 			BufferedReader current_BR = new BufferedReader(new FileReader(selected));
 
 			String input_line = current_BR.readLine();
+			
 			//must have % on first line followed by something (not empty or spaces) for level name
+			/*
+			 * If the file chosen isn't a text file, input_lines would be something like the below:
+			 * RIFF?02AVI LIST?"hdrlavih8
+			 * and therefore fail the checks and return false. It appears that no exception is thrown.
+			 */
 			if (input_line.isEmpty() || input_line.charAt(0)!='%' || input_line.trim().equals("%")){
 				current_BR.close();
 				return false;

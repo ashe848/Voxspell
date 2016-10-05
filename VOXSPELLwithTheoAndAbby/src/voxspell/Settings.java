@@ -135,7 +135,7 @@ public class Settings extends JPanel {
 		change_voice_label.setForeground(Color.YELLOW);
 		add(change_voice_label);
 
-		FestivalVoice[] voices={FestivalVoice.American, FestivalVoice.Kiwi};
+		FestivalVoice[] voices={FestivalVoice.Kiwi, FestivalVoice.British, FestivalVoice.American};
 		final JComboBox voice_chooser = new JComboBox(voices);
 		voice_chooser.setForeground(Color.BLACK);
 		voice_chooser.setBackground(Color.WHITE);
@@ -244,7 +244,7 @@ public class Settings extends JPanel {
 		choose_wordlist_label.setBounds(31, 500, 254, 15);
 		add(choose_wordlist_label);
 
-		JLabel will_change_to=new JLabel("");
+		final JLabel will_change_to=new JLabel("");
 		add(will_change_to);
 		
 		JButton list_choose_button = new JButton("Choose another list");
@@ -285,7 +285,7 @@ public class Settings extends JPanel {
 		choose_video_label.setBounds(31, 171, 254, 15);
 		add(choose_video_label);
 
-		JLabel will_change_to=new JLabel("");
+		final JLabel will_change_to=new JLabel("");
 		add(will_change_to);
 		
 		JButton choose_video_button = new JButton("Choose another video");

@@ -239,7 +239,9 @@ public class DataHandler {
 					case "kal_diphone":
 						voice=FestivalVoice.American;
 						break;
-						//TODO add rab
+					case "rab_diphone":
+						voice=FestivalVoice.British;
+						break;
 					default:
 						voice=FestivalVoice.Kiwi;
 					}

@@ -236,7 +236,7 @@ public class Quiz extends JPanel {
 	 * @author Abby S
 	 */
 	private void setupChangeVoice() {
-		FestivalVoice[] voices={FestivalVoice.American, FestivalVoice.Kiwi};
+		FestivalVoice[] voices={FestivalVoice.Kiwi, FestivalVoice.British, FestivalVoice.American};
 		final JComboBox voice_chooser = new JComboBox(voices);
 		voice_chooser.setForeground(Color.BLACK);
 		voice_chooser.setBackground(Color.WHITE);

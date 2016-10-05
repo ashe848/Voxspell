@@ -76,7 +76,18 @@ public class QuizComplete extends JPanel{
 	 * Modified from http://stackoverflow.com/a/11025384
 	 */
 	private void setupAudio() {
-		File audio_file=new File(parent_frame.getResourceFileLocation()+"11k16bitpcm.wav");
+		/*
+		 * Smile (For A Bit) by The Orchestral Movement of 1932 (c) copyright 2009 Licensed under a Creative Commons Attribution (3.0) license. http://dig.ccmixter.org/files/jacksontorreal/22341 Ft: Fourstones
+		 * Free to use in commercial projects.
+		 * 
+		 * Found from http://beta.ccmixter.org/playlist/browse/40708?offset=10
+		 * 
+		 * Author comment:
+		 * Smile for a bit, because everyone deserves to.
+		 * The second mix that I made for submission. This song is more my poppy, upbeat, sound. If you¡¯re wondering, the title comes from a line from a movie wherein one character was urged to smile more. 
+		 * I don¡¯t know why but I found that moment stuck with me. In any case, please enjoy.
+		 */
+		File audio_file=new File(parent_frame.getResourceFileLocation()+"quiz_complete_audio.wav");
 
 		try {
 			AudioInputStream stream = AudioSystem.getAudioInputStream(audio_file);

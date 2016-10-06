@@ -67,12 +67,14 @@ public class Festival {
 	 * The different options for voice
 	 */
 	public enum FestivalVoice {
-		Kiwi, American;
+		Kiwi, American, British;
 
 		public String getVoiceValue(){
 			switch(this){
 			case American:
 				return "kal_diphone";
+			case British:
+				return "rab_diphone";
 			default: //Kiwi
 				return "akl_nz_jdt_diphone";
 			}

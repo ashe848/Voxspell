@@ -101,7 +101,6 @@ public class Video extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				int time = (int)(player.getTime()/1000);
 				progressbar.setValue(time);
-				System.out.println(time);
 			}
 		});
 		timer.start();

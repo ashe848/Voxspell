@@ -84,7 +84,7 @@ public class LogIn extends JFrame {
 	}
 
 	private void setupOKButton() {
-		JLabel lblOnlyAlphabeticalCharacters = new JLabel("");
+		final JLabel lblOnlyAlphabeticalCharacters = new JLabel("");
 		contentPane.add(lblOnlyAlphabeticalCharacters);
 
 		JButton btnOk = new JButton("OK");

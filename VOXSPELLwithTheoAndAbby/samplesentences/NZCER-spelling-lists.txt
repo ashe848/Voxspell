@@ -1,0 +1,602 @@
+%Level 1
+A dog jumped over the fence
+I went to the library
+It was a sunny day
+The sun is shining
+It was a sunny day
+I had milk and toast for breakfast
+Please come in
+This is my phone
+Please give the phone to me
+We are best friends
+%Level 2
+I am at the park
+I had a toy
+I have a bunch of apples
+I also have that shirt
+I will stand up now
+I was walking but saw a friend and stopped
+He was a skater boy
+I am standing on this box
+I packed my things then left the house
+I went to town yesterday
+I am a sample sentence for this word
+Blue is a colour
+She walked down the stairs
+I used to live there
+When did you wake up
+I got a new phone
+Mum got me some new socks
+I was tired, so I sat down
+They told me to leave
+You said hi
+%Level 3
+She knew a lot about food
+Be careful of the wet floor
+Let's go for a run
+He walked into the house
+This is our new car
+I'll be busy after lunch
+I was happy because I passed the test
+Are you going to London?
+I just missed the bus
+I walked out of the door
+I deleted all my files
+She came to work yesterday
+I have a smart phone
+I like my dog
+She said hi
+You are my friend
+It was a sunny day 
+Her name is Sally
+My mum is a teacher
+Please give me some coins
+Run as fast as you can
+Sit down and relax
+His name is John
+Do not smoke here
+There were three dogs 
+I'm going back to school 
+Get ready for work 
+I'm coming home for dinner
+Please take one apple
+She went to the park with her friends
+%Level 4
+I won't say this again
+I want you to do this
+I will come back next time
+There are people here
+What time is the rugby on
+I am an apple
+I reached the finish first
+I will see you tomorrow night
+I put the keys on the table
+Dad took the car
+I turned around and saw him
+I like eating food
+This is a yes or no question
+I ran away from the monster
+There are two of us
+That is a big cake
+I came from a land down under
+I am on my way now
+I saw the boat
+It took us 3 weeks to finish
+The boat was by the pier
+I did a good job
+Turns the lights off
+I went to school today
+That was a very good attempt
+I can do this
+He has a phone
+I saw an old man
+I see them
+What day is it
+Can you come tomorrow
+I gave my report to him
+I only have two left
+I only started the assignment yesterday
+I fell down the well
+I could have done it earlier
+I live in a house
+Do you like this one or the other one
+Their dog was cute
+I will come back
+My dad is at work
+We can use it if nobody is using it right now
+Other people aren't here
+I saw them yesterday
+I would have done it if I had known
+I did not do that
+That was a little slow
+I will come over later
+This is a sentence
+I don't see your bag
+%Level 5
+I am a student
+Open the door
+I was busy last week
+I swim once a day
+Go through the door and turn left
+Give me another book 
+Everyone likes pizza
+Turn left at the next intersection
+I play football
+I told the truth
+He walked away
+Her family moved to London
+She has long hair
+She really likes apples
+She is too busy 
+The cat was on my bed
+There are five working days in a week
+He looked for his keys
+There is no more room
+He walked away
+I have been to London
+He found his keys
+I made a cake
+Something is wrong here
+I want a job
+I get up before sunrise
+You are my friend
+The man was tall
+I'm still tired
+Come this way
+You are my best friend
+Have a fun trip
+Have more pizza
+There is one thing I don't understand
+Where is my dog
+He is my brother
+I heard the news
+I run in the morning
+I think you are right
+Which book is mine
+She called me yesterday
+Here comes my dog
+Her name is Sally
+I thought about it
+Who are you
+This is my car
+I don't know you
+I'm never late to class
+I have three brothers
+Happy new year
+%Level 6
+I would also like to come
+This water bottle is cool to the touch
+I have brown eyes
+The head is big
+You have to jump over it
+I always finish on time
+The dark is scary
+I fell over this morning
+I hit the ball
+I knew about it
+I was asked about it
+Tim decided what to do
+That felt weird to the touch
+How did you know I was already here
+I will see you later
+I do not like black jelly beans
+Come see the dog
+I will try and find the keys
+I was waiting inside the foyer
+I just lost a life in the game
+He was a boy
+I like to eat potatoes
+I have four apples
+1984, it's a good book
+I live on the edge
+I caught the bus this morning
+I almost got to the end of the race
+I gave him my report
+I lost my dog. Its collar was red
+I have a lot of marbles
+My cat is at home
+I have an even number of apples
+Am I getting this book for my birthday
+I'll come over tomorrow
+I am eating lunch right now
+I will be coming over tonight
+You come late every time
+That was a great effort
+I'm a dog
+Please make a bridge out of popsicles
+I will be 10 minutes late
+Place the bear on the box
+I have a sister
+The remote is on top of the TV
+I'll have a glass of water
+Most of us will be there
+I am almost ready
+I am going to sleep
+I'm going to town tomorrow
+I had to wait a while before my food came
+There is too much water here
+I like to ride my bicycle
+Then he suddenly stopped talking
+I have a tree in my back yard
+Why do I have to do this
+That tastes nice
+I am always right
+Please take a copy of the script
+I turned around and saw him
+I looked out of the window
+I opened the jar
+I like to run outside
+Please tell him today
+Wait until I am ready
+I woke up this morning
+I was sitting outside
+Please say that again
+I can count to ten
+I wanted to bring my own bag
+Is that a yes or a no
+%Level 7
+You can take any of these books
+The apples are one dollar each
+We were sitting on the ground
+I spent all my money
+I'll call you back soon
+The baby is cute
+Have you ever been to London?
+We have a security guard here
+Her mother is a teacher
+I will stay in a hotel
+This is a bad news
+Everything is all right
+Use your right hand
+I saw myself in the mirror
+Stop running
+This is a golf ball
+Let's talk face to face
+I happened to be there
+This is a new building
+There is a swimming pool in his backyard
+He is a human being
+Run as fast as you can
+I'm happy with my job
+Children need their parents
+Have a cup of tea
+I'm a little bit tired
+Her father is a teacher
+Can I help you?
+We picked coconuts from the coconut tree
+John is taller than Tom
+We found a fishing boat
+Please wait a few minutes 
+Alice fell into a rabbit hole
+Sarah is playing football
+I tried my best
+I bought a car yesterday   
+We finally finished the test
+I ate a hot dog
+Children like Christmas presents
+The ball is under the table
+We'll camp near the beach
+I finished the exam
+He left an hour ago
+The road is straight
+Wait for a minute
+My phone battery is dead
+I watched a football game
+Let me know if you have any questions
+The house will be on your right hand side
+I went to work
+The phone battery just died
+The girl is from England
+Look at the beautiful scenery
+This is a small country
+She won her football game
+I was doing the dishes
+This house will be gone by tomorrow
+This country doesn't have very many people
+We sometimes go to the library
+This is a small world
+%Level 8
+Read this sentence aloud
+I have eight basketballs
+That was an interesting comment
+I like to read books
+I stopped listening
+There are lots of animals at the zoo
+The car engine was making loud noises
+My Birthday is in January
+I remember what time we have to be there
+I like the summer more than the winter
+My Birthday is in August
+There is no escape
+There will be a judge present
+The ball was round
+I am sure that this will go well
+I like the autumn leaves
+Running is exercise
+I jumped over the rope
+Safety is very important
+I was not expecting a surprise present
+I like this one better
+School starts in February
+Please turn the light on
+He used to be a sailor
+He jumped and then landed on the ground
+I have a book with me
+I have not watched that film
+I will come to the marae
+I sat on the bench
+I like these better
+Did you buy a calendar
+I was the first one there
+It was an even for men
+It is Saturday today
+I am too tired to come
+I caught the ball
+Please give me the ball
+I might come today
+Don't run with scissors
+Today is Monday
+Be careful around children
+I would like half of the cake
+His name was Mr Smith
+Her name was Mrs Smith
+The boat is sailing on the sea
+I usually don't like this
+Please don't destroy my work
+I hear you fine
+Why must I do this
+Should I finish today or tomorrow
+I went to the beach in the weekend
+I live in the city
+I was hoping you would finish today
+World peace is good
+I haven't seen you since last year
+I am writing an essay
+I write in a diary
+I am hungry for some burgers
+I would like a piece of cake
+There is a spring in this pen
+yesterday I went to the supermarket
+%Level 9
+Smoking is not allowed here
+She needs a dictionary
+We are friends
+I'm nearly done
+People eat when they're sad
+The island is on the Atlantic Ocean
+I didn't go to work
+The apple tree is in front of the house
+New Zealand is a beautiful country
+He threw his phone away
+Auckland is the largest city in New Zealand
+The twins look different
+We bought fresh fruit
+We can see the Pacific Ocean
+I will call you tomorrow
+Australia is a country
+The car disappeared
+He grabbed his lunch and ran to school
+Police are still investigating
+We watched a funny video
+He worked awhile as an English teacher
+He doesn't work here
+Hamilton is a city
+Here is your birthday present
+She wasn't at work yesterday
+I believe I can fly
+The apples are two dollars each
+We are having lunch now
+He probably forgot about it
+I wear a wrist watch
+We are having breakfast now
+I don't think so
+I'm going travelling in the holidays
+Please keep quiet
+We're a happy family
+He brought an umbrella
+He is our English teacher
+The rabbit hopped down the steps
+He was too scared to move
+This reduced the weight of the load
+The soldiers fired a cannon
+Everybody was happy 
+He works in the hospital
+It was her second day in London
+Wellington is a capital city
+The goalkeeper caught the ball
+I work everyday
+He went to London instead
+Yours sincerely
+Things weren't so bad
+She lives in the city centre
+There was grass everywhere
+English is our official language
+Someone dropped their keys
+She spent the whole summer in London
+I like chocolate
+She was very excited 
+I saw a flash of lightning
+You are our special guest
+I won't be there 
+She is washing her clothes
+Chocolate is her favourite food
+Luckily for me
+He stopped the car
+It's a wonderful day
+She couldn't go to work
+This is a football field
+Wait for a minute
+Just go straight ahead
+You're very happy today
+%Level 10
+I did addition today
+New Zealand is a country
+This is a fraction of the original cost
+Please put it in landscape
+I promise I will be there
+Let's go on an adventure
+I have the courage to go
+I left it in the garage
+I will bring my lawyer tomorrow
+Stay here, I need protection
+I can sing the alphabet song
+We will cultivate the fields
+I took geography as a subject
+I can manage my time
+Please bring my representative
+Antarctica is in the southern hemisphere
+I decided not to go
+I trust the government to make decisions
+What material is this shirt made of
+I will take that route tomorrow
+Please don't attack me
+I need that helmet for defence
+Please check your grammar
+He is the minister of youth
+Can I tell you a secret
+The barrier is preventing me from going further
+Democracy is always the answer
+Can you draw me a graph please
+This is the ministry of youth
+He is my senior
+Look at this beautiful butterfly
+I can make this disappear before your eyes
+I will honour this deal
+It is only natural to do that
+We can go our separate ways
+Wellington is the capital of New Zealand
+I live life on the edge
+Use your imagination
+Let nature take its course
+Are you separating the files
+I live in central Auckland
+I believe in the education system
+I cannot imagine how painful that would be
+I saw my neighbour at the mall
+My stomach is sore
+We should be worried about climate change
+The presidential election is about to happen
+I do now know what this instruction is telling me to do
+Please put these sentences into a paragraph
+I will carry out the subtraction
+How do I compare the two
+Encourage others to be good people
+The journey is more important than the destination
+I visited Parliament yesterday
+These instructions are too technical for me
+I cannot compete with these people
+Uranium enrichment is needed to make an explosive
+I like to drink juice
+I sat in the passenger seat
+We live in a world where technology is everywhere
+I type on a computer
+This environment is not good for me
+He was my junior
+I can follow this path home
+There is little vegetation growing in this garden
+I work in the construction of buildings
+I have yet to experience that
+Justice will be served
+I am in position to catch the ball
+It is cheaper to buy things wholesale
+%Level 11
+His acceptance speech for the award was very good
+Cooper is a good conductor
+He was planning for the future
+I observe birds for fun
+Everything went according to schedule
+I have a head ache
+It's a consequence of poor planning
+He plays the guitar
+It's an exciting opportunity
+We wrote to a scheme file
+Please sign the purchase agreement
+Europe is a continent
+The sun rose over the horizon
+The opposition wasn't happy
+Are you serious?
+We collect samples for analysis
+The city council is in charge for this issue
+I need an example to illustrate this point
+The project has been delayed our organisation
+There was hope for a peaceful settlement
+I filled out the application form
+This is a tennis court
+He answered the phone call immediately
+This is a permanent job
+A similar issue found later
+The elevator began to ascend
+I won't criticise him
+His inspiration comes from poets
+He wants to take a photograph of the dog
+She researches social media
+She is the associate director of this institute
+We welcome constructive criticism
+He is a driving instructor
+He was in physical pain
+Fish oil is a good source of vitamin A
+The Football Association declined the request
+The ceremony is of cultural importance
+She is an intelligent girl
+She collected the chess pieces
+The strategy worked brilliantly
+Greenhouse gases pollute the atmosphere
+I'm just curious
+I will introduce you to my friends
+They live in absolute poverty
+Work is the key to success
+The audience laughed
+That's a very definite possibility
+He wrote the introduction of the report
+Water is a precious resource
+She is a successful lawyer
+These trains have automatic doors
+Everyone loves delicious meals
+He had a knowledge of dogs
+The principal of the school retired
+The book is suitable for children
+She had a brilliant idea
+The plane is going to descend
+Drinking is a major problem
+It's a matter of principle
+Bill had an eye surgery
+The company is a family business
+Dissolve salt in water
+The majority of the population didn't vote
+I have a neck problem
+The want to surround the house with a fence
+This is the campaign against public smoking
+Ethnic problems should be resolved
+He will cut down the task to a manageable size
+Quality is most important attribute
+That's very thoughtful of you
+He wanted to celebrate his success
+The existence of oxygen is important
+They manufacture plastics
+The quantity of supplies was given
+I appreciate your thoughtfulness
+She has a First Aid certificate
+I did a chemical experiment
+The Maori language is easy to learn
+He forgot to take his receipt
+Mountain roads are a tough drive
+This is a circular walkway
+This is an extensive tour of London
+The air is heavy with moisture
+You will receive the letter tomorrow
+There was heavy traffic on the roads
+The coalition did worse than expected
+The task requires extraordinary patience
+Money was his motivation
+I only recognise one person
+I caused a lot of trouble
+I received a compliment from the judge
+She can speak three foreign languages
+I can't navigate without a map
+Queen Victoria's reign was successful
+She is now at Auckland University
+He drew one conclusion
+There are forty students in this class
+The top floor is an observation deck
+No one admitted responsibility for the mistake
+This book has a wealth of information

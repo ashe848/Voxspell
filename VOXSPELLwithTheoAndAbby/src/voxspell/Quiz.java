@@ -346,7 +346,10 @@ public class Quiz extends JPanel {
 		//says sample sentence if there is one
 		if(parent_frame.getDataHandler().has_sample_sentences){
 			int index=parent_frame.getDataHandler().wordlist_words.get(parent_frame.getDataHandler().current_level).indexOf(words_to_spell.get(current_word_number));
-			parent_frame.getFestival().speak(parent_frame.getDataHandler().sample_sentences.get(parent_frame.getDataHandler().current_level).get(index),false);
+			String sentence=parent_frame.getDataHandler().sample_sentences.get(parent_frame.getDataHandler().current_level).get(index);
+			if (!sentence.trim().isEmpty()){
+				parent_frame.getFestival().speak(sentence,false);
+			}
 		}
 
 		progressive_display.append("Word: "+(current_word_number+1)+" out of "+words_to_spell.size()+"\nAttempt: "+(current_attempt_number)+" out of 2\n");

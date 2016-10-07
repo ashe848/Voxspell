@@ -51,15 +51,18 @@ public class MainMenuPanel extends JPanel {
 		
 		
 		JButton button_2 = new JButton("", new ImageIcon("C:/Users/Abby Shen/Desktop/206/Graphics/Final/Button Bold.png"));
-		button_2.setBounds(617, 72, 177, 100);
+		button_2.setBounds(611, 72, 177, 100);
+		button_2.addMouseListener(new VoxMouseAdapter(button_2,null));
 		contentPane.add(button_2);
 		
 		JButton button_3 = new JButton("", new ImageIcon("C:/Users/Abby Shen/Desktop/206/Graphics/Final/Button Bold.png"));
-		button_3.setBounds(792, 72, 177, 100);
+		button_3.setBounds(788, 72, 177, 100);
+		button_3.addMouseListener(new VoxMouseAdapter(button_3,null));
 		contentPane.add(button_3);
 		
 		JButton button_4 = new JButton("", new ImageIcon("C:/Users/Abby Shen/Desktop/206/Graphics/Final/Button Bold.png"));
 		button_4.setBounds(965, 72, 177, 100);
+		button_4.addMouseListener(new VoxMouseAdapter(button_4,null));
 		contentPane.add(button_4);
 		
 		

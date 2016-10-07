@@ -108,11 +108,11 @@ public class MainMenu extends JFrame {
 		contentPane.add(Builder);
 
 		JButton Stats = new JButton("Quiz");
-		Stats.setBounds(617, 72, 177, 100);
+		Stats.setBounds(611, 72, 177, 100);
 		contentPane.add(Stats);
 
 		JButton Settings = new JButton("Quiz");
-		Settings.setBounds(792, 72, 177, 100);
+		Settings.setBounds(788, 72, 177, 100);
 		contentPane.add(Settings);
 
 		JButton login = new JButton("Quiz");

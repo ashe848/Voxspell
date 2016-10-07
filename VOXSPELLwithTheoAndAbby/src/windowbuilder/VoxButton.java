@@ -5,6 +5,12 @@ import java.awt.Color;
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
+
+/**
+ * 
+ * @author Abby S
+ *
+ */
 public class VoxButton extends JButton {
 	private VoxMouseAdapter adapter;
 	
@@ -20,7 +26,7 @@ public class VoxButton extends JButton {
 	}
 
 	private void setupMouseListener() {
-		adapter=new VoxMouseAdapter(this,Color.LIGHT_GRAY);
+		adapter=new VoxMouseAdapter(this,Color.WHITE);
 		addMouseListener(adapter);
 	}
 	

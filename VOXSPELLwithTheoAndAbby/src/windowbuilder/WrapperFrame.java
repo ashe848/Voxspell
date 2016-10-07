@@ -3,8 +3,6 @@ package windowbuilder;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import voxspell.Voxspell;
-
 public class WrapperFrame extends JFrame {
 
 	JFrame frame = this;

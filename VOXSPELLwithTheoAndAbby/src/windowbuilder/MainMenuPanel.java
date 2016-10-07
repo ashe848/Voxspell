@@ -3,8 +3,6 @@ package windowbuilder;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -12,8 +10,10 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 
+@SuppressWarnings("serial")
 public class MainMenuPanel extends JPanel {
 
 	Image bg_image;
@@ -70,6 +70,21 @@ public class MainMenuPanel extends JPanel {
 		JButton button_6 = new JButton("Quiz");
 		button_6.setBounds(45, 72, 100, 100);
 		contentPane.add(button_6);
+		
+		JTextArea txtrAbbys = new JTextArea();
+		txtrAbbys.setWrapStyleWord(true);
+		txtrAbbys.setEditable(false);
+		txtrAbbys.setLineWrap(true);;
+		txtrAbbys.setText("AbbyS\n\n");
+		txtrAbbys.append("List Name:\nSome List\n\n");
+		txtrAbbys.append("Level:\nMy Level Name\n\n");
+		txtrAbbys.append("SLKdgasopgihsodgawoejgsdldgjsdgearystrhrtshffhdffg\n\n");
+		txtrAbbys.append("Total Words:\n412 Name\n\n");
+		txtrAbbys.append("Attempted:\n303\n\n");
+		txtrAbbys.append("Didn't Get:\n303\n\n");
+		txtrAbbys.setBounds(45, 319, 100, 389);
+		txtrAbbys.setOpaque(false);
+		contentPane.add(txtrAbbys);
 
 	}
 

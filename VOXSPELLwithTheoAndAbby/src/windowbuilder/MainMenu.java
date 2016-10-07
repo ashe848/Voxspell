@@ -2,14 +2,14 @@ package windowbuilder;
 
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
+import javax.swing.JTextArea;
 
+@SuppressWarnings("serial")
 public class MainMenu extends JFrame {
 
 	private JPanel contentPane;
@@ -67,6 +67,22 @@ public class MainMenu extends JFrame {
 		Help.setBounds(45, 72, 100, 100);
 		contentPane.add(Help);
 
+		
+		JTextArea txtrAbbys = new JTextArea();
+		txtrAbbys.setWrapStyleWord(true);
+		txtrAbbys.setEditable(false);
+		txtrAbbys.setLineWrap(true);;
+		txtrAbbys.setText("AbbyS\n\n");
+		txtrAbbys.append("List Name:\nSome List\n\n");
+		txtrAbbys.append("Level:\nMy Level Name\n\n");
+		txtrAbbys.append("SLKdgasopgihsodgawoejgsdldgjsdgearystrhrtshffhdffg\n\n");
+		txtrAbbys.append("Total Words:\n412 Name\n\n");
+		txtrAbbys.append("Attempted:\n303\n\n");
+		txtrAbbys.append("Didn't Get:\n303\n\n");
+		txtrAbbys.setBounds(45, 319, 100, 389);
+		txtrAbbys.setOpaque(false);
+		contentPane.add(txtrAbbys);
+		
 		JTextPane txtpnLeftBounds = new JTextPane();
 		txtpnLeftBounds.setBackground(Color.GREEN);
 		txtpnLeftBounds.setText("Left Bounds");
@@ -108,5 +124,7 @@ public class MainMenu extends JFrame {
 		txtpnRightBounds.setText("Right Bounds");
 		txtpnRightBounds.setBounds(1171, 0, 179, 708);
 		contentPane.add(txtpnRightBounds);
+		
+		
 	}
 }

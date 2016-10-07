@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import voxspell.Voxspell.PanelID;
 
@@ -40,17 +41,18 @@ public class StatsChooser extends JPanel{
 
 		parent_frame=parent;
 
-		JButton Title = new JButton("Statistics for Current List");
-		Title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
-		Title.setBounds(32, 24, 1136, 119);
-		add(Title);
+		JLabel title = new JLabel("Statistics for Current List");
+		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		title.setBounds(32, 24, 1136, 119);
+		add(title);
 		setupPersistentAllButton();
 		setupPersistentLevelButton();
 		setupSessionAllButton();
 		setupSessionLevelButton();
 		setupBackButton();
 		setupAccuracyRateLabel();
-		setupBackground();
+//		setupBackground();
 	}
 
 	/**

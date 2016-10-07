@@ -1,14 +1,17 @@
 package voxspell;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
@@ -49,8 +52,15 @@ public class Video extends JPanel{
 		setLayout(null);
 
 		parent_frame=parent;
-
+		
 		video = System.getProperty("user.dir")+"/rewardvideos/"+parent_frame.getDataHandler().video_name;
+		
+		JLabel title = new JLabel(parent_frame.getDataHandler().video_name);
+		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		title.setBounds(32, 24, 1284, 119);
+		add(title);
+		
 		setupPlayer();
 		setupTimer();
 		setupProgressBar();

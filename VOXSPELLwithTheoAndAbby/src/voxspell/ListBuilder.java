@@ -1,5 +1,6 @@
 package voxspell;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -12,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import voxspell.Voxspell.PanelID;
 
@@ -50,6 +52,8 @@ public class ListBuilder extends JPanel {
 
 	private void setupTitle() {
 		JLabel title = new JLabel("Build Your Own Custom List");
+		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
+		title.setHorizontalAlignment(SwingConstants.CENTER);
 		title.setBounds(32, 24, 1284, 119);
 		add(title);
 	}
@@ -112,7 +116,6 @@ public class ListBuilder extends JPanel {
 		JButton add_word_button = new JButton("Add This Word");
 		add_word_button.setBounds(1139, 180, 177, 100);
 		add_word_button.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String word=word_field.getText();
@@ -138,7 +141,6 @@ public class ListBuilder extends JPanel {
 		JButton save_Button = new JButton("Save");
 		save_Button.setBounds(1139, 461, 177, 100);
 		save_Button.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (!list_name_field.getText().matches("[a-zA-Z]+")){
@@ -166,13 +168,11 @@ public class ListBuilder extends JPanel {
 		JButton discard_button = new JButton("Discard");
 		discard_button.setBounds(1139, 598, 177, 100);
 		discard_button.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (askForConfirmation("Are you sure you want to discard this list?", "Discard")){
 					parent_frame.changePanel(PanelID.MainMenu);
 				}
-
 			}
 		});
 		add(discard_button);

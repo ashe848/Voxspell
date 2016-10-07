@@ -21,6 +21,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import voxspell.Festival.FestivalSpeed;
 import voxspell.Festival.FestivalVoice;
@@ -82,7 +83,7 @@ public class Quiz extends JPanel {
 			setupChangeSpeed();
 			setupAddToReviewButton();
 			setupBackButton();
-			setupBackground();
+//			setupBackground();
 
 			current_attempt_number = 1;
 			current_word_number = 0;
@@ -112,12 +113,12 @@ public class Quiz extends JPanel {
 	 * sets up title at top of panel
 	 */
 	private void setupTitle(){
-		JLabel title_to_display = new JLabel(quiz_type.toString()+": "+parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().current_level)); 
-		title_to_display.setFont(new Font("Courier New", Font.BOLD, 50));
-
-		add(title_to_display);
-		title_to_display.setBounds(32, 24, 1136, 119);
-		title_to_display.setOpaque(false);
+		JLabel title = new JLabel(quiz_type.toString()+": "+parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().current_level)); 
+		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		add(title);
+		title.setBounds(32, 24, 1136, 119);
+		title.setOpaque(false);
 	}
 
 	/**

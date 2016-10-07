@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -65,10 +66,11 @@ public class QuizComplete extends JPanel{
 		latest_faulted_words=parent_frame.getDataHandler().getLatestWordResults().get(1);
 		latest_failed_words=parent_frame.getDataHandler().getLatestWordResults().get(2);
 
-		JButton Title = new JButton("Quiz Complete");
-		Title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
-		Title.setBounds(32, 24, 1136, 119);
-		add(Title);
+		JLabel title = new JLabel("Quiz Complete");
+		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		title.setBounds(32, 24, 1136, 119);
+		add(title);
 		
 		setupAudio();
 		setupTable();

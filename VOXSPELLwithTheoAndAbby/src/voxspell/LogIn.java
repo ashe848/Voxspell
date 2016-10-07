@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import voxspell.Voxspell.PanelID;
 
@@ -37,10 +38,11 @@ public class LogIn extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel Title = new JLabel("Log In");
-		Title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
-		Title.setBounds(32, 24, 606, 119);
-		contentPane.add(Title);
+		JLabel title = new JLabel("Log In");
+		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		title.setBounds(32, 24, 606, 119);
+		contentPane.add(title);
 //		setupLabels();
 		setupRegisteredUsers();
 		setupEnterName();

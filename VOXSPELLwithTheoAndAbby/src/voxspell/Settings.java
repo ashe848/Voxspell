@@ -18,6 +18,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
@@ -54,10 +55,11 @@ public class Settings extends JPanel {
 
 		parent_frame = parent;
 		
-		JButton Title = new JButton("Settings");
-		Title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
-		Title.setBounds(32, 24, 1284, 119);
-		add(Title);
+		JLabel title = new JLabel("Settings");
+		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		title.setBounds(32, 24, 1284, 119);
+		add(title);
 		
 		seupResetListStats();
 		seupResetUser();

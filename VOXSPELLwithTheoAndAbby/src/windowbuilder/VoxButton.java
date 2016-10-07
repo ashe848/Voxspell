@@ -14,8 +14,8 @@ import javax.swing.JButton;
 public class VoxButton extends JButton {
 	private VoxMouseAdapter adapter;
 	
-	public VoxButton(String s){
-		super(s);
+	public VoxButton(String text){
+		super(text);
 		setForeground(Color.WHITE);
 		setBackground(new Color(254, 157, 79));
 		setContentAreaFilled(false);
@@ -30,8 +30,8 @@ public class VoxButton extends JButton {
 		addMouseListener(adapter);
 	}
 	
-	public void changeMouseEventColor(Color c){
+	public void changeMouseEventColor(Color special_color){
 		removeMouseListener(adapter);
-		addMouseListener(new VoxMouseAdapter(this,c));
+		addMouseListener(new VoxMouseAdapter(this,special_color));
 	}
 }

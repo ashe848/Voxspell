@@ -1,5 +1,6 @@
 package voxspell;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,13 +31,17 @@ public class LogIn extends JFrame {
 		setTitle("Log In");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(800, 300, 450, 500);
+		setBounds(560, 100, 683, 787);
 
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		setupLabels();
+		JLabel Title = new JLabel("Log In");
+		Title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
+		Title.setBounds(32, 24, 606, 119);
+		contentPane.add(Title);
+//		setupLabels();
 		setupRegisteredUsers();
 		setupEnterName();
 		setupOKButton();
@@ -59,7 +64,7 @@ public class LogIn extends JFrame {
 	private void setupRegisteredUsers() {
 		JTextArea txtrRegisteredUsers = new JTextArea();
 		JScrollPane scrollBar = new JScrollPane(txtrRegisteredUsers);
-		scrollBar.setBounds(10, 110, 414, 258);
+		scrollBar.setBounds(32, 164, 606, 310);
 		contentPane.add(scrollBar);
 		txtrRegisteredUsers.setEditable(false);
 		txtrRegisteredUsers.setLineWrap(true);
@@ -74,11 +79,11 @@ public class LogIn extends JFrame {
 
 	private void setupEnterName() {
 		JLabel lblYourName = new JLabel("Your name:");
-		lblYourName.setBounds(10, 381, 77, 15);
+		lblYourName.setBounds(32, 484, 172, 52);
 		contentPane.add(lblYourName);
 
 		textField = new JTextField();
-		textField.setBounds(84, 378, 340, 21);
+		textField.setBounds(214, 484, 424, 52);
 		textField.setColumns(10);
 		contentPane.add(textField);
 	}
@@ -88,7 +93,7 @@ public class LogIn extends JFrame {
 		contentPane.add(lblOnlyAlphabeticalCharacters);
 
 		JButton btnOk = new JButton("OK");
-		btnOk.setBounds(162, 438, 93, 23);
+		btnOk.setBounds(247, 598, 177, 100);
 		contentPane.add(btnOk);
 		btnOk.addActionListener(new ActionListener() {
 			@Override
@@ -96,7 +101,7 @@ public class LogIn extends JFrame {
 				String username=textField.getText();
 				if(!username.matches("[a-zA-Z]+")){
 					lblOnlyAlphabeticalCharacters.setText("Only alphabetical characters allowed!");
-					lblOnlyAlphabeticalCharacters.setBounds(10, 413, 414, 15);
+					lblOnlyAlphabeticalCharacters.setBounds(32, 546, 606, 40);
 				} else {
 					parent_frame.getDataHandler().user=username;
 					if(!parent_frame.getDataHandler().users.contains(username)){

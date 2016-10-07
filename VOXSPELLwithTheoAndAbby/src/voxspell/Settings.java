@@ -1,6 +1,7 @@
 package voxspell;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -53,12 +54,20 @@ public class Settings extends JPanel {
 
 		parent_frame = parent;
 		
-		JLabel reset_buttons = new JLabel("Other settings may not be saved:");
-		reset_buttons.setBounds(335, 232, 254, 15);
-		add(reset_buttons);
+		JButton Title = new JButton("Settings");
+		Title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
+		Title.setBounds(32, 24, 1284, 119);
+		add(Title);
+		
 		seupResetListStats();
 		seupResetUser();
 		seupResetToDefaultSettings();
+		
+		JLabel lblOtherSettingsMay = new JLabel("^ other settings will not be saved ^");
+		lblOtherSettingsMay.setForeground(Color.RED);
+		lblOtherSettingsMay.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblOtherSettingsMay.setBounds(543, 668, 299, 30);
+		add(lblOtherSettingsMay);
 
 		setupChangeVoice();
 		setupChangeSpeed();
@@ -67,7 +76,7 @@ public class Settings extends JPanel {
 		setupChooseWordList();
 		setupChooseRewardVideo();
 		setupBackButton();
-		setupBackground();
+//		setupBackground();
 	}
 
 	/**
@@ -75,7 +84,7 @@ public class Settings extends JPanel {
 	 */
 	private void seupResetListStats() {
 		JButton reset_list_stats_button = new JButton("Reset Stats for Current List");
-		reset_list_stats_button.setBounds(335, 257, 254, 23);
+		reset_list_stats_button.setBounds(543, 462, 299, 50);
 		add(reset_list_stats_button);
 		reset_list_stats_button.addActionListener(new ActionListener() {
 			@Override
@@ -88,6 +97,23 @@ public class Settings extends JPanel {
 		});
 	}
 
+	/**
+	 * @author Abby S
+	 */
+	private void seupResetToDefaultSettings() {
+		JButton reset_to_default_button = new JButton("Reset My Settings data Back to Defaults");
+		reset_to_default_button.setBounds(543, 533, 299, 50);
+		reset_to_default_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				boolean ask_result = askForConfirmation("Are you sure you want to reset your Settings data Back to Defaults?\nList-specific data will be retained.", "Reset Settings Back to Defaults");
+				if (ask_result){
+					parent_frame.getDataHandler().resetToDefaults();
+				}
+			}
+		});
+		add(reset_to_default_button);
+	}
+	
 	/**
 	 * @author Abby S
 	 */
@@ -105,25 +131,8 @@ public class Settings extends JPanel {
 				}
 			}
 		});
-		clear_all_button.setBounds(335, 326, 254, 23);
+		clear_all_button.setBounds(543, 605, 299, 50);
 		add(clear_all_button);
-	}
-
-	/**
-	 * @author Abby S
-	 */
-	private void seupResetToDefaultSettings() {
-		JButton reset_to_default_button = new JButton("Reset My Settings data Back to Defaults");
-		reset_to_default_button.setBounds(335, 293, 254, 23);
-		reset_to_default_button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				boolean ask_result = askForConfirmation("Are you sure you want to reset your Settings data Back to Defaults?\nList-specific data will be retained.", "Reset Settings Back to Defaults");
-				if (ask_result){
-					parent_frame.getDataHandler().resetToDefaults();
-				}
-			}
-		});
-		add(reset_to_default_button);
 	}
 
 	/**
@@ -131,7 +140,7 @@ public class Settings extends JPanel {
 	 */
 	private void setupChangeVoice() {
 		JLabel change_voice_label = new JLabel("Change voice (you can change this during the quiz as well)");
-		change_voice_label.setBounds(31, 209, 359, 15);
+		change_voice_label.setBounds(32, 169, 517, 30);
 		change_voice_label.setForeground(Color.YELLOW);
 		add(change_voice_label);
 
@@ -149,7 +158,7 @@ public class Settings extends JPanel {
 			}
 		});
 
-		voice_chooser.setBounds(31, 234, 166, 40);
+		voice_chooser.setBounds(32, 209, 210, 50);
 		add(voice_chooser);
 	}
 
@@ -158,7 +167,7 @@ public class Settings extends JPanel {
 	 */
 	private void setupChangeSpeed() {
 		JLabel change_speed_label = new JLabel("Change speed");
-		change_speed_label.setBounds(31, 330, 166, 15);
+		change_speed_label.setBounds(32, 294, 517, 30);
 		change_speed_label.setForeground(Color.YELLOW);
 		add(change_speed_label);
 
@@ -176,7 +185,7 @@ public class Settings extends JPanel {
 			}
 		});
 
-		speed_chooser.setBounds(31, 355, 166, 40);
+		speed_chooser.setBounds(32, 334, 210, 50);
 		add(speed_chooser);
 	}
 
@@ -186,7 +195,7 @@ public class Settings extends JPanel {
 	private void setupWordInQuiz(){
 		JLabel change_words_in_quiz_label = new JLabel("Change preferred number of words in quiz");
 		change_words_in_quiz_label.setForeground(Color.YELLOW);
-		change_words_in_quiz_label.setBounds(31, 416, 254, 15);
+		change_words_in_quiz_label.setBounds(32, 422, 517, 30);
 		add(change_words_in_quiz_label);
 
 		//		TODO: remove 1 after testing
@@ -204,7 +213,7 @@ public class Settings extends JPanel {
 			}
 		});
 
-		word_number_chooser.setBounds(31, 443, 166, 40);
+		word_number_chooser.setBounds(32, 462, 210, 50);
 		add(word_number_chooser);
 	}
 
@@ -214,7 +223,7 @@ public class Settings extends JPanel {
 	private void setupChooseLevel() {
 		JLabel choose_level_label = new JLabel("Choose Level (for current list)");
 		choose_level_label.setForeground(Color.YELLOW);
-		choose_level_label.setBounds(335, 418, 166, 15);
+		choose_level_label.setBounds(32, 552, 517, 30);
 		add(choose_level_label);
 
 		String[] levels = parent_frame.getDataHandler().getLevelArray();
@@ -231,7 +240,7 @@ public class Settings extends JPanel {
 		});
 		level_chooser.setForeground(Color.BLACK);
 		level_chooser.setBackground(Color.WHITE);
-		level_chooser.setBounds(335, 443, 166, 40);
+		level_chooser.setBounds(32, 592, 210, 50);
 		add(level_chooser);
 	}
 
@@ -241,14 +250,14 @@ public class Settings extends JPanel {
 	private void setupChooseWordList(){
 		JLabel choose_wordlist_label = new JLabel("Current word list: "+parent_frame.getDataHandler().spelling_list_name);
 		choose_wordlist_label.setForeground(Color.YELLOW);
-		choose_wordlist_label.setBounds(31, 500, 254, 15);
+		choose_wordlist_label.setBounds(655, 169, 661, 30);
 		add(choose_wordlist_label);
 
 		final JLabel will_change_to=new JLabel("");
 		add(will_change_to);
 		
 		JButton list_choose_button = new JButton("Choose another list");
-		list_choose_button.setBounds(31, 527, 93, 23);
+		list_choose_button.setBounds(1038, 200, 278, 46);
 		list_choose_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {	
@@ -268,7 +277,7 @@ public class Settings extends JPanel {
 						temp_list_selection=chooser.getSelectedFile().getName();
 						will_change_to.setText("Will change to "+temp_list_selection+" on save.");
 						will_change_to.setForeground(Color.YELLOW);
-						will_change_to.setBounds(150, 531, 254, 15);
+						will_change_to.setBounds(655, 246, 661, 30);
 					}
 				}
 			}
@@ -282,14 +291,14 @@ public class Settings extends JPanel {
 	private void setupChooseRewardVideo(){
 		JLabel choose_video_label = new JLabel("Current Reward Video: "+parent_frame.getDataHandler().video_name);
 		choose_video_label.setForeground(Color.YELLOW);
-		choose_video_label.setBounds(31, 171, 254, 15);
+		choose_video_label.setBounds(655, 318, 661, 30);
 		add(choose_video_label);
 
 		final JLabel will_change_to=new JLabel("");
 		add(will_change_to);
 		
 		JButton choose_video_button = new JButton("Choose another video");
-		choose_video_button.setBounds(327, 167, 93, 23);
+		choose_video_button.setBounds(1038, 348, 278, 46);
 		choose_video_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {	
@@ -308,7 +317,7 @@ public class Settings extends JPanel {
 						temp_video_selection=chooser.getSelectedFile().getName();
 						will_change_to.setText("Will change to "+temp_video_selection+" on save.");
 						will_change_to.setForeground(Color.YELLOW);
-						will_change_to.setBounds(446, 171, 254, 15);
+						will_change_to.setBounds(655, 395, 661, 30);
 					}
 				}
 			}
@@ -357,8 +366,7 @@ public class Settings extends JPanel {
 		});
 
 		add(back_button);
-		back_button.setSize(50,50);
-		back_button.setLocation(700,500);
+		back_button.setBounds(1216, 598, 100, 100);
 	}
 
 	/**

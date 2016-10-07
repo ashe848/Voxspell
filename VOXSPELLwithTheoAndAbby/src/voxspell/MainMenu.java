@@ -14,8 +14,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import voxspell.Voxspell.PanelID;
+import windowbuilder.VoxMouseAdapter;
 
 @SuppressWarnings({ "static-access", "serial" })
 
@@ -40,7 +42,7 @@ public class MainMenu extends JPanel{
 	 */
 	MainMenu(Voxspell parent){
 		super();
-		setSize(800, 600);
+		setSize(1366,747);
 		setLayout(null);
 
 		parent_frame = parent;
@@ -53,7 +55,26 @@ public class MainMenu extends JPanel{
 		setupSettingsButton();
 		setupStatsButton();
 		setupExitButton();
-		setupAccuracyRateLabel();
+		
+		JButton help = new JButton("Help");
+		help.setBounds(45, 72, 100, 100);
+		add(help);
+
+		JTextArea game_summary = new JTextArea();
+		game_summary.setWrapStyleWord(true);
+		game_summary.setEditable(false);
+		game_summary.setLineWrap(true);;
+		game_summary.setText("AbbyS\n\n");
+		game_summary.append("List Name:\nSome List\n\n");
+		game_summary.append("Level:\nMy Level Name\n\n");
+		game_summary.append("SLKdgasopgihsodgawoejgsdldgjsdgearystrhrtshffhdffg\n\n");
+		game_summary.append("Total Words:\n412 Name\n\n");
+		game_summary.append("Attempted:\n303\n\n");
+		game_summary.append("Didn't Get:\n303\n\n");
+		game_summary.setBounds(45, 319, 100, 389);
+		game_summary.setOpaque(false);
+		add(game_summary);
+//		setupAccuracyRateLabel();
 	}
 
 	/**
@@ -63,7 +84,7 @@ public class MainMenu extends JPanel{
 	 */
 	private void setupBackground(){
 		try {
-			bg_image = ImageIO.read(new File(parent_frame.getResourceFileLocation() + "voxspell_opaque_bg.png"));
+			bg_image = ImageIO.read(new File(parent_frame.getResourceFileLocation() + "Background.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -84,13 +105,14 @@ public class MainMenu extends JPanel{
 	 */
 	private void setupLogInButton() {
 		JButton log_in_button= new JButton("Log In");
-		log_in_button.setBounds(184, 50, 93, 23);
+		log_in_button.setBounds(965, 72, 177, 100);
 		log_in_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LogIn log_in_frame=new LogIn(parent_frame);
 				log_in_frame.setVisible(true);
 			}
 		});
+		log_in_button.addMouseListener(new VoxMouseAdapter(log_in_button,null));
 		add(log_in_button);
 	}
 
@@ -106,8 +128,7 @@ public class MainMenu extends JPanel{
 		});
 
 		add(list_builder_button);
-		list_builder_button.setSize(200, 50);
-		list_builder_button.setLocation(550, 260);
+		list_builder_button.setBounds(890, 598, 177, 100);
 	}
 
 	/**
@@ -123,8 +144,7 @@ public class MainMenu extends JPanel{
 		});
 
 		add(new_quiz_button);
-		new_quiz_button.setSize(200, 50);
-		new_quiz_button.setLocation(550, 330);
+		new_quiz_button.setBounds(306, 598, 177, 100);
 	}
 
 	/**
@@ -140,8 +160,7 @@ public class MainMenu extends JPanel{
 		});
 
 		add(review_button);
-		review_button.setSize(200, 50);
-		review_button.setLocation(550, 400);
+		review_button.setBounds(598, 598, 177, 100);
 	}
 
 	/**
@@ -155,10 +174,10 @@ public class MainMenu extends JPanel{
 				parent_frame.changePanel(PanelID.Settings);
 			}
 		});
+		settings_button.addMouseListener(new VoxMouseAdapter(settings_button, null));
 
 		add(settings_button);
-		settings_button.setSize(50, 50);
-		settings_button.setLocation(550, 500);
+		settings_button.setBounds(788, 72, 177, 100);
 	}
 
 	/**
@@ -174,8 +193,7 @@ public class MainMenu extends JPanel{
 		});
 
 		add(stats_button);
-		stats_button.setSize(100, 100);
-		stats_button.setLocation(50, 50);
+		stats_button.setBounds(611, 72, 177, 100);
 	}
 
 	/**
@@ -197,8 +215,7 @@ public class MainMenu extends JPanel{
 		});
 
 		add(exit_button);
-		exit_button.setSize(50,50);
-		exit_button.setLocation(700,500);
+		exit_button.setBounds(1216, 598, 100, 100);
 	}
 
 	/**

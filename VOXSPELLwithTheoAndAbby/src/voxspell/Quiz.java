@@ -62,7 +62,7 @@ public class Quiz extends JPanel {
 	 * @param 
 	 */
 	public Quiz(Voxspell parent, PanelID type){
-		setSize(800,600);
+		setSize(1366,747);
 		setLayout(null);
 
 		parent_frame = parent;
@@ -116,8 +116,7 @@ public class Quiz extends JPanel {
 		title_to_display.setFont(new Font("Courier New", Font.BOLD, 50));
 
 		add(title_to_display);
-		title_to_display.setLocation(50, 20);
-		title_to_display.setSize(700, 50);
+		title_to_display.setBounds(32, 24, 1136, 119);
 		title_to_display.setOpaque(false);
 	}
 
@@ -129,7 +128,7 @@ public class Quiz extends JPanel {
 	 */
 	private void setupProgressBar() {
 		progress_bar = new JProgressBar(0,words_to_spell.size());
-		progress_bar.setBounds(50, 207, 700, 23);
+		progress_bar.setBounds(32, 170, 1284, 34);
 		progress_bar.setBackground(Color.WHITE);
 		add(progress_bar);
 	}
@@ -147,8 +146,7 @@ public class Quiz extends JPanel {
 
 		JScrollPane scrolling_pane = new JScrollPane(progressive_display);
 		add(scrolling_pane);
-		scrolling_pane.setSize(700, 117);
-		scrolling_pane.setLocation(50, 80);
+		scrolling_pane.setBounds(32, 222, 1284, 252);
 		scrolling_pane.setBackground(Color.WHITE);
 	}
 
@@ -160,8 +158,7 @@ public class Quiz extends JPanel {
 		spell_here_text.setFont(new Font("Courier New", Font.BOLD, 30));
 
 		add(spell_here_text);
-		spell_here_text.setLocation(50, 340);
-		spell_here_text.setSize(300, 50);
+		spell_here_text.setBounds(32, 484, 332, 74);
 		spell_here_text.setOpaque(false);
 	}
 
@@ -181,8 +178,7 @@ public class Quiz extends JPanel {
 		});
 
 		add(input_from_user);
-		input_from_user.setSize(400, 40);
-		input_from_user.setLocation(280, 340);
+		input_from_user.setBounds(374, 484, 942, 74);
 	}
 
 	/**
@@ -200,8 +196,7 @@ public class Quiz extends JPanel {
 		});
 
 		add(submit_button);
-		submit_button.setSize(230,150);
-		submit_button.setLocation(50,400);
+		submit_button.setBounds(32, 598, 177, 100);
 	}
 
 	/**
@@ -228,8 +223,7 @@ public class Quiz extends JPanel {
 		});
 
 		add(sayagain_button);
-		sayagain_button.setSize(150,150);
-		sayagain_button.setLocation(450,400);
+		sayagain_button.setBounds(667, 598, 177, 100);
 	}
 
 	/**
@@ -253,7 +247,7 @@ public class Quiz extends JPanel {
 			}
 		});
 
-		voice_chooser.setBounds(622, 400, 140, 40);
+		voice_chooser.setBounds(919, 600, 154, 40);
 		add(voice_chooser);
 	}
 
@@ -277,7 +271,7 @@ public class Quiz extends JPanel {
 			}
 		});
 
-		speed_chooser.setBounds(622, 450, 140, 40);
+		speed_chooser.setBounds(919, 658, 154, 40);
 		add(speed_chooser);
 	}
 
@@ -287,7 +281,7 @@ public class Quiz extends JPanel {
 	 */
 	private void setupAddToReviewButton() {
 		JButton add_to_review = new JButton("Add to review");
-		add_to_review.setBounds(290, 400, 130, 23);
+		add_to_review.setBounds(374, 598, 177, 100);
 		add_to_review.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<String> word_to_add=new ArrayList<>();
@@ -318,8 +312,7 @@ public class Quiz extends JPanel {
 		});
 
 		add(back_button);
-		back_button.setSize(50,50);
-		back_button.setLocation(700,500);
+		back_button.setBounds(1216, 598, 100, 100);
 	}
 
 	/**

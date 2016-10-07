@@ -24,6 +24,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -64,12 +65,17 @@ public class QuizComplete extends JPanel{
 		latest_faulted_words=parent_frame.getDataHandler().getLatestWordResults().get(1);
 		latest_failed_words=parent_frame.getDataHandler().getLatestWordResults().get(2);
 
+		JButton Title = new JButton("Quiz Complete");
+		Title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
+		Title.setBounds(32, 24, 1136, 119);
+		add(Title);
+		
 		setupAudio();
 		setupTable();
 		determineDisplay();
 		setupBackButton();
 		setupAccuracyRateLabel();
-		setupBackground();
+//		setupBackground();
 	}
 
 	/**
@@ -153,7 +159,7 @@ public class QuizComplete extends JPanel{
 		JScrollPane scroll_pane = new JScrollPane(table);
 		add(scroll_pane);
 		scroll_pane.setVisible(true);
-		scroll_pane.setBounds(50, 150, 450, 300);
+		scroll_pane.setBounds(32, 169, 585, 435);
 	}
 
 	/**
@@ -183,9 +189,9 @@ public class QuizComplete extends JPanel{
 			double global_top_score=Double.parseDouble(parent_frame.getDataHandler().global_top.split("\\s+")[0]);
 			if (score > global_top_score){
 				parent_frame.getDataHandler().global_top=score+" "+parent_frame.getDataHandler().user+" "+parent_frame.getDataHandler().spelling_list_name;
-				setupNewGlobalTop(score,global_top_score);
+//				setupNewGlobalTop(score,global_top_score);
 			} else {
-				setupJustNewPB(score,parent_frame.getDataHandler().global_top.split("\\s+"));
+//				setupJustNewPB(score,parent_frame.getDataHandler().global_top.split("\\s+"));
 			}
 		}
 	}
@@ -197,7 +203,7 @@ public class QuizComplete extends JPanel{
 		ImageIcon levelup_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "levelup_button.png");
 		final JButton level_up_button = new JButton("", levelup_button_image);
 
-		level_up_button.setBounds(550, 213, 200, 114);
+		level_up_button.setBounds(648, 404, 354, 200);
 		level_up_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//if not on highest level
@@ -227,7 +233,7 @@ public class QuizComplete extends JPanel{
 	private void setupLevelledUpLabel(String direction) {
 		JLabel level_up_button = new JLabel("Moved " + direction + "to "+parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().current_level), JLabel.CENTER);
 
-		level_up_button.setBounds(550, 213, 200, 114);
+		level_up_button.setBounds(648, 404, 354, 200);
 		level_up_button.setForeground(Color.YELLOW);
 		add(level_up_button);
 		level_up_button.setVisible(true);
@@ -240,7 +246,7 @@ public class QuizComplete extends JPanel{
 		ImageIcon videoreward_image = new ImageIcon(parent_frame.getResourceFileLocation() + "video_reward_button.png");
 		JButton video_button = new JButton("", videoreward_image);		
 
-		video_button.setBounds(550, 354, 200, 114);
+		video_button.setBounds(648, 169, 354, 200);
 		video_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -255,9 +261,19 @@ public class QuizComplete extends JPanel{
 	 * @author Abby S
 	 */
 	private void setupNewPB(double record_score){
-		JLabel new_PB = new JLabel("New personal best score: "+record_score+"!");
-		new_PB.setBounds(550, 119, 200, 15);
-		add(new_PB);
+//		JLabel new_PB = new JLabel("New personal best score: "+record_score+"!");
+//		new_PB.setBounds(550, 119, 200, 15);
+//		add(new_PB);
+		
+		JTextArea txtrScore = new JTextArea();
+		txtrScore.setLineWrap(true);
+		txtrScore.setEditable(false);
+		txtrScore.setWrapStyleWord(true);
+		txtrScore.setFont(new Font("Arial", Font.PLAIN, 24));
+		txtrScore.setOpaque(false);
+		txtrScore.setText("New personal best score:\n3\n\n\nDidn't beat global top of 3\n\nby AbbyS\n\nin NZCER-spelling-lists.txt");
+		txtrScore.setBounds(1028, 232, 288, 347);
+		add(txtrScore);	
 	}
 
 	/**
@@ -296,8 +312,7 @@ public class QuizComplete extends JPanel{
 		});
 
 		add(back_button);
-		back_button.setSize(50,50);
-		back_button.setLocation(700,500);
+		back_button.setBounds(1216, 598, 100, 100);
 	}
 
 	/**
@@ -308,8 +323,7 @@ public class QuizComplete extends JPanel{
 		accuracy_rate_label.setFont(new Font("Courier New", Font.BOLD, 10));
 
 		add(accuracy_rate_label);
-		accuracy_rate_label.setLocation(50, 500);
-		accuracy_rate_label.setSize(300, 50);
+		accuracy_rate_label.setBounds(32, 630, 1136, 68);
 		accuracy_rate_label.setOpaque(true);
 	}
 

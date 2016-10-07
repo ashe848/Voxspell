@@ -45,7 +45,7 @@ public class Video extends JPanel{
 	 */
 	public Video(Voxspell parent){
 		super();
-		setSize(800,600);
+		setSize(1366,747);
 		setLayout(null);
 
 		parent_frame=parent;
@@ -71,8 +71,7 @@ public class Video extends JPanel{
 
 		panel = new JPanel(null);
 		panel.add(media_player_component);
-		media_player_component.setSize(800,439);
-		media_player_component.setLocation(0,0);
+		media_player_component.setBounds(32, 169, 1140, 496);
 
 		frame.setContentPane(panel); //sticking new panel on the frame that program is on
 
@@ -87,7 +86,7 @@ public class Video extends JPanel{
 		progressbar = new JProgressBar(0,duration);
 		progressbar.setForeground(Color.ORANGE);
 		progressbar.setBackground(Color.WHITE);
-		progressbar.setBounds(50, 458, 700, 14);
+		progressbar.setBounds(32, 675, 1140, 23);
 		progressbar.setValue(0);
 		panel.add(progressbar);
 	}
@@ -120,26 +119,7 @@ public class Video extends JPanel{
 		});
 
 		panel.add(start_button);
-		start_button.setSize(50,50);
-		start_button.setLocation(50,500);
-	}
-
-	/**
-	 * Creates stop button for video panel and creates functionality
-	 */
-	private void setupStopButton() {
-		ImageIcon stop_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "stop_button.png");
-		JButton stop_button = new JButton("", stop_button_image);
-		stop_button.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				player.stop();
-			}
-		});
-
-		panel.add(stop_button);
-		stop_button.setSize(50,50);
-		stop_button.setLocation(110,500);
+		start_button.setBounds(1216, 169, 100, 100);
 	}
 
 	/**
@@ -156,8 +136,24 @@ public class Video extends JPanel{
 		});
 
 		panel.add(pause_button);
-		pause_button.setSize(50,50);
-		pause_button.setLocation(180,500);
+		pause_button.setBounds(1216, 279, 100, 100);
+	}
+	
+	/**
+	 * Creates stop button for video panel and creates functionality
+	 */
+	private void setupStopButton() {
+		ImageIcon stop_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "stop_button.png");
+		JButton stop_button = new JButton("", stop_button_image);
+		stop_button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				player.stop();
+			}
+		});
+
+		panel.add(stop_button);
+		stop_button.setBounds(1216, 389, 100, 100);
 	}
 
 	/**
@@ -176,7 +172,6 @@ public class Video extends JPanel{
 		});
 
 		panel.add(back_button);
-		back_button.setSize(50,50);
-		back_button.setLocation(700,500);
+		back_button.setBounds(1216, 598, 100, 100);
 	}
 }

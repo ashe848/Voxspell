@@ -35,11 +35,15 @@ public class StatsChooser extends JPanel{
 	 */
 	public StatsChooser(Voxspell parent){
 		super();
-		setSize(800,600);
+		setSize(1366,747);
 		setLayout(null);
 
 		parent_frame=parent;
 
+		JButton Title = new JButton("Statistics for Current List");
+		Title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
+		Title.setBounds(32, 24, 1136, 119);
+		add(Title);
 		setupPersistentAllButton();
 		setupPersistentLevelButton();
 		setupSessionAllButton();
@@ -70,8 +74,7 @@ public class StatsChooser extends JPanel{
 		});
 
 		add(persistent_all_button);
-		persistent_all_button.setSize(200,100);
-		persistent_all_button.setLocation(50, 200);
+		persistent_all_button.setBounds(153, 165, 354, 200);
 	}
 
 	/**
@@ -87,8 +90,7 @@ public class StatsChooser extends JPanel{
 		});
 
 		add(persistent_level_button);
-		persistent_level_button.setSize(200,100);
-		persistent_level_button.setLocation(350, 200);
+		persistent_level_button.setBounds(702, 165, 354, 200);
 	}
 
 	/**
@@ -104,8 +106,7 @@ public class StatsChooser extends JPanel{
 		});
 
 		add(session_all_button);
-		session_all_button.setSize(200,100);
-		session_all_button.setLocation(50, 350);
+		session_all_button.setBounds(153, 395, 354, 200);
 	}
 
 	/**
@@ -122,8 +123,7 @@ public class StatsChooser extends JPanel{
 		});
 
 		add(session_level_button);
-		session_level_button.setSize(200,100);
-		session_level_button.setLocation(350, 350);
+		session_level_button.setBounds(702, 395, 354, 200);
 	}
 
 	/**
@@ -139,8 +139,7 @@ public class StatsChooser extends JPanel{
 		});
 
 		add(back_button);
-		back_button.setSize(50,50);
-		back_button.setLocation(700,500);
+		back_button.setBounds(1216, 598, 100, 100);
 	}
 
 	/**
@@ -151,8 +150,7 @@ public class StatsChooser extends JPanel{
 		accuracy_rate_label.setFont(new Font("Courier New", Font.BOLD, 10));
 
 		add(accuracy_rate_label);
-		accuracy_rate_label.setLocation(50, 500);
-		accuracy_rate_label.setSize(300, 50);
+		accuracy_rate_label.setBounds(32, 630, 1136, 68);
 		accuracy_rate_label.setOpaque(true);
 	}
 

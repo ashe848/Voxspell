@@ -61,16 +61,21 @@ public class LogIn extends JFrame {
 		
 		JButton btnYourName = new JButton("Your Name:");
 		btnYourName.setFont(new Font("Arial", Font.PLAIN, 25));
-		btnYourName.setBounds(32, 527, 172, 52);
+		btnYourName.setBounds(32, 484, 172, 52);
 		contentPane.add(btnYourName);
 		
 		JButton btnNameField = new JButton("name field");
-		btnNameField.setBounds(214, 527, 424, 52);
+		btnNameField.setBounds(214, 484, 424, 52);
 		contentPane.add(btnNameField);
 		
 		JTextArea txtrTextArea = new JTextArea();
 		txtrTextArea.setText("text area");
-		txtrTextArea.setBounds(32, 164, 606, 353);
+		txtrTextArea.setBounds(32, 164, 606, 310);
 		contentPane.add(txtrTextArea);
+		
+		JButton btnError = new JButton("Error");
+		btnError.setFont(new Font("Arial", Font.PLAIN, 25));
+		btnError.setBounds(32, 546, 606, 40);
+		contentPane.add(btnError);
 	}
 }

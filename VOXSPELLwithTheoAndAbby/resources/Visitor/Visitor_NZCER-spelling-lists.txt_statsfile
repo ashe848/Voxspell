@@ -349,7 +349,7 @@
 8 0 0 0 piece
 8 0 0 0 spring
 8 0 0 0 yesterday
-9 0 0 0 allowed
+9 1 0 1 allowed
 9 0 0 0 dictionary
 9 0 0 0 friends
 9 1 0 0 nearly
@@ -359,11 +359,11 @@
 9 0 0 0 front
 9 0 0 0 New Zealand
 9 0 0 0 threw
-9 0 0 0 Auckland
+9 1 0 0 Auckland
 9 0 0 0 different
 9 0 0 0 fruit
 9 1 0 0 Pacific
-9 0 0 0 tomorrow
+9 0 0 1 tomorrow
 9 0 0 0 Australia
 9 0 0 0 disappeared
 9 0 0 0 grabbed
@@ -386,7 +386,7 @@
 9 1 0 0 we're
 9 0 0 0 brought
 9 0 0 0 English
-9 0 0 0 hopped
+9 0 0 1 hopped
 9 0 0 0 scared
 9 0 0 0 weight
 9 0 0 0 cannon
@@ -402,14 +402,14 @@
 9 0 0 0 centre
 9 0 0 0 everywhere
 9 0 0 0 language
-9 1 0 0 someone
+9 1 1 0 someone
 9 0 0 0 whole
 9 0 0 0 chocolate
 9 0 0 0 excited
 9 0 0 0 lightning
 9 0 0 0 special
 9 0 0 0 won't
-9 0 0 0 clothes
+9 1 0 0 clothes
 9 0 0 0 favourite
 9 0 0 0 luckily
 9 0 0 0 stopped

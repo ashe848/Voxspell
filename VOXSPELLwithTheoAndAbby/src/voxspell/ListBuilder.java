@@ -33,7 +33,7 @@ public class ListBuilder extends JPanel {
 	 * Constructor, initialise panel parameters and GUI elements
 	 */
 	public ListBuilder(Voxspell parent){
-		setSize(800,600);
+		setSize(1366,747);
 		setLayout(null);
 
 		parent_frame = parent;
@@ -50,13 +50,13 @@ public class ListBuilder extends JPanel {
 
 	private void setupTitle() {
 		JLabel title = new JLabel("Build Your Own Custom List");
-		title.setBounds(288, 26, 327, 15);
+		title.setBounds(32, 24, 1284, 119);
 		add(title);
 	}
 
 	private void setupWordsAdded() {
 		JLabel words_added_label = new JLabel("Words Added:");
-		words_added_label.setBounds(10, 84, 97, 15);
+		words_added_label.setBounds(32, 180, 223, 45);
 		add(words_added_label);
 
 		words_added = new JTextArea();
@@ -66,35 +66,35 @@ public class ListBuilder extends JPanel {
 		words_added.setWrapStyleWord(true);
 
 		JScrollPane words_scroll_pane = new JScrollPane(words_added);
-		words_scroll_pane.setBounds(10, 108, 302, 418);
+		words_scroll_pane.setBounds(32, 235, 337, 463);
 		add(words_scroll_pane);
 	}
 
 	private void setupEnterName() {
 		JLabel list_name_label = new JLabel("Name of List:");
-		list_name_label.setBounds(350, 90, 97, 15);
+		list_name_label.setBounds(420, 180, 223, 45);
 		add(list_name_label);
 
 		list_name_field = new JTextField();
-		list_name_field.setBounds(457, 81, 302, 34);
+		list_name_field.setBounds(688, 180, 383, 45);
 		add(list_name_field);
 		list_name_field.setColumns(10);
 	}
 
 	private void setupEnterWord() {
 		JLabel word_label = new JLabel("Word:");
-		word_label.setBounds(350, 154, 97, 15);
+		word_label.setBounds(420, 269, 223, 45);
 		add(word_label);
 
 		word_field = new JTextField();
 		word_field.setColumns(10);
-		word_field.setBounds(457, 145, 302, 34);
+		word_field.setBounds(688, 269, 383, 45);
 		add(word_field);
 	}
 
 	private void setupEnterSentence() {
 		JLabel sample_sentence_label = new JLabel("Sample sentence (optional):");
-		sample_sentence_label.setBounds(350, 218, 176, 15);
+		sample_sentence_label.setBounds(420, 399, 369, 45);
 		add(sample_sentence_label);
 
 		sample_sentence = new JTextArea();
@@ -104,13 +104,13 @@ public class ListBuilder extends JPanel {
 		sample_sentence.setWrapStyleWord(true);
 
 		JScrollPane sentence_scroll_pane = new JScrollPane(sample_sentence);
-		sentence_scroll_pane.setBounds(350, 243, 409, 171);
+		sentence_scroll_pane.setBounds(420, 461, 651, 237);
 		add(sentence_scroll_pane);
 	}
 
 	private void setupAddButton() {
 		JButton add_word_button = new JButton("Add This Word");
-		add_word_button.setBounds(510, 438, 120, 23);
+		add_word_button.setBounds(1139, 180, 177, 100);
 		add_word_button.addActionListener(new ActionListener() {
 
 			@Override
@@ -136,7 +136,7 @@ public class ListBuilder extends JPanel {
 
 	private void setupSaveButton() {
 		JButton save_Button = new JButton("Save");
-		save_Button.setBounds(392, 497, 93, 23);
+		save_Button.setBounds(1139, 461, 177, 100);
 		save_Button.addActionListener(new ActionListener() {
 
 			@Override
@@ -164,7 +164,7 @@ public class ListBuilder extends JPanel {
 
 	private void setupDiscardButton() {
 		JButton discard_button = new JButton("Discard");
-		discard_button.setBounds(626, 497, 93, 23);
+		discard_button.setBounds(1139, 598, 177, 100);
 		discard_button.addActionListener(new ActionListener() {
 
 			@Override

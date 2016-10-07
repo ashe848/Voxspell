@@ -32,9 +32,9 @@ public class Voxspell extends JFrame{
 	public Voxspell(){
 		super();
 
-		//setup code from Theo's A2 code
+		//TODO: 747 height
 		setTitle("VOXSPELL");
-		setSize(800,600);
+		setSize(1366,777);
 		setLocationRelativeTo(null);
 		setResizable(false);
 
@@ -104,7 +104,7 @@ public class Voxspell extends JFrame{
 		case MainMenu:
 			main_menu=new MainMenu(this);
 			this.getContentPane().add(main_menu);
-			main_menu.setupAccuracyRateLabel();
+//			TODO	main_menu.setupAccuracyRateLabel();
 			break;
 		case Settings:
 			this.getContentPane().add(new Settings(this));

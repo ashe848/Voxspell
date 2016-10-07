@@ -20,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -52,6 +53,17 @@ public class LevelStats extends JPanel{
 		setLayout(null);
 
 		parent_frame=parent;
+		
+		JLabel title = new JLabel("");
+		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
+		title.setBounds(32, 24, 1136, 119);
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		add(title);
+		if (type.equals(StatsType.Persistent)){
+			title.setText("By Level for All Sessions");
+		} else {
+			title.setText("By Level for Current Session");
+		}
 
 		//defaults to user's current level
 		refreshTable(parent_frame.getDataHandler().current_level, type);
@@ -59,7 +71,7 @@ public class LevelStats extends JPanel{
 		setupLevelChooser(type);
 		setupBackButton();
 		setupAccuracyRateLabel();
-		setupBackground(type);
+//		setupBackground(type);
 	}
 
 	/**
@@ -120,8 +132,7 @@ public class LevelStats extends JPanel{
 		scroll_pane = new JScrollPane(table);
 		add(scroll_pane);
 		scroll_pane.setVisible(true);
-		scroll_pane.setLocation(50,150);
-		scroll_pane.setSize(700,300);
+		scroll_pane.setBounds(32, 165, 1136, 443);
 	}
 
 	/**
@@ -152,8 +163,7 @@ public class LevelStats extends JPanel{
 		});
 
 		add(level_chooser);
-		level_chooser.setLocation(50,500);
-		level_chooser.setSize(100,50);
+		level_chooser.setBounds(1189, 293, 127, 50);
 		level_chooser.setBackground(Color.WHITE);
 	}
 
@@ -170,8 +180,7 @@ public class LevelStats extends JPanel{
 		});
 
 		add(back_button);
-		back_button.setSize(50,50);
-		back_button.setLocation(700,500);
+		back_button.setBounds(1216, 598, 100, 100);
 	}
 
 	/**
@@ -182,8 +191,7 @@ public class LevelStats extends JPanel{
 		accuracy_rate_label.setFont(new Font("Courier New", Font.BOLD, 10));
 
 		add(accuracy_rate_label);
-		accuracy_rate_label.setLocation(200, 500);
-		accuracy_rate_label.setSize(300, 50);
+		accuracy_rate_label.setBounds(32, 630, 1136, 68);
 		accuracy_rate_label.setOpaque(true);	
 	}
 

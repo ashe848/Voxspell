@@ -52,6 +52,7 @@ public class Settings extends JPanel {
 	public Settings(Voxspell parent){
 		setSize(800,600);
 		setLayout(null);
+		setBackground(new Color(235, 235, 235));
 
 		parent_frame = parent;
 

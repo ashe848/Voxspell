@@ -38,6 +38,7 @@ public class LogIn extends JFrame {
 		content_pane = new JPanel();
 		setContentPane(content_pane);
 		content_pane.setLayout(null);
+		content_pane.setBackground(new Color(235, 235, 235));
 
 		setupTitle();
 //		setupLabels();

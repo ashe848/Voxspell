@@ -65,6 +65,7 @@ public class Quiz extends JPanel {
 	public Quiz(Voxspell parent, PanelID type){
 		setSize(1366,747);
 		setLayout(null);
+		setBackground(new Color(235, 235, 235));
 
 		parent_frame = parent;
 		quiz_type = type;
@@ -235,7 +236,7 @@ public class Quiz extends JPanel {
 		final JComboBox voice_chooser = new JComboBox(voices);
 		voice_chooser.setFont(new Font("Arial", Font.PLAIN, 20));
 		voice_chooser.setForeground(Color.BLACK);
-		voice_chooser.setBackground(new Color(254, 157, 79));
+		voice_chooser.setBackground(Color.WHITE);
 
 		//set shown item to be the current voice
 		voice_chooser.setSelectedItem(parent_frame.getFestival().getFestivalVoice());
@@ -260,7 +261,7 @@ public class Quiz extends JPanel {
 		final JComboBox speed_chooser = new JComboBox(speeds);
 		speed_chooser.setFont(new Font("Arial", Font.PLAIN, 20));
 		speed_chooser.setForeground(Color.BLACK);
-		speed_chooser.setBackground(new Color(254, 157, 79));
+		speed_chooser.setBackground(Color.WHITE);
 
 		//set shown item to be the current voice
 		speed_chooser.setSelectedItem(parent_frame.getFestival().getFestivalSpeed());

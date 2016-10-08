@@ -1,5 +1,6 @@
 package voxspell;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -44,6 +45,7 @@ public class MainMenu extends JPanel{
 		super();
 		setSize(1366,747);
 		setLayout(null);
+		setBackground(new Color(235, 235, 235));
 
 		parent_frame = parent;
 

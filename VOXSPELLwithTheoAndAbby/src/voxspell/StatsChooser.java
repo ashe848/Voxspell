@@ -39,6 +39,7 @@ public class StatsChooser extends JPanel{
 		super();
 		setSize(1366,747);
 		setLayout(null);
+		setBackground(new Color(235, 235, 235));
 
 		parent_frame=parent;
 

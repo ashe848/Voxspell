@@ -51,6 +51,7 @@ public class LevelStats extends JPanel{
 		super();
 		setSize(800,600);
 		setLayout(null);
+		setBackground(new Color(235, 235, 235));
 
 		parent_frame=parent;
 		
@@ -172,7 +173,7 @@ public class LevelStats extends JPanel{
 
 		add(level_chooser);
 		level_chooser.setBounds(1189, 293, 127, 50);
-		level_chooser.setBackground(new Color(254, 157, 79));
+		level_chooser.setBackground(Color.WHITE);
 	}
 
 	/**

@@ -59,6 +59,7 @@ public class QuizComplete extends JPanel{
 	public QuizComplete(Voxspell parent){
 		setSize(800,600);
 		setLayout(null);
+		setBackground(new Color(235, 235, 235));
 
 		parent_frame = parent;
 

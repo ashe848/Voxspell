@@ -32,7 +32,7 @@ public class VoxButton extends JButton {
 		addMouseListener(adapter);
 	}
 	
-	public void changeMouseEventColor(Color special_color){
+	void changeMouseEventColor(Color special_color){
 		removeMouseListener(adapter);
 		addMouseListener(new VoxMouseAdapter(this,special_color));
 	}

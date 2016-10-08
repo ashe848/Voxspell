@@ -65,7 +65,7 @@ public class StatsChooser extends JPanel{
 	 * Statistics could be just for current session or persistent
 	 * Used to differentiate what data to fetch when button clicked
 	 */
-	public enum StatsType{
+	enum StatsType{
 		Session, Persistent;
 	}
 

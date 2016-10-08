@@ -70,7 +70,7 @@ public class Voxspell extends JFrame{
 	 * Method to return location of resources folder
 	 * @return
 	 */
-	public String getResourceFileLocation(){
+	String getResourceFileLocation(){
 		return RESOURCE_FILE_LOCATION;
 	}
 
@@ -78,7 +78,7 @@ public class Voxspell extends JFrame{
 	 * Method to return object responsible for handling data
 	 * @return
 	 */
-	public DataHandler getDataHandler(){
+	DataHandler getDataHandler(){
 		return data_handler;
 	}
 
@@ -86,14 +86,14 @@ public class Voxspell extends JFrame{
 	 * Method to return object responsible for making Festival calls
 	 * @return
 	 */
-	public Festival getFestival(){
+	Festival getFestival(){
 		return festival;
 	}
 
 	/**
 	 * @param id	passed into method to change panel shown
 	 */
-	public void changePanel(PanelID id){
+	void changePanel(PanelID id){
 		//Removes the current panel from the frame, ready for new one to take its place.
 		//http://stackoverflow.com/questions/9347076/how-to-remove-all-components-from-a-jframe-in-java
 		this.getContentPane().removeAll();
@@ -153,7 +153,7 @@ public class Voxspell extends JFrame{
 	/**
 	 * The different panels IDs used to differentiate different panels
 	 */
-	public enum PanelID{
+	enum PanelID{
 		MainMenu, Settings, StatSelection, PersistentAllStats, PersistentLevelStats, SessionAllStats, SessionLevelStats, ListBuilder, Quiz, Review, QuizComplete, Video;
 	}
 }

@@ -104,7 +104,7 @@ public class DataHandler {
 	 * @param parent 	parent frame
 	 * @return instance of itself (or creates one if first time called)
 	 */
-	public static DataHandler getInstance(Voxspell parent){
+	static DataHandler getInstance(Voxspell parent){
 		if (instance==null){
 			instance=new DataHandler(parent);
 		}
@@ -648,7 +648,7 @@ public class DataHandler {
 	 * writes to settings file in the format
 	 * <current level> <festival speed> <festival voice>
 	 */
-	public static void writeToSettingsFiles(){
+	static void writeToSettingsFiles(){
 		try {
 			FileWriter fw_list_settings = new FileWriter(new File(list_settings), false);
 			fw_list_settings.write(""+current_level);
@@ -666,7 +666,7 @@ public class DataHandler {
 	 * writes to scheme file to be executed by Festival in batch mode
 	 * sets voice, speed, and text to say
 	 */
-	public void writeToScheme(String speech, FestivalSpeed speed, FestivalVoice voice){
+	void writeToScheme(String speech, FestivalSpeed speed, FestivalVoice voice){
 		try {
 			FileWriter fw = new FileWriter(new File(festival_scheme), false);
 			fw.write("(voice_" + voice.getVoiceValue() +")\n");
@@ -681,7 +681,7 @@ public class DataHandler {
 	/**
 	 * @author Abby S
 	 */
-	public static void writeToProgramFiles(){
+	static void writeToProgramFiles(){
 		try {
 			FileWriter fw = new FileWriter(new File(users_list), false);
 			for (String u:users){
@@ -724,7 +724,7 @@ public class DataHandler {
 	/**
 	 * @author Abby S
 	 */
-	public void resetListStats() {
+	void resetListStats() {
 		try {
 			FileWriter fw = new FileWriter(new File(reviewlist), false);
 			fw.close();
@@ -750,7 +750,7 @@ public class DataHandler {
 	 * 
 	 * @author Abby S
 	 */
-	public void resetUser() throws IOException {
+	void resetUser() throws IOException {
 		users.remove(user);
 		writeToProgramFiles();
 
@@ -770,7 +770,7 @@ public class DataHandler {
 		parent_frame.changePanel(PanelID.MainMenu);
 	}
 
-	public void resetToDefaults() {
+	void resetToDefaults() {
 		File user_settings_file = new File(user_settings);
 		user_settings_file.delete();
 		readUserFiles();
@@ -791,7 +791,7 @@ public class DataHandler {
 	 * 
 	 * Taken from Theo's Assignment 2
 	 */
-	public ArrayList<String> getWordsForSpellingQuiz(int number_of_words, PanelID id){
+	ArrayList<String> getWordsForSpellingQuiz(int number_of_words, PanelID id){
 		//setup relevant bank of words to choose from depending on quiz type
 		ArrayList<String> relevant_bank_of_words;
 		ArrayList<String> to_return = new ArrayList<String>();
@@ -846,7 +846,7 @@ public class DataHandler {
 	/*
 	 * Post-quiz logic
 	 */
-	public enum WordResult {
+	enum WordResult {
 		Mastered, Faulted, Failed;
 	}
 
@@ -854,7 +854,7 @@ public class DataHandler {
 	 * returns the list of words and their results from the just-completed quiz
 	 * @return
 	 */
-	public ArrayList<ArrayList<String>> getLatestWordResults(){
+	ArrayList<ArrayList<String>> getLatestWordResults(){
 		ArrayList<ArrayList<String>> to_return=new ArrayList<ArrayList<String>>();
 		to_return.add(latest_mastered_words);
 		to_return.add(latest_faulted_words);
@@ -869,7 +869,7 @@ public class DataHandler {
 	 * @param failed_words
 	 * @param quiz_type
 	 */
-	public void processQuizResults(ArrayList<String> mastered_words, ArrayList<String> faulted_words, ArrayList<String> failed_words, PanelID quiz_type, int quiz_length){
+	void processQuizResults(ArrayList<String> mastered_words, ArrayList<String> faulted_words, ArrayList<String> failed_words, PanelID quiz_type, int quiz_length){
 		enterResultsIntoDataStructure(mastered_words, WordResult.Mastered);
 		enterResultsIntoDataStructure(faulted_words, WordResult.Faulted);
 		enterResultsIntoDataStructure(failed_words, WordResult.Failed);
@@ -993,14 +993,14 @@ public class DataHandler {
 	/**
 	 * Increments current level
 	 */
-	public void increaseLevel(){
+	void increaseLevel(){
 		current_level++;
 	}
 
 	/**
 	 * @return whether user decided to level up
 	 */
-	public boolean getLevelledUp(){
+	boolean getLevelledUp(){
 		return levelled_up;
 	}
 
@@ -1008,7 +1008,7 @@ public class DataHandler {
 	 * sets on user deciding to level up
 	 * @param flag
 	 */
-	public void setLevelledUp(boolean flag){
+	void setLevelledUp(boolean flag){
 		levelled_up=flag;
 	}
 
@@ -1020,7 +1020,7 @@ public class DataHandler {
 	 * Returns number of levels (including the empty level 0)
 	 * @return
 	 */
-	public static int getNumberOfLevels(){
+	static int getNumberOfLevels(){
 		return persistent_allwords.size();
 	}
 
@@ -1028,7 +1028,7 @@ public class DataHandler {
 	 * Returns the levels as an Integer array
 	 * @return
 	 */
-	public static String[] getLevelArray() {
+	static String[] getLevelArray() {
 		//-1 to exclude level 0
 		String[] levels = new String[getNumberOfLevels()-1];
 		for(int level=1; level<getNumberOfLevels(); level++){
@@ -1042,7 +1042,7 @@ public class DataHandler {
 	 * @param additional_message
 	 * @return whether user chose a level
 	 */
-	public static boolean chooseLevel(String additional_message, boolean back_to_quiz_complete) {
+	static boolean chooseLevel(String additional_message, boolean back_to_quiz_complete) {
 		String[] levels = getLevelArray();
 		String choice = (String)JOptionPane.showInputDialog(parent_frame.getContentPane(), additional_message+"Please select a level to start at\nIf you find it too difficult, can change in Settings", "Which level?", JOptionPane.QUESTION_MESSAGE, null, levels, null);
 		if (choice==null){
@@ -1065,7 +1065,7 @@ public class DataHandler {
 	 * @param type		type of data requested
 	 * @return the pointers to arrays requested
 	 */
-	public ArrayList<Object[]> returnWordDataForLevel(int level, StatsChooser.StatsType type){
+	ArrayList<Object[]> returnWordDataForLevel(int level, StatsChooser.StatsType type){
 		ArrayList<ArrayList<String>> words;
 		ArrayList<ArrayList<Integer>> master_count, faulted_count, failed_count;
 		switch (type) {
@@ -1105,7 +1105,7 @@ public class DataHandler {
 	 * gets accuracy rates message for current level to be displayed to the user at all relevant times
 	 * @return string representation of accuracy rate
 	 */
-	public String getAccuracyRates(){
+	String getAccuracyRates(){
 		String to_return=user;
 		to_return+=" [Level: "+level_names.get(current_level);
 		to_return+="] [Attempted "+getAttemptedCount()+"/"+persistent_allwords.get(current_level).size();

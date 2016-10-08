@@ -38,7 +38,7 @@ public class Festival {
 	 * @param parent
 	 * @return
 	 */
-	public static Festival getInstance(Voxspell parent){
+	static Festival getInstance(Voxspell parent){
 		if (instance==null){
 			instance=new Festival(parent);
 		}
@@ -48,10 +48,10 @@ public class Festival {
 	/**
 	 * The different options for speed
 	 */
-	public enum FestivalSpeed {
+	enum FestivalSpeed {
 		slow, normal, fast;
 
-		public double getSpeedValue(){
+		double getSpeedValue(){
 			switch(this){
 			case slow:
 				return 2.0;
@@ -66,10 +66,10 @@ public class Festival {
 	/**
 	 * The different options for voice
 	 */
-	public enum FestivalVoice {
+	enum FestivalVoice {
 		Kiwi, American, British;
 
-		public String getVoiceValue(){
+		String getVoiceValue(){
 			switch(this){
 			case American:
 				return "kal_diphone";
@@ -85,19 +85,19 @@ public class Festival {
 	 * Getters and setters for speed and voice
 	 * @return
 	 */
-	public FestivalSpeed getFestivalSpeed() {
+	FestivalSpeed getFestivalSpeed() {
 		return festival_speed;
 	}
 
-	public FestivalVoice getFestivalVoice() {
+	FestivalVoice getFestivalVoice() {
 		return festival_voice;
 	}
 
-	public void setFestivalSpeed(FestivalSpeed speed) {
+	void setFestivalSpeed(FestivalSpeed speed) {
 		festival_speed = speed;
 	}
 
-	public void setFestivalVoice(FestivalVoice voice) {
+	void setFestivalVoice(FestivalVoice voice) {
 		festival_voice = voice;
 	}
 
@@ -107,7 +107,7 @@ public class Festival {
 	 * Else adds to a queue to avoid the overlapping of voices
 	 * @param speech
 	 */
-	public void speak(String speech, boolean say_again){
+	void speak(String speech, boolean say_again){
 		//Only makes Festival calls on Linux to avoid issues on other OS
 		//For development purposes to speed up testing
 		if (System.getProperty("os.name").equals("Linux")) {
@@ -129,7 +129,7 @@ public class Festival {
 		}
 	}
 
-	public void emptyWorkerQueue(){
+	void emptyWorkerQueue(){
 		worker_queue=new ArrayList<FestivalWorker>();
 	}
 

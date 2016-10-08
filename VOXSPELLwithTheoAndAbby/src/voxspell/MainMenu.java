@@ -227,12 +227,12 @@ public class MainMenu extends JPanel{
 		game_summary.setEditable(false);
 		game_summary.setLineWrap(true);
 		game_summary.setFont(new Font("Calibri Light", Font.PLAIN, 18));
-		game_summary.setText(parent_frame.getDataHandler().user+" \n\n");
-		game_summary.append("List Name: \n"+parent_frame.getDataHandler().spelling_list_name+" \n\n");
-		game_summary.append("Level: \n"+parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().current_level)+" \n\n");
-		game_summary.append("Total Words: \n"+parent_frame.getDataHandler().wordlist_words.get(parent_frame.getDataHandler().current_level).size()+"\n\n");
+		game_summary.setText(parent_frame.getDataHandler().getUser()+" \n\n");
+		game_summary.append("List Name: \n"+parent_frame.getDataHandler().getSpellingListName()+" \n\n");
+		game_summary.append("Level: \n"+parent_frame.getDataHandler().getLevelNames().get(parent_frame.getDataHandler().getCurrentLevel())+" \n\n");
+		game_summary.append("Total Words: \n"+parent_frame.getDataHandler().getWordlistWords().get(parent_frame.getDataHandler().getCurrentLevel()).size()+"\n\n");
 		game_summary.append("Attempted: \n"+parent_frame.getDataHandler().getAttemptedCount()+" \n\n");
-		game_summary.append("Didn't Get: \n"+parent_frame.getDataHandler().reviewlist_words.get(parent_frame.getDataHandler().current_level).size()+"\n\n");
+		game_summary.append("Didn't Get: \n"+parent_frame.getDataHandler().getReviewlistWords().get(parent_frame.getDataHandler().getCurrentLevel()).size()+"\n\n");
 		game_summary.setBounds(45, 319, 137, 389);
 		game_summary.setOpaque(false);
 		add(game_summary);

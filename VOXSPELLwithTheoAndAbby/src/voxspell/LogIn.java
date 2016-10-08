@@ -64,7 +64,7 @@ public class LogIn extends JFrame {
 		
 		registered_users.setText("If your name is in the list, please enter your name to log in\n\nIf not, WELCOME! Enter your name and you will be registered.\n\nRegistered Users (Case Sensitive):\n");
 		registered_users.append("Visitor\n");
-		for (String u:parent_frame.getDataHandler().users){
+		for (String u:parent_frame.getDataHandler().getUsers()){
 			if (!u.equals("Visitor")){
 				registered_users.append(u+"\n");
 			}
@@ -106,9 +106,9 @@ public class LogIn extends JFrame {
 					warning_label.setText("Only alphabetical characters allowed!");
 					warning_label.setBounds(32, 546, 606, 40);
 				} else {
-					parent_frame.getDataHandler().user=username;
-					if(!parent_frame.getDataHandler().users.contains(username)){
-						parent_frame.getDataHandler().users.add(username);
+					parent_frame.getDataHandler().setUser(username);
+					if(!parent_frame.getDataHandler().getUsers().contains(username)){
+						parent_frame.getDataHandler().getUsers().add(username);
 						parent_frame.getDataHandler().writeToProgramFiles();
 					}
 					parent_frame.getDataHandler().readUserFiles();

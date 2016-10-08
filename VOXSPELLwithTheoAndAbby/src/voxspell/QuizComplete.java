@@ -177,7 +177,7 @@ public class QuizComplete extends JPanel{
 	 */
 	private void determineDisplay(){
 		//at most 10% incorrect (truncated to whole number)
-		if(latest_failed_words.size()<=(int)(0.1*parent_frame.getDataHandler().latest_quiz_length)) {
+		if(latest_failed_words.size()<=(int)(0.1*parent_frame.getDataHandler().getLatestQuizLength())) {
 			setupVideoButton();
 
 			//whether user has already levelled up before playing video
@@ -191,14 +191,14 @@ public class QuizComplete extends JPanel{
 		}
 
 		//3 points for mastered, 1 point for faulted. None for failed. Multiplied by level number. As a percentage
-		double score=parent_frame.getDataHandler().current_level*((double)(latest_mastered_words.size()*3 + latest_faulted_words.size()))/parent_frame.getDataHandler().latest_quiz_length;
-		if(score > parent_frame.getDataHandler().personal_best){
-			parent_frame.getDataHandler().personal_best=score;
+		double score=parent_frame.getDataHandler().getCurrentLevel()*((double)(latest_mastered_words.size()*3 + latest_faulted_words.size()))/parent_frame.getDataHandler().getLatestQuizLength();
+		if(score > parent_frame.getDataHandler().getPersonalBest()){
+			parent_frame.getDataHandler().setPersonalBest(score);
 
-			double global_top_score=Double.parseDouble(parent_frame.getDataHandler().global_top.split("\\s+")[0]);
+			double global_top_score=Double.parseDouble(parent_frame.getDataHandler().getGlobalTop().split("\\s+")[0]);
 			if (score > global_top_score){
 				setupNewPB(score,true);
-				parent_frame.getDataHandler().global_top=score+" "+parent_frame.getDataHandler().user+" "+parent_frame.getDataHandler().spelling_list_name;				
+				parent_frame.getDataHandler().setGlobalTop(score+" "+parent_frame.getDataHandler().getUser()+" "+parent_frame.getDataHandler().getSpellingListName());				
 			} else {
 				setupNewPB(score,false);
 			}
@@ -216,7 +216,7 @@ public class QuizComplete extends JPanel{
 		level_up_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//if not on highest level
-				if (parent_frame.getDataHandler().current_level<parent_frame.getDataHandler().getNumberOfLevels()-1){
+				if (parent_frame.getDataHandler().getCurrentLevel()<parent_frame.getDataHandler().getNumberOfLevels()-1){
 					parent_frame.getDataHandler().increaseLevel();
 					parent_frame.getDataHandler().setLevelledUp(true);
 					setupLevelledUpLabel("up ");
@@ -241,7 +241,7 @@ public class QuizComplete extends JPanel{
 	 * to a new level.
 	 */
 	private void setupLevelledUpLabel(String direction) {
-		JLabel levelled_up_label= new JLabel("Moved " + direction + "to "+parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().current_level), JLabel.CENTER);
+		JLabel levelled_up_label= new JLabel("Moved " + direction + "to "+parent_frame.getDataHandler().getLevelNames().get(parent_frame.getDataHandler().getCurrentLevel()), JLabel.CENTER);
 
 		levelled_up_label.setBounds(648, 404, 354, 200);
 		levelled_up_label.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -283,7 +283,7 @@ public class QuizComplete extends JPanel{
 		score_results.setBounds(1028, 232, 288, 347);
 		add(score_results);	
 		
-		String[] global = parent_frame.getDataHandler().global_top.split("\\s+");
+		String[] global = parent_frame.getDataHandler().getGlobalTop().split("\\s+");
 		if(bet_global){
 			score_results.append("Also bet previous global top by "+(pb_score - Double.parseDouble(global[0]))+"!");
 		} else {

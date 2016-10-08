@@ -40,14 +40,14 @@ public class DataHandler {
 
 	private static DataHandler instance=null; //since singleton class
 
-	static String user;
-	static String spelling_list_name;
-	static String video_name;
-	static int words_in_quiz; //number of words in each quiz
+	private static String user;
+	private static String spelling_list_name;
+	private static String video_name;
+	private static int words_in_quiz; //number of words in each quiz
 
-	static ArrayList<String> users;
-	static String global_top;
-	static double personal_best;
+	private static ArrayList<String> users;
+	private static String global_top;
+	private static double personal_best;
 
 	//filenames
 	private static String program_stats;
@@ -59,13 +59,13 @@ public class DataHandler {
 	private static String reviewlist; //Holds words that have been failed and not mastered/faulted after
 	private static String list_settings; //name of file that holds various settings
 
-	static ArrayList<ArrayList<String>> wordlist_words; //words from wordlist file
-	static boolean has_sample_sentences;
-	static ArrayList<ArrayList<String>> sample_sentences;
-	static ArrayList<String> level_names;
-	static int current_level; //initialised so if settings file is empty/wiped
+	private static ArrayList<ArrayList<String>> wordlist_words; //words from wordlist file
+	private static boolean has_sample_sentences;
+	private static ArrayList<ArrayList<String>> sample_sentences;
+	private static ArrayList<String> level_names;
+	private static int current_level; //initialised so if settings file is empty/wiped
 
-	static ArrayList<ArrayList<String>> reviewlist_words; //words from reviewlist file
+	private static ArrayList<ArrayList<String>> reviewlist_words; //words from reviewlist file
 
 	//Persistent and session are all for the current list
 	private static ArrayList<ArrayList<String>> persistent_allwords; //all words from wordlist + reviewlist
@@ -81,7 +81,7 @@ public class DataHandler {
 	private static ArrayList<String> latest_mastered_words; //list of mastered words from last quiz (for QuizComplete table)
 	private static ArrayList<String> latest_faulted_words; //list of faulted words from last quiz (for QuizComplete table)
 	private static ArrayList<String> latest_failed_words; //list of failed words from last quiz (for QuizComplete table)
-	static int latest_quiz_length;
+	private static int latest_quiz_length;
 	private static boolean levelled_up=false; //flag for whether user had decided to level up
 
 	/**
@@ -956,6 +956,12 @@ public class DataHandler {
 			}
 		}
 	}
+	
+	
+	
+	/*
+	 * Getters, setters and related methods
+	 */
 
 	/**
 	 * @Return number of words attempted in current level
@@ -968,6 +974,20 @@ public class DataHandler {
 			}
 		}
 		return attempted_count;
+	}
+	
+	/**
+	 * @return the current_level
+	 */
+	static int getCurrentLevel() {
+		return current_level;
+	}
+
+	/**
+	 * @param current_level the current_level to set
+	 */
+	static void setCurrentLevel(int current_level) {
+		DataHandler.current_level = current_level;
 	}
 
 	/**
@@ -1093,4 +1113,140 @@ public class DataHandler {
 
 		return to_return;
 	}
+
+	/**
+	 * @return the user
+	 */
+	static String getUser() {
+		return user;
+	}
+
+	/**
+	 * @param user the user to set
+	 */
+	static void setUser(String user) {
+		DataHandler.user = user;
+	}
+
+	/**
+	 * @return the spelling_list_name
+	 */
+	static String getSpellingListName() {
+		return spelling_list_name;
+	}
+
+	/**
+	 * @param spelling_list_name the spelling_list_name to set
+	 */
+	static void setSpellingListName(String spelling_list_name) {
+		DataHandler.spelling_list_name = spelling_list_name;
+	}
+
+	/**
+	 * @return the video_name
+	 */
+	static String getVideoName() {
+		return video_name;
+	}
+
+	/**
+	 * @param video_name the video_name to set
+	 */
+	static void setVideoName(String video_name) {
+		DataHandler.video_name = video_name;
+	}
+
+	/**
+	 * @return the words_in_quiz
+	 */
+	static int getNumWordsInQuiz() {
+		return words_in_quiz;
+	}
+
+	/**
+	 * @param words_in_quiz the words_in_quiz to set
+	 */
+	static void setNumWordsInQuiz(int words_in_quiz) {
+		DataHandler.words_in_quiz = words_in_quiz;
+	}
+
+	/**
+	 * @return the users
+	 */
+	static ArrayList<String> getUsers() {
+		return users;
+	}
+
+	/**
+	 * @return the global_top
+	 */
+	static String getGlobalTop() {
+		return global_top;
+	}
+
+	/**
+	 * @param global_top the global_top to set
+	 */
+	static void setGlobalTop(String global_top) {
+		DataHandler.global_top = global_top;
+	}
+
+	/**
+	 * @return the personal_best
+	 */
+	static double getPersonalBest() {
+		return personal_best;
+	}
+
+	/**
+	 * @param personal_best the personal_best to set
+	 */
+	static void setPersonalBest(double personal_best) {
+		DataHandler.personal_best = personal_best;
+	}
+
+	/**
+	 * @return the wordlist_words
+	 */
+	static ArrayList<ArrayList<String>> getWordlistWords() {
+		return wordlist_words;
+	}
+
+	/**
+	 * @return the has_sample_sentences
+	 */
+	static boolean hasSampleSentences() {
+		return has_sample_sentences;
+	}
+
+	/**
+	 * @return the sample_sentences
+	 */
+	static ArrayList<ArrayList<String>> getSampleSentences() {
+		return sample_sentences;
+	}
+
+	/**
+	 * @return the level_names
+	 */
+	static ArrayList<String> getLevelNames() {
+		return level_names;
+	}
+
+	/**
+	 * @return the reviewlist_words
+	 */
+	static ArrayList<ArrayList<String>> getReviewlistWords() {
+		return reviewlist_words;
+	}
+
+	/**
+	 * @return the latest_quiz_length
+	 */
+	static int getLatestQuizLength() {
+		return latest_quiz_length;
+	}
+
+	
+
 }

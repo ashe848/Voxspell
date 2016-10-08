@@ -103,9 +103,9 @@ public class Quiz extends JPanel {
 	private void initialiseWordsToSpell(){
 		//normal quiz
 		if(quiz_type==PanelID.Quiz){
-			words_to_spell = parent_frame.getDataHandler().getWordsForSpellingQuiz(parent_frame.getDataHandler().words_in_quiz, PanelID.Quiz);
+			words_to_spell = parent_frame.getDataHandler().getWordsForSpellingQuiz(parent_frame.getDataHandler().getNumWordsInQuiz(), PanelID.Quiz);
 		} else { //review quiz
-			words_to_spell = parent_frame.getDataHandler().getWordsForSpellingQuiz(parent_frame.getDataHandler().words_in_quiz, PanelID.Review);
+			words_to_spell = parent_frame.getDataHandler().getWordsForSpellingQuiz(parent_frame.getDataHandler().getNumWordsInQuiz(), PanelID.Review);
 		}	
 	}
 
@@ -113,7 +113,7 @@ public class Quiz extends JPanel {
 	 * sets up title at top of panel
 	 */
 	private void setupTitle(){
-		JLabel title = new JLabel(quiz_type.toString()+": "+parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().current_level)); 
+		JLabel title = new JLabel(quiz_type.toString()+": "+parent_frame.getDataHandler().getLevelNames().get(parent_frame.getDataHandler().getCurrentLevel())); 
 		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
 		title.setForeground(new Color(254, 157, 79));
 		title.setHorizontalAlignment(SwingConstants.CENTER);
@@ -213,9 +213,9 @@ public class Quiz extends JPanel {
 				parent_frame.getFestival().speak(words_to_spell.get(current_word_number),true);
 
 				//says the sample sentence at user's preferred speed
-				if(parent_frame.getDataHandler().has_sample_sentences){
-					int index=parent_frame.getDataHandler().wordlist_words.get(parent_frame.getDataHandler().current_level).indexOf(words_to_spell.get(current_word_number));
-					parent_frame.getFestival().speak(parent_frame.getDataHandler().sample_sentences.get(parent_frame.getDataHandler().current_level).get(index),false);
+				if(parent_frame.getDataHandler().hasSampleSentences()){
+					int index=parent_frame.getDataHandler().getWordlistWords().get(parent_frame.getDataHandler().getCurrentLevel()).indexOf(words_to_spell.get(current_word_number));
+					parent_frame.getFestival().speak(parent_frame.getDataHandler().getSampleSentences().get(parent_frame.getDataHandler().getCurrentLevel()).get(index),false);
 				}
 
 				//says the word slowly again
@@ -338,9 +338,9 @@ public class Quiz extends JPanel {
 		parent_frame.getFestival().speak("Please spell the word... "+words_to_spell.get(current_word_number),false);
 
 		//says sample sentence if there is one
-		if(parent_frame.getDataHandler().has_sample_sentences){
-			int index=parent_frame.getDataHandler().wordlist_words.get(parent_frame.getDataHandler().current_level).indexOf(words_to_spell.get(current_word_number));
-			String sentence=parent_frame.getDataHandler().sample_sentences.get(parent_frame.getDataHandler().current_level).get(index);
+		if(parent_frame.getDataHandler().hasSampleSentences()){
+			int index=parent_frame.getDataHandler().getWordlistWords().get(parent_frame.getDataHandler().getCurrentLevel()).indexOf(words_to_spell.get(current_word_number));
+			String sentence=parent_frame.getDataHandler().getSampleSentences().get(parent_frame.getDataHandler().getCurrentLevel()).get(index);
 			if (!sentence.trim().isEmpty()){
 				parent_frame.getFestival().speak(sentence,false);
 			}

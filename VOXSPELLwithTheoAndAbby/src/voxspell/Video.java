@@ -53,7 +53,7 @@ public class Video extends JPanel{
 
 		parent_frame=parent;
 		
-		video = System.getProperty("user.dir")+"/rewardvideos/"+parent_frame.getDataHandler().video_name;
+		video = System.getProperty("user.dir")+"/rewardvideos/"+parent_frame.getDataHandler().getVideoName();
 		
 		setupTitle();
 		setupPlayer();
@@ -66,7 +66,7 @@ public class Video extends JPanel{
 	}
 
 	private void setupTitle() {
-		JLabel title = new JLabel(parent_frame.getDataHandler().video_name);
+		JLabel title = new JLabel(parent_frame.getDataHandler().getVideoName());
 		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
 		title.setForeground(new Color(254, 157, 79));
 		title.setHorizontalAlignment(SwingConstants.CENTER);

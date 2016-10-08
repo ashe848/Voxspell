@@ -57,7 +57,7 @@ public class LevelStats extends JPanel{
 		setupTitle(type);
 
 		//defaults to user's current level
-		refreshTable(parent_frame.getDataHandler().current_level, type);
+		refreshTable(parent_frame.getDataHandler().getCurrentLevel(), type);
 
 		setupLevelChooser(type);
 		setupBackButton();
@@ -160,11 +160,11 @@ public class LevelStats extends JPanel{
 		final JComboBox level_chooser = new JComboBox(levels);
 		level_chooser.setFont(new Font("Arial", Font.PLAIN, 20));
 		//default to current level
-		level_chooser.setSelectedItem(parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().current_level));
+		level_chooser.setSelectedItem(parent_frame.getDataHandler().getLevelNames().get(parent_frame.getDataHandler().getCurrentLevel()));
 		level_chooser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String choice = (String)level_chooser.getSelectedItem();
-				int level=parent_frame.getDataHandler().level_names.indexOf(choice);
+				int level=parent_frame.getDataHandler().getLevelNames().indexOf(choice);
 				removeTableFromPanel();
 				refreshTable(level,type);			
 			}

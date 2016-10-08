@@ -93,7 +93,7 @@ public class Settings extends JPanel {
 		reset_list_stats_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				boolean ask_reset_result = askForConfirmation("Are you sure you want to reset Stats for "+parent_frame.getDataHandler().spelling_list_name+"?", "Reset Stats for Current List");
+				boolean ask_reset_result = askForConfirmation("Are you sure you want to reset Stats for "+parent_frame.getDataHandler().getSpellingListName()+"?", "Reset Stats for Current List");
 				if (ask_reset_result){
 					parent_frame.getDataHandler().resetListStats();
 				}
@@ -232,7 +232,7 @@ public class Settings extends JPanel {
 		word_number_chooser.setBackground(Color.WHITE);
 
 		//set shown item to be the current voice
-		word_number_chooser.setSelectedItem(parent_frame.getDataHandler().words_in_quiz);
+		word_number_chooser.setSelectedItem(parent_frame.getDataHandler().getNumWordsInQuiz());
 		word_number_chooser.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -256,10 +256,10 @@ public class Settings extends JPanel {
 
 		String[] levels = parent_frame.getDataHandler().getLevelArray();
 		//only shows levels up to and including current level
-		final JComboBox level_chooser = new JComboBox(Arrays.copyOf(levels, parent_frame.getDataHandler().current_level));
+		final JComboBox level_chooser = new JComboBox(Arrays.copyOf(levels, parent_frame.getDataHandler().getCurrentLevel()));
 
 		//default to current level
-		level_chooser.setSelectedItem(parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().current_level));
+		level_chooser.setSelectedItem(parent_frame.getDataHandler().getLevelNames().get(parent_frame.getDataHandler().getCurrentLevel()));
 		level_chooser.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -277,7 +277,7 @@ public class Settings extends JPanel {
 	 * @author Abby S
 	 */
 	private void setupChooseWordList(){
-		JLabel choose_wordlist_label = new JLabel("Current word list: "+parent_frame.getDataHandler().spelling_list_name);
+		JLabel choose_wordlist_label = new JLabel("Current word list: "+parent_frame.getDataHandler().getSpellingListName());
 		choose_wordlist_label.setForeground(Color.BLACK);
 		choose_wordlist_label.setFont(new Font("Arial", Font.PLAIN, 20));
 		choose_wordlist_label.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -321,7 +321,7 @@ public class Settings extends JPanel {
 	 * @author Abby S
 	 */
 	private void setupChooseRewardVideo(){
-		JLabel choose_video_label = new JLabel("Current Reward Video: "+parent_frame.getDataHandler().video_name);
+		JLabel choose_video_label = new JLabel("Current Reward Video: "+parent_frame.getDataHandler().getVideoName());
 		choose_video_label.setForeground(Color.BLACK);
 		choose_video_label.setFont(new Font("Arial", Font.PLAIN, 20));
 		choose_video_label.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -380,18 +380,18 @@ public class Settings extends JPanel {
 						parent_frame.getFestival().setFestivalSpeed(temp_speed_selection);
 					}
 					if(temp_word_selection!=null){
-						parent_frame.getDataHandler().words_in_quiz=temp_word_selection;
+						parent_frame.getDataHandler().setNumWordsInQuiz(temp_word_selection);
 					}
 					if(temp_level_selection!=null){
-						parent_frame.getDataHandler().current_level=parent_frame.getDataHandler().level_names.indexOf(temp_level_selection);
+						parent_frame.getDataHandler().setCurrentLevel(parent_frame.getDataHandler().getLevelNames().indexOf(temp_level_selection));
 					}
 					if(temp_video_selection!=null){
-						parent_frame.getDataHandler().video_name=temp_video_selection;
+						parent_frame.getDataHandler().setVideoName(temp_video_selection);
 					}
 					parent_frame.getDataHandler().writeToSettingsFiles();
 
 					if(temp_list_selection!=null){
-						parent_frame.getDataHandler().spelling_list_name=temp_list_selection;
+						parent_frame.getDataHandler().setSpellingListName(temp_list_selection);
 						parent_frame.getDataHandler().readListSpecificFiles();
 						parent_frame.getDataHandler().writeToSettingsFiles();
 					}

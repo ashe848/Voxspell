@@ -34,7 +34,7 @@ public class VoxMouseAdapter extends MouseAdapter{
 	@Override
 	public void mousePressed(MouseEvent e) {
 		action_button.setBorderPainted(true);
-		action_button.setBorder(BorderFactory.createLineBorder(border_color,6));
+		action_button.setBorder(BorderFactory.createLineBorder(border_color,7));
 	}
 	
 	@Override

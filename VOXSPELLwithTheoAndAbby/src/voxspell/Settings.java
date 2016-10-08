@@ -25,6 +25,7 @@ import javax.swing.filechooser.FileSystemView;
 import voxspell.Festival.FestivalSpeed;
 import voxspell.Festival.FestivalVoice;
 import voxspell.Voxspell.PanelID;
+import windowbuilder.VoxMouseAdapter;
 
 @SuppressWarnings({ "static-access", "serial", "unchecked", "rawtypes" })
 
@@ -90,7 +91,7 @@ public class Settings extends JPanel {
 	 * Resets all stats to as if it was the user's first launch (prompts user for confirmation)
 	 */
 	private void seupResetListStats() {
-		JButton reset_list_stats_button = new JButton("Reset Stats for Current List");
+		VoxButton reset_list_stats_button = new VoxButton("Clear stats for current list");
 		reset_list_stats_button.setBounds(543, 462, 299, 50);
 		add(reset_list_stats_button);
 		reset_list_stats_button.addActionListener(new ActionListener() {
@@ -102,13 +103,15 @@ public class Settings extends JPanel {
 				}
 			}
 		});
+		reset_list_stats_button.setBackground(Color.RED);
+		reset_list_stats_button.changeMouseEventColor(Color.BLACK);
 	}
 
 	/**
 	 * @author Abby S
 	 */
 	private void seupResetToDefaultSettings() {
-		JButton reset_to_default_button = new JButton("Reset My Settings data Back to Defaults");
+		VoxButton reset_to_default_button = new VoxButton("Reset settings data to defaults");
 		reset_to_default_button.setBounds(543, 533, 299, 50);
 		reset_to_default_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -119,14 +122,16 @@ public class Settings extends JPanel {
 			}
 		});
 		add(reset_to_default_button);
+		reset_to_default_button.setBackground(Color.RED);
+		reset_to_default_button.changeMouseEventColor(Color.BLACK);
 	}
 	
 	/**
 	 * @author Abby S
 	 */
 	private void seupResetUser() {
-		JButton clear_all_button = new JButton("Clear All My Data");
-		clear_all_button.addActionListener(new ActionListener() {
+		VoxButton reset_user_button = new VoxButton("Clear all my data");
+		reset_user_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean ask_clear_result = askForConfirmation("Are you sure you want to reset all your Data?\nWill be logged into Visitor", "Reset User Stats");
 				if (ask_clear_result){
@@ -138,8 +143,10 @@ public class Settings extends JPanel {
 				}
 			}
 		});
-		clear_all_button.setBounds(543, 605, 299, 50);
-		add(clear_all_button);
+		reset_user_button.setBounds(543, 605, 299, 50);
+		add(reset_user_button);
+		reset_user_button.setBackground(Color.RED);
+		reset_user_button.changeMouseEventColor(Color.BLACK);
 	}
 
 	/**
@@ -272,7 +279,7 @@ public class Settings extends JPanel {
 		final JLabel will_change_to=new JLabel("");
 		add(will_change_to);
 		
-		JButton list_choose_button = new JButton("Choose another list");
+		VoxButton list_choose_button = new VoxButton("Choose another list");
 		list_choose_button.setBounds(1038, 200, 278, 46);
 		list_choose_button.addActionListener(new ActionListener() {
 			@Override
@@ -315,7 +322,7 @@ public class Settings extends JPanel {
 		final JLabel will_change_to=new JLabel("");
 		add(will_change_to);
 		
-		JButton choose_video_button = new JButton("Choose another video");
+		VoxButton choose_video_button = new VoxButton("Choose another video");
 		choose_video_button.setBounds(1038, 348, 278, 46);
 		choose_video_button.addActionListener(new ActionListener() {
 			@Override

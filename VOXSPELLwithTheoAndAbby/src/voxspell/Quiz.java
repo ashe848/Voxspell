@@ -158,6 +158,7 @@ public class Quiz extends JPanel {
 	private void setupSpellHereLabel(){
 		JLabel spell_here_text = new JLabel("SPELL HERE");
 		spell_here_text.setFont(new Font("Arial", Font.BOLD, 45));
+		spell_here_text.setForeground(new Color(254, 157, 79));
 
 		add(spell_here_text);
 		spell_here_text.setBounds(32, 484, 332, 74);

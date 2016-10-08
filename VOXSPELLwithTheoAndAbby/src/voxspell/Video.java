@@ -131,7 +131,6 @@ public class Video extends JPanel{
 				player.start();
 			}
 		});
-
 		panel.add(start_button);
 		start_button.setBounds(1216, 169, 100, 100);
 	}
@@ -148,7 +147,7 @@ public class Video extends JPanel{
 				player.pause();
 			}
 		});
-
+		pause_button.addMouseListener(new VoxMouseAdapter(pause_button,null));
 		panel.add(pause_button);
 		pause_button.setBounds(1216, 279, 100, 100);
 	}
@@ -165,7 +164,7 @@ public class Video extends JPanel{
 				player.stop();
 			}
 		});
-
+		stop_button.addMouseListener(new VoxMouseAdapter(stop_button,null));
 		panel.add(stop_button);
 		stop_button.setBounds(1216, 389, 100, 100);
 	}
@@ -184,7 +183,7 @@ public class Video extends JPanel{
 				parent_frame.changePanel(PanelID.QuizComplete);
 			}
 		});
-
+		back_button.addMouseListener(new VoxMouseAdapter(back_button,null));
 		panel.add(back_button);
 		back_button.setBounds(1216, 598, 100, 100);
 	}

@@ -59,8 +59,7 @@ public class MainMenu extends JPanel{
 		JButton help = new JButton("Help");
 		help.setBounds(45, 72, 100, 100);
 		add(help);
-
-		
+	
 		setupGameSummary();
 	}
 
@@ -100,6 +99,7 @@ public class MainMenu extends JPanel{
 			}
 		});
 		log_in_button.addMouseListener(new VoxMouseAdapter(log_in_button,null));
+		log_in_button.addMouseListener(new VoxMouseAdapter(log_in_button,null));
 		add(log_in_button);
 	}
 
@@ -113,7 +113,7 @@ public class MainMenu extends JPanel{
 				parent_frame.changePanel(PanelID.ListBuilder);
 			}
 		});
-
+		list_builder_button.addMouseListener(new VoxMouseAdapter(list_builder_button,null));
 		add(list_builder_button);
 		list_builder_button.setBounds(890, 598, 177, 100);
 	}
@@ -129,7 +129,7 @@ public class MainMenu extends JPanel{
 				parent_frame.changePanel(PanelID.Quiz);
 			}
 		});
-
+		new_quiz_button.addMouseListener(new VoxMouseAdapter(new_quiz_button,null));
 		add(new_quiz_button);
 		new_quiz_button.setBounds(306, 598, 177, 100);
 	}
@@ -145,7 +145,7 @@ public class MainMenu extends JPanel{
 				parent_frame.changePanel(PanelID.Review);
 			}
 		});
-
+		review_button.addMouseListener(new VoxMouseAdapter(review_button,null));
 		add(review_button);
 		review_button.setBounds(598, 598, 177, 100);
 	}
@@ -162,7 +162,6 @@ public class MainMenu extends JPanel{
 			}
 		});
 		settings_button.addMouseListener(new VoxMouseAdapter(settings_button, null));
-
 		add(settings_button);
 		settings_button.setBounds(788, 72, 177, 100);
 	}
@@ -178,7 +177,7 @@ public class MainMenu extends JPanel{
 				parent_frame.changePanel(PanelID.StatSelection);
 			}
 		});
-
+		stats_button.addMouseListener(new VoxMouseAdapter(stats_button,null));
 		add(stats_button);
 		stats_button.setBounds(611, 72, 177, 100);
 	}
@@ -200,7 +199,7 @@ public class MainMenu extends JPanel{
 				}
 			}
 		});
-
+		exit_button.addMouseListener(new VoxMouseAdapter(exit_button,null));
 		add(exit_button);
 		exit_button.setBounds(1216, 598, 100, 100);
 	}
@@ -222,7 +221,7 @@ public class MainMenu extends JPanel{
 	/**
 	 * To display accuracy rates for level user is currently on
 	 */
-	void setupGameSummary() {
+	private void setupGameSummary() {
 		JTextArea game_summary = new JTextArea();
 		game_summary.setWrapStyleWord(true);
 		game_summary.setEditable(false);
@@ -234,7 +233,7 @@ public class MainMenu extends JPanel{
 		game_summary.append("Total Words: \n"+parent_frame.getDataHandler().wordlist_words.get(parent_frame.getDataHandler().current_level).size()+"\n\n");
 		game_summary.append("Attempted: \n"+parent_frame.getDataHandler().getAttemptedCount()+" \n\n");
 		game_summary.append("Didn't Get: \n"+parent_frame.getDataHandler().reviewlist_words.get(parent_frame.getDataHandler().current_level).size()+"\n\n");
-		game_summary.setBounds(45, 319, 100, 389);
+		game_summary.setBounds(45, 319, 137, 389);
 		game_summary.setOpaque(false);
 		add(game_summary);
 	}

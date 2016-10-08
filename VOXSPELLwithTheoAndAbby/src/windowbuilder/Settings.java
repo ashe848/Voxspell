@@ -68,7 +68,7 @@ public class Settings extends JFrame {
 		
 		JLabel lblChangeVoice = new JLabel("Change Voice (can also change during quizzes)");
 		lblChangeVoice.setFont(new Font("Arial", Font.PLAIN, 20));
-		lblChangeVoice.setBounds(32, 169, 517, 30);
+		lblChangeVoice.setBounds(32, 169, 520, 30);
 		contentPane.add(lblChangeVoice);
 		
 		JComboBox comboBox = new JComboBox();
@@ -77,7 +77,7 @@ public class Settings extends JFrame {
 		
 		JLabel lblChangeSpeakingSpeed = new JLabel("Change Speaking Speed (can also change during quizzes)");
 		lblChangeSpeakingSpeed.setFont(new Font("Arial", Font.PLAIN, 20));
-		lblChangeSpeakingSpeed.setBounds(32, 294, 517, 30);
+		lblChangeSpeakingSpeed.setBounds(32, 294, 520, 30);
 		contentPane.add(lblChangeSpeakingSpeed);
 		
 		JComboBox comboBox_1 = new JComboBox();

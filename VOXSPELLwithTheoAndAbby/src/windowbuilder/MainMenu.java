@@ -79,7 +79,7 @@ public class MainMenu extends JFrame {
 		txtrAbbys.append("Total Words:\n412 Name\n\n");
 		txtrAbbys.append("Attempted:\n303\n\n");
 		txtrAbbys.append("Didn't Get:\n303\n\n");
-		txtrAbbys.setBounds(45, 319, 100, 389);
+		txtrAbbys.setBounds(45, 319, 137, 389);
 		txtrAbbys.setOpaque(false);
 		contentPane.add(txtrAbbys);
 		

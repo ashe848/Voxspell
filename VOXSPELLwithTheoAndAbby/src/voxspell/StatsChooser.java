@@ -80,7 +80,7 @@ public class StatsChooser extends JPanel{
 				parent_frame.changePanel(PanelID.PersistentAllStats);
 			}
 		});
-
+		persistent_all_button.addMouseListener(new VoxMouseAdapter(persistent_all_button,null));
 		add(persistent_all_button);
 		persistent_all_button.setBounds(153, 165, 354, 200);
 	}
@@ -96,7 +96,7 @@ public class StatsChooser extends JPanel{
 				parent_frame.changePanel(PanelID.PersistentLevelStats);
 			}
 		});
-
+		persistent_level_button.addMouseListener(new VoxMouseAdapter(persistent_level_button,null));
 		add(persistent_level_button);
 		persistent_level_button.setBounds(702, 165, 354, 200);
 	}
@@ -112,7 +112,7 @@ public class StatsChooser extends JPanel{
 				parent_frame.changePanel(PanelID.SessionAllStats);
 			}
 		});
-
+		session_all_button.addMouseListener(new VoxMouseAdapter(session_all_button,null));
 		add(session_all_button);
 		session_all_button.setBounds(153, 395, 354, 200);
 	}
@@ -129,7 +129,7 @@ public class StatsChooser extends JPanel{
 				parent_frame.changePanel(PanelID.SessionLevelStats);
 			}
 		});
-
+		session_level_button.addMouseListener(new VoxMouseAdapter(session_level_button,null));
 		add(session_level_button);
 		session_level_button.setBounds(702, 395, 354, 200);
 	}
@@ -145,7 +145,7 @@ public class StatsChooser extends JPanel{
 				parent_frame.changePanel(PanelID.MainMenu);
 			}
 		});
-
+		back_button.addMouseListener(new VoxMouseAdapter(back_button,null));
 		add(back_button);
 		back_button.setBounds(1216, 598, 100, 100);
 	}

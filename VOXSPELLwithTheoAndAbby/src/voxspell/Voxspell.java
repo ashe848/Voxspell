@@ -24,7 +24,7 @@ public class Voxspell extends JFrame{
 	private DataHandler data_handler;
 	private Festival festival;
 
-	MainMenu main_menu;
+	private MainMenu main_menu;
 
 	/**
 	 * Constructor. Initialise frame, create data structure & set original panel to main menu

@@ -172,7 +172,7 @@ public class LevelStats extends JPanel{
 
 		add(level_chooser);
 		level_chooser.setBounds(1189, 293, 127, 50);
-		level_chooser.setBackground(Color.WHITE);
+		level_chooser.setBackground(new Color(254, 157, 79));
 	}
 
 	/**
@@ -186,7 +186,7 @@ public class LevelStats extends JPanel{
 				parent_frame.changePanel(PanelID.StatSelection);
 			}
 		});
-
+		back_button.addMouseListener(new VoxMouseAdapter(back_button,null));
 		add(back_button);
 		back_button.setBounds(1216, 598, 100, 100);
 	}

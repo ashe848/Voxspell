@@ -173,6 +173,7 @@ public class QuizComplete extends JPanel{
 
 	/**
 	 * Determines, based on result of quiz, which buttons to display
+	 * @author Abby S
 	 */
 	private void determineDisplay(){
 		//at most 10% incorrect (truncated to whole number)
@@ -189,8 +190,8 @@ public class QuizComplete extends JPanel{
 			}
 		}
 
-		//3 points for mastered, 1 point for faulted. None for failed. As a percentage
-		double score=(double)(latest_mastered_words.size()*3 + latest_faulted_words.size())/parent_frame.getDataHandler().latest_quiz_length;
+		//3 points for mastered, 1 point for faulted. None for failed. Multiplied by level number. As a percentage
+		double score=parent_frame.getDataHandler().current_level*((double)(latest_mastered_words.size()*3 + latest_faulted_words.size()))/parent_frame.getDataHandler().latest_quiz_length;
 		if(score > parent_frame.getDataHandler().personal_best){
 			parent_frame.getDataHandler().personal_best=score;
 
@@ -203,7 +204,7 @@ public class QuizComplete extends JPanel{
 			}
 		}
 	}
-
+	
 	/**
 	 * Button to move up a level
 	 */
@@ -230,6 +231,7 @@ public class QuizComplete extends JPanel{
 				level_up_button.setVisible(false);
 			}
 		});
+		level_up_button.addMouseListener(new VoxMouseAdapter(level_up_button,null));
 		add(level_up_button);
 		level_up_button.setVisible(true);
 	}
@@ -239,13 +241,13 @@ public class QuizComplete extends JPanel{
 	 * to a new level.
 	 */
 	private void setupLevelledUpLabel(String direction) {
-		JLabel level_up_button = new JLabel("Moved " + direction + "to "+parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().current_level), JLabel.CENTER);
+		JLabel levelled_up_label= new JLabel("Moved " + direction + "to "+parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().current_level), JLabel.CENTER);
 
-		level_up_button.setBounds(648, 404, 354, 200);
-		level_up_button.setFont(new Font("Arial", Font.PLAIN, 20));
-		level_up_button.setForeground(new Color(254, 157, 79));
-		add(level_up_button);
-		level_up_button.setVisible(true);
+		levelled_up_label.setBounds(648, 404, 354, 200);
+		levelled_up_label.setFont(new Font("Arial", Font.PLAIN, 20));
+		levelled_up_label.setForeground(new Color(254, 157, 79));
+		add(levelled_up_label);
+		levelled_up_label.setVisible(true);
 	}
 
 	/**
@@ -263,6 +265,7 @@ public class QuizComplete extends JPanel{
 				parent_frame.changePanel(PanelID.Video);
 			}
 		});
+		video_button.addMouseListener(new VoxMouseAdapter(video_button,null));
 		add(video_button);		
 	}
 
@@ -282,7 +285,6 @@ public class QuizComplete extends JPanel{
 		
 		String[] global = parent_frame.getDataHandler().global_top.split("\\s+");
 		if(bet_global){
-			System.out.println(global[0]);
 			score_results.append("Also bet previous global top by "+(pb_score - Double.parseDouble(global[0]))+"!");
 		} else {
 			score_results.append("Didn't beat global top of "+global[0]+"\n\nby "+global[1]+"\n\nin "+global[2]);
@@ -305,7 +307,7 @@ public class QuizComplete extends JPanel{
 				parent_frame.changePanel(PanelID.MainMenu);
 			}
 		});
-
+		back_button.addMouseListener(new VoxMouseAdapter(back_button,null));
 		add(back_button);
 		back_button.setBounds(1216, 598, 100, 100);
 	}

@@ -25,8 +25,8 @@ public class ListBuilder extends JPanel {
 
 	private JTextField list_name_field;
 	private JTextField word_field;
-	JTextArea words_added;
-	JTextArea sample_sentence;
+	private JTextArea words_added;
+	private JTextArea sample_sentence;
 
 	private String list_name;
 	private ArrayList<String> words_to_add = new ArrayList<String>();
@@ -144,6 +144,7 @@ public class ListBuilder extends JPanel {
 				}
 			}	
 		});
+		add_word_button.addMouseListener(new VoxMouseAdapter(add_word_button,null));
 		add(add_word_button);
 	}
 
@@ -171,6 +172,7 @@ public class ListBuilder extends JPanel {
 				}
 			}
 		});
+		save_Button.addMouseListener(new VoxMouseAdapter(save_Button,null));
 		add(save_Button);
 	}
 
@@ -185,6 +187,7 @@ public class ListBuilder extends JPanel {
 				}
 			}
 		});
+		discard_button.addMouseListener(new VoxMouseAdapter(discard_button,null));
 		add(discard_button);
 	}
 

@@ -25,7 +25,6 @@ import javax.swing.filechooser.FileSystemView;
 import voxspell.Festival.FestivalSpeed;
 import voxspell.Festival.FestivalVoice;
 import voxspell.Voxspell.PanelID;
-import windowbuilder.VoxMouseAdapter;
 
 @SuppressWarnings({ "static-access", "serial", "unchecked", "rawtypes" })
 
@@ -55,18 +54,12 @@ public class Settings extends JPanel {
 		setLayout(null);
 
 		parent_frame = parent;
-		
+
 		setupTitle();
-		
 		seupResetListStats();
 		seupResetUser();
 		seupResetToDefaultSettings();
-		
-		JLabel lblOtherSettingsMay = new JLabel("^ other settings will not be saved ^");
-		lblOtherSettingsMay.setForeground(Color.RED);
-		lblOtherSettingsMay.setFont(new Font("Arial", Font.PLAIN, 20));
-		lblOtherSettingsMay.setBounds(543, 668, 299, 30);
-		add(lblOtherSettingsMay);
+		setupWarningLabel();
 
 		setupChangeVoice();
 		setupChangeSpeed();
@@ -75,8 +68,10 @@ public class Settings extends JPanel {
 		setupChooseWordList();
 		setupChooseRewardVideo();
 		setupBackButton();
-//		setupBackground();
+		//		setupBackground();
 	}
+
+
 
 	private void setupTitle() {
 		JLabel title = new JLabel("Settings");
@@ -89,6 +84,7 @@ public class Settings extends JPanel {
 
 	/**
 	 * Resets all stats to as if it was the user's first launch (prompts user for confirmation)
+	 * @author Abby S
 	 */
 	private void seupResetListStats() {
 		VoxButton reset_list_stats_button = new VoxButton("Clear stats for current list");
@@ -125,7 +121,7 @@ public class Settings extends JPanel {
 		reset_to_default_button.setBackground(Color.RED);
 		reset_to_default_button.changeMouseEventColor(Color.BLACK);
 	}
-	
+
 	/**
 	 * @author Abby S
 	 */
@@ -148,13 +144,24 @@ public class Settings extends JPanel {
 		reset_user_button.setBackground(Color.RED);
 		reset_user_button.changeMouseEventColor(Color.BLACK);
 	}
-
+	
+	/**
+	 * @author Abby S
+	 */
+	private void setupWarningLabel() {
+		JLabel warning_label = new JLabel("^ other settings will not be saved ^");
+		warning_label.setForeground(Color.RED);
+		warning_label.setFont(new Font("Arial", Font.PLAIN, 20));
+		warning_label.setBounds(543, 668, 299, 30);
+		add(warning_label);
+	}
+	
 	/**
 	 * Drop down to change festival voice
 	 */
 	private void setupChangeVoice() {
 		JLabel change_voice_label = new JLabel("Change voice (you can change this during the quiz as well)");
-		change_voice_label.setBounds(32, 169, 517, 30);
+		change_voice_label.setBounds(32, 169, 520, 30);
 		change_voice_label.setFont(new Font("Arial", Font.PLAIN, 20));
 		change_voice_label.setForeground(Color.BLACK);
 		add(change_voice_label);
@@ -182,8 +189,8 @@ public class Settings extends JPanel {
 	 * Drop down to change festival speed
 	 */
 	private void setupChangeSpeed() {
-		JLabel change_speed_label = new JLabel("Change speed");
-		change_speed_label.setBounds(32, 294, 517, 30);
+		JLabel change_speed_label = new JLabel("Change speed (you can change this during the quiz as well)");
+		change_speed_label.setBounds(32, 294, 520, 30);
 		change_speed_label.setFont(new Font("Arial", Font.PLAIN, 20));
 		change_speed_label.setForeground(Color.BLACK);
 		add(change_speed_label);
@@ -273,12 +280,13 @@ public class Settings extends JPanel {
 		JLabel choose_wordlist_label = new JLabel("Current word list: "+parent_frame.getDataHandler().spelling_list_name);
 		choose_wordlist_label.setForeground(Color.BLACK);
 		choose_wordlist_label.setFont(new Font("Arial", Font.PLAIN, 20));
+		choose_wordlist_label.setHorizontalAlignment(SwingConstants.RIGHT);
 		choose_wordlist_label.setBounds(655, 169, 661, 30);
 		add(choose_wordlist_label);
 
 		final JLabel will_change_to=new JLabel("");
 		add(will_change_to);
-		
+
 		VoxButton list_choose_button = new VoxButton("Choose another list");
 		list_choose_button.setBounds(1038, 200, 278, 46);
 		list_choose_button.addActionListener(new ActionListener() {
@@ -291,7 +299,7 @@ public class Settings extends JPanel {
 				//expected format is a .txt file. But if it is another form of text file that can be read to have the correct format, the application will accept it.
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("Plain text files", "txt");
 				chooser.setFileFilter(filter);
-				
+
 				int button_clicked = chooser.showDialog(parent_frame, "Choose this word list");
 				if(button_clicked == JFileChooser.APPROVE_OPTION) {
 					if (!parent_frame.getDataHandler().errorCheckSelectedFile(chooser.getSelectedFile())){
@@ -316,12 +324,13 @@ public class Settings extends JPanel {
 		JLabel choose_video_label = new JLabel("Current Reward Video: "+parent_frame.getDataHandler().video_name);
 		choose_video_label.setForeground(Color.BLACK);
 		choose_video_label.setFont(new Font("Arial", Font.PLAIN, 20));
+		choose_video_label.setHorizontalAlignment(SwingConstants.RIGHT);
 		choose_video_label.setBounds(655, 318, 661, 30);
 		add(choose_video_label);
 
 		final JLabel will_change_to=new JLabel("");
 		add(will_change_to);
-		
+
 		VoxButton choose_video_button = new VoxButton("Choose another video");
 		choose_video_button.setBounds(1038, 348, 278, 46);
 		choose_video_button.addActionListener(new ActionListener() {
@@ -333,7 +342,7 @@ public class Settings extends JPanel {
 				JFileChooser chooser = new JFileChooser(reward_videos_folder, fsv);
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("AVI files", "avi");
 				chooser.setFileFilter(filter);
-				
+
 				int button_clicked = chooser.showDialog(parent_frame, "Choose this video");
 				if(button_clicked == JFileChooser.APPROVE_OPTION) {
 					if (chooser.getSelectedFile().getName().contains(" ")){
@@ -390,7 +399,7 @@ public class Settings extends JPanel {
 				parent_frame.changePanel(PanelID.MainMenu); //else doesn't save
 			}
 		});
-
+		back_button.addMouseListener(new VoxMouseAdapter(back_button,null));
 		add(back_button);
 		back_button.setBounds(1216, 598, 100, 100);
 	}
@@ -448,7 +457,7 @@ public class Settings extends JPanel {
 	 * The "Up One Level" button will be disabled
 	 * 
 	 */
-	class SingleRootFileSystemView extends FileSystemView{
+	private class SingleRootFileSystemView extends FileSystemView{
 		File root;
 		File[] roots = new File[1];
 

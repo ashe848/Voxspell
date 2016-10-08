@@ -46,7 +46,7 @@ public class Quiz extends JPanel {
 	private PanelID quiz_type; //Distinguishes if quiz is normal or review quiz
 
 	private JProgressBar progress_bar;
-	private JTextArea progressive_display; //progress text area to show previous information
+	private JTextArea feedback_display; //progress text area to show previous information
 	private JTextField input_from_user; //what user puts as guess for spelling quiz
 	
 	private ArrayList<String> words_to_spell; //list of words to spell in quiz
@@ -74,7 +74,7 @@ public class Quiz extends JPanel {
 		if (words_to_spell.size()!=0){
 			setupTitle();
 			setupProgressBar();
-			setupProgressiveDisplayTextArea();
+			setupFeedbackDisplayTextArea();
 			setupSpellHereLabel();
 			setupSpellHereField();
 			setupSubmitButton();
@@ -138,15 +138,15 @@ public class Quiz extends JPanel {
 	/**
 	 * Sets up text area that shows user history of guesses and progress of quiz
 	 */
-	private void setupProgressiveDisplayTextArea(){
-		progressive_display = new JTextArea();
-		progressive_display.setFont(new Font("Calibri Light", Font.PLAIN, 25));
-		progressive_display.setEditable(false);
-		progressive_display.setLineWrap(true);
-		progressive_display.setWrapStyleWord(true);
-		progressive_display.setOpaque(true);
+	private void setupFeedbackDisplayTextArea(){
+		feedback_display = new JTextArea();
+		feedback_display.setFont(new Font("Calibri Light", Font.PLAIN, 25));
+		feedback_display.setEditable(false);
+		feedback_display.setLineWrap(true);
+		feedback_display.setWrapStyleWord(true);
+		feedback_display.setOpaque(true);
 
-		JScrollPane scrolling_pane = new JScrollPane(progressive_display);
+		JScrollPane scrolling_pane = new JScrollPane(feedback_display);
 		add(scrolling_pane);
 		scrolling_pane.setBounds(32, 222, 1284, 252);
 		scrolling_pane.setBackground(Color.WHITE);
@@ -159,7 +159,6 @@ public class Quiz extends JPanel {
 		JLabel spell_here_text = new JLabel("SPELL HERE");
 		spell_here_text.setFont(new Font("Arial", Font.BOLD, 45));
 		spell_here_text.setForeground(new Color(254, 157, 79));
-
 		add(spell_here_text);
 		spell_here_text.setBounds(32, 484, 332, 74);
 		spell_here_text.setOpaque(false);
@@ -179,7 +178,6 @@ public class Quiz extends JPanel {
 				input_from_user.requestFocusInWindow();
 			}
 		});
-
 		add(input_from_user);
 		input_from_user.setBounds(374, 484, 942, 74);
 	}
@@ -197,7 +195,7 @@ public class Quiz extends JPanel {
 				input_from_user.requestFocusInWindow();
 			}
 		});
-
+		submit_button.addMouseListener(new VoxMouseAdapter(submit_button,null));
 		add(submit_button);
 		submit_button.setBounds(32, 598, 177, 100);
 	}
@@ -224,7 +222,7 @@ public class Quiz extends JPanel {
 				parent_frame.getFestival().speak(words_to_spell.get(current_word_number),true);
 			}
 		});
-
+		sayagain_button.addMouseListener(new VoxMouseAdapter(sayagain_button,null));
 		add(sayagain_button);
 		sayagain_button.setBounds(667, 598, 177, 100);
 	}
@@ -237,7 +235,7 @@ public class Quiz extends JPanel {
 		final JComboBox voice_chooser = new JComboBox(voices);
 		voice_chooser.setFont(new Font("Arial", Font.PLAIN, 20));
 		voice_chooser.setForeground(Color.BLACK);
-		voice_chooser.setBackground(Color.WHITE);
+		voice_chooser.setBackground(new Color(254, 157, 79));
 
 		//set shown item to be the current voice
 		voice_chooser.setSelectedItem(parent_frame.getFestival().getFestivalVoice());
@@ -250,7 +248,6 @@ public class Quiz extends JPanel {
 
 			}
 		});
-
 		voice_chooser.setBounds(919, 600, 154, 40);
 		add(voice_chooser);
 	}
@@ -263,7 +260,7 @@ public class Quiz extends JPanel {
 		final JComboBox speed_chooser = new JComboBox(speeds);
 		speed_chooser.setFont(new Font("Arial", Font.PLAIN, 20));
 		speed_chooser.setForeground(Color.BLACK);
-		speed_chooser.setBackground(Color.WHITE);
+		speed_chooser.setBackground(new Color(254, 157, 79));
 
 		//set shown item to be the current voice
 		speed_chooser.setSelectedItem(parent_frame.getFestival().getFestivalSpeed());
@@ -275,7 +272,6 @@ public class Quiz extends JPanel {
 				}
 			}
 		});
-
 		speed_chooser.setBounds(919, 658, 154, 40);
 		add(speed_chooser);
 	}
@@ -294,6 +290,7 @@ public class Quiz extends JPanel {
 				parent_frame.getDataHandler().addToReviewList(word_to_add);
 			}
 		});
+		add_to_review.addMouseListener(new VoxMouseAdapter(add_to_review,null));
 		add(add_to_review);
 	}
 
@@ -303,7 +300,6 @@ public class Quiz extends JPanel {
 	private void setupBackButton(){
 		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
 		JButton back_button = new JButton("", back_button_image);
-
 		back_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -315,7 +311,7 @@ public class Quiz extends JPanel {
 				}
 			}
 		});
-
+		back_button.addMouseListener(new VoxMouseAdapter(back_button,null));
 		add(back_button);
 		back_button.setBounds(1216, 598, 100, 100);
 	}
@@ -350,7 +346,7 @@ public class Quiz extends JPanel {
 			}
 		}
 
-		progressive_display.append("Word: "+(current_word_number+1)+" out of "+words_to_spell.size()+"\nAttempt: "+(current_attempt_number)+" out of 2\n");
+		feedback_display.append("Word: "+(current_word_number+1)+" out of "+words_to_spell.size()+"\nAttempt: "+(current_attempt_number)+" out of 2\n");
 		progress_bar.setValue(current_word_number);
 	}
 
@@ -362,11 +358,11 @@ public class Quiz extends JPanel {
 		input_from_user.setText("");//clear input field	
 
 		if(!attempt.matches(".*[a-zA-Z]+.*")){ //user doesn't enters any alphabetical characters
-			progressive_display.append("Feedback: Word includes alphabet characters, try again\n\n");
+			feedback_display.append("Feedback: Word includes alphabet characters, try again\n\n");
 		} else if(!attempt.equals(words_to_spell.get(current_word_number))&&(attempt.toLowerCase()).equals(words_to_spell.get(current_word_number).toLowerCase())){ //differ by capitalisation
-			progressive_display.append("Feedback: \""+attempt+"\" is spelt correctly but incorrect capitalisation, try again\n\n");
+			feedback_display.append("Feedback: \""+attempt+"\" is spelt correctly but incorrect capitalisation, try again\n\n");
 		} else{
-			progressive_display.append("Feedback: \""+attempt+"\" is ");//updates progress area with user guess
+			feedback_display.append("Feedback: \""+attempt+"\" is ");//updates progress area with user guess
 
 			//if correct spelling (case-sensitive)
 			if(attempt.equals(words_to_spell.get(current_word_number))){
@@ -382,17 +378,17 @@ public class Quiz extends JPanel {
 				progress_bar.setForeground(Color.GREEN);
 				current_word_number+=1;
 				current_attempt_number=1;
-				progressive_display.setText("");//clear display
+				feedback_display.setText("");//clear display
 			} else{//incorrect spelling
 				parent_frame.getFestival().speak("Incorrect", false);
-				progressive_display.append("INCORRECT\n\n");
+				feedback_display.append("INCORRECT\n\n");
 
 				//second time getting it wrong(failed)
 				if(current_attempt_number == 2){
 					words_failed.add(words_to_spell.get(current_word_number));
 					current_attempt_number=1;
 					current_word_number+=1;
-					progressive_display.setText("");//clear display
+					feedback_display.setText("");//clear display
 					progress_bar.setForeground(Color.RED);
 				} else{	//first time getting it wrong(faulted so far, maybe failed later)
 					parent_frame.getFestival().speak("Please try again", false);

@@ -17,8 +17,8 @@ public class Festival {
 	private static Festival instance=null; //since singleton class
 
 	//initialised by readfiles in DataHandler
-	static FestivalSpeed festival_speed;
-	static FestivalVoice festival_voice;
+	private static FestivalSpeed festival_speed;
+	private static FestivalVoice festival_voice;
 
 	//queuing of SwingWorkers to avoid voice overlapping
 	//inspired by http://stackoverflow.com/questions/22412544/swingworker-queue-and-single-using
@@ -138,7 +138,7 @@ public class Festival {
 	 * Ensures this time consuming task doesn't hold up the ED thread,
 	 * and so ensures the GUI doesn't freeze
 	 */
-	class FestivalWorker extends SwingWorker<Void, Void> {
+	private class FestivalWorker extends SwingWorker<Void, Void> {
 		//what to speak
 		private String speech;
 		private boolean say_again;

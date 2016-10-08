@@ -115,6 +115,7 @@ public class Quiz extends JPanel {
 	private void setupTitle(){
 		JLabel title = new JLabel(quiz_type.toString()+": "+parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().current_level)); 
 		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
+		title.setForeground(new Color(254, 157, 79));
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		add(title);
 		title.setBounds(32, 24, 1136, 119);
@@ -139,7 +140,7 @@ public class Quiz extends JPanel {
 	 */
 	private void setupProgressiveDisplayTextArea(){
 		progressive_display = new JTextArea();
-		progressive_display.setFont(new Font("Courier New", Font.BOLD, 18));
+		progressive_display.setFont(new Font("Calibri Light", Font.PLAIN, 25));
 		progressive_display.setEditable(false);
 		progressive_display.setLineWrap(true);
 		progressive_display.setWrapStyleWord(true);
@@ -156,7 +157,7 @@ public class Quiz extends JPanel {
 	 */
 	private void setupSpellHereLabel(){
 		JLabel spell_here_text = new JLabel("SPELL HERE");
-		spell_here_text.setFont(new Font("Courier New", Font.BOLD, 30));
+		spell_here_text.setFont(new Font("Arial", Font.BOLD, 45));
 
 		add(spell_here_text);
 		spell_here_text.setBounds(32, 484, 332, 74);
@@ -168,7 +169,7 @@ public class Quiz extends JPanel {
 	 */
 	private void setupSpellHereField(){
 		input_from_user = new JTextField();
-		input_from_user.setFont(new Font("Courier New", Font.BOLD, 25));
+		input_from_user.setFont(new Font("Calibri Light", Font.PLAIN, 45));
 		input_from_user.setEditable(true);
 		input_from_user.addActionListener(new ActionListener() {
 			@Override
@@ -233,6 +234,7 @@ public class Quiz extends JPanel {
 	private void setupChangeVoice() {
 		FestivalVoice[] voices={FestivalVoice.Kiwi, FestivalVoice.British, FestivalVoice.American};
 		final JComboBox voice_chooser = new JComboBox(voices);
+		voice_chooser.setFont(new Font("Arial", Font.PLAIN, 20));
 		voice_chooser.setForeground(Color.BLACK);
 		voice_chooser.setBackground(Color.WHITE);
 
@@ -258,6 +260,7 @@ public class Quiz extends JPanel {
 	private void setupChangeSpeed() {
 		FestivalSpeed[] speeds={FestivalSpeed.slow, FestivalSpeed.normal, FestivalSpeed.fast};
 		final JComboBox speed_chooser = new JComboBox(speeds);
+		speed_chooser.setFont(new Font("Arial", Font.PLAIN, 20));
 		speed_chooser.setForeground(Color.BLACK);
 		speed_chooser.setBackground(Color.WHITE);
 

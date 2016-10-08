@@ -1,5 +1,6 @@
 package voxspell;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -51,8 +52,17 @@ public class GeneralStats extends JPanel {
 
 		parent_frame=parent;
 
+		setupTitle(type);
+		setupTable(type);		
+		setupBackButton();
+		setupAccuracyRateLabel();
+//		setupBackground(type);
+	}
+
+	private void setupTitle(StatsType type) {
 		JLabel title = new JLabel("");
 		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
+		title.setForeground(new Color(254, 157, 79));
 		title.setBounds(32, 24, 1136, 119);
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		add(title);
@@ -61,11 +71,6 @@ public class GeneralStats extends JPanel {
 		} else {
 			title.setText("All Stats for Current Session");
 		}
-		
-		setupTable(type);		
-		setupBackButton();
-		setupAccuracyRateLabel();
-//		setupBackground(type);
 	}
 
 	/**
@@ -123,6 +128,9 @@ public class GeneralStats extends JPanel {
 		table.setDefaultRenderer(String.class, alignment_renderer);
 		table.setDefaultRenderer(Integer.class, alignment_renderer);
 
+		table.setFont(new Font("Calibri Light", Font.PLAIN, 20));
+		table.setRowHeight(27);
+		
 		//adds scroll pane to table to panel
 		JScrollPane scroll_pane = new JScrollPane(table);
 		add(scroll_pane);
@@ -152,7 +160,7 @@ public class GeneralStats extends JPanel {
 	 */
 	private void setupAccuracyRateLabel() {
 		JLabel accuracy_rate_label = new JLabel(parent_frame.getDataHandler().getAccuracyRates()); 
-		accuracy_rate_label.setFont(new Font("Courier New", Font.BOLD, 10));
+		accuracy_rate_label.setFont(new Font("Calibri Light", Font.PLAIN, 25));
 
 		add(accuracy_rate_label);
 		accuracy_rate_label.setBounds(32, 630, 1136, 68);

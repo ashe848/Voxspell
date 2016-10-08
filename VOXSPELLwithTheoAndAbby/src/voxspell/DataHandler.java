@@ -44,11 +44,11 @@ public class DataHandler {
 	static String spelling_list_name;
 	static String video_name;
 	static int words_in_quiz; //number of words in each quiz
-	
+
 	static ArrayList<String> users;
 	static String global_top;
 	static double personal_best;
-	
+
 	//filenames
 	private static String program_stats;
 	private static String users_list;
@@ -65,7 +65,7 @@ public class DataHandler {
 	static ArrayList<String> level_names;
 	static int current_level; //initialised so if settings file is empty/wiped
 
-	private static ArrayList<ArrayList<String>> reviewlist_words; //words from reviewlist file
+	static ArrayList<ArrayList<String>> reviewlist_words; //words from reviewlist file
 
 	//Persistent and session are all for the current list
 	private static ArrayList<ArrayList<String>> persistent_allwords; //all words from wordlist + reviewlist
@@ -143,12 +143,13 @@ public class DataHandler {
 	 * @author Abby S
 	 */
 	private static void readProgramStatsFile() {
-		global_top="0";
+		global_top="0.0 DNE DNE";
 		program_stats=parent_frame.getResourceFileLocation()+"programstats";
 		try {
 			File program_file = new File(program_stats);
 			if (!program_file.exists()) {
 				program_file.createNewFile();
+				writeToProgramFiles();
 			} else {
 				BufferedReader current_BR = new BufferedReader(new FileReader(program_file));
 				String string_input;
@@ -680,7 +681,7 @@ public class DataHandler {
 	/**
 	 * @author Abby S
 	 */
-	public void writeToProgramFiles(){
+	public static void writeToProgramFiles(){
 		try {
 			FileWriter fw = new FileWriter(new File(users_list), false);
 			for (String u:users){
@@ -959,7 +960,7 @@ public class DataHandler {
 	/**
 	 * @Return number of words attempted in current level
 	 */
-	private int getAttemptedCount() {
+	int getAttemptedCount() {
 		int attempted_count=0;
 		for (Object[] o:returnWordDataForLevel(current_level, StatsType.Persistent)){
 			if(!(o[5].equals(0)&&o[3].equals(0)&&o[4].equals(0))){

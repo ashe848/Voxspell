@@ -1,5 +1,6 @@
 package voxspell;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -41,11 +42,7 @@ public class StatsChooser extends JPanel{
 
 		parent_frame=parent;
 
-		JLabel title = new JLabel("Statistics for Current List");
-		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
-		title.setHorizontalAlignment(SwingConstants.CENTER);
-		title.setBounds(32, 24, 1136, 119);
-		add(title);
+		setupTitle();
 		setupPersistentAllButton();
 		setupPersistentLevelButton();
 		setupSessionAllButton();
@@ -53,6 +50,15 @@ public class StatsChooser extends JPanel{
 		setupBackButton();
 		setupAccuracyRateLabel();
 //		setupBackground();
+	}
+
+	private void setupTitle() {
+		JLabel title = new JLabel("Statistics for Current List");
+		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
+		title.setForeground(new Color(254, 157, 79));
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		title.setBounds(32, 24, 1136, 119);
+		add(title);
 	}
 
 	/**
@@ -149,7 +155,7 @@ public class StatsChooser extends JPanel{
 	 */
 	private void setupAccuracyRateLabel() {
 		JLabel accuracy_rate_label = new JLabel(parent_frame.getDataHandler().getAccuracyRates()); 
-		accuracy_rate_label.setFont(new Font("Courier New", Font.BOLD, 10));
+		accuracy_rate_label.setFont(new Font("Calibri Light", Font.PLAIN, 25));
 
 		add(accuracy_rate_label);
 		accuracy_rate_label.setBounds(32, 630, 1136, 68);

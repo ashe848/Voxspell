@@ -55,11 +55,7 @@ public class Settings extends JPanel {
 
 		parent_frame = parent;
 		
-		JLabel title = new JLabel("Settings");
-		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
-		title.setHorizontalAlignment(SwingConstants.CENTER);
-		title.setBounds(32, 24, 1284, 119);
-		add(title);
+		setupTitle();
 		
 		seupResetListStats();
 		seupResetUser();
@@ -79,6 +75,15 @@ public class Settings extends JPanel {
 		setupChooseRewardVideo();
 		setupBackButton();
 //		setupBackground();
+	}
+
+	private void setupTitle() {
+		JLabel title = new JLabel("Settings");
+		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		title.setForeground(new Color(254, 157, 79));
+		title.setBounds(32, 24, 1284, 119);
+		add(title);
 	}
 
 	/**
@@ -143,11 +148,13 @@ public class Settings extends JPanel {
 	private void setupChangeVoice() {
 		JLabel change_voice_label = new JLabel("Change voice (you can change this during the quiz as well)");
 		change_voice_label.setBounds(32, 169, 517, 30);
-		change_voice_label.setForeground(Color.YELLOW);
+		change_voice_label.setFont(new Font("Arial", Font.PLAIN, 20));
+		change_voice_label.setForeground(Color.BLACK);
 		add(change_voice_label);
 
 		FestivalVoice[] voices={FestivalVoice.Kiwi, FestivalVoice.British, FestivalVoice.American};
 		final JComboBox voice_chooser = new JComboBox(voices);
+		voice_chooser.setFont(new Font("Arial", Font.PLAIN, 20));
 		voice_chooser.setForeground(Color.BLACK);
 		voice_chooser.setBackground(Color.WHITE);
 
@@ -170,11 +177,13 @@ public class Settings extends JPanel {
 	private void setupChangeSpeed() {
 		JLabel change_speed_label = new JLabel("Change speed");
 		change_speed_label.setBounds(32, 294, 517, 30);
-		change_speed_label.setForeground(Color.YELLOW);
+		change_speed_label.setFont(new Font("Arial", Font.PLAIN, 20));
+		change_speed_label.setForeground(Color.BLACK);
 		add(change_speed_label);
 
 		FestivalSpeed[] speeds={FestivalSpeed.slow, FestivalSpeed.normal, FestivalSpeed.fast};
 		final JComboBox speed_chooser = new JComboBox(speeds);
+		speed_chooser.setFont(new Font("Arial", Font.PLAIN, 20));
 		speed_chooser.setForeground(Color.BLACK);
 		speed_chooser.setBackground(Color.WHITE);
 
@@ -196,13 +205,15 @@ public class Settings extends JPanel {
 	 */
 	private void setupWordInQuiz(){
 		JLabel change_words_in_quiz_label = new JLabel("Change preferred number of words in quiz");
-		change_words_in_quiz_label.setForeground(Color.YELLOW);
+		change_words_in_quiz_label.setForeground(Color.BLACK);
+		change_words_in_quiz_label.setFont(new Font("Arial", Font.PLAIN, 20));
 		change_words_in_quiz_label.setBounds(32, 422, 517, 30);
 		add(change_words_in_quiz_label);
 
 		//		TODO: remove 1 after testing
 		Integer[] word_numbers={1, 5, 10, 15, 25, 50};
 		final JComboBox word_number_chooser = new JComboBox(word_numbers);
+		word_number_chooser.setFont(new Font("Arial", Font.PLAIN, 20));
 		word_number_chooser.setForeground(Color.BLACK);
 		word_number_chooser.setBackground(Color.WHITE);
 
@@ -224,7 +235,8 @@ public class Settings extends JPanel {
 	 */
 	private void setupChooseLevel() {
 		JLabel choose_level_label = new JLabel("Choose Level (for current list)");
-		choose_level_label.setForeground(Color.YELLOW);
+		choose_level_label.setForeground(Color.BLACK);
+		choose_level_label.setFont(new Font("Arial", Font.PLAIN, 20));
 		choose_level_label.setBounds(32, 552, 517, 30);
 		add(choose_level_label);
 
@@ -242,6 +254,7 @@ public class Settings extends JPanel {
 		});
 		level_chooser.setForeground(Color.BLACK);
 		level_chooser.setBackground(Color.WHITE);
+		level_chooser.setFont(new Font("Arial", Font.PLAIN, 20));
 		level_chooser.setBounds(32, 592, 210, 50);
 		add(level_chooser);
 	}
@@ -251,7 +264,8 @@ public class Settings extends JPanel {
 	 */
 	private void setupChooseWordList(){
 		JLabel choose_wordlist_label = new JLabel("Current word list: "+parent_frame.getDataHandler().spelling_list_name);
-		choose_wordlist_label.setForeground(Color.YELLOW);
+		choose_wordlist_label.setForeground(Color.BLACK);
+		choose_wordlist_label.setFont(new Font("Arial", Font.PLAIN, 20));
 		choose_wordlist_label.setBounds(655, 169, 661, 30);
 		add(choose_wordlist_label);
 
@@ -278,7 +292,8 @@ public class Settings extends JPanel {
 					} else {
 						temp_list_selection=chooser.getSelectedFile().getName();
 						will_change_to.setText("Will change to "+temp_list_selection+" on save.");
-						will_change_to.setForeground(Color.YELLOW);
+						will_change_to.setForeground(new Color(254, 157, 79));
+						will_change_to.setFont(new Font("Arial", Font.PLAIN, 18));
 						will_change_to.setBounds(655, 246, 661, 30);
 					}
 				}
@@ -292,7 +307,8 @@ public class Settings extends JPanel {
 	 */
 	private void setupChooseRewardVideo(){
 		JLabel choose_video_label = new JLabel("Current Reward Video: "+parent_frame.getDataHandler().video_name);
-		choose_video_label.setForeground(Color.YELLOW);
+		choose_video_label.setForeground(Color.BLACK);
+		choose_video_label.setFont(new Font("Arial", Font.PLAIN, 20));
 		choose_video_label.setBounds(655, 318, 661, 30);
 		add(choose_video_label);
 
@@ -318,7 +334,8 @@ public class Settings extends JPanel {
 					} else {
 						temp_video_selection=chooser.getSelectedFile().getName();
 						will_change_to.setText("Will change to "+temp_video_selection+" on save.");
-						will_change_to.setForeground(Color.YELLOW);
+						will_change_to.setForeground(new Color(254, 157, 79));
+						will_change_to.setFont(new Font("Arial", Font.PLAIN, 18));
 						will_change_to.setBounds(655, 395, 661, 30);
 					}
 				}

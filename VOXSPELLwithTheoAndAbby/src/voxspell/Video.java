@@ -55,12 +55,7 @@ public class Video extends JPanel{
 		
 		video = System.getProperty("user.dir")+"/rewardvideos/"+parent_frame.getDataHandler().video_name;
 		
-		JLabel title = new JLabel(parent_frame.getDataHandler().video_name);
-		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
-		title.setHorizontalAlignment(SwingConstants.CENTER);
-		title.setBounds(32, 24, 1284, 119);
-		add(title);
-		
+		setupTitle();
 		setupPlayer();
 		setupTimer();
 		setupProgressBar();
@@ -68,6 +63,15 @@ public class Video extends JPanel{
 		setupPauseButton();
 		setupStopButton();
 		setupBackButton();
+	}
+
+	private void setupTitle() {
+		JLabel title = new JLabel(parent_frame.getDataHandler().video_name);
+		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
+		title.setForeground(new Color(254, 157, 79));
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		title.setBounds(32, 24, 1284, 119);
+		add(title);
 	}
 
 	/**

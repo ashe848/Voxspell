@@ -54,16 +54,7 @@ public class LevelStats extends JPanel{
 
 		parent_frame=parent;
 		
-		JLabel title = new JLabel("");
-		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
-		title.setBounds(32, 24, 1136, 119);
-		title.setHorizontalAlignment(SwingConstants.CENTER);
-		add(title);
-		if (type.equals(StatsType.Persistent)){
-			title.setText("By Level for All Sessions");
-		} else {
-			title.setText("By Level for Current Session");
-		}
+		setupTitle(type);
 
 		//defaults to user's current level
 		refreshTable(parent_frame.getDataHandler().current_level, type);
@@ -72,6 +63,20 @@ public class LevelStats extends JPanel{
 		setupBackButton();
 		setupAccuracyRateLabel();
 //		setupBackground(type);
+	}
+
+	private void setupTitle(StatsType type) {
+		JLabel title = new JLabel("");
+		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
+		title.setForeground(new Color(254, 157, 79));
+		title.setBounds(32, 24, 1136, 119);
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		add(title);
+		if (type.equals(StatsType.Persistent)){
+			title.setText("By Level for All Sessions");
+		} else {
+			title.setText("By Level for Current Session");
+		}
 	}
 
 	/**
@@ -127,6 +132,9 @@ public class LevelStats extends JPanel{
 		alignment_renderer.setHorizontalAlignment(JLabel.CENTER);
 		table.setDefaultRenderer(String.class, alignment_renderer);
 		table.setDefaultRenderer(Integer.class, alignment_renderer);
+		
+		table.setFont(new Font("Calibri Light", Font.PLAIN, 20));
+		table.setRowHeight(27);
 
 		//adds scroll pane to table to panel
 		scroll_pane = new JScrollPane(table);
@@ -150,7 +158,7 @@ public class LevelStats extends JPanel{
 	private void setupLevelChooser(final StatsType type) {
 		String[] levels = parent_frame.getDataHandler().getLevelArray();
 		final JComboBox level_chooser = new JComboBox(levels);
-
+		level_chooser.setFont(new Font("Arial", Font.PLAIN, 20));
 		//default to current level
 		level_chooser.setSelectedItem(parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().current_level));
 		level_chooser.addActionListener(new ActionListener() {
@@ -188,7 +196,7 @@ public class LevelStats extends JPanel{
 	 */
 	private void setupAccuracyRateLabel() {
 		JLabel accuracy_rate_label = new JLabel(parent_frame.getDataHandler().getAccuracyRates()); 
-		accuracy_rate_label.setFont(new Font("Courier New", Font.BOLD, 10));
+		accuracy_rate_label.setFont(new Font("Calibri Light", Font.PLAIN, 25));
 
 		add(accuracy_rate_label);
 		accuracy_rate_label.setBounds(32, 630, 1136, 68);

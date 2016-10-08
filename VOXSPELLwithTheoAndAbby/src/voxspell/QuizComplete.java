@@ -66,18 +66,22 @@ public class QuizComplete extends JPanel{
 		latest_faulted_words=parent_frame.getDataHandler().getLatestWordResults().get(1);
 		latest_failed_words=parent_frame.getDataHandler().getLatestWordResults().get(2);
 
-		JLabel title = new JLabel("Quiz Complete");
-		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
-		title.setHorizontalAlignment(SwingConstants.CENTER);
-		title.setBounds(32, 24, 1136, 119);
-		add(title);
-		
+		setupTitle();
 		setupAudio();
 		setupTable();
 		determineDisplay();
 		setupBackButton();
 		setupAccuracyRateLabel();
 //		setupBackground();
+	}
+
+	private void setupTitle() {
+		JLabel title = new JLabel("Quiz Complete");
+		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
+		title.setForeground(new Color(254, 157, 79));
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		title.setBounds(32, 24, 1136, 119);
+		add(title);
 	}
 
 	/**
@@ -157,6 +161,9 @@ public class QuizComplete extends JPanel{
 		table.setDefaultRenderer(String.class, alignment_renderer);
 		table.setDefaultRenderer(Integer.class, alignment_renderer);
 
+		table.setFont(new Font("Calibri Light", Font.PLAIN, 20));
+		table.setRowHeight(27);
+		
 		//adds scroll pane to table to panel
 		JScrollPane scroll_pane = new JScrollPane(table);
 		add(scroll_pane);
@@ -185,15 +192,14 @@ public class QuizComplete extends JPanel{
 		//3 points for mastered, 1 point for faulted. None for failed. As a percentage
 		double score=(double)(latest_mastered_words.size()*3 + latest_faulted_words.size())/parent_frame.getDataHandler().latest_quiz_length;
 		if(score > parent_frame.getDataHandler().personal_best){
-			setupNewPB(score);
 			parent_frame.getDataHandler().personal_best=score;
 
 			double global_top_score=Double.parseDouble(parent_frame.getDataHandler().global_top.split("\\s+")[0]);
 			if (score > global_top_score){
-				parent_frame.getDataHandler().global_top=score+" "+parent_frame.getDataHandler().user+" "+parent_frame.getDataHandler().spelling_list_name;
-//				setupNewGlobalTop(score,global_top_score);
+				setupNewPB(score,true);
+				parent_frame.getDataHandler().global_top=score+" "+parent_frame.getDataHandler().user+" "+parent_frame.getDataHandler().spelling_list_name;				
 			} else {
-//				setupJustNewPB(score,parent_frame.getDataHandler().global_top.split("\\s+"));
+				setupNewPB(score,false);
 			}
 		}
 	}
@@ -236,7 +242,8 @@ public class QuizComplete extends JPanel{
 		JLabel level_up_button = new JLabel("Moved " + direction + "to "+parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().current_level), JLabel.CENTER);
 
 		level_up_button.setBounds(648, 404, 354, 200);
-		level_up_button.setForeground(Color.YELLOW);
+		level_up_button.setFont(new Font("Arial", Font.PLAIN, 20));
+		level_up_button.setForeground(new Color(254, 157, 79));
 		add(level_up_button);
 		level_up_button.setVisible(true);
 	}
@@ -262,38 +269,24 @@ public class QuizComplete extends JPanel{
 	/**
 	 * @author Abby S
 	 */
-	private void setupNewPB(double record_score){
-//		JLabel new_PB = new JLabel("New personal best score: "+record_score+"!");
-//		new_PB.setBounds(550, 119, 200, 15);
-//		add(new_PB);
+	private void setupNewPB(double pb_score, boolean bet_global){
+		JTextArea score_results = new JTextArea();
+		score_results.setLineWrap(true);
+		score_results.setEditable(false);
+		score_results.setWrapStyleWord(true);
+		score_results.setFont(new Font("Arial", Font.PLAIN, 24));
+		score_results.setOpaque(false);
+		score_results.setText("New personal best score: \n"+pb_score+"\n\n\n");
+		score_results.setBounds(1028, 232, 288, 347);
+		add(score_results);	
 		
-		JTextArea txtrScore = new JTextArea();
-		txtrScore.setLineWrap(true);
-		txtrScore.setEditable(false);
-		txtrScore.setWrapStyleWord(true);
-		txtrScore.setFont(new Font("Arial", Font.PLAIN, 24));
-		txtrScore.setOpaque(false);
-		txtrScore.setText("New personal best score:\n3\n\n\nDidn't beat global top of 3\n\nby AbbyS\n\nin NZCER-spelling-lists.txt");
-		txtrScore.setBounds(1028, 232, 288, 347);
-		add(txtrScore);	
-	}
-
-	/**
-	 * @author Abby S
-	 */
-	private void setupJustNewPB(double record_score, String[] global){		
-		JLabel didnt_beat_global_label = new JLabel("Didn't beat global top of "+global[0]+" by "+global[1]+" in "+global[2]);
-		didnt_beat_global_label.setBounds(550, 150, 200, 15);
-		add(didnt_beat_global_label);
-	}
-
-	/**
-	 * @author Abby S
-	 */
-	private void setupNewGlobalTop(double record_score, double global) {
-		JLabel new_global_label = new JLabel("Also bet previous global top by "+(record_score - global)+"!");
-		new_global_label.setBounds(550, 150, 2000, 15);
-		add(new_global_label);
+		String[] global = parent_frame.getDataHandler().global_top.split("\\s+");
+		if(bet_global){
+			System.out.println(global[0]);
+			score_results.append("Also bet previous global top by "+(pb_score - Double.parseDouble(global[0]))+"!");
+		} else {
+			score_results.append("Didn't beat global top of "+global[0]+"\n\nby "+global[1]+"\n\nin "+global[2]);
+		}
 	}
 
 	/**
@@ -322,7 +315,7 @@ public class QuizComplete extends JPanel{
 	 */
 	private void setupAccuracyRateLabel() {
 		JLabel accuracy_rate_label = new JLabel(parent_frame.getDataHandler().getAccuracyRates()); 
-		accuracy_rate_label.setFont(new Font("Courier New", Font.BOLD, 10));
+		accuracy_rate_label.setFont(new Font("Calibri Light", Font.PLAIN, 25));
 
 		add(accuracy_rate_label);
 		accuracy_rate_label.setBounds(32, 630, 1136, 68);

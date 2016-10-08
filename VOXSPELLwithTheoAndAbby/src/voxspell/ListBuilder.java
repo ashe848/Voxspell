@@ -1,5 +1,6 @@
 package voxspell;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,6 +54,7 @@ public class ListBuilder extends JPanel {
 	private void setupTitle() {
 		JLabel title = new JLabel("Build Your Own Custom List");
 		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
+		title.setForeground(new Color(254, 157, 79));
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		title.setBounds(32, 24, 1284, 119);
 		add(title);
@@ -60,11 +62,13 @@ public class ListBuilder extends JPanel {
 
 	private void setupWordsAdded() {
 		JLabel words_added_label = new JLabel("Words Added:");
+		words_added_label.setFont(new Font("Arial", Font.PLAIN, 25));
 		words_added_label.setBounds(32, 180, 223, 45);
 		add(words_added_label);
 
 		words_added = new JTextArea();
 		words_added.setText("");
+		words_added.setFont(new Font("Calibri Light", Font.PLAIN, 25));
 		words_added.setEditable(false);
 		words_added.setLineWrap(true);
 		words_added.setWrapStyleWord(true);
@@ -76,33 +80,39 @@ public class ListBuilder extends JPanel {
 
 	private void setupEnterName() {
 		JLabel list_name_label = new JLabel("Name of List:");
+		list_name_label.setFont(new Font("Arial", Font.PLAIN, 25));
 		list_name_label.setBounds(420, 180, 223, 45);
 		add(list_name_label);
 
 		list_name_field = new JTextField();
 		list_name_field.setBounds(688, 180, 383, 45);
+		list_name_field.setFont(new Font("Calibri Light", Font.PLAIN, 25));
 		add(list_name_field);
 		list_name_field.setColumns(10);
 	}
 
 	private void setupEnterWord() {
 		JLabel word_label = new JLabel("Word:");
+		word_label.setFont(new Font("Arial", Font.PLAIN, 25));
 		word_label.setBounds(420, 269, 223, 45);
 		add(word_label);
 
 		word_field = new JTextField();
 		word_field.setColumns(10);
+		word_field.setFont(new Font("Calibri Light", Font.PLAIN, 25));
 		word_field.setBounds(688, 269, 383, 45);
 		add(word_field);
 	}
 
 	private void setupEnterSentence() {
 		JLabel sample_sentence_label = new JLabel("Sample sentence (optional):");
+		sample_sentence_label.setFont(new Font("Arial", Font.PLAIN, 25));
 		sample_sentence_label.setBounds(420, 399, 369, 45);
 		add(sample_sentence_label);
 
 		sample_sentence = new JTextArea();
 		sample_sentence.setText("");
+		sample_sentence.setFont(new Font("Calibri Light", Font.PLAIN, 25));
 		sample_sentence.setEditable(true);
 		sample_sentence.setLineWrap(true);
 		sample_sentence.setWrapStyleWord(true);

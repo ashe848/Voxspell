@@ -60,21 +60,8 @@ public class MainMenu extends JPanel{
 		help.setBounds(45, 72, 100, 100);
 		add(help);
 
-		JTextArea game_summary = new JTextArea();
-		game_summary.setWrapStyleWord(true);
-		game_summary.setEditable(false);
-		game_summary.setLineWrap(true);;
-		game_summary.setText("AbbyS\n\n");
-		game_summary.append("List Name:\nSome List\n\n");
-		game_summary.append("Level:\nMy Level Name\n\n");
-		game_summary.append("SLKdgasopgihsodgawoejgsdldgjsdgearystrhrtshffhdffg\n\n");
-		game_summary.append("Total Words:\n412 Name\n\n");
-		game_summary.append("Attempted:\n303\n\n");
-		game_summary.append("Didn't Get:\n303\n\n");
-		game_summary.setBounds(45, 319, 100, 389);
-		game_summary.setOpaque(false);
-		add(game_summary);
-//		setupAccuracyRateLabel();
+		
+		setupGameSummary();
 	}
 
 	/**
@@ -235,14 +222,20 @@ public class MainMenu extends JPanel{
 	/**
 	 * To display accuracy rates for level user is currently on
 	 */
-	void setupAccuracyRateLabel() {
-		JLabel accuracy_rate_label = new JLabel(parent_frame.getDataHandler().getAccuracyRates()); 
-		accuracy_rate_label.setFont(new Font("Courier New", Font.BOLD, 12));
-
-		add(accuracy_rate_label);
-		accuracy_rate_label.setVisible(true);
-		accuracy_rate_label.setLocation(50, 530);
-		accuracy_rate_label.setSize(400, 30);
-		accuracy_rate_label.setOpaque(true);
+	void setupGameSummary() {
+		JTextArea game_summary = new JTextArea();
+		game_summary.setWrapStyleWord(true);
+		game_summary.setEditable(false);
+		game_summary.setLineWrap(true);
+		game_summary.setFont(new Font("Calibri Light", Font.PLAIN, 18));
+		game_summary.setText(parent_frame.getDataHandler().user+" \n\n");
+		game_summary.append("List Name: \n"+parent_frame.getDataHandler().spelling_list_name+" \n\n");
+		game_summary.append("Level: \n"+parent_frame.getDataHandler().level_names.get(parent_frame.getDataHandler().current_level)+" \n\n");
+		game_summary.append("Total Words: \n"+parent_frame.getDataHandler().wordlist_words.get(parent_frame.getDataHandler().current_level).size()+"\n\n");
+		game_summary.append("Attempted: \n"+parent_frame.getDataHandler().getAttemptedCount()+" \n\n");
+		game_summary.append("Didn't Get: \n"+parent_frame.getDataHandler().reviewlist_words.get(parent_frame.getDataHandler().current_level).size()+"\n\n");
+		game_summary.setBounds(45, 319, 100, 389);
+		game_summary.setOpaque(false);
+		add(game_summary);
 	}
 }

@@ -1,5 +1,6 @@
 package voxspell;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,15 +39,20 @@ public class LogIn extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel title = new JLabel("Log In");
-		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
-		title.setHorizontalAlignment(SwingConstants.CENTER);
-		title.setBounds(32, 24, 606, 119);
-		contentPane.add(title);
+		setupTitle();
 //		setupLabels();
 		setupRegisteredUsers();
 		setupEnterName();
 		setupOKButton();
+	}
+
+	private void setupTitle() {
+		JLabel title = new JLabel("Log In");
+		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
+		title.setForeground(new Color(254, 157, 79));
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		title.setBounds(32, 24, 606, 119);
+		contentPane.add(title);
 	}
 
 	private void setupLabels() {
@@ -64,17 +70,20 @@ public class LogIn extends JFrame {
 	}
 
 	private void setupRegisteredUsers() {
-		JTextArea txtrRegisteredUsers = new JTextArea();
-		JScrollPane scrollBar = new JScrollPane(txtrRegisteredUsers);
+		JTextArea registered_users = new JTextArea();
+		JScrollPane scrollBar = new JScrollPane(registered_users);
 		scrollBar.setBounds(32, 164, 606, 310);
 		contentPane.add(scrollBar);
-		txtrRegisteredUsers.setEditable(false);
-		txtrRegisteredUsers.setLineWrap(true);
-		txtrRegisteredUsers.setWrapStyleWord(true);
-		txtrRegisteredUsers.setText("Visitor\n");
+		registered_users.setEditable(false);
+		registered_users.setLineWrap(true);
+		registered_users.setWrapStyleWord(true);
+		registered_users.setFont(new Font("Calibri Light", Font.PLAIN, 25));
+		
+		registered_users.setText("If your name is in the list, please enter your name to log in\n\nIf not, WELCOME! Enter your name and you will be registered.\n\nRegistered Users (Case Sensitive):\n");
+		registered_users.append("Visitor\n");
 		for (String u:parent_frame.getDataHandler().users){
 			if (!u.equals("Visitor")){
-				txtrRegisteredUsers.append(u+"\n");
+				registered_users.append(u+"\n");
 			}
 		}
 	}
@@ -82,16 +91,21 @@ public class LogIn extends JFrame {
 	private void setupEnterName() {
 		JLabel lblYourName = new JLabel("Your name:");
 		lblYourName.setBounds(32, 484, 172, 52);
+		lblYourName.setFont(new Font("Arial", Font.PLAIN, 25));
 		contentPane.add(lblYourName);
 
 		textField = new JTextField();
 		textField.setBounds(214, 484, 424, 52);
+		textField.setFont(new Font("Calibri Light", Font.PLAIN, 25));
 		textField.setColumns(10);
 		contentPane.add(textField);
 	}
 
 	private void setupOKButton() {
 		final JLabel lblOnlyAlphabeticalCharacters = new JLabel("");
+		lblOnlyAlphabeticalCharacters.setFont(new Font("Arial", Font.PLAIN, 25));
+		lblOnlyAlphabeticalCharacters.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOnlyAlphabeticalCharacters.setForeground(new Color(254, 157, 79));
 		contentPane.add(lblOnlyAlphabeticalCharacters);
 
 		JButton btnOk = new JButton("OK");

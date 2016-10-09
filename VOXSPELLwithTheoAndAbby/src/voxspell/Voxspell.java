@@ -102,7 +102,7 @@ public class Voxspell extends JFrame{
 		this.getContentPane().removeAll();
 		this.repaint();
 
-		//Change panel pased on ID passed into method. Initialise extra constructor parameters if needed.
+		//Change panel based on ID passed into method. Initialise extra constructor parameters if needed.
 		switch (id) {
 		case MainMenu:
 			main_menu=new MainMenu(this);

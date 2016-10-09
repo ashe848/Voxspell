@@ -43,6 +43,7 @@ Fontconfig warning: FcPattern object size does not accept value "0"
 Fontconfig warning: FcPattern object size does not accept value "0"
 Fontconfig warning: FcPattern object size does not accept value "0"
 
+3. For some random reason Build List doesn't work on return from video in UG4
 =============================================
 
 * Help screens are not yet complete

@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import voxspell.Voxspell.PanelID;
-import windowbuilder.VoxMouseAdapter;
 
 @SuppressWarnings("serial")
 

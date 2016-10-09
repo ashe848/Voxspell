@@ -23,7 +23,6 @@ import javax.swing.table.TableRowSorter;
 
 import voxspell.StatsChooser.StatsType;
 import voxspell.Voxspell.PanelID;
-import windowbuilder.VoxMouseAdapter;
 
 @SuppressWarnings({ "static-access", "serial", "unchecked", "rawtypes" })
 

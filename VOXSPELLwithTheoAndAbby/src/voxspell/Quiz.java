@@ -21,7 +21,6 @@ import javax.swing.SwingConstants;
 import voxspell.Festival.FestivalSpeed;
 import voxspell.Festival.FestivalVoice;
 import voxspell.Voxspell.PanelID;
-import windowbuilder.VoxMouseAdapter;
 
 @SuppressWarnings({ "static-access", "serial", "unchecked", "rawtypes" })
 

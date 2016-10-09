@@ -78,7 +78,6 @@ public class Voxspell extends JFrame{
 	 * @author Abby S
 	 */
 	private void setGraphicalEnhancements() {
-		//
 		UIManager.put("OptionPane.messageFont", new Font("Arial", Font.PLAIN, 25));
 		UIManager.put("OptionPane.buttonFont", new Font("Arial", Font.PLAIN, 25));
 		UIManager.put("OptionPane.background", new Color(235, 235, 235));

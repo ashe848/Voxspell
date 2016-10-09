@@ -27,7 +27,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import voxspell.Voxspell.PanelID;
-import windowbuilder.VoxMouseAdapter;
 
 @SuppressWarnings({ "static-access", "serial", "unchecked", "rawtypes" })
 

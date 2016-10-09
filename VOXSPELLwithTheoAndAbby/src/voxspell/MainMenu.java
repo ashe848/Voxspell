@@ -17,7 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import voxspell.Voxspell.PanelID;
-import windowbuilder.VoxMouseAdapter;
 
 @SuppressWarnings({ "static-access", "serial" })
 

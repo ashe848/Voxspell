@@ -33,8 +33,7 @@ public class StatsChooser extends JPanel{
 	 * Constructor. Setting up panel properties and initialise GUI elements
 	 */
 	public StatsChooser(Voxspell parent){
-		super();
-		setSize(1366,747);
+		setSize(1366,745);
 		setLayout(null);
 		setBackground(new Color(235, 235, 235));
 

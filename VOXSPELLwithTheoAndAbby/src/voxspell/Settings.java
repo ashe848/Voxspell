@@ -49,7 +49,7 @@ public class Settings extends JPanel {
 	 * Constructor, initialise panel properties and GUI elements
 	 */
 	public Settings(Voxspell parent){
-		setSize(800,600);
+		setSize(1366,745);
 		setLayout(null);
 		setBackground(new Color(235, 235, 235));
 
@@ -150,7 +150,8 @@ public class Settings extends JPanel {
 	private void setupWarningLabel() {
 		JLabel warning_label = new JLabel("^ other settings will not be saved ^");
 		warning_label.setForeground(Color.RED);
-		warning_label.setFont(new Font("Arial", Font.PLAIN, 20));
+		warning_label.setFont(new Font("Arial", Font.PLAIN, 16));
+		warning_label.setHorizontalAlignment(SwingConstants.CENTER);
 		warning_label.setBounds(543, 668, 299, 30);
 		add(warning_label);
 	}
@@ -159,8 +160,8 @@ public class Settings extends JPanel {
 	 * Drop down to change festival voice
 	 */
 	private void setupChangeVoice() {
-		JLabel change_voice_label = new JLabel("Change voice (you can change this during the quiz as well)");
-		change_voice_label.setBounds(32, 169, 520, 30);
+		JLabel change_voice_label = new JLabel("Change voice (you can also change this during the quiz)");
+		change_voice_label.setBounds(32, 169, 580, 30);
 		change_voice_label.setFont(new Font("Arial", Font.PLAIN, 20));
 		change_voice_label.setForeground(Color.BLACK);
 		add(change_voice_label);
@@ -188,8 +189,8 @@ public class Settings extends JPanel {
 	 * Drop down to change festival speed
 	 */
 	private void setupChangeSpeed() {
-		JLabel change_speed_label = new JLabel("Change speed (you can change this during the quiz as well)");
-		change_speed_label.setBounds(32, 294, 520, 30);
+		JLabel change_speed_label = new JLabel("Change speed (you can also change this during the quiz)");
+		change_speed_label.setBounds(32, 294, 580, 30);
 		change_speed_label.setFont(new Font("Arial", Font.PLAIN, 20));
 		change_speed_label.setForeground(Color.BLACK);
 		add(change_speed_label);

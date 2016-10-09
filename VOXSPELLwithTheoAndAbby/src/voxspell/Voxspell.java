@@ -34,9 +34,7 @@ public class Voxspell extends JFrame{
 	 * Constructor. Initialise frame, create data structure & set original panel to main menu
 	 */
 	public Voxspell(){
-		super();
-
-		//TODO: 747 height
+		//TODO: 745 height
 		setTitle("VOXSPELL");
 		setSize(1366,772);
 		setLocationRelativeTo(null);
@@ -75,13 +73,13 @@ public class Voxspell extends JFrame{
 	private void setGraphicalEnhancements() {
 		//not everything I want to set works. Might be a Java version thing
 		UIManager.put("OptionPane.messageFont", new Font("Arial", Font.PLAIN, 25));
-		UIManager.put("OptionPane.buttonFont", new Font("Arial", Font.PLAIN, 25));//TODO check this works on Linux
+		UIManager.put("OptionPane.buttonFont", new Font("Arial", Font.PLAIN, 25));
 		UIManager.put("OptionPane.background", new Color(235, 235, 235));
 		UIManager.put("ComboBox.selectionBackground", new Color(254, 157, 79));
 		UIManager.put("ComboBox.background", Color.WHITE);
 		UIManager.put("ScrollBar.background", new Color(254, 157, 79));
 		UIManager.put("ScrollPane.background", new Color(254, 157, 79));
-		UIManager.put("TableHeader.font", new Font("Arial", Font.PLAIN, 25));
+		UIManager.put("TableHeader.font", new Font("Arial", Font.PLAIN, 23));
 		UIManager.put("TableHeader.foreground", Color.WHITE);
 		UIManager.put("TableHeader.background", new Color(254, 157, 79));
 	}

@@ -61,7 +61,7 @@ public class Quiz extends JPanel {
 	 * @param 
 	 */
 	public Quiz(Voxspell parent, PanelID type){
-		setSize(1366,747);
+		setSize(1366,745);
 		setLayout(null);
 		setBackground(new Color(235, 235, 235));
 
@@ -136,6 +136,7 @@ public class Quiz extends JPanel {
 	private void setupProgressBar() {
 		progress_bar = new JProgressBar(0,words_to_spell.size());
 		progress_bar.setBounds(32, 170, 1284, 34);
+		progress_bar.setBorderPainted(false);
 		progress_bar.setBackground(Color.WHITE);
 		add(progress_bar);
 	}

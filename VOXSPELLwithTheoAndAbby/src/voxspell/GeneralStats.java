@@ -43,8 +43,7 @@ public class GeneralStats extends JPanel {
 	 * Constructor, initialise panel properties and set up GUI elements
 	 */
 	public GeneralStats(Voxspell parent, StatsType type){
-		super();
-		setSize(1366,747);
+		setSize(1366,745);
 		setLayout(null);
 		setBackground(new Color(235, 235, 235));
 

@@ -47,12 +47,12 @@ public class Video extends JPanel{
 	 * Also sets up buttons used to manipulate playback.
 	 */
 	public Video(Voxspell parent){
-		super();
-		setSize(1366,747);
+		setSize(1366,745);
 		setLayout(null);
 		setBackground(new Color(235, 235, 235));
 
 		parent_frame=parent;
+		panel = new JPanel(null);
 		
 		video = System.getProperty("user.dir")+"/rewardvideos/"+parent_frame.getDataHandler().getVideoName();
 		
@@ -72,7 +72,7 @@ public class Video extends JPanel{
 		title.setForeground(new Color(254, 157, 79));
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		title.setBounds(32, 24, 1284, 119);
-		add(title);
+		panel.add(title);
 	}
 
 	/**
@@ -84,7 +84,6 @@ public class Video extends JPanel{
 		media_player_component = new EmbeddedMediaPlayerComponent();
 		player = media_player_component.getMediaPlayer();
 
-		panel = new JPanel(null);
 		panel.add(media_player_component);
 		media_player_component.setBounds(32, 169, 1140, 496);
 
@@ -101,6 +100,7 @@ public class Video extends JPanel{
 		progressbar = new JProgressBar(0,duration);
 		progressbar.setForeground(Color.ORANGE);
 		progressbar.setBackground(Color.WHITE);
+		progressbar.setBorderPainted(false);
 		progressbar.setBounds(32, 675, 1140, 23);
 		progressbar.setValue(0);
 		panel.add(progressbar);

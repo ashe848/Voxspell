@@ -37,7 +37,6 @@ public class ListBuilder extends JPanel {
 	 * Constructor, initialise panel parameters and GUI elements
 	 */
 	public ListBuilder(Voxspell parent){
-		setSize(1366,747);
 		setLayout(null);
 		setBackground(new Color(235, 235, 235));
 

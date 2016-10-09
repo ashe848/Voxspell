@@ -41,8 +41,7 @@ public class MainMenu extends JPanel{
 	 * Constructor, initialise panel properties and GUI elements
 	 */
 	MainMenu(Voxspell parent){
-		super();
-		setSize(1366,747);
+		setSize(1366,745);
 		setLayout(null);
 		setBackground(new Color(235, 235, 235));
 

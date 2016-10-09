@@ -45,8 +45,7 @@ public class LevelStats extends JPanel{
 	 * Constructor, initialise panel properties and adding GUI elements
 	 */
 	public LevelStats(Voxspell parent, StatsType type){
-		super();
-		setSize(800,600);
+		setSize(1366,745);
 		setLayout(null);
 		setBackground(new Color(235, 235, 235));
 

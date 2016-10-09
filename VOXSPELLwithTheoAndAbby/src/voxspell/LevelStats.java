@@ -177,7 +177,7 @@ public class LevelStats extends JPanel{
 
 	/**
 	 * displays popup help menu
-	 * @author Abby SS
+	 * @author Abby S
 	 */
 	private void setupHelpButton() {
 		ImageIcon help_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "help.png");

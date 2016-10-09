@@ -103,8 +103,8 @@ public class QuizComplete extends JPanel{
 		 * 
 		 * Original author comment:
 		 * Smile for a bit, because everyone deserves to.
-		 * The second mix that I made for submission. This song is more my poppy, upbeat, sound. If you¡¯re wondering, the title comes from a line from a movie wherein one character was urged to smile more. 
-		 * I don¡¯t know why but I found that moment stuck with me. In any case, please enjoy.
+		 * The second mix that I made for submission. This song is more my poppy, upbeat, sound. If you're wondering, the title comes from a line from a movie wherein one character was urged to smile more. 
+		 * I don't know why but I found that moment stuck with me. In any case, please enjoy.
 		 */
 		File audio_file=new File(parent_frame.getResourceFileLocation()+"quiz_complete_audio.wav");
 

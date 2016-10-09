@@ -12,7 +12,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -58,9 +57,12 @@ public class MainMenu extends JPanel{
 		setupStatsButton();
 		setupExitButton();
 		
-		JButton help = new JButton("Help");
-		help.setBounds(45, 72, 100, 100);
-		add(help);
+		ImageIcon help_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "help.png");
+		JButton help_button = new JButton("",help_button_image);
+		help_button.setBorderPainted(false);
+		help_button.setBounds(45, 45, 100, 100);
+		help_button.addMouseListener(new VoxMouseAdapter(help_button,null));
+		add(help_button);
 	
 		setupGameSummary();
 	}
@@ -72,7 +74,7 @@ public class MainMenu extends JPanel{
 	 */
 	private void setupBackground(){
 		try {
-			bg_image = ImageIO.read(new File(parent_frame.getResourceFileLocation() + "Background.png"));
+			bg_image = ImageIO.read(new File(parent_frame.getResourceFileLocation() + "background.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -92,8 +94,10 @@ public class MainMenu extends JPanel{
 	 * @author Abby S
 	 */
 	private void setupLogInButton() {
-		JButton log_in_button= new JButton("Log In");
+		ImageIcon login_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "login.png");
+		JButton log_in_button= new JButton("",login_button_image);
 		log_in_button.setBounds(965, 72, 177, 100);
+		log_in_button.setBorderPainted(false);
 		log_in_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LogIn log_in_frame=new LogIn(parent_frame);
@@ -109,7 +113,8 @@ public class MainMenu extends JPanel{
 	 * @author Abby S
 	 */
 	private void setupListBuilderButton(){
-		JButton list_builder_button = new JButton("Custom List Builder");
+		ImageIcon buildlist_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "buildlist.png");
+		JButton list_builder_button = new JButton("",buildlist_button_image);
 		list_builder_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				parent_frame.changePanel(PanelID.ListBuilder);
@@ -124,7 +129,7 @@ public class MainMenu extends JPanel{
 	 * New Spelling Quiz button creation
 	 */
 	private void setupNewQuizButton(){
-		ImageIcon newquiz_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "quiz_button.png");
+		ImageIcon newquiz_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "newquiz.png");
 		JButton new_quiz_button = new JButton("", newquiz_button_image);
 		new_quiz_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -140,7 +145,7 @@ public class MainMenu extends JPanel{
 	 * Review Quiz button creation
 	 */
 	private void setupReviewButton(){
-		ImageIcon review_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "review_button.png");
+		ImageIcon review_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "review.png");
 		JButton review_button = new JButton("", review_button_image);
 		review_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -156,8 +161,9 @@ public class MainMenu extends JPanel{
 	 * Settings button creation
 	 */
 	private void setupSettingsButton(){
-		ImageIcon setting_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "settings_button.png");
+		ImageIcon setting_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "settings.png");
 		JButton settings_button = new JButton("", setting_button_image);
+		settings_button.setBorderPainted(false);
 		settings_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				parent_frame.changePanel(PanelID.Settings);
@@ -172,8 +178,9 @@ public class MainMenu extends JPanel{
 	 * Statistics button creation
 	 */
 	private void setupStatsButton(){
-		ImageIcon stats_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "stats_button.png");
+		ImageIcon stats_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "stats.png");
 		JButton stats_button = new JButton("", stats_button_image);
+		stats_button.setBorderPainted(false);
 		stats_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				parent_frame.changePanel(PanelID.StatSelection);
@@ -188,8 +195,9 @@ public class MainMenu extends JPanel{
 	 * Exit button creation
 	 */
 	private void setupExitButton(){
-		ImageIcon exit_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "ext_btn.png");
+		ImageIcon exit_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "exit.png");
 		JButton exit_button = new JButton("", exit_button_image);
+		exit_button.setBorderPainted(false);
 		exit_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean ask_leave_result = askToLeave();
@@ -230,12 +238,13 @@ public class MainMenu extends JPanel{
 		game_summary.setLineWrap(true);
 		game_summary.setFont(new Font("Calibri Light", Font.PLAIN, 18));
 		game_summary.setText(parent_frame.getDataHandler().getUser()+" \n\n");
-		game_summary.append("List Name: \n"+parent_frame.getDataHandler().getSpellingListName()+" \n\n");
+		game_summary.append("Personal Best: \n"+parent_frame.getDataHandler().getPersonalBest()+" \n\n\n");
+		game_summary.append("Current List: \n"+parent_frame.getDataHandler().getSpellingListName()+" \n\n");
 		game_summary.append("Level: \n"+parent_frame.getDataHandler().getLevelNames().get(parent_frame.getDataHandler().getCurrentLevel())+" \n\n");
 		game_summary.append("Total Words: \n"+parent_frame.getDataHandler().getWordlistWords().get(parent_frame.getDataHandler().getCurrentLevel()).size()+"\n\n");
 		game_summary.append("Attempted: \n"+parent_frame.getDataHandler().getAttemptedCount()+" \n\n");
 		game_summary.append("Didn't Get: \n"+parent_frame.getDataHandler().getReviewlistWords().get(parent_frame.getDataHandler().getCurrentLevel()).size()+"\n\n");
-		game_summary.setBounds(45, 319, 137, 389);
+		game_summary.setBounds(30, 179, 130, 529);
 		game_summary.setOpaque(false);
 		add(game_summary);
 	}

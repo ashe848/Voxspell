@@ -64,7 +64,7 @@ public class MainMenu extends JFrame {
 
 
 		JButton Help = new JButton("Help");
-		Help.setBounds(45, 72, 100, 100);
+		Help.setBounds(45, 45, 100, 100);
 		contentPane.add(Help);
 
 		
@@ -79,7 +79,7 @@ public class MainMenu extends JFrame {
 		txtrAbbys.append("Total Words:\n412 Name\n\n");
 		txtrAbbys.append("Attempted:\n303\n\n");
 		txtrAbbys.append("Didn't Get:\n303\n\n");
-		txtrAbbys.setBounds(45, 319, 137, 389);
+		txtrAbbys.setBounds(40, 179, 137, 529);
 		txtrAbbys.setOpaque(false);
 		contentPane.add(txtrAbbys);
 		

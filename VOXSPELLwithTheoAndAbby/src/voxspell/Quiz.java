@@ -26,6 +26,7 @@ import javax.swing.SwingConstants;
 import voxspell.Festival.FestivalSpeed;
 import voxspell.Festival.FestivalVoice;
 import voxspell.Voxspell.PanelID;
+import windowbuilder.VoxMouseAdapter;
 
 @SuppressWarnings({ "static-access", "serial", "unchecked", "rawtypes" })
 
@@ -86,6 +87,13 @@ public class Quiz extends JPanel {
 			setupBackButton();
 //			setupBackground();
 
+			ImageIcon help_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "help.png");
+			JButton help_button = new JButton("",help_button_image);
+			help_button.setBorderPainted(false);
+			help_button.setBounds(1216, 24, 100, 100);
+			help_button.addMouseListener(new VoxMouseAdapter(help_button,null));
+			add(help_button);
+			
 			current_attempt_number = 1;
 			current_word_number = 0;
 
@@ -187,8 +195,9 @@ public class Quiz extends JPanel {
 	 * sets up button that user presses to submit their spelling guess
 	 */
 	private void setupSubmitButton() {
-		ImageIcon submit_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "submit_button.png");
+		ImageIcon submit_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "submit.png");
 		JButton submit_button = new JButton("", submit_button_image);
+		submit_button.setBorderPainted(false);
 		submit_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -205,7 +214,7 @@ public class Quiz extends JPanel {
 	 * adds button that lets user re-hear word to spell
 	 */
 	private void setupSayAgainButton() {
-		ImageIcon sayagain_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "sayagain_button_alt.png");
+		ImageIcon sayagain_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "sayagain.png");
 		JButton sayagain_button = new JButton("", sayagain_button_image);
 		sayagain_button.addActionListener(new ActionListener() {
 			@Override
@@ -282,7 +291,8 @@ public class Quiz extends JPanel {
 	 * @author Abby S
 	 */
 	private void setupAddToReviewButton() {
-		JButton add_to_review = new JButton("Add to review");
+		ImageIcon addreview_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "addtoreview.png");
+		JButton add_to_review = new JButton("", addreview_button_image);
 		add_to_review.setBounds(374, 598, 177, 100);
 		add_to_review.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -299,8 +309,10 @@ public class Quiz extends JPanel {
 	 * Back button to return to previous panel (user prompted before actually doing so)
 	 */
 	private void setupBackButton(){
-		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
+		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back.png");
 		JButton back_button = new JButton("", back_button_image);
+		back_button.setBorderPainted(false);
+		back_button.setContentAreaFilled(false);
 		back_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

@@ -38,7 +38,7 @@ public class Voxspell extends JFrame{
 
 		//TODO: 747 height
 		setTitle("VOXSPELL");
-		setSize(1366,777);
+		setSize(1366,772);
 		setLocationRelativeTo(null);
 		setResizable(false);
 

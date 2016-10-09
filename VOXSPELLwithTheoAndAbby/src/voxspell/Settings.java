@@ -365,8 +365,10 @@ public class Settings extends JPanel {
 	 * Back button to return to previous panel (user prompted to save before actually doing so)
 	 */
 	private void setupBackButton(){
-		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
+		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back.png");
 		JButton back_button = new JButton("", back_button_image);
+		back_button.setBorderPainted(false);
+		back_button.setContentAreaFilled(false);
 		back_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean ask_save_result = askForConfirmation("Would you like to Save?", "Save Settings");

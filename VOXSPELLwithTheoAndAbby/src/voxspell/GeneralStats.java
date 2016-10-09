@@ -143,8 +143,10 @@ public class GeneralStats extends JPanel {
 	 * Back button to return to previous panel
 	 */
 	private void setupBackButton(){
-		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
+		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back.png");
 		JButton back_button = new JButton("", back_button_image);
+		back_button.setBorderPainted(false);
+		back_button.setContentAreaFilled(false);
 		back_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -162,7 +164,7 @@ public class GeneralStats extends JPanel {
 	private void setupAccuracyRateLabel() {
 		JLabel accuracy_rate_label = new JLabel(parent_frame.getDataHandler().getAccuracyRates()); 
 		accuracy_rate_label.setFont(new Font("Calibri Light", Font.PLAIN, 25));
-
+		accuracy_rate_label.setHorizontalAlignment(SwingConstants.CENTER);
 		add(accuracy_rate_label);
 		accuracy_rate_label.setBounds(32, 630, 1136, 68);
 		accuracy_rate_label.setVisible(true);

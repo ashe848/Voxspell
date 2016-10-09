@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -124,7 +125,8 @@ public class ListBuilder extends JPanel {
 	}
 
 	private void setupAddButton() {
-		JButton add_word_button = new JButton("Add This Word");
+		ImageIcon add_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "addword.png");
+		JButton add_word_button = new JButton("", add_button_image);
 		add_word_button.setBounds(1139, 180, 177, 100);
 		add_word_button.addActionListener(new ActionListener() {
 			@Override
@@ -150,7 +152,8 @@ public class ListBuilder extends JPanel {
 	}
 
 	private void setupSaveButton() {
-		JButton save_Button = new JButton("Save");
+		ImageIcon save_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "save.png");
+		JButton save_Button = new JButton("", save_button_image);
 		save_Button.setBounds(1139, 461, 177, 100);
 		save_Button.addActionListener(new ActionListener() {
 			@Override
@@ -178,7 +181,8 @@ public class ListBuilder extends JPanel {
 	}
 
 	private void setupDiscardButton() {
-		JButton discard_button = new JButton("Discard");
+		ImageIcon discard_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "discard.png");
+		JButton discard_button = new JButton("",discard_button_image);
 		discard_button.setBounds(1139, 598, 177, 100);
 		discard_button.addActionListener(new ActionListener() {
 			@Override

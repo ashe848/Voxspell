@@ -210,10 +210,10 @@ public class QuizComplete extends JPanel{
 	 * Button to move up a level
 	 */
 	private void setupLevelUpButton() {
-		ImageIcon levelup_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "levelup_button.png");
+		ImageIcon levelup_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "levelup.png");
 		final JButton level_up_button = new JButton("", levelup_button_image);
 
-		level_up_button.setBounds(648, 404, 354, 200);
+		level_up_button.setBounds(648, 404, 355, 200);
 		level_up_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//if not on highest level
@@ -255,10 +255,10 @@ public class QuizComplete extends JPanel{
 	 * Button to play video
 	 */
 	private void setupVideoButton() {
-		ImageIcon videoreward_image = new ImageIcon(parent_frame.getResourceFileLocation() + "video_reward_button.png");
+		ImageIcon videoreward_image = new ImageIcon(parent_frame.getResourceFileLocation() + "playvideo.png");
 		JButton video_button = new JButton("", videoreward_image);		
 
-		video_button.setBounds(648, 169, 354, 200);
+		video_button.setBounds(648, 169, 355, 200);
 		video_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -296,8 +296,10 @@ public class QuizComplete extends JPanel{
 	 * Back button to return to previous panel
 	 */
 	private void setupBackButton(){
-		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
+		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back.png");
 		JButton back_button = new JButton("", back_button_image);
+		back_button.setBorderPainted(false);
+		back_button.setContentAreaFilled(false);
 		back_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				clip.close();
@@ -319,7 +321,7 @@ public class QuizComplete extends JPanel{
 	private void setupAccuracyRateLabel() {
 		JLabel accuracy_rate_label = new JLabel(parent_frame.getDataHandler().getAccuracyRates()); 
 		accuracy_rate_label.setFont(new Font("Calibri Light", Font.PLAIN, 25));
-
+		accuracy_rate_label.setHorizontalAlignment(SwingConstants.CENTER);
 		add(accuracy_rate_label);
 		accuracy_rate_label.setBounds(32, 630, 1136, 68);
 		accuracy_rate_label.setOpaque(true);

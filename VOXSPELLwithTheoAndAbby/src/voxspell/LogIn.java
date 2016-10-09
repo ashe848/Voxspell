@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -96,7 +97,8 @@ public class LogIn extends JFrame {
 		warning_label.setForeground(new Color(254, 157, 79));
 		content_pane.add(warning_label);
 
-		JButton ok_button = new JButton("OK");
+		ImageIcon ok_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "ok.png");
+		JButton ok_button = new JButton("",ok_button_image);
 		ok_button.setBounds(247, 598, 177, 100);
 		content_pane.add(ok_button);
 		ok_button.addActionListener(new ActionListener() {

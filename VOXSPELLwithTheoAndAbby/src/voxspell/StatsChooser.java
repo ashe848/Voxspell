@@ -74,7 +74,7 @@ public class StatsChooser extends JPanel{
 	 * Creates button that displays statistics data for all levels from all sessions
 	 */
 	private void setupPersistentAllButton(){
-		ImageIcon persistent_all_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "persistent_all_button.png");
+		ImageIcon persistent_all_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "allalllevels.png");
 		JButton persistent_all_button = new JButton("", persistent_all_button_image);
 		persistent_all_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -83,14 +83,14 @@ public class StatsChooser extends JPanel{
 		});
 		persistent_all_button.addMouseListener(new VoxMouseAdapter(persistent_all_button,null));
 		add(persistent_all_button);
-		persistent_all_button.setBounds(153, 165, 354, 200);
+		persistent_all_button.setBounds(153, 165, 355, 200);
 	}
 
 	/**
 	 * Creates button that displays statistics data for user selected level, from all sessions
 	 */
 	private void setupPersistentLevelButton(){
-		ImageIcon persistent_level_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "persistent_level_button.png");
+		ImageIcon persistent_level_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "allbylevel.png");
 		JButton persistent_level_button = new JButton("", persistent_level_button_image);
 		persistent_level_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -99,14 +99,14 @@ public class StatsChooser extends JPanel{
 		});
 		persistent_level_button.addMouseListener(new VoxMouseAdapter(persistent_level_button,null));
 		add(persistent_level_button);
-		persistent_level_button.setBounds(702, 165, 354, 200);
+		persistent_level_button.setBounds(702, 165, 355, 200);
 	}
 
 	/**
 	 * Creates button that displays statistics data for all levels, only from current session
 	 */
 	private void setupSessionAllButton(){
-		ImageIcon session_all_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "session_all_button.png");
+		ImageIcon session_all_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "thisalllevels.png");
 		JButton session_all_button = new JButton("", session_all_button_image);
 		session_all_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -115,7 +115,7 @@ public class StatsChooser extends JPanel{
 		});
 		session_all_button.addMouseListener(new VoxMouseAdapter(session_all_button,null));
 		add(session_all_button);
-		session_all_button.setBounds(153, 395, 354, 200);
+		session_all_button.setBounds(153, 395, 355, 200);
 	}
 
 	/**
@@ -123,7 +123,7 @@ public class StatsChooser extends JPanel{
 	 * but only from current session
 	 */
 	private void setupSessionLevelButton(){
-		ImageIcon session_level_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "session_level_button.png");
+		ImageIcon session_level_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "thisbylevel.png");
 		JButton session_level_button = new JButton("", session_level_button_image);
 		session_level_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -132,15 +132,17 @@ public class StatsChooser extends JPanel{
 		});
 		session_level_button.addMouseListener(new VoxMouseAdapter(session_level_button,null));
 		add(session_level_button);
-		session_level_button.setBounds(702, 395, 354, 200);
+		session_level_button.setBounds(702, 395, 355, 200);
 	}
 
 	/**
 	 * Back button to return to previous panel (main menu)
 	 */
 	private void setupBackButton(){
-		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back_button.png");
+		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back.png");
 		JButton back_button = new JButton("", back_button_image);
+		back_button.setBorderPainted(false);
+		back_button.setContentAreaFilled(false);
 		back_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				parent_frame.changePanel(PanelID.MainMenu);
@@ -157,7 +159,7 @@ public class StatsChooser extends JPanel{
 	private void setupAccuracyRateLabel() {
 		JLabel accuracy_rate_label = new JLabel(parent_frame.getDataHandler().getAccuracyRates()); 
 		accuracy_rate_label.setFont(new Font("Calibri Light", Font.PLAIN, 25));
-
+		accuracy_rate_label.setHorizontalAlignment(SwingConstants.CENTER);
 		add(accuracy_rate_label);
 		accuracy_rate_label.setBounds(32, 630, 1136, 68);
 		accuracy_rate_label.setOpaque(true);

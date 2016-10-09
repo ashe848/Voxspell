@@ -6,11 +6,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -85,7 +82,6 @@ public class Quiz extends JPanel {
 			setupChangeSpeed();
 			setupAddToReviewButton();
 			setupBackButton();
-//			setupBackground();
 
 			ImageIcon help_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "help.png");
 			JButton help_button = new JButton("",help_button_image);
@@ -419,20 +415,6 @@ public class Quiz extends JPanel {
 		} else{ //Otherwise keep going with quiz
 			startQuiz();
 		}
-	}
-
-	/**
-	 * Puts the background image, overriding paintComponent method(below) to ensure functionality
-	 */
-	private void setupBackground(){
-		//http://stackoverflow.com/questions/1466240/how-to-set-an-image-as-a-background-for-frame-in-swing-gui-of-java
-		try {
-			bg_image = ImageIO.read(new File(parent_frame.getResourceFileLocation() + "quiz_bg.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		setLocation(0,0);
-		setSize(800, 600);
 	}
 
 	/**

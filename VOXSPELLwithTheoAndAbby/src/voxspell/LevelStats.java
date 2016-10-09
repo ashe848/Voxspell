@@ -6,11 +6,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -63,7 +60,6 @@ public class LevelStats extends JPanel{
 		setupLevelChooser(type);
 		setupBackButton();
 		setupAccuracyRateLabel();
-//		setupBackground(type);
 	}
 
 	private void setupTitle(StatsType type) {
@@ -204,27 +200,6 @@ public class LevelStats extends JPanel{
 		add(accuracy_rate_label);
 		accuracy_rate_label.setBounds(32, 630, 1136, 68);
 		accuracy_rate_label.setOpaque(true);	
-	}
-
-	/**
-	 * Puts the background image, overriding paintComponent method(below) to ensure functionality
-	 * @param type 	determines which background image is displayed
-	 */
-	private void setupBackground(StatsType type){
-		//http://stackoverflow.com/questions/1466240/how-to-set-an-image-as-a-background-for-frame-in-swing-gui-of-java
-		try {
-			String background_filename="";
-			if (type.equals(StatsType.Persistent)){
-				background_filename="level_stats_bg_alt.png";
-			} else {
-				background_filename="level_stats_current_bg_alt.png";
-			}
-			bg_image = ImageIO.read(new File(parent_frame.getResourceFileLocation() + background_filename));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		setLocation(0,0);
-		setSize(800, 600);
 	}
 
 	/**

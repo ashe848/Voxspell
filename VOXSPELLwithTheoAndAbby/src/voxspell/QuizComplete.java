@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -73,7 +72,6 @@ public class QuizComplete extends JPanel{
 		determineDisplay();
 		setupBackButton();
 		setupAccuracyRateLabel();
-//		setupBackground();
 	}
 
 	private void setupTitle() {
@@ -325,20 +323,6 @@ public class QuizComplete extends JPanel{
 		add(accuracy_rate_label);
 		accuracy_rate_label.setBounds(32, 630, 1136, 68);
 		accuracy_rate_label.setOpaque(true);
-	}
-
-	/**
-	 * Puts the background image, overriding paintComponent method(below) to ensure functionality
-	 */
-	private void setupBackground(){
-		//http://stackoverflow.com/questions/1466240/how-to-set-an-image-as-a-background-for-frame-in-swing-gui-of-java
-		try {
-			bg_image = ImageIO.read(new File(parent_frame.getResourceFileLocation() + "quiz_complete_bg.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		setLocation(0,0);
-		setSize(800, 600);
 	}
 
 	/**

@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -69,7 +68,6 @@ public class Settings extends JPanel {
 		setupChooseWordList();
 		setupChooseRewardVideo();
 		setupBackButton();
-		//		setupBackground();
 	}
 
 
@@ -421,20 +419,6 @@ public class Settings extends JPanel {
 			return true;
 		}
 		return false;
-	}
-
-	/**
-	 * Puts the background image, overriding paintComponent method(below) to ensure functionality
-	 */
-	private void setupBackground(){
-		//http://stackoverflow.com/questions/1466240/how-to-set-an-image-as-a-background-for-frame-in-swing-gui-of-java
-		try {
-			bg_image = ImageIO.read(new File(parent_frame.getResourceFileLocation() + "settings_bg.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		setLocation(0,0);
-		setSize(800, 600);
 	}
 
 	/**

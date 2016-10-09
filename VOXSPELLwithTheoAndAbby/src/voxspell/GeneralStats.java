@@ -6,11 +6,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -57,7 +54,6 @@ public class GeneralStats extends JPanel {
 		setupTable(type);		
 		setupBackButton();
 		setupAccuracyRateLabel();
-//		setupBackground(type);
 	}
 
 	private void setupTitle(StatsType type) {
@@ -169,27 +165,6 @@ public class GeneralStats extends JPanel {
 		accuracy_rate_label.setBounds(32, 630, 1136, 68);
 		accuracy_rate_label.setVisible(true);
 		accuracy_rate_label.setOpaque(true);
-	}
-
-	/**
-	 * Puts the background image, overriding paintComponent method(below) to ensure functionality
-	 * @param type 		Type of stats, determines which background image to display
-	 */
-	private void setupBackground(StatsType type){
-		//http://stackoverflow.com/questions/1466240/how-to-set-an-image-as-a-background-for-frame-in-swing-gui-of-java
-		try {
-			String background_filename="";
-			if (type.equals(StatsType.Persistent)){
-				background_filename="general_stats_bg.png";
-			} else {
-				background_filename="general_stats_current_bg.png";
-			}
-			bg_image = ImageIO.read(new File(parent_frame.getResourceFileLocation() + background_filename));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		setLocation(0,0);
-		setSize(800, 600);
 	}
 
 	/**

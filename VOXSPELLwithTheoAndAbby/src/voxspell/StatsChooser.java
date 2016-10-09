@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import voxspell.Voxspell.PanelID;
+import windowbuilder.VoxMouseAdapter;
 
 @SuppressWarnings("serial")
 
@@ -40,6 +41,7 @@ public class StatsChooser extends JPanel{
 		parent_frame=parent;
 
 		setupTitle();
+		setupHelpButton();
 		setupPersistentAllButton();
 		setupPersistentLevelButton();
 		setupSessionAllButton();
@@ -55,6 +57,21 @@ public class StatsChooser extends JPanel{
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		title.setBounds(32, 24, 1136, 119);
 		add(title);
+	}
+	
+	private void setupHelpButton() {
+		ImageIcon help_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "help.png");
+		JButton help_button = new JButton("",help_button_image);
+		help_button.setBorderPainted(false);
+		help_button.setBounds(1216, 24, 100, 100);
+		help_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Help help_frame=new Help(PanelID.StatSelection);
+				help_frame.setVisible(true);
+			}
+		});
+		help_button.addMouseListener(new VoxMouseAdapter(help_button,null));
+		add(help_button);
 	}
 
 	/**

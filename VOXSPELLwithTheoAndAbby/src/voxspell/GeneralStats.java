@@ -24,6 +24,7 @@ import javax.swing.table.TableRowSorter;
 
 import voxspell.StatsChooser.StatsType;
 import voxspell.Voxspell.PanelID;
+import windowbuilder.VoxMouseAdapter;
 
 @SuppressWarnings({ "static-access", "serial", "unchecked", "rawtypes" })
 
@@ -50,7 +51,8 @@ public class GeneralStats extends JPanel {
 		parent_frame=parent;
 
 		setupTitle(type);
-		setupTable(type);		
+		setupTable(type);
+		setupHelpButton();
 		setupBackButton();
 		setupAccuracyRateLabel();
 	}
@@ -151,6 +153,21 @@ public class GeneralStats extends JPanel {
 
 		add(back_button);
 		back_button.setBounds(1216, 598, 100, 100);
+	}
+	
+	private void setupHelpButton() {
+		ImageIcon help_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "help.png");
+		JButton help_button = new JButton("",help_button_image);
+		help_button.setBorderPainted(false);
+		help_button.setBounds(1216, 24, 100, 100);
+		help_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Help help_frame=new Help(PanelID.PersistentAllStats);
+				help_frame.setVisible(true);
+			}
+		});
+		help_button.addMouseListener(new VoxMouseAdapter(help_button,null));
+		add(help_button);
 	}
 
 	/**

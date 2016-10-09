@@ -56,14 +56,24 @@ public class MainMenu extends JPanel{
 		setupStatsButton();
 		setupExitButton();
 		
+		setupHelpButton();
+	
+		setupGameSummary();
+	}
+
+	private void setupHelpButton() {
 		ImageIcon help_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "help.png");
 		JButton help_button = new JButton("",help_button_image);
 		help_button.setBorderPainted(false);
 		help_button.setBounds(45, 45, 100, 100);
+		help_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Help help_frame=new Help(PanelID.MainMenu);
+				help_frame.setVisible(true);
+			}
+		});
 		help_button.addMouseListener(new VoxMouseAdapter(help_button,null));
 		add(help_button);
-	
-		setupGameSummary();
 	}
 
 	/**
@@ -101,9 +111,9 @@ public class MainMenu extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				LogIn log_in_frame=new LogIn(parent_frame);
 				log_in_frame.setVisible(true);
+				log_in_frame.setAlwaysOnTop(true); //won't get the issue of accidently clicking away and losing the frame
 			}
 		});
-		log_in_button.addMouseListener(new VoxMouseAdapter(log_in_button,null));
 		log_in_button.addMouseListener(new VoxMouseAdapter(log_in_button,null));
 		add(log_in_button);
 	}

@@ -25,6 +25,7 @@ import javax.swing.table.TableRowSorter;
 
 import voxspell.StatsChooser.StatsType;
 import voxspell.Voxspell.PanelID;
+import windowbuilder.VoxMouseAdapter;
 
 @SuppressWarnings({ "static-access", "serial", "unchecked", "rawtypes" })
 
@@ -57,6 +58,7 @@ public class LevelStats extends JPanel{
 		refreshTable(parent_frame.getDataHandler().getCurrentLevel(), type);
 
 		setupLevelChooser(type);
+		setupHelpButton();
 		setupBackButton();
 		setupAccuracyRateLabel();
 	}
@@ -171,6 +173,21 @@ public class LevelStats extends JPanel{
 		level_chooser.setBackground(Color.WHITE);
 	}
 
+	private void setupHelpButton() {
+		ImageIcon help_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "help.png");
+		JButton help_button = new JButton("",help_button_image);
+		help_button.setBorderPainted(false);
+		help_button.setBounds(1216, 24, 100, 100);
+		help_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Help help_frame=new Help(PanelID.PersistentLevelStats);
+				help_frame.setVisible(true);
+			}
+		});
+		help_button.addMouseListener(new VoxMouseAdapter(help_button,null));
+		add(help_button);
+	}
+	
 	/**
 	 * Back button to return to previous panel
 	 */

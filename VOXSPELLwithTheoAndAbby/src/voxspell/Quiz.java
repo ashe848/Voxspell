@@ -81,14 +81,8 @@ public class Quiz extends JPanel {
 			setupChangeVoice();
 			setupChangeSpeed();
 			setupAddToReviewButton();
+			setupHelpButton();
 			setupBackButton();
-
-			ImageIcon help_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "help.png");
-			JButton help_button = new JButton("",help_button_image);
-			help_button.setBorderPainted(false);
-			help_button.setBounds(1216, 24, 100, 100);
-			help_button.addMouseListener(new VoxMouseAdapter(help_button,null));
-			add(help_button);
 			
 			current_attempt_number = 1;
 			current_word_number = 0;
@@ -300,6 +294,21 @@ public class Quiz extends JPanel {
 		});
 		add_to_review.addMouseListener(new VoxMouseAdapter(add_to_review,null));
 		add(add_to_review);
+	}
+	
+	private void setupHelpButton() {
+		ImageIcon help_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "help.png");
+		JButton help_button = new JButton("",help_button_image);
+		help_button.setBorderPainted(false);
+		help_button.setBounds(1216, 24, 100, 100);
+		help_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Help help_frame=new Help(PanelID.Quiz);
+				help_frame.setVisible(true);
+			}
+		});
+		help_button.addMouseListener(new VoxMouseAdapter(help_button,null));
+		add(help_button);
 	}
 
 	/**

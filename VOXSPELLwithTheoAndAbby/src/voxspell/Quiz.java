@@ -317,7 +317,7 @@ public class Quiz extends JPanel {
 				if (leave_result){
 					//no point speaking any more words if exiting
 					parent_frame.getFestival().emptyWorkerQueue();
-					parent_frame.changePanel(PanelID.MainMenu);
+					parent_frame.changePanel(PanelID.MainMenu, PanelID.Quiz);
 				}
 			}
 		});
@@ -412,7 +412,7 @@ public class Quiz extends JPanel {
 			//no point speaking any more things if quiz has already completed
 			parent_frame.getFestival().emptyWorkerQueue();
 			parent_frame.getDataHandler().processQuizResults(words_mastered,words_faulted,words_failed,quiz_type,words_to_spell.size());
-			parent_frame.changePanel(PanelID.QuizComplete);
+			parent_frame.changePanel(PanelID.QuizComplete, PanelID.Quiz);
 		} else{ //Otherwise keep going with quiz
 			startQuiz();
 		}

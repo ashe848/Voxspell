@@ -100,6 +100,7 @@ public class MainMenu extends JPanel{
 		log_in_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LogIn log_in_frame=new LogIn(parent_frame);
+				log_in_frame.setAlwaysOnTop(true); //won't get the issue of accidently clicking away and losing the frame
 				log_in_frame.setVisible(true);
 			}
 		});
@@ -116,7 +117,7 @@ public class MainMenu extends JPanel{
 		JButton list_builder_button = new JButton("",buildlist_button_image);
 		list_builder_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				parent_frame.changePanel(PanelID.ListBuilder);
+				parent_frame.changePanel(PanelID.ListBuilder, PanelID.MainMenu);
 			}
 		});
 		list_builder_button.addMouseListener(new VoxMouseAdapter(list_builder_button,null));
@@ -132,7 +133,7 @@ public class MainMenu extends JPanel{
 		JButton new_quiz_button = new JButton("", newquiz_button_image);
 		new_quiz_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				parent_frame.changePanel(PanelID.Quiz);
+				parent_frame.changePanel(PanelID.Quiz, PanelID.MainMenu);
 			}
 		});
 		new_quiz_button.addMouseListener(new VoxMouseAdapter(new_quiz_button,null));
@@ -148,7 +149,7 @@ public class MainMenu extends JPanel{
 		JButton review_button = new JButton("", review_button_image);
 		review_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				parent_frame.changePanel(PanelID.Review);
+				parent_frame.changePanel(PanelID.Review, PanelID.MainMenu);
 			}
 		});
 		review_button.addMouseListener(new VoxMouseAdapter(review_button,null));
@@ -165,7 +166,7 @@ public class MainMenu extends JPanel{
 		settings_button.setBorderPainted(false);
 		settings_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				parent_frame.changePanel(PanelID.Settings);
+				parent_frame.changePanel(PanelID.Settings, PanelID.MainMenu);
 			}
 		});
 		settings_button.addMouseListener(new VoxMouseAdapter(settings_button, null));
@@ -182,7 +183,7 @@ public class MainMenu extends JPanel{
 		stats_button.setBorderPainted(false);
 		stats_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				parent_frame.changePanel(PanelID.StatSelection);
+				parent_frame.changePanel(PanelID.StatChooser, PanelID.MainMenu);
 			}
 		});
 		stats_button.addMouseListener(new VoxMouseAdapter(stats_button,null));

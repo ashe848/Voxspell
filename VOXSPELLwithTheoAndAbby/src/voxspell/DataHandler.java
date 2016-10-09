@@ -739,7 +739,7 @@ public class DataHandler {
 		current_level=0;
 		readListSpecificFiles();
 
-		parent_frame.changePanel(PanelID.MainMenu);
+		parent_frame.changePanel(PanelID.MainMenu, PanelID.MainMenu);
 	}
 
 	/**
@@ -767,7 +767,7 @@ public class DataHandler {
 		user="Visitor";
 		readUserFiles();
 		readListSpecificFiles();
-		parent_frame.changePanel(PanelID.MainMenu);
+		parent_frame.changePanel(PanelID.MainMenu, PanelID.MainMenu);
 	}
 
 	void resetToDefaults() {
@@ -775,7 +775,7 @@ public class DataHandler {
 		user_settings_file.delete();
 		readUserFiles();
 
-		parent_frame.changePanel(PanelID.MainMenu);
+		parent_frame.changePanel(PanelID.MainMenu, PanelID.MainMenu);
 	}
 
 
@@ -807,7 +807,7 @@ public class DataHandler {
 
 		if(relevant_bank_of_words.size() == 0){
 			JOptionPane.showMessageDialog(null, "EMPTY " + id.toString() + " FILE, nothing to test\nWill return to main menu" ,"Error",JOptionPane.WARNING_MESSAGE);
-			parent_frame.changePanel(PanelID.MainMenu);
+			parent_frame.changePanel(PanelID.MainMenu, PanelID.MainMenu);
 		} else {
 			//randomising of words without messing with order of original array (no deep copy needed)
 			int[] indices = new int[relevant_bank_of_words.size()];
@@ -1047,7 +1047,7 @@ public class DataHandler {
 		String choice = (String)JOptionPane.showInputDialog(parent_frame.getContentPane(), additional_message+"Please select a level to start at\nIf you find it too difficult, can change in Settings", "Which level?", JOptionPane.QUESTION_MESSAGE, null, levels, null);
 		if (choice==null){
 			if(back_to_quiz_complete){
-				parent_frame.changePanel(PanelID.QuizComplete);
+				parent_frame.changePanel(PanelID.QuizComplete, PanelID.MainMenu);
 			} else {
 				System.exit(0);
 			}

@@ -261,7 +261,7 @@ public class QuizComplete extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				clip.close();
-				parent_frame.changePanel(PanelID.Video);
+				parent_frame.changePanel(PanelID.Video, PanelID.QuizComplete);
 			}
 		});
 		video_button.addMouseListener(new VoxMouseAdapter(video_button,null));
@@ -305,7 +305,7 @@ public class QuizComplete extends JPanel{
 				parent_frame.getDataHandler().writeToSettingsFiles();
 				//resets flag for level up
 				parent_frame.getDataHandler().setLevelledUp(false);
-				parent_frame.changePanel(PanelID.MainMenu);
+				parent_frame.changePanel(PanelID.MainMenu, PanelID.QuizComplete);
 			}
 		});
 		back_button.addMouseListener(new VoxMouseAdapter(back_button,null));

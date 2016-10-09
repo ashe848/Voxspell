@@ -73,7 +73,7 @@ public class StatsChooser extends JPanel{
 		JButton persistent_all_button = new JButton("", persistent_all_button_image);
 		persistent_all_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				parent_frame.changePanel(PanelID.PersistentAllStats);
+				parent_frame.changePanel(PanelID.PersistentAllStats, PanelID.StatChooser);
 			}
 		});
 		persistent_all_button.addMouseListener(new VoxMouseAdapter(persistent_all_button,null));
@@ -89,7 +89,7 @@ public class StatsChooser extends JPanel{
 		JButton persistent_level_button = new JButton("", persistent_level_button_image);
 		persistent_level_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				parent_frame.changePanel(PanelID.PersistentLevelStats);
+				parent_frame.changePanel(PanelID.PersistentLevelStats, PanelID.StatChooser);
 			}
 		});
 		persistent_level_button.addMouseListener(new VoxMouseAdapter(persistent_level_button,null));
@@ -105,7 +105,7 @@ public class StatsChooser extends JPanel{
 		JButton session_all_button = new JButton("", session_all_button_image);
 		session_all_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				parent_frame.changePanel(PanelID.SessionAllStats);
+				parent_frame.changePanel(PanelID.SessionAllStats, PanelID.StatChooser);
 			}
 		});
 		session_all_button.addMouseListener(new VoxMouseAdapter(session_all_button,null));
@@ -122,7 +122,7 @@ public class StatsChooser extends JPanel{
 		JButton session_level_button = new JButton("", session_level_button_image);
 		session_level_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				parent_frame.changePanel(PanelID.SessionLevelStats);
+				parent_frame.changePanel(PanelID.SessionLevelStats, PanelID.StatChooser);
 			}
 		});
 		session_level_button.addMouseListener(new VoxMouseAdapter(session_level_button,null));
@@ -140,7 +140,7 @@ public class StatsChooser extends JPanel{
 		back_button.setContentAreaFilled(false);
 		back_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				parent_frame.changePanel(PanelID.MainMenu);
+				parent_frame.changePanel(PanelID.MainMenu, PanelID.StatChooser);
 			}
 		});
 		back_button.addMouseListener(new VoxMouseAdapter(back_button,null));

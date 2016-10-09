@@ -398,7 +398,7 @@ public class Settings extends JPanel {
 						parent_frame.getDataHandler().writeToSettingsFiles();
 					}
 				}
-				parent_frame.changePanel(PanelID.MainMenu); //else doesn't save
+				parent_frame.changePanel(PanelID.MainMenu, PanelID.Settings); //else doesn't save
 			}
 		});
 		back_button.addMouseListener(new VoxMouseAdapter(back_button,null));

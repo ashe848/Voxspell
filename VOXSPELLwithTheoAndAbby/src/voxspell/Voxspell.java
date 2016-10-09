@@ -109,25 +109,28 @@ public class Voxspell extends JFrame{
 	}
 
 	/**
-	 * @param id	passed into method to change panel shown
+	 * @param to	passed into method to change panel shown
+	 * @param from  where from. Only used by help
 	 */
-	void changePanel(PanelID id){
+	void changePanel(PanelID to, PanelID from){
 		//Removes the current panel from the frame, ready for new one to take its place.
 		//http://stackoverflow.com/questions/9347076/how-to-remove-all-components-from-a-jframe-in-java
 		this.getContentPane().removeAll();
 		this.repaint();
 
 		//Change panel pased on ID passed into method. Initialise extra constructor parameters if needed.
-		switch (id) {
+		switch (to) {
 		case MainMenu:
 			main_menu=new MainMenu(this);
 			this.getContentPane().add(main_menu);
-//			TODO	main_menu.setupAccuracyRateLabel();
+			break;
+		case Help:
+			this.getContentPane().add(new Help(this, from));
 			break;
 		case Settings:
 			this.getContentPane().add(new Settings(this));
 			break;
-		case StatSelection:
+		case StatChooser:
 			this.getContentPane().add(new StatsChooser(this));
 			break;
 		case PersistentAllStats:
@@ -172,6 +175,6 @@ public class Voxspell extends JFrame{
 	 * The different panels IDs used to differentiate different panels
 	 */
 	enum PanelID{
-		MainMenu, Settings, StatSelection, PersistentAllStats, PersistentLevelStats, SessionAllStats, SessionLevelStats, ListBuilder, Quiz, Review, QuizComplete, Video;
+		MainMenu, Help, Settings, StatChooser, PersistentAllStats, PersistentLevelStats, SessionAllStats, SessionLevelStats, ListBuilder, Quiz, Review, QuizComplete, Video;
 	}
 }

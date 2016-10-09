@@ -169,7 +169,7 @@ public class ListBuilder extends JPanel {
 					} else {
 						if (askForConfirmation("Will save into spellinglists folder\nas "+list_name+".txt", "Confirm Save")){
 							parent_frame.getDataHandler().writeCustomList(list_name, words_to_add, sentences_to_add);
-							parent_frame.changePanel(PanelID.MainMenu);
+							parent_frame.changePanel(PanelID.MainMenu, PanelID.ListBuilder);
 						}	
 					}
 				}
@@ -187,7 +187,7 @@ public class ListBuilder extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (askForConfirmation("Are you sure you want to discard this list?", "Discard")){
-					parent_frame.changePanel(PanelID.MainMenu);
+					parent_frame.changePanel(PanelID.MainMenu, PanelID.ListBuilder);
 				}
 			}
 		});

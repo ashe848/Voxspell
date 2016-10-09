@@ -181,7 +181,7 @@ public class LevelStats extends JPanel{
 		back_button.setContentAreaFilled(false);
 		back_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				parent_frame.changePanel(PanelID.StatSelection);
+				parent_frame.changePanel(PanelID.StatChooser, PanelID.PersistentLevelStats);
 			}
 		});
 		back_button.addMouseListener(new VoxMouseAdapter(back_button,null));

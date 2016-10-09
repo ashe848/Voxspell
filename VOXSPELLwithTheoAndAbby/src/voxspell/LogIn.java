@@ -115,7 +115,7 @@ public class LogIn extends JFrame {
 					}
 					parent_frame.getDataHandler().readUserFiles();
 					parent_frame.getDataHandler().readListSpecificFiles();
-					parent_frame.changePanel(PanelID.MainMenu);
+					parent_frame.changePanel(PanelID.MainMenu, PanelID.MainMenu);
 					log_in_frame.dispose();
 				}
 			}

@@ -145,7 +145,7 @@ public class GeneralStats extends JPanel {
 		back_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				parent_frame.changePanel(PanelID.StatSelection);
+				parent_frame.changePanel(PanelID.StatChooser, PanelID.PersistentAllStats);
 			}
 		});
 

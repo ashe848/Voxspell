@@ -187,7 +187,7 @@ public class Video extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				player.stop();
 				timer.stop();
-				parent_frame.changePanel(PanelID.QuizComplete);
+				parent_frame.changePanel(PanelID.QuizComplete, PanelID.Video);
 			}
 		});
 		back_button.addMouseListener(new VoxMouseAdapter(back_button,null));

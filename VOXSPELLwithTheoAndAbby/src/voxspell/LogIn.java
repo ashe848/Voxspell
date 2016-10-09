@@ -41,7 +41,7 @@ public class LogIn extends JFrame {
 		setTitle("Log In");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(600, 125, 683, 745);
+		setBounds(600, 165, 683, 745);
 
 		content_pane = new JPanel();
 		setContentPane(content_pane);

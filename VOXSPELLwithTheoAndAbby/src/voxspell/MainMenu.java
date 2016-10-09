@@ -83,7 +83,7 @@ public class MainMenu extends JPanel{
 	}
 
 	/**
-	 * Allows user to log in or register on a pop up frame which stays on top
+	 * Allows user to log in or register on a pop up frame
 	 * @author Abby S
 	 */
 	private void setupLogInButton() {
@@ -95,7 +95,6 @@ public class MainMenu extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				LogIn log_in_frame=new LogIn(parent_frame);
 				log_in_frame.setVisible(true);
-				log_in_frame.setAlwaysOnTop(true); //won't get the issue of accidently clicking away and losing the frame
 			}
 		});
 		log_in_button.addMouseListener(new VoxMouseAdapter(log_in_button,null));

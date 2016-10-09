@@ -30,7 +30,7 @@ public class Help extends JFrame {
 		setTitle("Help");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(600, 125, 683, 745);
+		setBounds(600, 165, 683, 745);
 
 		from_panel=from;
 

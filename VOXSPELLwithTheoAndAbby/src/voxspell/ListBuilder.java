@@ -21,6 +21,10 @@ import voxspell.Voxspell.PanelID;
 
 @SuppressWarnings({ "serial" })
 
+/**
+ * Allows user to build their own list as well as sample sentences
+ * @author Abby S
+ */
 public class ListBuilder extends JPanel {
 	private Voxspell parent_frame;
 
@@ -35,6 +39,7 @@ public class ListBuilder extends JPanel {
 
 	/**
 	 * Constructor, initialise panel parameters and GUI elements
+	 * @author Abby S
 	 */
 	public ListBuilder(Voxspell parent){
 		setLayout(null);
@@ -52,6 +57,10 @@ public class ListBuilder extends JPanel {
 		setupDiscardButton();
 	}
 
+	/**
+	 * Title for panel
+	 * @author Abby S
+	 */
 	private void setupTitle() {
 		JLabel title = new JLabel("Build Your Own Custom List");
 		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
@@ -61,6 +70,10 @@ public class ListBuilder extends JPanel {
 		add(title);
 	}
 
+	/**
+	 * Displays the words that have been added to the list
+	 * @author Abby S
+	 */
 	private void setupWordsAdded() {
 		JLabel words_added_label = new JLabel("Words Added:");
 		words_added_label.setFont(new Font("Arial", Font.PLAIN, 25));
@@ -79,6 +92,11 @@ public class ListBuilder extends JPanel {
 		add(words_scroll_pane);
 	}
 
+	/**
+	 * Enters name of their spelling list
+	 * Will be saved with .txt extension in spellinglists directory
+	 * @author Abby S
+	 */
 	private void setupEnterName() {
 		JLabel list_name_label = new JLabel("Name of List:");
 		list_name_label.setFont(new Font("Arial", Font.PLAIN, 25));
@@ -92,6 +110,10 @@ public class ListBuilder extends JPanel {
 		list_name_field.setColumns(10);
 	}
 
+	/**
+	 * User enters the word they want to add
+	 * @author Abby S
+	 */
 	private void setupEnterWord() {
 		JLabel word_label = new JLabel("Word:");
 		word_label.setFont(new Font("Arial", Font.PLAIN, 25));
@@ -105,6 +127,11 @@ public class ListBuilder extends JPanel {
 		add(word_field);
 	}
 
+	/**
+	 * Optional. User can enter a sample sentence for that word if they wish
+	 * Will be saved in a file named by spelling list name in samplesentences directory
+	 * @author Abby S
+	 */
 	private void setupEnterSentence() {
 		JLabel sample_sentence_label = new JLabel("Sample sentence (optional):");
 		sample_sentence_label.setFont(new Font("Arial", Font.PLAIN, 25));
@@ -123,6 +150,10 @@ public class ListBuilder extends JPanel {
 		add(sentence_scroll_pane);
 	}
 
+	/**
+	 * User clicks this to try add a word to their list
+	 * @author Abby S
+	 */
 	private void setupAddButton() {
 		ImageIcon add_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "addword.png");
 		JButton add_word_button = new JButton("", add_button_image);
@@ -132,16 +163,25 @@ public class ListBuilder extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				String word=word_field.getText();
 				if (!word.matches(".*[a-zA-Z]+.*")){
-					JOptionPane.showMessageDialog(null, "Word must have at least 1 alphabetical character", "Word Format Error", JOptionPane.WARNING_MESSAGE);
+					//no alphabetical characters error
+					JOptionPane.showMessageDialog(null, "Word must have at least 1 alphabetical character", "Word Format Error", JOptionPane.ERROR_MESSAGE);
 				} else {
+					//add word
 					words_to_add.add(word);
+
+					//adds sample sentence
 					if (sample_sentence.getText().trim().equals("")){
+						//only white space. So add place holder (for the purposes of saving it into a file)
 						sentences_to_add.add(" ");
 					} else {
 						sentences_to_add.add(sample_sentence.getText());
 					}
+
+					//resets fields for a new word
 					word_field.setText("");
 					sample_sentence.setText("");
+
+					//displays on text area
 					words_added.append(word+"\n");
 				}
 			}	
@@ -150,6 +190,10 @@ public class ListBuilder extends JPanel {
 		add(add_word_button);
 	}
 
+	/**
+	 * User clicks this to save their list (asks for confirmation)
+	 * @author Abby S
+	 */
 	private void setupSaveButton() {
 		ImageIcon save_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "save.png");
 		JButton save_Button = new JButton("", save_button_image);
@@ -158,15 +202,20 @@ public class ListBuilder extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (!list_name_field.getText().matches("[a-zA-Z]+")){
-					JOptionPane.showMessageDialog(null, "List name must only consist of alphabetical characters", "Name Format Error", JOptionPane.WARNING_MESSAGE);				
+					//checks list naming
+					JOptionPane.showMessageDialog(null, "List name must only consist of alphabetical characters", "Name Format Error", JOptionPane.ERROR_MESSAGE);				
 				} else if(words_to_add.size()==0){
-					JOptionPane.showMessageDialog(null, "Spelling list must contain at least 1 word", "Empty List Error", JOptionPane.WARNING_MESSAGE);				
+					//checks if empty list (might be accidental button click)
+					JOptionPane.showMessageDialog(null, "Spelling list must contain at least 1 word", "Empty List Error", JOptionPane.ERROR_MESSAGE);				
 				} else {
 					list_name=list_name_field.getText();
 					File to_write_to = new File(System.getProperty("user.dir")+"/spellinglists/"+list_name+".txt");
+
 					if(to_write_to.exists()){
-						JOptionPane.showMessageDialog(null, "A list with the same name already exists\nPlease rename.", "Duplicate List Name", JOptionPane.WARNING_MESSAGE);				
+						//disallows duplicate naming
+						JOptionPane.showMessageDialog(null, "A list with the same name already exists\nPlease rename.", "Duplicate List Name", JOptionPane.ERROR_MESSAGE);				
 					} else {
+						//confirms with user
 						if (askForConfirmation("Will save into spellinglists folder\nas "+list_name+".txt", "Confirm Save")){
 							parent_frame.getDataHandler().writeCustomList(list_name, words_to_add, sentences_to_add);
 							parent_frame.changePanel(PanelID.MainMenu);
@@ -179,6 +228,10 @@ public class ListBuilder extends JPanel {
 		add(save_Button);
 	}
 
+	/**
+	 * User clicks this to discard the list (asks for confirmation)
+	 * @author Abby S
+	 */
 	private void setupDiscardButton() {
 		ImageIcon discard_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "discard.png");
 		JButton discard_button = new JButton("",discard_button_image);
@@ -197,10 +250,11 @@ public class ListBuilder extends JPanel {
 
 	/**
 	 * Prompt that asks user if they want to return to main menu
+	 * http://stackoverflow.com/questions/8689122/joptionpane-yes-no-options-confirm-dialog-box-issue-java
+	 * 
 	 * @returns boolean		true if they clicked yes, otherwise false
 	 */
 	private boolean askForConfirmation(String message, String title){
-		//http://stackoverflow.com/questions/8689122/joptionpane-yes-no-options-confirm-dialog-box-issue-java
 		int ask_leave_prompt = JOptionPane.YES_NO_OPTION;
 		int ask_leave_result = JOptionPane.showConfirmDialog(this, message,title, ask_leave_prompt);
 		if (ask_leave_result == JOptionPane.YES_OPTION){

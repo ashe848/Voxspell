@@ -29,10 +29,10 @@ import voxspell.Voxspell.PanelID;
 public class Video extends JPanel{
 	private Voxspell parent_frame; //link to parent frame
 
-	private String video;
-	//Panel that video is shown on
+	//Panel that video is shown on. Must be a separate panel rather than "this"
 	private JPanel panel;
 
+	private String video;
 	//Component on panel used to show video
 	private EmbeddedMediaPlayerComponent media_player_component;
 	//Video player contained in the component
@@ -40,7 +40,7 @@ public class Video extends JPanel{
 
 	private int duration;
 	private Timer timer;
-	private JProgressBar progressbar;
+	private JProgressBar progress_bar;
 
 	/**
 	 * Constructor initialising the size and layout of jpanel
@@ -53,9 +53,9 @@ public class Video extends JPanel{
 
 		parent_frame=parent;
 		panel = new JPanel(null);
-		
+
 		video = System.getProperty("user.dir")+"/rewardvideos/"+parent_frame.getDataHandler().getVideoName();
-		
+
 		setupTitle();
 		setupPlayer();
 		setupTimer();
@@ -66,6 +66,10 @@ public class Video extends JPanel{
 		setupBackButton();
 	}
 
+	/**
+	 * Sets up the title to be the name of the video
+	 * @author Abby S
+	 */
 	private void setupTitle() {
 		JLabel title = new JLabel(parent_frame.getDataHandler().getVideoName());
 		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
@@ -79,7 +83,7 @@ public class Video extends JPanel{
 	 * Sets up the video to be played at the top of the panel, in its own JPanel
 	 */
 	private void setupPlayer() {
-		JFrame frame = parent_frame; //just use parent_frame wasn't working?
+		JFrame frame = parent_frame; //just using parent_frame doesn't work
 
 		media_player_component = new EmbeddedMediaPlayerComponent();
 		player = media_player_component.getMediaPlayer();
@@ -92,29 +96,35 @@ public class Video extends JPanel{
 		player.playMedia(video);
 	}
 
+	/**
+	 * Displays progress through the video
+	 * Updates once per second as it's just for indicative purposes
+	 * @author Abby S
+	 */
 	private void setupProgressBar(){
 		player.parseMedia();
 
+		//get length of video
 		duration=(int)player.getLength()/1000;
 		//Set max to duration in seconds
-		progressbar = new JProgressBar(0,duration);
-		progressbar.setForeground(new Color(254, 157, 79));
-		progressbar.setBackground(Color.WHITE);
-		progressbar.setBorderPainted(false);
-		progressbar.setBounds(32, 675, 1140, 23);
-		progressbar.setValue(0);
-		panel.add(progressbar);
+		progress_bar = new JProgressBar(0,duration);
+		progress_bar.setForeground(new Color(254, 157, 79));
+		progress_bar.setBackground(Color.WHITE);
+		progress_bar.setBorderPainted(false);
+		progress_bar.setBounds(32, 675, 1140, 23);
+		progress_bar.setValue(0); //start at beginning
+		panel.add(progress_bar);
 	}
 
 	/**
-	 * From Nasser
+	 * Based on Nasser's code
 	 */
 	private void setupTimer(){
 		timer = new Timer(1000, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int time = (int)(player.getTime()/1000);
-				progressbar.setValue(time);
+				int time = (int)(player.getTime()/1000); //get time in seconds
+				progress_bar.setValue(time);
 			}
 		});
 		timer.start();
@@ -139,7 +149,7 @@ public class Video extends JPanel{
 	}
 
 	/**
-	 * Creates pause/play button for video on panel
+	 * Creates pause button for video on panel and sets its functionality
 	 */
 	private void setupPauseButton() {
 		ImageIcon pause_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "pause.png");
@@ -155,9 +165,9 @@ public class Video extends JPanel{
 		panel.add(pause_button);
 		pause_button.setBounds(1216, 279, 100, 100);
 	}
-	
+
 	/**
-	 * Creates stop button for video panel and creates functionality
+	 * Creates stop button for video panel and sets its functionality
 	 */
 	private void setupStopButton() {
 		ImageIcon stop_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "stop.png");
@@ -175,7 +185,8 @@ public class Video extends JPanel{
 	}
 
 	/**
-	 * Back button to return to previous panel
+	 * Back button to return to quiz complete panel
+	 * Also stops the timer and video
 	 */
 	private void setupBackButton(){
 		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back.png");

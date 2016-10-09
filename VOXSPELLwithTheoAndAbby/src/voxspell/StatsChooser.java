@@ -2,8 +2,6 @@ package voxspell;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -28,7 +26,6 @@ import windowbuilder.VoxMouseAdapter;
  */
 public class StatsChooser extends JPanel{
 	private Voxspell parent_frame;
-	private Image bg_image;
 
 	/**
 	 * Constructor. Setting up panel properties and initialise GUI elements
@@ -50,6 +47,10 @@ public class StatsChooser extends JPanel{
 		setupAccuracyRateLabel();
 	}
 
+	/**
+	 * Title to tell user to choose which type of stats for the current spelling list
+	 * @author Abby S
+	 */
 	private void setupTitle() {
 		JLabel title = new JLabel("Statistics for Current List");
 		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
@@ -58,7 +59,10 @@ public class StatsChooser extends JPanel{
 		title.setBounds(32, 24, 1136, 119);
 		add(title);
 	}
-	
+
+	/**
+	 * Displays help pop up to aid user in which button to select for which purpose
+	 */
 	private void setupHelpButton() {
 		ImageIcon help_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "help.png");
 		JButton help_button = new JButton("",help_button_image);
@@ -175,13 +179,5 @@ public class StatsChooser extends JPanel{
 		add(accuracy_rate_label);
 		accuracy_rate_label.setBounds(32, 630, 1136, 68);
 		accuracy_rate_label.setOpaque(true);
-	}
-
-	/**
-	 * Overriding the paintComponent method to place background on panel
-	 */
-	public void paintComponent(Graphics g){
-		super.paintComponent(g);
-		g.drawImage(bg_image, 0, 0, this);
 	}
 }

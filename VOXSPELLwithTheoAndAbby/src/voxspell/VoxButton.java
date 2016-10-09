@@ -8,13 +8,18 @@ import javax.swing.JButton;
 @SuppressWarnings("serial")
 
 /**
+ * Text (not image) buttons used in VOXSPELL
  * 
  * @author Abby S
- *
  */
 public class VoxButton extends JButton {
 	private VoxMouseAdapter adapter;
-	
+
+	/**
+	 * Constructor to set the defaults
+	 * @param text the text to be displayed on the button
+	 * @author Abby S
+	 */
 	public VoxButton(String text){
 		super(text);
 		setForeground(Color.WHITE);
@@ -27,11 +32,21 @@ public class VoxButton extends JButton {
 		setupMouseListener();
 	}
 
+	/**
+	 * Adds a default Mouse Listeners to all these buttons
+	 * @author Abby S
+	 */
 	private void setupMouseListener() {
 		adapter=new VoxMouseAdapter(this,Color.WHITE);
 		addMouseListener(adapter);
 	}
-	
+
+	/**
+	 * If don't want the default white border hover effect
+	 * e.g. the red buttons in settings have black
+	 * @param special_color
+	 * @author Abby S
+	 */
 	void changeMouseEventColor(Color special_color){
 		removeMouseListener(adapter);
 		addMouseListener(new VoxMouseAdapter(this,special_color));

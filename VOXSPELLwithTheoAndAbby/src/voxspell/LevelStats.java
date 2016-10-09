@@ -2,8 +2,6 @@ package voxspell;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -36,7 +34,6 @@ import windowbuilder.VoxMouseAdapter;
  */
 public class LevelStats extends JPanel{
 	private Voxspell parent_frame;
-	private Image bg_image;
 
 	private JTable table;
 	private TableRowSorter<TableModel> sorter;
@@ -51,7 +48,7 @@ public class LevelStats extends JPanel{
 		setBackground(new Color(235, 235, 235));
 
 		parent_frame=parent;
-		
+
 		setupTitle(type);
 
 		//defaults to user's current level
@@ -63,6 +60,10 @@ public class LevelStats extends JPanel{
 		setupAccuracyRateLabel();
 	}
 
+	/**
+	 * Title based on type (all or just current session)
+	 * @param type
+	 */
 	private void setupTitle(StatsType type) {
 		JLabel title = new JLabel("");
 		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
@@ -80,7 +81,9 @@ public class LevelStats extends JPanel{
 	/**
 	 * Refreshes table to match the selected level
 	 * Unlike the table in GeneralStats, this table doesn't have a level column
+	 * 
 	 * Based on Abby's A2 code
+	 * 
 	 * @param level		word data for level based on combobox
 	 * @param type		type of data to fetch (Persistent or Session)
 	 */
@@ -130,7 +133,7 @@ public class LevelStats extends JPanel{
 		alignment_renderer.setHorizontalAlignment(JLabel.CENTER);
 		table.setDefaultRenderer(String.class, alignment_renderer);
 		table.setDefaultRenderer(Integer.class, alignment_renderer);
-		
+
 		table.setFont(new Font("Calibri Light", Font.PLAIN, 20));
 		table.setRowHeight(27);
 
@@ -167,12 +170,15 @@ public class LevelStats extends JPanel{
 				refreshTable(level,type);			
 			}
 		});
-
 		add(level_chooser);
 		level_chooser.setBounds(1189, 293, 127, 50);
 		level_chooser.setBackground(Color.WHITE);
 	}
 
+	/**
+	 * displays popup help menu
+	 * @author Abby SS
+	 */
 	private void setupHelpButton() {
 		ImageIcon help_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "help.png");
 		JButton help_button = new JButton("",help_button_image);
@@ -187,7 +193,7 @@ public class LevelStats extends JPanel{
 		help_button.addMouseListener(new VoxMouseAdapter(help_button,null));
 		add(help_button);
 	}
-	
+
 	/**
 	 * Back button to return to previous panel
 	 */
@@ -216,13 +222,5 @@ public class LevelStats extends JPanel{
 		add(accuracy_rate_label);
 		accuracy_rate_label.setBounds(32, 630, 1136, 68);
 		accuracy_rate_label.setOpaque(true);	
-	}
-
-	/**
-	 * Overriding the paintComponent method to place background
-	 */
-	public void paintComponent(Graphics g){
-		super.paintComponent(g);
-		g.drawImage(bg_image, 0, 0, this);
 	}
 }

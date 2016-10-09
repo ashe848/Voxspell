@@ -82,21 +82,29 @@ public class Festival {
 	}
 
 	/**
-	 * Getters and setters for speed and voice
-	 * @return
+	 * Getter for speed
 	 */
 	FestivalSpeed getFestivalSpeed() {
 		return festival_speed;
 	}
 
+	/**
+	 * setters for speed
+	 */
 	FestivalVoice getFestivalVoice() {
 		return festival_voice;
 	}
 
+	/**
+	 * Getters for voice
+	 */
 	void setFestivalSpeed(FestivalSpeed speed) {
 		festival_speed = speed;
 	}
 
+	/**
+	 * setter for voice
+	 */
 	void setFestivalVoice(FestivalVoice voice) {
 		festival_voice = voice;
 	}
@@ -108,8 +116,10 @@ public class Festival {
 	 * @param speech
 	 */
 	void speak(String speech, boolean say_again){
-		//Only makes Festival calls on Linux to avoid issues on other OS
-		//For development purposes to speed up testing
+		/*		TODO
+		Only makes Festival calls on Linux to avoid issues on other OS
+		For development purposes to speed up testing
+		 */
 		if (System.getProperty("os.name").equals("Linux")) {
 			FestivalWorker worker = new FestivalWorker(speech, say_again);
 			worker_queue.add(worker);
@@ -119,9 +129,8 @@ public class Festival {
 				worker_queue.remove(0);
 			}
 		} else {
-			//TODO for Windows
 			if (say_again){
-				parent_frame.getDataHandler().writeToScheme(speech, festival_speed.slow, festival_voice);
+				parent_frame.getDataHandler().writeToScheme(speech, FestivalSpeed.slow, festival_voice);
 			} else {
 				parent_frame.getDataHandler().writeToScheme(speech, festival_speed, festival_voice);
 			}
@@ -129,6 +138,11 @@ public class Festival {
 		}
 	}
 
+	/**
+	 * Empties not yet said things
+	 * Called when user has already completed quiz or had quit the game
+	 * so no point continuing speaking
+	 */
 	void emptyWorkerQueue(){
 		worker_queue=new ArrayList<FestivalWorker>();
 	}
@@ -139,8 +153,7 @@ public class Festival {
 	 * and so ensures the GUI doesn't freeze
 	 */
 	private class FestivalWorker extends SwingWorker<Void, Void> {
-		//what to speak
-		private String speech;
+		private String speech;//what to speak
 		private boolean say_again;
 
 		/**
@@ -156,20 +169,19 @@ public class Festival {
 		 * The time-consuming task done on a background worker thread
 		 */
 		protected Void doInBackground(){
-			//writes to .scm file, slow speed for say again
+			//writes to .scm file, uses slow speed if say again @author Abby S
 			if (say_again){
 				parent_frame.getDataHandler().writeToScheme(speech, festival_speed.slow, festival_voice);
 			} else {
 				parent_frame.getDataHandler().writeToScheme(speech, festival_speed, festival_voice);
 			}
 
-
 			//makes call to festival to execute the scm file in batch mode
 			String command = "festival -b "+"\""+parent_frame.getResourceFileLocation()+"festival.scm"+"\"";
 			ProcessBuilder pb = new ProcessBuilder("bash", "-c", command);
 			try {
 				Process p = pb.start();
-				p.waitFor(); //waits for the festival call to finish before proceeding as to avoid the speaking overlapping
+				p.waitFor(); //waits for the festival call to finish before proceeding so as to avoid the speaking overlapping
 			} catch (IOException e){
 				e.printStackTrace();
 			} catch (InterruptedException e) {

@@ -14,12 +14,17 @@ import voxspell.Voxspell.PanelID;
 
 @SuppressWarnings({ "serial" })
 
+/**
+ * Pop up frame displaying help message for current panel (functionality)
+ * @author Abby S
+ */
 public class Help extends JFrame {
 	private JPanel content_pane;
 	private PanelID from_panel;
-	
+
 	/**
-	 * Create the frame.
+	 * Creates the frame which will pop up over main frame
+	 * @author Abby S
 	 */
 	public Help(PanelID from) {
 		setTitle("Help");
@@ -28,16 +33,20 @@ public class Help extends JFrame {
 		setBounds(600, 125, 683, 745);
 
 		from_panel=from;
-		
+
 		content_pane = new JPanel();
 		setContentPane(content_pane);
 		content_pane.setLayout(null);
 		content_pane.setBackground(new Color(235, 235, 235));
-		
+
 		setupTitle();
 		setupTextArea();
 	}
 
+	/**
+	 * Title 
+	 * @author Abby S
+	 */
 	private void setupTitle() {
 		JLabel title = new JLabel("Help");
 		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
@@ -47,6 +56,13 @@ public class Help extends JFrame {
 		content_pane.add(title);
 	}
 
+	/**
+	 * Displays help message for current panel (functionality)
+	 * 
+	 * TODO: THIS PART IS NOT COMPLETE. The stuff is just placeholder text so I know it shows the right thing
+	 * 
+	 * @author Abby S
+	 */
 	private void setupTextArea() {
 		JTextArea help_text = new JTextArea();
 		help_text.setEditable(false);
@@ -54,10 +70,11 @@ public class Help extends JFrame {
 		help_text.setWrapStyleWord(true);
 		help_text.setFont(new Font("Calibri Light", Font.PLAIN, 25));
 		help_text.setText("");
-		
+
 		switch(from_panel){
 		case MainMenu:
 			help_text.append("Welcome to VOXSPELL!\n");
+			help_text.append("Has default spelling list and reward video. Application won't run if they're deleted \n");
 			break;
 		case StatSelection:
 			help_text.append("There are 4 types of stats.\n");
@@ -82,7 +99,7 @@ public class Help extends JFrame {
 		default:
 			break;
 		}
-		
+
 		JScrollPane scroll_pane = new JScrollPane(help_text);
 		scroll_pane.setBounds(32, 164, 606, 534);
 		content_pane.add(scroll_pane);

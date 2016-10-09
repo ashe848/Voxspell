@@ -2,8 +2,6 @@ package voxspell;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -36,7 +34,6 @@ import windowbuilder.VoxMouseAdapter;
  */
 public class GeneralStats extends JPanel {
 	private Voxspell parent_frame;
-	private Image bg_image;
 
 	private JTable table;
 
@@ -57,6 +54,10 @@ public class GeneralStats extends JPanel {
 		setupAccuracyRateLabel();
 	}
 
+	/**
+	 * Title depending on type of stats
+	 * @param type
+	 */
 	private void setupTitle(StatsType type) {
 		JLabel title = new JLabel("");
 		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
@@ -128,7 +129,7 @@ public class GeneralStats extends JPanel {
 
 		table.setFont(new Font("Calibri Light", Font.PLAIN, 20));
 		table.setRowHeight(27);
-		
+
 		//adds scroll pane to table to panel
 		JScrollPane scroll_pane = new JScrollPane(table);
 		add(scroll_pane);
@@ -154,7 +155,11 @@ public class GeneralStats extends JPanel {
 		add(back_button);
 		back_button.setBounds(1216, 598, 100, 100);
 	}
-	
+
+	/**
+	 * Pop up help frame
+	 * @author Abby S
+	 */
 	private void setupHelpButton() {
 		ImageIcon help_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "help.png");
 		JButton help_button = new JButton("",help_button_image);
@@ -181,13 +186,5 @@ public class GeneralStats extends JPanel {
 		accuracy_rate_label.setBounds(32, 630, 1136, 68);
 		accuracy_rate_label.setVisible(true);
 		accuracy_rate_label.setOpaque(true);
-	}
-
-	/**
-	 * Overriding the paintComponent method to place background
-	 */
-	public void paintComponent(Graphics g){
-		super.paintComponent(g);
-		g.drawImage(bg_image, 0, 0, this);
 	}
 }

@@ -24,13 +24,13 @@ import windowbuilder.VoxMouseAdapter;
 /**
  * JPanel for Main Menu
  * Allows user to either:
- * 		Go do a quiz
- * 		Review failed words
+ * 		Go do a new quiz
+ * 		Review words
+ * 		Build their own list
  * 		Enter settings screen
  * 		Show statistics
+ * 		Log in
  * 		Quit program
- * 
- * Based on Theo's A2 code
  */
 public class MainMenu extends JPanel{
 	private Voxspell parent_frame;
@@ -55,25 +55,8 @@ public class MainMenu extends JPanel{
 		setupSettingsButton();
 		setupStatsButton();
 		setupExitButton();
-		
 		setupHelpButton();
-	
 		setupGameSummary();
-	}
-
-	private void setupHelpButton() {
-		ImageIcon help_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "help.png");
-		JButton help_button = new JButton("",help_button_image);
-		help_button.setBorderPainted(false);
-		help_button.setBounds(45, 45, 100, 100);
-		help_button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Help help_frame=new Help(PanelID.MainMenu);
-				help_frame.setVisible(true);
-			}
-		});
-		help_button.addMouseListener(new VoxMouseAdapter(help_button,null));
-		add(help_button);
 	}
 
 	/**
@@ -88,7 +71,7 @@ public class MainMenu extends JPanel{
 			e.printStackTrace();
 		}
 		setLocation(0,0);
-		setSize(800, 600);
+		setSize(1366, 745);
 	}
 
 	/**
@@ -100,6 +83,7 @@ public class MainMenu extends JPanel{
 	}
 
 	/**
+	 * Allows user to log in or register on a pop up frame which stays on top
 	 * @author Abby S
 	 */
 	private void setupLogInButton() {
@@ -119,55 +103,7 @@ public class MainMenu extends JPanel{
 	}
 
 	/**
-	 * @author Abby S
-	 */
-	private void setupListBuilderButton(){
-		ImageIcon buildlist_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "buildlist.png");
-		JButton list_builder_button = new JButton("",buildlist_button_image);
-		list_builder_button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				parent_frame.changePanel(PanelID.ListBuilder);
-			}
-		});
-		list_builder_button.addMouseListener(new VoxMouseAdapter(list_builder_button,null));
-		add(list_builder_button);
-		list_builder_button.setBounds(890, 598, 177, 100);
-	}
-
-	/**
-	 * New Spelling Quiz button creation
-	 */
-	private void setupNewQuizButton(){
-		ImageIcon newquiz_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "newquiz.png");
-		JButton new_quiz_button = new JButton("", newquiz_button_image);
-		new_quiz_button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				parent_frame.changePanel(PanelID.Quiz);
-			}
-		});
-		new_quiz_button.addMouseListener(new VoxMouseAdapter(new_quiz_button,null));
-		add(new_quiz_button);
-		new_quiz_button.setBounds(306, 598, 177, 100);
-	}
-
-	/**
-	 * Review Quiz button creation
-	 */
-	private void setupReviewButton(){
-		ImageIcon review_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "review.png");
-		JButton review_button = new JButton("", review_button_image);
-		review_button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				parent_frame.changePanel(PanelID.Review);
-			}
-		});
-		review_button.addMouseListener(new VoxMouseAdapter(review_button,null));
-		add(review_button);
-		review_button.setBounds(598, 598, 177, 100);
-	}
-
-	/**
-	 * Settings button creation
+	 * Settings button
 	 */
 	private void setupSettingsButton(){
 		ImageIcon setting_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "settings.png");
@@ -184,7 +120,7 @@ public class MainMenu extends JPanel{
 	}
 
 	/**
-	 * Statistics button creation
+	 * Statistics button
 	 */
 	private void setupStatsButton(){
 		ImageIcon stats_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "stats.png");
@@ -201,7 +137,106 @@ public class MainMenu extends JPanel{
 	}
 
 	/**
-	 * Exit button creation
+	 * New Quiz button
+	 */
+	private void setupNewQuizButton(){
+		ImageIcon newquiz_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "newquiz.png");
+		JButton new_quiz_button = new JButton("", newquiz_button_image);
+		new_quiz_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				parent_frame.changePanel(PanelID.Quiz);
+			}
+		});
+		new_quiz_button.addMouseListener(new VoxMouseAdapter(new_quiz_button,null));
+		add(new_quiz_button);
+		new_quiz_button.setBounds(306, 598, 177, 100);
+	}
+
+	/**
+	 * Review button
+	 */
+	private void setupReviewButton(){
+		ImageIcon review_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "review.png");
+		JButton review_button = new JButton("", review_button_image);
+		review_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				parent_frame.changePanel(PanelID.Review);
+			}
+		});
+		review_button.addMouseListener(new VoxMouseAdapter(review_button,null));
+		add(review_button);
+		review_button.setBounds(598, 598, 177, 100);
+	}
+
+	/**
+	 * Allows user to build their own list, which will also be saved in spellinglists directory for future use as well
+	 * @author Abby S
+	 */
+	private void setupListBuilderButton(){
+		ImageIcon buildlist_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "buildlist.png");
+		JButton list_builder_button = new JButton("",buildlist_button_image);
+		list_builder_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				parent_frame.changePanel(PanelID.ListBuilder);
+			}
+		});
+		list_builder_button.addMouseListener(new VoxMouseAdapter(list_builder_button,null));
+		add(list_builder_button);
+		list_builder_button.setBounds(890, 598, 177, 100);
+	}
+
+	/**
+	 * Displays help pop up frame
+	 * @author Abby S
+	 */
+	private void setupHelpButton() {
+		ImageIcon help_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "help.png");
+		JButton help_button = new JButton("",help_button_image);
+		help_button.setBorderPainted(false);
+		help_button.setBounds(45, 45, 100, 100);
+		help_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Help help_frame=new Help(PanelID.MainMenu);
+				help_frame.setVisible(true);
+			}
+		});
+		help_button.addMouseListener(new VoxMouseAdapter(help_button,null));
+		add(help_button);
+	}
+
+	/**
+	 * To display summary for this user
+	 * 		user name
+	 * 		personal best
+	 *		current list
+	 *		level name
+	 *		total words
+	 *		attempted words count
+	 *		failed words
+	 * @author Abby S
+	 */
+	private void setupGameSummary() {
+		JTextArea game_summary = new JTextArea();
+		game_summary.setWrapStyleWord(true);
+		game_summary.setEditable(false);
+		game_summary.setLineWrap(true);
+		game_summary.setFont(new Font("Calibri Light", Font.PLAIN, 18));
+
+		game_summary.setText(parent_frame.getDataHandler().getUser()+" \n\n");
+		game_summary.append("Personal Best: \n"+parent_frame.getDataHandler().getPersonalBest()+" \n\n\n");
+		game_summary.append("Current List: \n"+parent_frame.getDataHandler().getSpellingListName()+" \n\n");
+		game_summary.append("Level: \n"+parent_frame.getDataHandler().getLevelNames().get(parent_frame.getDataHandler().getCurrentLevel())+" \n\n");
+		game_summary.append("Total Words: \n"+parent_frame.getDataHandler().getWordlistWords().get(parent_frame.getDataHandler().getCurrentLevel()).size()+"\n\n");
+		game_summary.append("Attempted: \n"+parent_frame.getDataHandler().getAttemptedCount()+" \n\n");
+		game_summary.append("Didn't Get: \n"+parent_frame.getDataHandler().getReviewlistWords().get(parent_frame.getDataHandler().getCurrentLevel()).size()+"\n\n");
+
+		game_summary.setBounds(30, 179, 130, 529);
+		game_summary.setOpaque(false);
+		add(game_summary);
+	}
+
+	/**
+	 * Exit button (asks for confirmation)
 	 */
 	private void setupExitButton(){
 		ImageIcon exit_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "exit.png");
@@ -211,7 +246,7 @@ public class MainMenu extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				boolean ask_leave_result = askToLeave();
 				if (ask_leave_result){
-					//saves to settings before exiting (e.g. if the last thing done was click the level up button)
+					//saves to settings before exiting (e.g. the last thing done could've been clicking the level up button)
 					parent_frame.getDataHandler().writeToSettingsFiles();
 					parent_frame.getDataHandler().writeToProgramFiles();
 					System.exit(0);
@@ -235,26 +270,5 @@ public class MainMenu extends JPanel{
 			return true;
 		}
 		return false;
-	}
-
-	/**
-	 * To display accuracy rates for level user is currently on
-	 */
-	private void setupGameSummary() {
-		JTextArea game_summary = new JTextArea();
-		game_summary.setWrapStyleWord(true);
-		game_summary.setEditable(false);
-		game_summary.setLineWrap(true);
-		game_summary.setFont(new Font("Calibri Light", Font.PLAIN, 18));
-		game_summary.setText(parent_frame.getDataHandler().getUser()+" \n\n");
-		game_summary.append("Personal Best: \n"+parent_frame.getDataHandler().getPersonalBest()+" \n\n\n");
-		game_summary.append("Current List: \n"+parent_frame.getDataHandler().getSpellingListName()+" \n\n");
-		game_summary.append("Level: \n"+parent_frame.getDataHandler().getLevelNames().get(parent_frame.getDataHandler().getCurrentLevel())+" \n\n");
-		game_summary.append("Total Words: \n"+parent_frame.getDataHandler().getWordlistWords().get(parent_frame.getDataHandler().getCurrentLevel()).size()+"\n\n");
-		game_summary.append("Attempted: \n"+parent_frame.getDataHandler().getAttemptedCount()+" \n\n");
-		game_summary.append("Didn't Get: \n"+parent_frame.getDataHandler().getReviewlistWords().get(parent_frame.getDataHandler().getCurrentLevel()).size()+"\n\n");
-		game_summary.setBounds(30, 179, 130, 529);
-		game_summary.setOpaque(false);
-		add(game_summary);
 	}
 }

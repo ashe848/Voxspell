@@ -21,22 +21,22 @@ import voxspell.StatsChooser.StatsType;
  * Is the frame for the Voxspell program
  */
 public class Voxspell extends JFrame{
-	//TODO make this folder hidden
-	private final String RESOURCE_FILE_LOCATION = System.getProperty("user.dir")+"/resources/";
+	private final String RESOURCE_FILE_LOCATION = System.getProperty("user.dir")+"/resources/";//TODO make this folder hidden
 
 	//Contains the singleton DataHandler and Festival instances which panels get
 	private DataHandler data_handler;
 	private Festival festival;
 
+
+	//To be used when refreshing the main menu on panel change
 	private MainMenu main_menu;
 
 	/**
-	 * Constructor. Initialise frame, create data structure & set original panel to main menu
+	 * Constructor. Initialise frame, create data structure & set content panel to main menu
 	 */
 	public Voxspell(){
-		//TODO: 745 height
 		setTitle("VOXSPELL");
-		setSize(1366,772);
+		setSize(1366,772);//TODO: 745 height
 		setLocationRelativeTo(null);
 		setResizable(false);
 
@@ -50,7 +50,7 @@ public class Voxspell extends JFrame{
 		//		});
 
 		setGraphicalEnhancements();
-		
+
 		festival = Festival.getInstance(this);
 		data_handler=DataHandler.getInstance(this);
 
@@ -60,8 +60,10 @@ public class Voxspell extends JFrame{
 		revalidate();
 	}
 
+	/**
+	 * Main method. Starts the Swing program
+	 */
 	public static void main(String[] args){
-		//Initialise Swing program
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				Voxspell instance = new Voxspell();
@@ -69,9 +71,14 @@ public class Voxspell extends JFrame{
 			}
 		});
 	}
-	
+
+	/**
+	 * Defaults for better looks
+	 * Not every key for put() seems to be working, but the below work. Might be a Java version thing
+	 * @author Abby S
+	 */
 	private void setGraphicalEnhancements() {
-		//not everything I want to set works. Might be a Java version thing
+		//
 		UIManager.put("OptionPane.messageFont", new Font("Arial", Font.PLAIN, 25));
 		UIManager.put("OptionPane.buttonFont", new Font("Arial", Font.PLAIN, 25));
 		UIManager.put("OptionPane.background", new Color(235, 235, 235));
@@ -109,7 +116,7 @@ public class Voxspell extends JFrame{
 	}
 
 	/**
-	 * @param id	passed into method to change panel shown
+	 * @param id	passed into method to change to that panel
 	 */
 	void changePanel(PanelID id){
 		//Removes the current panel from the frame, ready for new one to take its place.
@@ -122,7 +129,6 @@ public class Voxspell extends JFrame{
 		case MainMenu:
 			main_menu=new MainMenu(this);
 			this.getContentPane().add(main_menu);
-//			TODO	main_menu.setupAccuracyRateLabel();
 			break;
 		case Settings:
 			this.getContentPane().add(new Settings(this));
@@ -155,7 +161,8 @@ public class Voxspell extends JFrame{
 			this.getContentPane().add(new QuizComplete(this));
 			break;
 		case Video:
-			//Setting up various libraries needed to show video reward after quiz is complete
+			//Setting up libraries needed to show video reward after quiz is complete
+			//Based on Nasser's ACP code
 			NativeLibrary.addSearchPath(
 					RuntimeUtil.getLibVlcLibraryName(), "/Applications/vlc-2.0.0/VLC.app/Contents/MacOS/lib"
 					);

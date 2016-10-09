@@ -25,15 +25,13 @@ import voxspell.Voxspell.PanelID;
 @SuppressWarnings({ "static-access" })
 
 /**
- * Data handling class
+ * Singleton data handling class
  * 
  * Responsible for all interactions(input and output) with external spelling word data files
  * (but not video file, which is handled elsewhere)
  * Also responsible for returning spelling data/word data as well as 
  * manipulation of data structure for things like generating random
  * words to quiz.
- * 
- * @author theooswanditosw164
  */
 public class DataHandler {
 	private static Voxspell parent_frame;
@@ -43,31 +41,35 @@ public class DataHandler {
 	private static String user;
 	private static String spelling_list_name;
 	private static String video_name;
-	private static int words_in_quiz; //number of words in each quiz
-
+	private static double personal_best;
+	private static int words_in_quiz;
 	private static ArrayList<String> users;
 	private static String global_top;
-	private static double personal_best;
 
-	//filenames
-	private static String program_stats;
-	private static String users_list;
-	private static String user_settings;
+	/*
+	 * filenames
+	 */
+	private static String program_stats; //program-wide stats (e.g. global top score)
+	private static String users_list; //list of registered users
+	private static String user_settings; //settings for this user
 	private static String festival_scheme; //name of scheme file used to say words
 	private static String spelling_list; //NZ official spelling list
 	private static String statsfile; //File holding stats for words attempted
 	private static String reviewlist; //Holds words that have been failed and not mastered/faulted after
-	private static String list_settings; //name of file that holds various settings
+	private static String list_settings; //settings for this user specific to the list
 
 	private static ArrayList<ArrayList<String>> wordlist_words; //words from wordlist file
-	private static boolean has_sample_sentences;
-	private static ArrayList<ArrayList<String>> sample_sentences;
-	private static ArrayList<String> level_names;
-	private static int current_level; //initialised so if settings file is empty/wiped
-
 	private static ArrayList<ArrayList<String>> reviewlist_words; //words from reviewlist file
+	private static boolean has_sample_sentences; //whether this list has sample sentences
+	private static ArrayList<ArrayList<String>> sample_sentences;//sample sentences from file
+	private static ArrayList<String> level_names; //names of the levels (uses integers under the hood)
+	private static int current_level; //current level
 
-	//Persistent and session are all for the current list
+	/*
+	 * Statistics data structures
+	 * Uses master/faulted/failed under the hood
+	 * Persistent and session are all for the current list
+	 */
 	private static ArrayList<ArrayList<String>> persistent_allwords; //all words from wordlist + reviewlist
 	private static ArrayList<ArrayList<Integer>> persistent_master_count; //counts of times mastered of words above
 	private static ArrayList<ArrayList<Integer>> persistent_faulted_count; //counts of times faulted of words above
@@ -81,7 +83,11 @@ public class DataHandler {
 	private static ArrayList<String> latest_mastered_words; //list of mastered words from last quiz (for QuizComplete table)
 	private static ArrayList<String> latest_faulted_words; //list of faulted words from last quiz (for QuizComplete table)
 	private static ArrayList<String> latest_failed_words; //list of failed words from last quiz (for QuizComplete table)
-	private static int latest_quiz_length;
+
+	/*
+	 * Post-quiz variables
+	 */
+	private static int latest_quiz_length; //length of latest quiz. May not be same as preferred words in quiz as there might not be that many words
 	private static boolean levelled_up=false; //flag for whether user had decided to level up
 
 	/**
@@ -111,18 +117,23 @@ public class DataHandler {
 		return instance;
 	}
 
+
+
+
 	/*
 	 * Reading Files
 	 */
 	/**
+	 * Reads in list of users
 	 * @author Abby S
 	 */
 	private static void readUsers() {
-		users=new ArrayList<>();
+		users=new ArrayList<String>();
 		users_list=parent_frame.getResourceFileLocation()+"users";
 		try {
 			File users_list_file = new File(users_list);
 			if (!users_list_file.exists()) {
+				//creates file if doesn't already exist
 				users_list_file.createNewFile();
 			}else {
 				BufferedReader current_BR = new BufferedReader(new FileReader(users_list_file));
@@ -140,14 +151,16 @@ public class DataHandler {
 	}
 
 	/**
+	 * Reads in program-wide stats
 	 * @author Abby S
 	 */
 	private static void readProgramStatsFile() {
-		global_top="0.0 DNE DNE";
+		global_top="0.0 DNE DNE"; //default value
 		program_stats=parent_frame.getResourceFileLocation()+"programstats";
 		try {
 			File program_file = new File(program_stats);
 			if (!program_file.exists()) {
+				//creates file if doesn't already exist
 				program_file.createNewFile();
 				writeToProgramFiles();
 			} else {
@@ -165,8 +178,8 @@ public class DataHandler {
 		}
 	}
 
-
 	/**
+	 * Reads in files for this user
 	 * @author Abby S
 	 */
 	static void readUserFiles() {
@@ -179,34 +192,41 @@ public class DataHandler {
 			words_in_quiz=10;
 			personal_best=0;
 
-			//if resources folder can't be found, abort program now instead of get exceptions thrown everywhere
-			//no barrier against if a png was deleted (could test for all contents and abort program, but that's not the purpose of this project)
+			/*
+			 * if resources folder can't be found, abort program now instead of get exceptions thrown everywhere
+			 * no barrier against if a png was deleted for example (could test for all contents and abort program, but that's not the purpose of this project)
+			 */
 			File resources_folder = new File(parent_frame.getResourceFileLocation());
 			if (!resources_folder.exists()) {
-				JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary resources folder has been removed\nAborting", "Fatal Error", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary resources folder has been removed\nAborting", "Fatal Error", JOptionPane.ERROR_MESSAGE);
 				System.exit(1);
 			}
 
+			/*
+			 * Default spelling list and reward video. Application won't run if they're deleted 
+			 */
 			File default_spelling_list = new File(System.getProperty("user.dir")+"/spellinglists/"+spelling_list_name);
 			if (!default_spelling_list.exists()) {
-				JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary NZCER-spelling-lists.txt has been removed\n(should be in spellinglists folder)\nPlease put it back and restart Voxspell", "Fatal Error", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary NZCER-spelling-lists.txt has been removed\n(should be in spellinglists folder)\nPlease put it back and restart Voxspell", "Fatal Error", JOptionPane.ERROR_MESSAGE);
 				System.exit(1);
 			}
 
 			File default_reward_video = new File(System.getProperty("user.dir")+"/rewardvideos/"+parent_frame.getDataHandler().video_name);
 			if (!default_reward_video.exists()) {
-				JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary ffmpeg_reward_video.avi has been removed\n(should be in rewardvideos folder)\nPlease put it back and restart Voxspell", "Fatal Error", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary ffmpeg_reward_video.avi has been removed\n(should be in rewardvideos folder)\nPlease put it back and restart Voxspell", "Fatal Error", JOptionPane.ERROR_MESSAGE);
 				System.exit(1);
 			}
 
 			File user_folder = new File(parent_frame.getResourceFileLocation()+user+"/");
 			if (!user_folder.exists()) {
+				//creates folder if doesn't already exist
 				user_folder.mkdir();
 			}
 
 			user_settings=parent_frame.getResourceFileLocation()+user+"/"+user+"_settings";
 			File user_settings_file = new File(user_settings);
 			if (!user_settings_file.exists()) {
+				//creates file if doesn't already exist
 				user_settings_file.createNewFile();		
 			} else {
 				BufferedReader current_BR = new BufferedReader(new FileReader(user_settings_file));
@@ -218,6 +238,7 @@ public class DataHandler {
 					spelling_list_name =split_line[0];
 					File saved_spelling_list = new File(System.getProperty("user.dir")+"/spellinglists/"+spelling_list_name);
 					if (!saved_spelling_list.exists()) {
+						//if list has been deleted, set to default
 						spelling_list_name="NZCER-spelling-lists.txt";
 					}
 
@@ -254,6 +275,7 @@ public class DataHandler {
 					video_name =split_line[5];
 					File saved_reward_video = new File(System.getProperty("user.dir")+"/rewardvideos/"+video_name);
 					if (!saved_reward_video.exists()) {
+						//if video has been deleted, set to default
 						video_name="ffmpeg_reward_video.avi";
 					}
 				}
@@ -269,12 +291,7 @@ public class DataHandler {
 	}
 
 	/**
-	 * Method that reads contents of files and stores them into data structure.
-	 * Files read from:
-	 * 		NZ Spelling list text file		contents put into wordlist_words arraylist of arraylist(string) by level
-	 * 		Statistics file					contents put into persistent{allwords, masteredcount, faultedcount, failedcount}
-	 * 		Reviewlist words file			contents put into reviewlist_words arraylist of arraylist(String) by level
-	 * 		Settings file					contents put into current_level field
+	 * Method that reads contents of files and stores them into data structures
 	 */
 	static void readListSpecificFiles(){
 		setupListSpecificFiles();
@@ -288,17 +305,16 @@ public class DataHandler {
 	}
 
 	/**
-	 * checks resource and data files
+	 * files specific to this list
 	 */
 	private static void setupListSpecificFiles() {
-		//		System.out.println(System.getProperty("user.dir"));
 		spelling_list = System.getProperty("user.dir")+"/spellinglists/"+spelling_list_name;
 		festival_scheme = parent_frame.getResourceFileLocation()+"festival.scm";
 		reviewlist = parent_frame.getResourceFileLocation()+user+"/"+user+"_"+spelling_list_name+"_reviewlist";
 		statsfile = parent_frame.getResourceFileLocation()+user+"/"+user+"_"+spelling_list_name+"_statsfile";
 		list_settings = parent_frame.getResourceFileLocation()+user+"/"+user+"_"+spelling_list_name+"_settings";
 
-		//creates files that can be empty at this point (them not existing is an issue that won't crash the program)
+		//creates files that can be empty at this point (because them not existing is an issue that won't crash the program)
 		try {	
 			File festival_scheme_file = new File(festival_scheme);
 			if (!festival_scheme_file.exists()) {
@@ -320,7 +336,7 @@ public class DataHandler {
 				list_settings_file.createNewFile();				
 			}
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Fatal error concerning data files\nAborting", "Fatal Error", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Fatal error concerning data files\nAborting", "Fatal Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 	}
@@ -329,7 +345,7 @@ public class DataHandler {
 	 * Sets up data structure infrastructure
 	 */
 	private static void declareDataStructures() {
-		level_names=new ArrayList<>();
+		level_names=new ArrayList<String>();
 		wordlist_words = new ArrayList<ArrayList<String>>();
 		reviewlist_words = new ArrayList<ArrayList<String>>();
 
@@ -369,6 +385,7 @@ public class DataHandler {
 
 			current_BR.close();
 
+			//Check if list comes with sample sentences @author Abby S
 			File sample_sentences_file = new File(System.getProperty("user.dir")+"/samplesentences/"+spelling_list_name);
 			if (sample_sentences_file.exists()) {
 				has_sample_sentences=true;
@@ -385,6 +402,7 @@ public class DataHandler {
 	}
 
 	/**
+	 * Saves sample sentences into arraylist of arraylists by level
 	 * @author Abby S
 	 */
 	private static void readInSampleSentences() {
@@ -415,10 +433,10 @@ public class DataHandler {
 	}
 
 	/**
-	 * initialise ArrayLists for data structure based on how many levevls in wordlist
+	 * initialise ArrayLists for data structure based on how many levels in wordlist
 	 */
 	private static void initialiseDataStructures() {
-		for(int i=0; i<wordlist_words.size();i++){
+		for(int i=0; i<wordlist_words.size(); i++){
 			persistent_allwords.add(new ArrayList<String>());
 			persistent_master_count.add(new ArrayList<Integer>());
 			persistent_faulted_count.add(new ArrayList<Integer>());
@@ -477,7 +495,7 @@ public class DataHandler {
 	}
 
 	/**
-	 * adds words from wordlist that not in statsfile into persistent structures
+	 * adds words from wordlist that's not in statsfile into persistent structures
 	 * if wordlist hasn't been used before (and therefore there statsfile is empty)
 	 * or if wordlist has had additional words added to it since last loaded
 	 */
@@ -523,9 +541,7 @@ public class DataHandler {
 	}
 
 	/**
-	 * Gets contents of settings files and sets
-	 * Settings file structure:
-	 * 		<current level> <festival speed> <festival voice>
+	 * Gets contents of settings file for this list
 	 */
 	private static void readInListSettings() {
 		//sets default
@@ -558,11 +574,8 @@ public class DataHandler {
 		}
 	}
 
-
-
-
-
 	/**
+	 * Reads a file to see if it conforms to spelling list format
 	 * @author Abby S
 	 */
 	static boolean errorCheckSelectedFile(File selected) {
@@ -605,12 +618,13 @@ public class DataHandler {
 	}
 
 
+
 	/*
 	 * Writing to files
 	 */
 	/**
 	 * writes to stats file in the format
-	 * <word level> <mastered count> <faulted count> <failed count> <word>
+	 * <word level> <mastered count> <faulted count> <failed count> <the word>
 	 */
 	private void writeStats(){
 		try {
@@ -645,8 +659,7 @@ public class DataHandler {
 	}
 
 	/**
-	 * writes to settings file in the format
-	 * <current level> <festival speed> <festival voice>
+	 * writes to settings files for the user
 	 */
 	static void writeToSettingsFiles(){
 		try {
@@ -679,6 +692,7 @@ public class DataHandler {
 	}
 
 	/**
+	 * Writes to program-wide stats and users list
 	 * @author Abby S
 	 */
 	static void writeToProgramFiles(){
@@ -698,6 +712,7 @@ public class DataHandler {
 	}
 
 	/**
+	 * writes to user-built list (and sample sentences if exists) with %Level number between the levels (same format as inputted lists)
 	 * @author Abby S
 	 */
 	void writeCustomList(String list_name, ArrayList<String> words_to_add, ArrayList<String> sentences_to_add){
@@ -720,8 +735,8 @@ public class DataHandler {
 		}
 	}
 
-
 	/**
+	 * Resets stats for current user current list
 	 * @author Abby S
 	 */
 	void resetListStats() {
@@ -743,33 +758,49 @@ public class DataHandler {
 	}
 
 	/**
-	 * wipe files and calls read files to read in empty into the data structures
-	 * will be as if this was the user's first launch
+	 * wipe files and calls read files to read in Visitor's data into the data structures
+	 * will be as if this was the user never existed
 	 * 
 	 * based on http://www.adam-bien.com/roller/abien/entry/java_7_deleting_recursively_a
 	 * 
 	 * @author Abby S
 	 */
-	void resetUser() throws IOException {
+	void resetUser() {
 		users.remove(user);
 		writeToProgramFiles();
 
+		//walks down tree from that user's stats directory deleting all it's contents
 		Path user_folder_path=Paths.get(parent_frame.getResourceFileLocation()+user+"/", "");
-		Files.walkFileTree(user_folder_path, new SimpleFileVisitor<Path>(){
-			public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-				Files.delete(file);
-				return FileVisitResult.CONTINUE;
-			}
-		});
+		try {
+			Files.walkFileTree(user_folder_path, new SimpleFileVisitor<Path>(){
+				public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+					try {
+						Files.delete(file);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					return FileVisitResult.CONTINUE;
+				}
+			});
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		//delete the now-empty folder for this user
 		File user_folder = new File(parent_frame.getResourceFileLocation()+user+"/");
 		user_folder.delete();
 
+		//Logs back in to Visitor
 		user="Visitor";
 		readUserFiles();
 		readListSpecificFiles();
 		parent_frame.changePanel(PanelID.MainMenu);
 	}
 
+	/**
+	 * Resets non-list-specific settings back to application defaults
+	 * @author Abby S
+	 */
 	void resetToDefaults() {
 		File user_settings_file = new File(user_settings);
 		user_settings_file.delete();
@@ -789,7 +820,7 @@ public class DataHandler {
 	 * @param number_of_words		words in quiz specified, will go to number of words in file if less than
 	 * @return		array of randomised words to do test on
 	 * 
-	 * Taken from Theo's Assignment 2
+	 * From Theo's Assignment 2
 	 */
 	ArrayList<String> getWordsForSpellingQuiz(int number_of_words, PanelID id){
 		//setup relevant bank of words to choose from depending on quiz type
@@ -806,7 +837,7 @@ public class DataHandler {
 		}
 
 		if(relevant_bank_of_words.size() == 0){
-			JOptionPane.showMessageDialog(null, "EMPTY " + id.toString() + " FILE, nothing to test\nWill return to main menu" ,"Error",JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "EMPTY " + id.toString() + " FILE, nothing to test\nWill return to main menu" ,"Error",JOptionPane.ERROR_MESSAGE);
 			parent_frame.changePanel(PanelID.MainMenu);
 		} else {
 			//randomising of words without messing with order of original array (no deep copy needed)
@@ -828,7 +859,7 @@ public class DataHandler {
 	 * Shuffles indices of array, so it doesn't mess with pointers. No deep copying needed
 	 * @param indices		array to shuffle
 	 * 
-	 * Taken from Theo's Assignment 2
+	 * From Theo's Assignment 2
 	 */
 	private void shuffleIndicesArray(int[] indices){
 		Random rand = new Random();
@@ -843,8 +874,13 @@ public class DataHandler {
 		}
 	}
 
+
+
 	/*
 	 * Post-quiz logic
+	 */
+	/**
+	 * Results for a quizzed word
 	 */
 	enum WordResult {
 		Mastered, Faulted, Failed;
@@ -947,7 +983,7 @@ public class DataHandler {
 	}
 
 	/**
-	 * Adds list of failed words into reviewlist
+	 * Adds list of words into reviewlist (failed words or via the add to review function in quiz)
 	 */
 	void addToReviewList(ArrayList<String> failed_words){
 		for (String w:failed_words){
@@ -956,15 +992,15 @@ public class DataHandler {
 			}
 		}
 	}
-	
-	
-	
+
+
+
 	/*
 	 * Getters, setters and related methods
+	 * To following coding conventions and not have non-private fields
 	 */
-
 	/**
-	 * @Return number of words attempted in current level
+	 * @return number of words attempted in current level
 	 */
 	int getAttemptedCount() {
 		int attempted_count=0;
@@ -975,7 +1011,7 @@ public class DataHandler {
 		}
 		return attempted_count;
 	}
-	
+
 	/**
 	 * @return the current_level
 	 */
@@ -984,7 +1020,7 @@ public class DataHandler {
 	}
 
 	/**
-	 * @param current_level the current_level to set
+	 * @param current_level   the currentlevel to set
 	 */
 	static void setCurrentLevel(int current_level) {
 		DataHandler.current_level = current_level;
@@ -1006,19 +1042,13 @@ public class DataHandler {
 
 	/**
 	 * sets on user deciding to level up
-	 * @param flag
 	 */
 	void setLevelledUp(boolean flag){
 		levelled_up=flag;
 	}
 
-
-	/*
-	 * Accessing stored data
-	 */
 	/**
-	 * Returns number of levels (including the empty level 0)
-	 * @return
+	 * @return number of levels (including the empty level 0)
 	 */
 	static int getNumberOfLevels(){
 		return persistent_allwords.size();
@@ -1029,7 +1059,7 @@ public class DataHandler {
 	 * @return
 	 */
 	static String[] getLevelArray() {
-		//-1 to exclude level 0
+		//subtract 1 to exclude level 0
 		String[] levels = new String[getNumberOfLevels()-1];
 		for(int level=1; level<getNumberOfLevels(); level++){
 			levels[level-1]=level_names.get(level);
@@ -1087,8 +1117,8 @@ public class DataHandler {
 	}
 
 	/**
-	 * returns an Object array containing
-	 * <word level> <the word> <mastered count> <faulted count> <failed count>
+	 * returns an object array containing
+	 * <word level> <level name> <the word> <mastered count> <faulted count> <failed count>
 	 */
 	private ArrayList<Object[]> getWordDataForLevel(int level, ArrayList<ArrayList<String>> words, ArrayList<ArrayList<Integer>> master_count, ArrayList<ArrayList<Integer>> faulted_count, ArrayList<ArrayList<Integer>> failed_count){
 		ArrayList<Object[]> to_return = new ArrayList<Object[]>();
@@ -1116,55 +1146,63 @@ public class DataHandler {
 
 	/**
 	 * @return the user
+	 * @author Abby S
 	 */
 	static String getUser() {
 		return user;
 	}
 
 	/**
-	 * @param user the user to set
+	 * set the user
+	 * @author Abby S
 	 */
 	static void setUser(String user) {
 		DataHandler.user = user;
 	}
 
 	/**
-	 * @return the spelling_list_name
+	 * @return the spelling list name
+	 * @author Abby S
 	 */
 	static String getSpellingListName() {
 		return spelling_list_name;
 	}
 
 	/**
-	 * @param spelling_list_name the spelling_list_name to set
+	 * set the spelling list name
+	 * @author Abby S
 	 */
 	static void setSpellingListName(String spelling_list_name) {
 		DataHandler.spelling_list_name = spelling_list_name;
 	}
 
 	/**
-	 * @return the video_name
+	 * @return the video name
+	 * @author Abby S
 	 */
 	static String getVideoName() {
 		return video_name;
 	}
 
 	/**
-	 * @param video_name the video_name to set
+	 * set the reward video name
+	 * @author Abby S
 	 */
 	static void setVideoName(String video_name) {
 		DataHandler.video_name = video_name;
 	}
 
 	/**
-	 * @return the words_in_quiz
+	 * @return the preferred number of words in a quiz
+	 * @author Abby S
 	 */
 	static int getNumWordsInQuiz() {
 		return words_in_quiz;
 	}
 
 	/**
-	 * @param words_in_quiz the words_in_quiz to set
+	 * set the preferred number of words in a quiz
+	 * @author Abby S
 	 */
 	static void setNumWordsInQuiz(int words_in_quiz) {
 		DataHandler.words_in_quiz = words_in_quiz;
@@ -1172,81 +1210,89 @@ public class DataHandler {
 
 	/**
 	 * @return the users
+	 * @author Abby S
 	 */
 	static ArrayList<String> getUsers() {
 		return users;
 	}
 
 	/**
-	 * @return the global_top
+	 * @return the global top information
+	 * @author Abby S
 	 */
 	static String getGlobalTop() {
 		return global_top;
 	}
 
 	/**
-	 * @param global_top the global_top to set
+	 * set new global top record
+	 * @author Abby S
 	 */
 	static void setGlobalTop(String global_top) {
 		DataHandler.global_top = global_top;
 	}
 
 	/**
-	 * @return the personal_best
+	 * @return the personal best score of this user
+	 * @author Abby S
 	 */
 	static double getPersonalBest() {
 		return personal_best;
 	}
 
 	/**
-	 * @param personal_best the personal_best to set
+	 * set the personal best score of this user
+	 * @author Abby S
 	 */
 	static void setPersonalBest(double personal_best) {
 		DataHandler.personal_best = personal_best;
 	}
 
 	/**
-	 * @return the wordlist_words
+	 * @return the words in wordlist 
+	 * @author Abby S
 	 */
 	static ArrayList<ArrayList<String>> getWordlistWords() {
 		return wordlist_words;
 	}
 
 	/**
-	 * @return the has_sample_sentences
+	 * @return whether this list has sample sentences
+	 * @author Abby S
 	 */
 	static boolean hasSampleSentences() {
 		return has_sample_sentences;
 	}
 
 	/**
-	 * @return the sample_sentences
+	 * @return the sample sentences
+	 * @author Abby S
 	 */
 	static ArrayList<ArrayList<String>> getSampleSentences() {
 		return sample_sentences;
 	}
 
 	/**
-	 * @return the level_names
+	 * @return the level names
+	 * @author Abby S
 	 */
 	static ArrayList<String> getLevelNames() {
 		return level_names;
 	}
 
 	/**
-	 * @return the reviewlist_words
+	 * @return the words in reviewlist
+	 * @author Abby S
 	 */
 	static ArrayList<ArrayList<String>> getReviewlistWords() {
 		return reviewlist_words;
 	}
 
 	/**
-	 * @return the latest_quiz_length
+	 * @return the length of the latest quiz
+	 * @author Abby S
 	 */
 	static int getLatestQuizLength() {
 		return latest_quiz_length;
 	}
-
-	
-
 }

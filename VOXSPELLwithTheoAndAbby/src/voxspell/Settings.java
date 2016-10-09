@@ -2,8 +2,6 @@ package voxspell;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -29,13 +27,10 @@ import voxspell.Voxspell.PanelID;
 
 /**
  * Settings JPanel class
- * Allows user to change festival voice and speed
- * Also allows user to reset all data (settings & stats)
+ * Allows user to modify settings and reset some data
  */
-
 public class Settings extends JPanel {
 	private Voxspell parent_frame;
-	private Image bg_image;
 
 	//temporary values selected by user. Only saved if user confirms
 	private FestivalVoice temp_voice_selection=null;
@@ -70,8 +65,10 @@ public class Settings extends JPanel {
 		setupBackButton();
 	}
 
-
-
+	/**
+	 * Displays "Settings" title
+	 * @author Abby S
+	 */
 	private void setupTitle() {
 		JLabel title = new JLabel("Settings");
 		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
@@ -82,7 +79,7 @@ public class Settings extends JPanel {
 	}
 
 	/**
-	 * Resets all stats to as if it was the user's first launch (prompts user for confirmation)
+	 * Resets all stats to as if it was the user's first time for this list (prompts user for confirmation)
 	 * @author Abby S
 	 */
 	private void seupResetListStats() {
@@ -103,6 +100,7 @@ public class Settings extends JPanel {
 	}
 
 	/**
+	 * Resets non-list-specific settings for that user back to defaults (prompts for confirmation)
 	 * @author Abby S
 	 */
 	private void seupResetToDefaultSettings() {
@@ -122,6 +120,8 @@ public class Settings extends JPanel {
 	}
 
 	/**
+	 * Resets to as if this user never existed (prompts user for confirmation)
+	 * Goes back to the default Visitor login
 	 * @author Abby S
 	 */
 	private void seupResetUser() {
@@ -130,11 +130,7 @@ public class Settings extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				boolean ask_clear_result = askForConfirmation("Are you sure you want to reset all your Data?\nWill be logged into Visitor", "Reset User Stats");
 				if (ask_clear_result){
-					try {
-						parent_frame.getDataHandler().resetUser();
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
+					parent_frame.getDataHandler().resetUser();
 				}
 			}
 		});
@@ -143,8 +139,9 @@ public class Settings extends JPanel {
 		reset_user_button.setBackground(Color.RED);
 		reset_user_button.changeMouseEventColor(Color.BLACK);
 	}
-	
+
 	/**
+	 * warns user that other settings will not be saved due to the nature of the back button prompting for save or discard changes
 	 * @author Abby S
 	 */
 	private void setupWarningLabel() {
@@ -155,7 +152,7 @@ public class Settings extends JPanel {
 		warning_label.setBounds(543, 668, 299, 30);
 		add(warning_label);
 	}
-	
+
 	/**
 	 * Drop down to change festival voice
 	 */
@@ -166,6 +163,7 @@ public class Settings extends JPanel {
 		change_voice_label.setForeground(Color.BLACK);
 		add(change_voice_label);
 
+		//Kiwi, British and American are the available voices
 		FestivalVoice[] voices={FestivalVoice.Kiwi, FestivalVoice.British, FestivalVoice.American};
 		final JComboBox voice_chooser = new JComboBox(voices);
 		voice_chooser.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -180,7 +178,6 @@ public class Settings extends JPanel {
 				temp_voice_selection=(FestivalVoice)voice_chooser.getSelectedItem();
 			}
 		});
-
 		voice_chooser.setBounds(32, 209, 210, 50);
 		add(voice_chooser);
 	}
@@ -195,6 +192,7 @@ public class Settings extends JPanel {
 		change_speed_label.setForeground(Color.BLACK);
 		add(change_speed_label);
 
+		//Just the simple slow/normal/fast
 		FestivalSpeed[] speeds={FestivalSpeed.slow, FestivalSpeed.normal, FestivalSpeed.fast};
 		final JComboBox speed_chooser = new JComboBox(speeds);
 		speed_chooser.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -209,12 +207,12 @@ public class Settings extends JPanel {
 				temp_speed_selection=(FestivalSpeed)speed_chooser.getSelectedItem();
 			}
 		});
-
 		speed_chooser.setBounds(32, 334, 210, 50);
 		add(speed_chooser);
 	}
 
 	/**
+	 * Drop down to select preferred number of words in each quiz
 	 * @author Abby S
 	 */
 	private void setupWordInQuiz(){
@@ -224,14 +222,14 @@ public class Settings extends JPanel {
 		change_words_in_quiz_label.setBounds(32, 422, 517, 30);
 		add(change_words_in_quiz_label);
 
-		//		TODO: remove 1 after testing
-		Integer[] word_numbers={1, 5, 10, 15, 25, 50};
+		//just a few choices for simplicity in use
+		Integer[] word_numbers={1, 5, 10, 15, 25, 50};//TODO: remove 1 after testing
 		final JComboBox word_number_chooser = new JComboBox(word_numbers);
 		word_number_chooser.setFont(new Font("Arial", Font.PLAIN, 20));
 		word_number_chooser.setForeground(Color.BLACK);
 		word_number_chooser.setBackground(Color.WHITE);
 
-		//set shown item to be the current voice
+		//set shown item to be the current number of words
 		word_number_chooser.setSelectedItem(parent_frame.getDataHandler().getNumWordsInQuiz());
 		word_number_chooser.addActionListener(new ActionListener() {
 			@Override
@@ -239,12 +237,12 @@ public class Settings extends JPanel {
 				temp_word_selection=(Integer) word_number_chooser.getSelectedItem();
 			}
 		});
-
 		word_number_chooser.setBounds(32, 462, 210, 50);
 		add(word_number_chooser);
 	}
 
 	/**
+	 * Choose levels up to and including current level
 	 * @author Abby S
 	 */
 	private void setupChooseLevel() {
@@ -274,6 +272,7 @@ public class Settings extends JPanel {
 	}
 
 	/**
+	 * File chooser to choose word list from spellinglists directory
 	 * @author Abby S
 	 */
 	private void setupChooseWordList(){
@@ -284,6 +283,7 @@ public class Settings extends JPanel {
 		choose_wordlist_label.setBounds(655, 169, 661, 30);
 		add(choose_wordlist_label);
 
+		//tells user what list they chose
 		final JLabel will_change_to=new JLabel("");
 		add(will_change_to);
 
@@ -303,6 +303,7 @@ public class Settings extends JPanel {
 				int button_clicked = chooser.showDialog(parent_frame, "Choose this word list");
 				if(button_clicked == JFileChooser.APPROVE_OPTION) {
 					if (!parent_frame.getDataHandler().errorCheckSelectedFile(chooser.getSelectedFile())){
+						//checks if file format is correct
 						JOptionPane.showMessageDialog(null, "Chosen list is not in correct format\nPlease choose another list", "List Format Error", JOptionPane.WARNING_MESSAGE);
 					} else {
 						temp_list_selection=chooser.getSelectedFile().getName();
@@ -318,6 +319,7 @@ public class Settings extends JPanel {
 	}
 
 	/**
+	 * File chooser to choose reward video from rewardvideos directory
 	 * @author Abby S
 	 */
 	private void setupChooseRewardVideo(){
@@ -328,6 +330,7 @@ public class Settings extends JPanel {
 		choose_video_label.setBounds(655, 318, 661, 30);
 		add(choose_video_label);
 
+		//tells user what video they chose
 		final JLabel will_change_to=new JLabel("");
 		add(will_change_to);
 
@@ -340,12 +343,14 @@ public class Settings extends JPanel {
 				FileSystemView fsv = new SingleRootFileSystemView(reward_videos_folder);
 
 				JFileChooser chooser = new JFileChooser(reward_videos_folder, fsv);
+				//expected format is a .avi file for VLCJ to be able to play it
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("AVI files", "avi");
 				chooser.setFileFilter(filter);
 
 				int button_clicked = chooser.showDialog(parent_frame, "Choose this video");
 				if(button_clicked == JFileChooser.APPROVE_OPTION) {
 					if (chooser.getSelectedFile().getName().contains(" ")){
+						//disallows spaces in file name due to difficulties with dealing with spaces
 						JOptionPane.showMessageDialog(null, "Chosen video has space(s) in its name\nPlease rename", "Filename Format Error", JOptionPane.WARNING_MESSAGE);
 					} else {
 						temp_video_selection=chooser.getSelectedFile().getName();
@@ -390,6 +395,7 @@ public class Settings extends JPanel {
 					if(temp_video_selection!=null){
 						parent_frame.getDataHandler().setVideoName(temp_video_selection);
 					}
+					//saves list settings first, before seeing if the list needs to change
 					parent_frame.getDataHandler().writeToSettingsFiles();
 
 					if(temp_list_selection!=null){
@@ -422,28 +428,21 @@ public class Settings extends JPanel {
 		return false;
 	}
 
-	/**
-	 * Overriding the paintComponent method to place background
-	 */
-	public void paintComponent(Graphics g){
-		super.paintComponent(g);
-		g.drawImage(bg_image, 0, 0, this);
-	}
 
 	/**
-	 * 	Slightly modified from:	
-	 * 	https://tips4java.wordpress.com/2009/01/28/single-root-file-chooser/
-	 * 	http://www.camick.com/java/source/SingleRootFileSystemView.java
+	 * Means the file chooser is restricted to the directory I specify
+	 * So user only allowed to choose lists for the spellinglists folder for example
+	 * For ease of use as users don't want to accidently click something and end up in a random place in the system file hierachy
+	 * 
+	 * Slightly modified from:	
+	 * https://tips4java.wordpress.com/2009/01/28/single-root-file-chooser/
+	 * http://www.camick.com/java/source/SingleRootFileSystemView.java
 	 * 
 	 * A FileSystemView class that limits the file selections to a single root.
-	 *
 	 * When used with the JFileChooser component the user will only be able to
 	 * traverse the directories contained within the specified root fill.
-	 *
-	 * The "Look In" combo box will only display the specified root.
-	 *
+	 * The "Look In" combo box will only display the specified root
 	 * The "Up One Level" button will be disabled
-	 * 
 	 */
 	private class SingleRootFileSystemView extends FileSystemView{
 		File root;

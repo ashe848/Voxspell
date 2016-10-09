@@ -2,8 +2,6 @@ package voxspell;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -35,18 +33,15 @@ import windowbuilder.VoxMouseAdapter;
  * button and say again (in case they want to hear word again) button 
  * available to press.
  * Return to main menu button also present on panel.
- * 
- * Based on Theo's A2 code
  */
 public class Quiz extends JPanel {
 	private Voxspell parent_frame;
-	private Image bg_image;
 	private PanelID quiz_type; //Distinguishes if quiz is normal or review quiz
 
-	private JProgressBar progress_bar;
+	private JProgressBar progress_bar; //progress through how many words there are
 	private JTextArea feedback_display; //progress text area to show previous information
 	private JTextField input_from_user; //what user puts as guess for spelling quiz
-	
+
 	private ArrayList<String> words_to_spell; //list of words to spell in quiz
 	private int current_word_number; //indicates which word the user is up to in quiz
 	private int current_attempt_number; //indicates which attempt user is up to when spelling
@@ -57,8 +52,6 @@ public class Quiz extends JPanel {
 
 	/**
 	 * constructor for panel, sets up paramaters of panel and various fields
-	 * @param parent	frame
-	 * @param 
 	 */
 	public Quiz(Voxspell parent, PanelID type){
 		setSize(1366,745);
@@ -83,7 +76,7 @@ public class Quiz extends JPanel {
 			setupAddToReviewButton();
 			setupHelpButton();
 			setupBackButton();
-			
+
 			current_attempt_number = 1;
 			current_word_number = 0;
 
@@ -94,7 +87,6 @@ public class Quiz extends JPanel {
 			startQuiz(); //begins quiz logic
 		}
 	}
-
 
 	/**
 	 * Method that determines what will be tested in quiz based on type of quiz
@@ -122,9 +114,12 @@ public class Quiz extends JPanel {
 	}
 
 	/**
-	 * Colour is result of last word, because text area clears once move on
-	 * But for the colour-blind, they can hear the result said by festival anyway
-	 * Using JLabel only seems to work if it's a local variable, but that doesn't do the job as it can't be changed
+	 * Shows progress through words in this quiz
+	 * 
+	 * Colour is set based on result of last word, because text area clears once move on
+	 * For the colour-blind, they can hear the result said by festival anyway
+	 * Using JLabel only seems to work if it's a local variable, but that doesn't do the feedback job as it can't be changed
+	 * 
 	 * @author Abby S
 	 */
 	private void setupProgressBar() {
@@ -136,7 +131,7 @@ public class Quiz extends JPanel {
 	}
 
 	/**
-	 * Sets up text area that shows user history of guesses and progress of quiz
+	 * Sets up text area that shows feedback and user attempts for the current word
 	 */
 	private void setupFeedbackDisplayTextArea(){
 		feedback_display = new JTextArea();
@@ -166,6 +161,7 @@ public class Quiz extends JPanel {
 
 	/**
 	 * Adds the field in which user types word
+	 * "Enter" key also submits attempt
 	 */
 	private void setupSpellHereField(){
 		input_from_user = new JTextField();
@@ -183,7 +179,7 @@ public class Quiz extends JPanel {
 	}
 
 	/**
-	 * sets up button that user presses to submit their spelling guess
+	 * sets up button that user presses to submit their spelling attempt
 	 */
 	private void setupSubmitButton() {
 		ImageIcon submit_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "submit.png");
@@ -202,7 +198,8 @@ public class Quiz extends JPanel {
 	}
 
 	/**
-	 * adds button that lets user re-hear word to spell
+	 * adds button that lets user re-hear word to spell without penalty
+	 * will speak the word using slow speed, then the sample sentence (if there is one) at user's preferred speed, then word slowly again
 	 */
 	private void setupSayAgainButton() {
 		ImageIcon sayagain_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "sayagain.png");
@@ -229,6 +226,7 @@ public class Quiz extends JPanel {
 	}
 
 	/**
+	 * Drop down to change preferred voice (will be saved)
 	 * @author Abby S
 	 */
 	private void setupChangeVoice() {
@@ -254,6 +252,7 @@ public class Quiz extends JPanel {
 	}
 
 	/**
+	 * Drop down change preferred speed (will be saved)
 	 * @author Abby S
 	 */
 	private void setupChangeSpeed() {
@@ -278,6 +277,7 @@ public class Quiz extends JPanel {
 	}
 
 	/**
+	 * Adds to word to review list if user decides they want to practice that word more
 	 * Doesn't affect stats
 	 * @author Abby S
 	 */
@@ -295,7 +295,11 @@ public class Quiz extends JPanel {
 		add_to_review.addMouseListener(new VoxMouseAdapter(add_to_review,null));
 		add(add_to_review);
 	}
-	
+
+	/**
+	 * Displays pop up help frame
+	 * @author Abby S
+	 */
 	private void setupHelpButton() {
 		ImageIcon help_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "help.png");
 		JButton help_button = new JButton("",help_button_image);
@@ -351,7 +355,7 @@ public class Quiz extends JPanel {
 
 	/**
 	 * Begins quiz based on current word and current attempt fields of object
-	 * Says word to spell and updates text progress area
+	 * Says word to spell, sample sentence (if there is one) and updates text progress area
 	 */
 	private void startQuiz(){
 		parent_frame.getFestival().speak("Please spell the word... "+words_to_spell.get(current_word_number),false);
@@ -372,13 +376,17 @@ public class Quiz extends JPanel {
 	/**
 	 * Spelling checked when user pressed submit button
 	 * @param attempt	string that user typed into field, is compared with list of words to spell
+	 * 
+	 * Logic based on Theo's A2 code
 	 */
 	private void checkCorrectSpelling(String attempt){
 		input_from_user.setText("");//clear input field	
 
-		if(!attempt.matches(".*[a-zA-Z]+.*")){ //user doesn't enters any alphabetical characters
+		if(!attempt.matches(".*[a-zA-Z]+.*")){ 
+			//user doesn't enters any alphabetical characters
 			feedback_display.append("Feedback: Word includes alphabet characters, try again\n\n");
-		} else if(!attempt.equals(words_to_spell.get(current_word_number))&&(attempt.toLowerCase()).equals(words_to_spell.get(current_word_number).toLowerCase())){ //differ by capitalisation
+		} else if(!attempt.equals(words_to_spell.get(current_word_number))&&(attempt.toLowerCase()).equals(words_to_spell.get(current_word_number).toLowerCase())){ 
+			//differs only by capitalisation
 			feedback_display.append("Feedback: \""+attempt+"\" is spelt correctly but incorrect capitalisation, try again\n\n");
 		} else{
 			feedback_display.append("Feedback: \""+attempt+"\" is ");//updates progress area with user guess
@@ -398,7 +406,8 @@ public class Quiz extends JPanel {
 				current_word_number+=1;
 				current_attempt_number=1;
 				feedback_display.setText("");//clear display
-			} else{//incorrect spelling
+			} else{
+				//incorrect spelling
 				parent_frame.getFestival().speak("Incorrect", false);
 				feedback_display.append("INCORRECT\n\n");
 
@@ -422,16 +431,9 @@ public class Quiz extends JPanel {
 			parent_frame.getFestival().emptyWorkerQueue();
 			parent_frame.getDataHandler().processQuizResults(words_mastered,words_faulted,words_failed,quiz_type,words_to_spell.size());
 			parent_frame.changePanel(PanelID.QuizComplete);
-		} else{ //Otherwise keep going with quiz
+		} else{ 
+			//Otherwise keep going with quiz
 			startQuiz();
 		}
-	}
-
-	/**
-	 * Overriding the paintComponent method to place background
-	 */
-	public void paintComponent(Graphics g){
-		super.paintComponent(g);
-		g.drawImage(bg_image, 0, 0, this);
 	}
 }

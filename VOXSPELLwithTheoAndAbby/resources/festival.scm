@@ -1,3 +1,3 @@
 (voice_rab_diphone)
-(Parameter.set 'Duration_Stretch 1.5)
-(SayText "I get up before sunrise")
+(Parameter.set 'Duration_Stretch 2.0)
+(SayText "looked")

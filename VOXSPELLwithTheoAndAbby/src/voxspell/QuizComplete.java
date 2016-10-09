@@ -2,8 +2,6 @@ package voxspell;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -38,14 +36,14 @@ import windowbuilder.VoxMouseAdapter;
  * Shows user table of words attempted and if they got it right or not
  * as well as how many attempts taken if they got it correct.
  * 
- * Also allows user to level up and watch reward video
- * if user has completed quiz well.
- * @author theooswanditosw164
+ * Does the scoring for simple gamification purposes
+ * 
+ * Also allows user to level up and watch reward video if user has completed quiz well.
  */
 public class QuizComplete extends JPanel{
 	private Voxspell parent_frame;
-	private Image bg_image;
 
+	//audio clip
 	private Clip clip;
 
 	//list of words from quiz just completed
@@ -76,6 +74,10 @@ public class QuizComplete extends JPanel{
 		setupAccuracyRateLabel();
 	}
 
+	/**
+	 * Displays title
+	 * @author Abby S
+	 */
 	private void setupTitle() {
 		JLabel title = new JLabel("Quiz Complete");
 		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
@@ -87,15 +89,19 @@ public class QuizComplete extends JPanel{
 
 	/**
 	 * Modified from http://stackoverflow.com/a/11025384
+	 * @author Abby S
 	 */
 	private void setupAudio() {
 		/*
+		 * Audio chosen for background celebratory music on quiz completion.
+		 * 
+		 * 
 		 * Smile (For A Bit) by The Orchestral Movement of 1932 (c) copyright 2009 Licensed under a Creative Commons Attribution (3.0) license. http://dig.ccmixter.org/files/jacksontorreal/22341 Ft: Fourstones
 		 * Free to use in commercial projects.
 		 * 
 		 * Found from http://beta.ccmixter.org/playlist/browse/40708?offset=10
 		 * 
-		 * Author comment:
+		 * Original author comment:
 		 * Smile for a bit, because everyone deserves to.
 		 * The second mix that I made for submission. This song is more my poppy, upbeat, sound. If you¡¯re wondering, the title comes from a line from a movie wherein one character was urged to smile more. 
 		 * I don¡¯t know why but I found that moment stuck with me. In any case, please enjoy.
@@ -164,7 +170,7 @@ public class QuizComplete extends JPanel{
 
 		table.setFont(new Font("Calibri Light", Font.PLAIN, 20));
 		table.setRowHeight(27);
-		
+
 		//adds scroll pane to table to panel
 		JScrollPane scroll_pane = new JScrollPane(table);
 		add(scroll_pane);
@@ -173,29 +179,39 @@ public class QuizComplete extends JPanel{
 	}
 
 	/**
-	 * Determines, based on result of quiz, which buttons to display
+	 * Determines, based on result of quiz, which buttons/labels to display
 	 * @author Abby S
 	 */
 	private void determineDisplay(){
-		//at most 10% incorrect (truncated to whole number)
+		//at most 10% incorrect (truncated to whole number) to play video
 		if(latest_failed_words.size()<=(int)(0.1*parent_frame.getDataHandler().getLatestQuizLength())) {
 			setupVideoButton();
 
+			/*
+			 * Same requirements for levelling up. It's not difficult to level up
+			 * because user can easily choose levels below current in settings, but moving up would otherwise be a slow progress if 
+			 * they find a level too easy
+			 */
 			//whether user has already levelled up before playing video
 			if(parent_frame.getDataHandler().getNumberOfLevels()-1==1) {
 				//do nothing. Only 1 level.
 			} else if(!parent_frame.getDataHandler().getLevelledUp()){
-				setupLevelUpButton();//set up when just 1 failed just for assignment 3 purposes to go with specs
+				setupLevelUpButton();
 			} else {
 				setupLevelledUpLabel("");
 			}
 		}
 
-		//3 points for mastered, 1 point for faulted. None for failed. Multiplied by level number. As a percentage
+		/*
+		 * Simple scoring:
+		 * 3 points for mastered, 1 point for faulted. None for failed. Multiplied by level number. As a percentage
+		 */
 		double score=parent_frame.getDataHandler().getCurrentLevel()*((double)(latest_mastered_words.size()*3 + latest_faulted_words.size()))/parent_frame.getDataHandler().getLatestQuizLength();
+		//compare to personal best (this users all lists all sessions)
 		if(score > parent_frame.getDataHandler().getPersonalBest()){
 			parent_frame.getDataHandler().setPersonalBest(score);
 
+			//compare to global top (all users all lists all sessions)
 			double global_top_score=Double.parseDouble(parent_frame.getDataHandler().getGlobalTop().split("\\s+")[0]);
 			if (score > global_top_score){
 				setupNewPB(score,true);
@@ -205,7 +221,7 @@ public class QuizComplete extends JPanel{
 			}
 		}
 	}
-	
+
 	/**
 	 * Button to move up a level
 	 */
@@ -223,7 +239,7 @@ public class QuizComplete extends JPanel{
 					setupLevelledUpLabel("up ");
 				} else {
 					//on highest level, so prompt user to choose which level they want to go to
-					//if user made a choice, then create label behind button
+					//if user made a choice, then show the label behind button
 					if(parent_frame.getDataHandler().chooseLevel("All levels completed!\n", true)){
 						parent_frame.getDataHandler().setLevelledUp(true);
 						setupLevelledUpLabel("");
@@ -238,12 +254,11 @@ public class QuizComplete extends JPanel{
 	}
 
 	/**
-	 * label created once user clicks level up. Notifies them that they have leveled up
-	 * to a new level.
+	 * label created behind the button (which disappears) once user clicks level up. 
+	 * Notifies them that they have leveled up to a new level.
 	 */
 	private void setupLevelledUpLabel(String direction) {
 		JLabel levelled_up_label= new JLabel("Moved " + direction + "to "+parent_frame.getDataHandler().getLevelNames().get(parent_frame.getDataHandler().getCurrentLevel()), JLabel.CENTER);
-
 		levelled_up_label.setBounds(648, 404, 354, 200);
 		levelled_up_label.setFont(new Font("Arial", Font.PLAIN, 20));
 		levelled_up_label.setForeground(new Color(254, 157, 79));
@@ -252,17 +267,16 @@ public class QuizComplete extends JPanel{
 	}
 
 	/**
-	 * Button to play video
+	 * Button to play reward video
 	 */
 	private void setupVideoButton() {
 		ImageIcon videoreward_image = new ImageIcon(parent_frame.getResourceFileLocation() + "playvideo.png");
 		JButton video_button = new JButton("", videoreward_image);		
-
 		video_button.setBounds(648, 169, 355, 200);
 		video_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				clip.close();
+				clip.close(); //stops the background music
 				parent_frame.changePanel(PanelID.Video);
 			}
 		});
@@ -271,6 +285,8 @@ public class QuizComplete extends JPanel{
 	}
 
 	/**
+	 * Tells user they have set a new personal best
+	 * Also comments on comparison with global top / previous global top
 	 * @author Abby S
 	 */
 	private void setupNewPB(double pb_score, boolean bet_global){
@@ -283,15 +299,21 @@ public class QuizComplete extends JPanel{
 		score_results.setText("New personal best score: \n"+pb_score+"\n\n\n");
 		score_results.setBounds(1028, 232, 288, 347);
 		add(score_results);	
-		
+
 		String[] global = parent_frame.getDataHandler().getGlobalTop().split("\\s+");
 		if(bet_global){
+			//How much bet previous global top by
 			score_results.append("Also bet previous global top by "+(pb_score - Double.parseDouble(global[0]))+"!");
 		} else {
+			//What the global top is (to look up to it)
 			score_results.append("Didn't beat global top of "+global[0]+"\n\nby "+global[1]+"\n\nin "+global[2]);
 		}
 	}
-	
+
+	/**
+	 * Displays help popup frame
+	 * @author Abby S
+	 */
 	private void setupHelpButton() {
 		ImageIcon help_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "help.png");
 		JButton help_button = new JButton("",help_button_image);
@@ -308,7 +330,7 @@ public class QuizComplete extends JPanel{
 	}
 
 	/**
-	 * Back button to return to previous panel
+	 * Back button to return to main menu
 	 */
 	private void setupBackButton(){
 		ImageIcon back_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "back.png");
@@ -317,7 +339,7 @@ public class QuizComplete extends JPanel{
 		back_button.setContentAreaFilled(false);
 		back_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				clip.close();
+				clip.close(); //stops background music
 				parent_frame.getDataHandler().writeToProgramFiles();
 				parent_frame.getDataHandler().writeToSettingsFiles();
 				//resets flag for level up
@@ -340,13 +362,5 @@ public class QuizComplete extends JPanel{
 		add(accuracy_rate_label);
 		accuracy_rate_label.setBounds(32, 630, 1136, 68);
 		accuracy_rate_label.setOpaque(true);
-	}
-
-	/**
-	 * Overriding the paintComponent method to place background
-	 */
-	public void paintComponent(Graphics g){
-		super.paintComponent(g);
-		g.drawImage(bg_image, 0, 0, this);
 	}
 }

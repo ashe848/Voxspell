@@ -98,7 +98,7 @@ public class Video extends JPanel{
 		duration=(int)player.getLength()/1000;
 		//Set max to duration in seconds
 		progressbar = new JProgressBar(0,duration);
-		progressbar.setForeground(Color.ORANGE);
+		progressbar.setForeground(new Color(254, 157, 79));
 		progressbar.setBackground(Color.WHITE);
 		progressbar.setBorderPainted(false);
 		progressbar.setBounds(32, 675, 1140, 23);
@@ -124,14 +124,16 @@ public class Video extends JPanel{
 	 * Creates start button for video on panel and sets its functionality
 	 */
 	private void setupStartButton() {
-		ImageIcon start_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "play_button.png");
+		ImageIcon start_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "play.png");
 		JButton start_button = new JButton("", start_button_image);
+		start_button.setBorderPainted(false);
 		start_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				player.start();
 			}
 		});
+		start_button.addMouseListener(new VoxMouseAdapter(start_button,null));
 		panel.add(start_button);
 		start_button.setBounds(1216, 169, 100, 100);
 	}
@@ -140,8 +142,9 @@ public class Video extends JPanel{
 	 * Creates pause/play button for video on panel
 	 */
 	private void setupPauseButton() {
-		ImageIcon pause_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "pause_button.png");
+		ImageIcon pause_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "pause.png");
 		JButton pause_button = new JButton("", pause_button_image);
+		pause_button.setBorderPainted(false);
 		pause_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -157,8 +160,9 @@ public class Video extends JPanel{
 	 * Creates stop button for video panel and creates functionality
 	 */
 	private void setupStopButton() {
-		ImageIcon stop_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "stop_button.png");
+		ImageIcon stop_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "stop.png");
 		JButton stop_button = new JButton("", stop_button_image);
+		stop_button.setBorderPainted(false);
 		stop_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

@@ -16,6 +16,7 @@ PLEASE EXECUTE THE JAR FILE FROM COMMAND LINE
 =============================================
 
 Open terminal and change to the directory containing Voxspell.jar 
+This directory would be ashe848/
 enter the following command:
 
 >>>>>>>>>>>>>
@@ -31,7 +32,9 @@ Note: double-clicking the jar file will not work as it can't find the .resources
 
 1. Note the spelling aid is case sensitive. Because "I" should never be spelt with lower case, as with proper nouns, etc.
 
-2. When the video runs, the following lines will show on the command line
+2. Loading the video takes a bit of time. Please be patient after clicking the Play Video button
+
+3. When the video runs, the following lines will show on the command line
 They are not actually errors that affect the application
 (This was also the case when VLCJ was demonstrated in class)
 
@@ -43,7 +46,6 @@ Fontconfig warning: FcPattern object size does not accept value "0"
 Fontconfig warning: FcPattern object size does not accept value "0"
 Fontconfig warning: FcPattern object size does not accept value "0"
 
-3. For some random reason Build List doesn't work on return from video in UG4
 =============================================
 
 * Help screens are not yet complete
@@ -68,7 +70,7 @@ They are the defaults
 
 On any launch, if the any of the above don't exist, Voxspell sees this as a fatal error and won't launch at all
 These files won't be deleted by exiting the application
-Altering them outside of this application may produce unexpected behaviour ¨C so don¡¯t do it
+Altering them outside of this application may produce unexpected behaviour - so don't do it
 
 
 =============================================

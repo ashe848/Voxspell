@@ -1,11 +1,7 @@
 package vox;
 
-import java.awt.Color;
-import java.awt.Font;
-
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 
 import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
@@ -22,8 +18,8 @@ import visiblegui.Quiz;
 import visiblegui.QuizComplete;
 import visiblegui.Settings;
 import visiblegui.StatsChooser;
-import visiblegui.Video;
 import visiblegui.StatsChooser.StatsType;
+import visiblegui.Video;
 
 @SuppressWarnings("serial")
 
@@ -60,8 +56,7 @@ public class Voxspell extends JFrame{
 		//			}
 		//		});
 
-		setGraphicalEnhancements();
-
+		VoxDefaultUI.getInstance();
 		festival = Festival.getInstance(this);
 		data_handler=DataHandler.getInstance(this);
 
@@ -81,27 +76,6 @@ public class Voxspell extends JFrame{
 				instance.setVisible(true);
 			}
 		});
-	}
-
-	/**
-	 * Defaults for better looks
-	 * Not every key for put() seems to be working, but the below work. Might be a Java version thing
-	 * @author Abby S
-	 */
-	private void setGraphicalEnhancements() {
-		UIManager.put("OptionPane.messageFont", new Font("Arial", Font.PLAIN, 25));
-		UIManager.put("OptionPane.buttonFont", new Font("Arial", Font.PLAIN, 25));
-		UIManager.put("OptionPane.background", new Color(235, 235, 235));
-		UIManager.put("ComboBox.selectionBackground", new Color(254, 157, 79));
-		UIManager.put("ComboBox.background", Color.WHITE);
-		UIManager.put("ScrollBar.background", new Color(254, 157, 79));
-		UIManager.put("ScrollPane.background", new Color(254, 157, 79));
-		UIManager.put("TableHeader.font", new Font("Arial", Font.PLAIN, 23));
-		UIManager.put("TableHeader.foreground", Color.WHITE);
-		UIManager.put("TableHeader.background", new Color(254, 157, 79));
-		UIManager.put("ProgressBar.selectionBackground", Color.BLACK); //not covered by bar
-		UIManager.put("ProgressBar.selectionForeground", Color.BLACK); //covered by bar
-		UIManager.put("ProgressBar.font", new Font("Arial", Font.PLAIN, 20));
 	}
 
 	/**

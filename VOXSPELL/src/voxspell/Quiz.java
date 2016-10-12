@@ -211,14 +211,23 @@ public class Quiz extends JPanel {
 				//says the word slowly
 				parent_frame.getFestival().speak(words_to_spell.get(current_word_number),true);
 
-				//says the sample sentence at user's preferred speed
+				//says the sample sentence at user's preferred speed there is one
 				if(parent_frame.getDataHandler().hasSampleSentences()){
 					int index=parent_frame.getDataHandler().getWordlistWords().get(parent_frame.getDataHandler().getCurrentLevel()).indexOf(words_to_spell.get(current_word_number));
-					parent_frame.getFestival().speak(parent_frame.getDataHandler().getSampleSentences().get(parent_frame.getDataHandler().getCurrentLevel()).get(index),false);
+					String sentence=parent_frame.getDataHandler().getSampleSentences().get(parent_frame.getDataHandler().getCurrentLevel()).get(index);
+					if (!sentence.trim().isEmpty()){
+						parent_frame.getFestival().speak(sentence,false);
+					}
 				}
+				
+				//TODO
+				/*if(parent_frame.getDataHandler().hasSampleSentences()){
+					int index=parent_frame.getDataHandler().getWordlistWords().get(parent_frame.getDataHandler().getCurrentLevel()).indexOf(words_to_spell.get(current_word_number));
+					parent_frame.getFestival().speak(parent_frame.getDataHandler().getSampleSentences().get(parent_frame.getDataHandler().getCurrentLevel()).get(index),false);
+				}*/
 
 				//says the word slowly again
-				parent_frame.getFestival().speak(words_to_spell.get(current_word_number),true);
+//				parent_frame.getFestival().speak(words_to_spell.get(current_word_number),true);
 			}
 		});
 		sayagain_button.addMouseListener(new VoxMouseAdapter(sayagain_button,null));
@@ -359,16 +368,7 @@ public class Quiz extends JPanel {
 	 * Says word to spell, sample sentence (if there is one) and updates text progress area
 	 */
 	private void startQuiz(){
-		parent_frame.getFestival().speak("Please spell the word... "+words_to_spell.get(current_word_number),false);
-
-		//says sample sentence if there is one
-		if(parent_frame.getDataHandler().hasSampleSentences()){
-			int index=parent_frame.getDataHandler().getWordlistWords().get(parent_frame.getDataHandler().getCurrentLevel()).indexOf(words_to_spell.get(current_word_number));
-			String sentence=parent_frame.getDataHandler().getSampleSentences().get(parent_frame.getDataHandler().getCurrentLevel()).get(index);
-			if (!sentence.trim().isEmpty()){
-				parent_frame.getFestival().speak(sentence,false);
-			}
-		}
+		parent_frame.getFestival().speak("Please spell... "+words_to_spell.get(current_word_number),false);
 
 		feedback_display.append("Word: "+(current_word_number+1)+" out of "+words_to_spell.size()+"\nAttempt: "+(current_attempt_number)+" out of 2\n");
 		progress_bar.setValue(current_word_number);
@@ -416,13 +416,13 @@ public class Quiz extends JPanel {
 				//second time getting it wrong(failed)
 				if(current_attempt_number == 2){
 					words_failed.add(words_to_spell.get(current_word_number));
+					current_word_number+=1;
 					current_attempt_number=1;
 					progress_bar.setForeground(Color.RED);
 					progress_bar.setString("word "+current_word_number+" was INCORRECT");
-					current_word_number+=1;
 					feedback_display.setText("");//clear display
 				} else{	//first time getting it wrong(faulted so far, maybe failed later)
-					parent_frame.getFestival().speak("Please try again", false);
+					parent_frame.getFestival().speak("Try again", false);
 					current_attempt_number+=1;
 				}
 			}

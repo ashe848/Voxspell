@@ -126,6 +126,8 @@ public class Quiz extends JPanel {
 		progress_bar.setBounds(32, 170, 1284, 34);
 		progress_bar.setBorderPainted(false);
 		progress_bar.setBackground(Color.WHITE);
+		progress_bar.setStringPainted(true);
+		progress_bar.setString("");
 		add(progress_bar);
 	}
 
@@ -401,9 +403,10 @@ public class Quiz extends JPanel {
 					words_faulted.add(words_to_spell.get(current_word_number));
 				}
 
-				progress_bar.setForeground(Color.GREEN);
 				current_word_number+=1;
 				current_attempt_number=1;
+				progress_bar.setForeground(Color.GREEN);
+				progress_bar.setString("word "+current_word_number +" was CORRECT");
 				feedback_display.setText("");//clear display
 			} else{
 				//incorrect spelling
@@ -414,9 +417,10 @@ public class Quiz extends JPanel {
 				if(current_attempt_number == 2){
 					words_failed.add(words_to_spell.get(current_word_number));
 					current_attempt_number=1;
+					progress_bar.setForeground(Color.RED);
+					progress_bar.setString("word "+current_word_number+" was INCORRECT");
 					current_word_number+=1;
 					feedback_display.setText("");//clear display
-					progress_bar.setForeground(Color.RED);
 				} else{	//first time getting it wrong(faulted so far, maybe failed later)
 					parent_frame.getFestival().speak("Please try again", false);
 					current_attempt_number+=1;

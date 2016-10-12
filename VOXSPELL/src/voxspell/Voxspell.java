@@ -88,6 +88,9 @@ public class Voxspell extends JFrame{
 		UIManager.put("TableHeader.font", new Font("Arial", Font.PLAIN, 23));
 		UIManager.put("TableHeader.foreground", Color.WHITE);
 		UIManager.put("TableHeader.background", new Color(254, 157, 79));
+		UIManager.put("ProgressBar.selectionBackground", Color.BLACK); //not covered by bar
+		UIManager.put("ProgressBar.selectionForeground", Color.BLACK); //covered by bar
+		UIManager.put("ProgressBar.font", new Font("Arial", Font.PLAIN, 20));
 	}
 
 	/**

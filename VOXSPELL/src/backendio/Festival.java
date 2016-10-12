@@ -1,9 +1,11 @@
-package voxspell;
+package backendio;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.SwingWorker;
+
+import voxspell.Voxspell;
 
 @SuppressWarnings({ "static-access" })
 
@@ -38,7 +40,7 @@ public class Festival {
 	 * @param parent
 	 * @return
 	 */
-	static Festival getInstance(Voxspell parent){
+	public static Festival getInstance(Voxspell parent){
 		if (instance==null){
 			instance=new Festival(parent);
 		}
@@ -48,7 +50,7 @@ public class Festival {
 	/**
 	 * The different options for speed
 	 */
-	enum FestivalSpeed {
+	public enum FestivalSpeed {
 		slow, normal, fast;
 
 		double getSpeedValue(){
@@ -66,7 +68,7 @@ public class Festival {
 	/**
 	 * The different options for voice
 	 */
-	enum FestivalVoice {
+	public enum FestivalVoice {
 		Kiwi, American, British;
 
 		String getVoiceValue(){
@@ -84,28 +86,28 @@ public class Festival {
 	/**
 	 * Getter for speed
 	 */
-	FestivalSpeed getFestivalSpeed() {
+	public FestivalSpeed getFestivalSpeed() {
 		return festival_speed;
 	}
 
 	/**
 	 * setters for speed
 	 */
-	FestivalVoice getFestivalVoice() {
+	public FestivalVoice getFestivalVoice() {
 		return festival_voice;
 	}
 
 	/**
 	 * Getters for voice
 	 */
-	void setFestivalSpeed(FestivalSpeed speed) {
+	public void setFestivalSpeed(FestivalSpeed speed) {
 		festival_speed = speed;
 	}
 
 	/**
 	 * setter for voice
 	 */
-	void setFestivalVoice(FestivalVoice voice) {
+	public void setFestivalVoice(FestivalVoice voice) {
 		festival_voice = voice;
 	}
 
@@ -115,7 +117,7 @@ public class Festival {
 	 * Else adds to a queue to avoid the overlapping of voices
 	 * @param speech
 	 */
-	void speak(String speech, boolean say_again){
+	public void speak(String speech, boolean say_again){
 		/*		TODO
 		Only makes Festival calls on Linux to avoid issues on other OS
 		For development purposes to speed up testing
@@ -143,7 +145,7 @@ public class Festival {
 	 * Called when user has already completed quiz or had quit the game
 	 * so no point continuing speaking
 	 */
-	void emptyWorkerQueue(){
+	public void emptyWorkerQueue(){
 		worker_queue=new ArrayList<FestivalWorker>();
 	}
 

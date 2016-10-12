@@ -1,4 +1,4 @@
-package voxspell;
+package guiview;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import voxspell.VoxMouseAdapter;
+import voxspell.Voxspell;
 import voxspell.Voxspell.PanelID;
 
 @SuppressWarnings("serial")
@@ -81,7 +83,7 @@ public class StatsChooser extends JPanel{
 	 * Statistics could be just for current session or persistent
 	 * Used to differentiate what data to fetch when button clicked
 	 */
-	enum StatsType{
+	public enum StatsType{
 		Session, Persistent;
 	}
 

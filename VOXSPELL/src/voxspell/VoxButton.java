@@ -47,7 +47,7 @@ public class VoxButton extends JButton {
 	 * @param special_color
 	 * @author Abby S
 	 */
-	void changeMouseEventColor(Color special_color){
+	public void changeMouseEventColor(Color special_color){
 		removeMouseListener(adapter);
 		addMouseListener(new VoxMouseAdapter(this,special_color));
 	}

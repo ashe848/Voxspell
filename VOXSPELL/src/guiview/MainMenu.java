@@ -1,4 +1,4 @@
-package voxspell;
+package guiview;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import voxspell.VoxMouseAdapter;
+import voxspell.Voxspell;
 import voxspell.Voxspell.PanelID;
 
 @SuppressWarnings({ "static-access", "serial" })
@@ -39,7 +41,7 @@ public class MainMenu extends JPanel{
 	/**
 	 * Constructor, initialise panel properties and GUI elements
 	 */
-	MainMenu(Voxspell parent){
+	public MainMenu(Voxspell parent){
 		setSize(1366,745);
 		setLayout(null);
 		setBackground(new Color(235, 235, 235));

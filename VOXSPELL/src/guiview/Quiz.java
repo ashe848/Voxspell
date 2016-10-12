@@ -1,4 +1,4 @@
-package voxspell;
+package guiview;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -18,8 +18,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import voxspell.Festival.FestivalSpeed;
-import voxspell.Festival.FestivalVoice;
+import backendio.Festival.FestivalSpeed;
+import backendio.Festival.FestivalVoice;
+import voxspell.VoxMouseAdapter;
+import voxspell.Voxspell;
 import voxspell.Voxspell.PanelID;
 
 @SuppressWarnings({ "static-access", "serial", "unchecked", "rawtypes" })

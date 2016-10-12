@@ -1,4 +1,4 @@
-package voxspell;
+package backendio;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,9 +17,11 @@ import java.util.Random;
 
 import javax.swing.JOptionPane;
 
-import voxspell.Festival.FestivalSpeed;
-import voxspell.Festival.FestivalVoice;
-import voxspell.StatsChooser.StatsType;
+import backendio.Festival.FestivalSpeed;
+import backendio.Festival.FestivalVoice;
+import guiview.StatsChooser;
+import guiview.StatsChooser.StatsType;
+import voxspell.Voxspell;
 import voxspell.Voxspell.PanelID;
 
 @SuppressWarnings({ "static-access" })
@@ -110,7 +112,7 @@ public class DataHandler {
 	 * @param parent 	parent frame
 	 * @return instance of itself (or creates one if first time called)
 	 */
-	static DataHandler getInstance(Voxspell parent){
+	public static DataHandler getInstance(Voxspell parent){
 		if (instance==null){
 			instance=new DataHandler(parent);
 		}
@@ -182,7 +184,7 @@ public class DataHandler {
 	 * Reads in files for this user
 	 * @author Abby S
 	 */
-	static void readUserFiles() {
+	public static void readUserFiles() {
 		try {
 			//set defaults
 			FestivalSpeed speed=FestivalSpeed.normal;
@@ -293,7 +295,7 @@ public class DataHandler {
 	/**
 	 * Method that reads contents of files and stores them into data structures
 	 */
-	static void readListSpecificFiles(){
+	public static void readListSpecificFiles(){
 		setupListSpecificFiles();
 		declareDataStructures();
 		readInWordlist();
@@ -578,7 +580,7 @@ public class DataHandler {
 	 * Reads a file to see if it conforms to spelling list format
 	 * @author Abby S
 	 */
-	static boolean errorCheckSelectedFile(File selected) {
+	public static boolean errorCheckSelectedFile(File selected) {
 		if(selected.getName().contains(" ")){
 			return false;
 		}
@@ -661,7 +663,7 @@ public class DataHandler {
 	/**
 	 * writes to settings files for the user
 	 */
-	static void writeToSettingsFiles(){
+	public static void writeToSettingsFiles(){
 		try {
 			FileWriter fw_list_settings = new FileWriter(new File(list_settings), false);
 			fw_list_settings.write(""+current_level);
@@ -695,14 +697,16 @@ public class DataHandler {
 	 * Writes to program-wide stats and users list
 	 * @author Abby S
 	 */
-	static void writeToProgramFiles(){
+	public static void writeToProgramFiles(){
 		try {
+			//users list
 			FileWriter fw = new FileWriter(new File(users_list), false);
 			for (String u:users){
 				fw.write(u+"\n");
 			}
 			fw.close();
 
+			//program-wide stats
 			fw = new FileWriter(new File(program_stats), false);
 			fw.write(global_top);
 			fw.close();
@@ -715,7 +719,7 @@ public class DataHandler {
 	 * writes to user-built list (and sample sentences if exists) with %Level number between the levels (same format as inputted lists)
 	 * @author Abby S
 	 */
-	void writeCustomList(String list_name, ArrayList<String> words_to_add, ArrayList<String> sentences_to_add){
+	public void writeCustomList(String list_name, ArrayList<String> words_to_add, ArrayList<String> sentences_to_add){
 		try {
 			FileWriter fw = new FileWriter(new File(System.getProperty("user.dir")+"/spellinglists/"+list_name+".txt"), false);
 			fw.write("%"+list_name+"\n");
@@ -739,7 +743,7 @@ public class DataHandler {
 	 * Resets stats for current user current list
 	 * @author Abby S
 	 */
-	void resetListStats() {
+	public void resetListStats() {
 		try {
 			FileWriter fw = new FileWriter(new File(reviewlist), false);
 			fw.close();
@@ -765,7 +769,7 @@ public class DataHandler {
 	 * 
 	 * @author Abby S
 	 */
-	void resetUser() {
+	public void resetUser() {
 		users.remove(user);
 		writeToProgramFiles();
 
@@ -801,7 +805,7 @@ public class DataHandler {
 	 * Resets non-list-specific settings back to application defaults
 	 * @author Abby S
 	 */
-	void resetToDefaults() {
+	public void resetToDefaults() {
 		File user_settings_file = new File(user_settings);
 		user_settings_file.delete();
 		readUserFiles();
@@ -822,7 +826,7 @@ public class DataHandler {
 	 * 
 	 * From Theo's Assignment 2
 	 */
-	ArrayList<String> getWordsForSpellingQuiz(int number_of_words, PanelID id){
+	public ArrayList<String> getWordsForSpellingQuiz(int number_of_words, PanelID id){
 		//setup relevant bank of words to choose from depending on quiz type
 		ArrayList<String> relevant_bank_of_words;
 		ArrayList<String> to_return = new ArrayList<String>();
@@ -890,7 +894,7 @@ public class DataHandler {
 	 * returns the list of words and their results from the just-completed quiz
 	 * @return
 	 */
-	ArrayList<ArrayList<String>> getLatestWordResults(){
+	public ArrayList<ArrayList<String>> getLatestWordResults(){
 		ArrayList<ArrayList<String>> to_return=new ArrayList<ArrayList<String>>();
 		to_return.add(latest_mastered_words);
 		to_return.add(latest_faulted_words);
@@ -905,7 +909,7 @@ public class DataHandler {
 	 * @param failed_words
 	 * @param quiz_type
 	 */
-	void processQuizResults(ArrayList<String> mastered_words, ArrayList<String> faulted_words, ArrayList<String> failed_words, PanelID quiz_type, int quiz_length){
+	public void processQuizResults(ArrayList<String> mastered_words, ArrayList<String> faulted_words, ArrayList<String> failed_words, PanelID quiz_type, int quiz_length){
 		enterResultsIntoDataStructure(mastered_words, WordResult.Mastered);
 		enterResultsIntoDataStructure(faulted_words, WordResult.Faulted);
 		enterResultsIntoDataStructure(failed_words, WordResult.Failed);
@@ -985,7 +989,7 @@ public class DataHandler {
 	/**
 	 * Adds list of words into reviewlist (failed words or via the add to review function in quiz)
 	 */
-	void addToReviewList(ArrayList<String> failed_words){
+	public void addToReviewList(ArrayList<String> failed_words){
 		for (String w:failed_words){
 			if (!reviewlist_words.get(current_level).contains(w)){
 				reviewlist_words.get(current_level).add(w);
@@ -1002,7 +1006,7 @@ public class DataHandler {
 	/**
 	 * @return number of words attempted in current level
 	 */
-	int getAttemptedCount() {
+	public int getAttemptedCount() {
 		int attempted_count=0;
 		for (Object[] o:returnWordDataForLevel(current_level, StatsType.Persistent)){
 			if(!(o[5].equals(0)&&o[3].equals(0)&&o[4].equals(0))){
@@ -1015,42 +1019,42 @@ public class DataHandler {
 	/**
 	 * @return the current_level
 	 */
-	static int getCurrentLevel() {
+	public static int getCurrentLevel() {
 		return current_level;
 	}
 
 	/**
 	 * @param current_level   the currentlevel to set
 	 */
-	static void setCurrentLevel(int current_level) {
+	public static void setCurrentLevel(int current_level) {
 		DataHandler.current_level = current_level;
 	}
 
 	/**
 	 * Increments current level
 	 */
-	void increaseLevel(){
+	public void increaseLevel(){
 		current_level++;
 	}
 
 	/**
 	 * @return whether user decided to level up
 	 */
-	boolean getLevelledUp(){
+	public boolean getLevelledUp(){
 		return levelled_up;
 	}
 
 	/**
 	 * sets on user deciding to level up
 	 */
-	void setLevelledUp(boolean flag){
+	public void setLevelledUp(boolean flag){
 		levelled_up=flag;
 	}
 
 	/**
 	 * @return number of levels (including the empty level 0)
 	 */
-	static int getNumberOfLevels(){
+	public static int getNumberOfLevels(){
 		return persistent_allwords.size();
 	}
 
@@ -1058,7 +1062,7 @@ public class DataHandler {
 	 * Returns the levels as an Integer array
 	 * @return
 	 */
-	static String[] getLevelArray() {
+	public static String[] getLevelArray() {
 		//subtract 1 to exclude level 0
 		String[] levels = new String[getNumberOfLevels()-1];
 		for(int level=1; level<getNumberOfLevels(); level++){
@@ -1072,7 +1076,7 @@ public class DataHandler {
 	 * @param additional_message
 	 * @return whether user chose a level
 	 */
-	static boolean chooseLevel(String additional_message, boolean back_to_quiz_complete) {
+	public static boolean chooseLevel(String additional_message, boolean back_to_quiz_complete) {
 		String[] levels = getLevelArray();
 		String choice = (String)JOptionPane.showInputDialog(parent_frame.getContentPane(), additional_message+"Please select a level to start at\nIf you find it too difficult, can change in Settings", "Which level?", JOptionPane.QUESTION_MESSAGE, null, levels, null);
 		if (choice==null){
@@ -1095,7 +1099,7 @@ public class DataHandler {
 	 * @param type		type of data requested
 	 * @return the pointers to arrays requested
 	 */
-	ArrayList<Object[]> returnWordDataForLevel(int level, StatsChooser.StatsType type){
+	public ArrayList<Object[]> returnWordDataForLevel(int level, StatsChooser.StatsType type){
 		ArrayList<ArrayList<String>> words;
 		ArrayList<ArrayList<Integer>> master_count, faulted_count, failed_count;
 		switch (type) {
@@ -1135,7 +1139,7 @@ public class DataHandler {
 	 * gets accuracy rates message for current level to be displayed to the user at all relevant times
 	 * @return string representation of accuracy rate
 	 */
-	String getAccuracyRates(){
+	public String getAccuracyRates(){
 		String to_return=user;
 		to_return+=" [Level: "+level_names.get(current_level);
 		to_return+="] [Attempted "+getAttemptedCount()+"/"+persistent_allwords.get(current_level).size();
@@ -1148,7 +1152,7 @@ public class DataHandler {
 	 * @return the user
 	 * @author Abby S
 	 */
-	static String getUser() {
+	public static String getUser() {
 		return user;
 	}
 
@@ -1156,7 +1160,7 @@ public class DataHandler {
 	 * set the user
 	 * @author Abby S
 	 */
-	static void setUser(String user) {
+	public static void setUser(String user) {
 		DataHandler.user = user;
 	}
 
@@ -1164,7 +1168,7 @@ public class DataHandler {
 	 * @return the spelling list name
 	 * @author Abby S
 	 */
-	static String getSpellingListName() {
+	public static String getSpellingListName() {
 		return spelling_list_name;
 	}
 
@@ -1172,7 +1176,7 @@ public class DataHandler {
 	 * set the spelling list name
 	 * @author Abby S
 	 */
-	static void setSpellingListName(String spelling_list_name) {
+	public static void setSpellingListName(String spelling_list_name) {
 		DataHandler.spelling_list_name = spelling_list_name;
 	}
 
@@ -1180,7 +1184,7 @@ public class DataHandler {
 	 * @return the video name
 	 * @author Abby S
 	 */
-	static String getVideoName() {
+	public static String getVideoName() {
 		return video_name;
 	}
 
@@ -1188,7 +1192,7 @@ public class DataHandler {
 	 * set the reward video name
 	 * @author Abby S
 	 */
-	static void setVideoName(String video_name) {
+	public static void setVideoName(String video_name) {
 		DataHandler.video_name = video_name;
 	}
 
@@ -1196,7 +1200,7 @@ public class DataHandler {
 	 * @return the preferred number of words in a quiz
 	 * @author Abby S
 	 */
-	static int getNumWordsInQuiz() {
+	public static int getNumWordsInQuiz() {
 		return words_in_quiz;
 	}
 
@@ -1204,7 +1208,7 @@ public class DataHandler {
 	 * set the preferred number of words in a quiz
 	 * @author Abby S
 	 */
-	static void setNumWordsInQuiz(int words_in_quiz) {
+	public static void setNumWordsInQuiz(int words_in_quiz) {
 		DataHandler.words_in_quiz = words_in_quiz;
 	}
 
@@ -1212,7 +1216,7 @@ public class DataHandler {
 	 * @return the users
 	 * @author Abby S
 	 */
-	static ArrayList<String> getUsers() {
+	public static ArrayList<String> getUsers() {
 		return users;
 	}
 
@@ -1220,7 +1224,7 @@ public class DataHandler {
 	 * @return the global top information
 	 * @author Abby S
 	 */
-	static String getGlobalTop() {
+	public static String getGlobalTop() {
 		return global_top;
 	}
 
@@ -1228,7 +1232,7 @@ public class DataHandler {
 	 * set new global top record
 	 * @author Abby S
 	 */
-	static void setGlobalTop(String global_top) {
+	public static void setGlobalTop(String global_top) {
 		DataHandler.global_top = global_top;
 	}
 
@@ -1236,7 +1240,7 @@ public class DataHandler {
 	 * @return the personal best score of this user
 	 * @author Abby S
 	 */
-	static double getPersonalBest() {
+	public static double getPersonalBest() {
 		return personal_best;
 	}
 
@@ -1244,7 +1248,7 @@ public class DataHandler {
 	 * set the personal best score of this user
 	 * @author Abby S
 	 */
-	static void setPersonalBest(double personal_best) {
+	public static void setPersonalBest(double personal_best) {
 		DataHandler.personal_best = personal_best;
 	}
 
@@ -1252,7 +1256,7 @@ public class DataHandler {
 	 * @return the words in wordlist 
 	 * @author Abby S
 	 */
-	static ArrayList<ArrayList<String>> getWordlistWords() {
+	public static ArrayList<ArrayList<String>> getWordlistWords() {
 		return wordlist_words;
 	}
 
@@ -1260,7 +1264,7 @@ public class DataHandler {
 	 * @return whether this list has sample sentences
 	 * @author Abby S
 	 */
-	static boolean hasSampleSentences() {
+	public static boolean hasSampleSentences() {
 		return has_sample_sentences;
 	}
 
@@ -1268,7 +1272,7 @@ public class DataHandler {
 	 * @return the sample sentences
 	 * @author Abby S
 	 */
-	static ArrayList<ArrayList<String>> getSampleSentences() {
+	public static ArrayList<ArrayList<String>> getSampleSentences() {
 		return sample_sentences;
 	}
 
@@ -1276,7 +1280,7 @@ public class DataHandler {
 	 * @return the level names
 	 * @author Abby S
 	 */
-	static ArrayList<String> getLevelNames() {
+	public static ArrayList<String> getLevelNames() {
 		return level_names;
 	}
 
@@ -1284,7 +1288,7 @@ public class DataHandler {
 	 * @return the words in reviewlist
 	 * @author Abby S
 	 */
-	static ArrayList<ArrayList<String>> getReviewlistWords() {
+	public static ArrayList<ArrayList<String>> getReviewlistWords() {
 		return reviewlist_words;
 	}
 
@@ -1292,7 +1296,7 @@ public class DataHandler {
 	 * @return the length of the latest quiz
 	 * @author Abby S
 	 */
-	static int getLatestQuizLength() {
+	public static int getLatestQuizLength() {
 		return latest_quiz_length;
 	}
 }

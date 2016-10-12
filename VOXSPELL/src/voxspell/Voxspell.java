@@ -10,9 +10,20 @@ import javax.swing.UIManager;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
 
+import backendio.DataHandler;
+import backendio.Festival;
+import guiview.GeneralStats;
+import guiview.LevelStats;
+import guiview.ListBuilder;
+import guiview.MainMenu;
+import guiview.Quiz;
+import guiview.QuizComplete;
+import guiview.Settings;
+import guiview.StatsChooser;
+import guiview.Video;
+import guiview.StatsChooser.StatsType;
 import uk.co.caprica.vlcj.binding.LibVlc;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
-import voxspell.StatsChooser.StatsType;
 
 @SuppressWarnings("serial")
 
@@ -97,7 +108,7 @@ public class Voxspell extends JFrame{
 	 * Method to return location of resources folder
 	 * @return
 	 */
-	String getResourceFileLocation(){
+	public String getResourceFileLocation(){
 		return RESOURCE_FILE_LOCATION;
 	}
 
@@ -105,7 +116,7 @@ public class Voxspell extends JFrame{
 	 * Method to return object responsible for handling data
 	 * @return
 	 */
-	DataHandler getDataHandler(){
+	public DataHandler getDataHandler(){
 		return data_handler;
 	}
 
@@ -113,14 +124,14 @@ public class Voxspell extends JFrame{
 	 * Method to return object responsible for making Festival calls
 	 * @return
 	 */
-	Festival getFestival(){
+	public Festival getFestival(){
 		return festival;
 	}
 
 	/**
 	 * @param id	passed into method to change to that panel
 	 */
-	void changePanel(PanelID id){
+	public void changePanel(PanelID id){
 		//Removes the current panel from the frame, ready for new one to take its place.
 		//http://stackoverflow.com/questions/9347076/how-to-remove-all-components-from-a-jframe-in-java
 		this.getContentPane().removeAll();
@@ -180,7 +191,7 @@ public class Voxspell extends JFrame{
 	/**
 	 * The different panels IDs used to differentiate different panels
 	 */
-	enum PanelID{
+	public enum PanelID{
 		MainMenu, Settings, StatSelection, PersistentAllStats, PersistentLevelStats, SessionAllStats, SessionLevelStats, ListBuilder, Quiz, Review, QuizComplete, Video;
 	}
 }

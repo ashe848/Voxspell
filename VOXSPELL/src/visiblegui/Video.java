@@ -1,4 +1,4 @@
-package guiview;
+package visiblegui;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -16,9 +16,9 @@ import javax.swing.Timer;
 
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
-import voxspell.VoxMouseAdapter;
-import voxspell.Voxspell;
-import voxspell.Voxspell.PanelID;
+import vox.VoxMouseAdapter;
+import vox.Voxspell;
+import vox.Voxspell.PanelID;
 
 @SuppressWarnings({ "static-access", "serial" })
 

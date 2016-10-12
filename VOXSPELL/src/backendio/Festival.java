@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.SwingWorker;
 
-import voxspell.Voxspell;
+import vox.Voxspell;
 
 @SuppressWarnings({ "static-access" })
 

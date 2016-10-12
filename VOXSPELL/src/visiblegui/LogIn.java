@@ -1,4 +1,4 @@
-package guiview;
+package visiblegui;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -15,9 +15,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import voxspell.VoxMouseAdapter;
-import voxspell.Voxspell;
-import voxspell.Voxspell.PanelID;
+import vox.VoxMouseAdapter;
+import vox.Voxspell;
+import vox.Voxspell.PanelID;
 
 @SuppressWarnings({ "static-access", "serial" })
 

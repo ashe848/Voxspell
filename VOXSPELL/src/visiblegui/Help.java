@@ -1,4 +1,4 @@
-package guiview;
+package visiblegui;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -10,8 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
-import voxspell.Voxspell;
-import voxspell.Voxspell.PanelID;
+import vox.Voxspell.PanelID;
 
 @SuppressWarnings({ "serial" })
 

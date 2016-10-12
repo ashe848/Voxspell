@@ -1,4 +1,4 @@
-package voxspell;
+package vox;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -12,18 +12,18 @@ import com.sun.jna.NativeLibrary;
 
 import backendio.DataHandler;
 import backendio.Festival;
-import guiview.GeneralStats;
-import guiview.LevelStats;
-import guiview.ListBuilder;
-import guiview.MainMenu;
-import guiview.Quiz;
-import guiview.QuizComplete;
-import guiview.Settings;
-import guiview.StatsChooser;
-import guiview.Video;
-import guiview.StatsChooser.StatsType;
 import uk.co.caprica.vlcj.binding.LibVlc;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
+import visiblegui.GeneralStats;
+import visiblegui.LevelStats;
+import visiblegui.ListBuilder;
+import visiblegui.MainMenu;
+import visiblegui.Quiz;
+import visiblegui.QuizComplete;
+import visiblegui.Settings;
+import visiblegui.StatsChooser;
+import visiblegui.Video;
+import visiblegui.StatsChooser.StatsType;
 
 @SuppressWarnings("serial")
 

@@ -1,4 +1,4 @@
-package voxspell;
+package vox;
 
 import java.awt.Color;
 import java.awt.event.MouseAdapter;

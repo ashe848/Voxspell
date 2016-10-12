@@ -19,10 +19,10 @@ import javax.swing.JOptionPane;
 
 import backendio.Festival.FestivalSpeed;
 import backendio.Festival.FestivalVoice;
-import guiview.StatsChooser;
-import guiview.StatsChooser.StatsType;
-import voxspell.Voxspell;
-import voxspell.Voxspell.PanelID;
+import visiblegui.StatsChooser;
+import visiblegui.StatsChooser.StatsType;
+import vox.Voxspell;
+import vox.Voxspell.PanelID;
 
 @SuppressWarnings({ "static-access" })
 

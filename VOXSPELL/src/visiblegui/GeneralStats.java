@@ -154,6 +154,7 @@ public class GeneralStats extends JPanel {
 		});
 
 		add(back_button);
+		back_button.addMouseListener(new VoxMouseAdapter(back_button,null));
 		back_button.setBounds(1216, 598, 100, 100);
 	}
 

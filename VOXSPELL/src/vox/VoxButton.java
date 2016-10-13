@@ -24,7 +24,7 @@ public class VoxButton extends JButton {
 		super(text);
 		setForeground(Color.WHITE);
 		setBackground(new Color(254, 157, 79));
-		setFont(new Font("Calibri Light", Font.PLAIN, 17));
+		setFont(new Font("Calibri Light", Font.PLAIN, 19));
 		setContentAreaFilled(false);
 		setOpaque(true);
 		setFocusPainted(false);

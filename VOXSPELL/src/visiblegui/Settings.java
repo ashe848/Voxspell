@@ -150,7 +150,7 @@ public class Settings extends JPanel {
 	private void setupWarningLabel() {
 		JLabel warning_label = new JLabel("^ other settings will not be saved ^");
 		warning_label.setForeground(Color.RED);
-		warning_label.setFont(new Font("Arial", Font.PLAIN, 16));
+		warning_label.setFont(new Font("Arial", Font.PLAIN, 17));
 		warning_label.setHorizontalAlignment(SwingConstants.CENTER);
 		warning_label.setBounds(523, 668, 319, 30);
 		add(warning_label);
@@ -310,7 +310,7 @@ public class Settings extends JPanel {
 						JOptionPane.showMessageDialog(null, "Chosen list is not in correct format\nPlease choose another list", "List Format Error", JOptionPane.WARNING_MESSAGE);
 					} else {
 						temp_list_selection=chooser.getSelectedFile().getName();
-						will_change_to.setText("Will change to "+temp_list_selection+" on save.");
+						will_change_to.setText("Will change to "+temp_list_selection+" on save");
 						will_change_to.setForeground(new Color(254, 157, 79));
 						will_change_to.setFont(new Font("Arial", Font.PLAIN, 18));
 						will_change_to.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -358,7 +358,7 @@ public class Settings extends JPanel {
 						JOptionPane.showMessageDialog(null, "Chosen video has space(s) in its name\nPlease rename", "Filename Format Error", JOptionPane.WARNING_MESSAGE);
 					} else {
 						temp_video_selection=chooser.getSelectedFile().getName();
-						will_change_to.setText("Will change to "+temp_video_selection+" on save.");
+						will_change_to.setText("Will change to "+temp_video_selection+" on save");
 						will_change_to.setForeground(new Color(254, 157, 79));
 						will_change_to.setFont(new Font("Arial", Font.PLAIN, 18));
 						will_change_to.setHorizontalAlignment(SwingConstants.RIGHT);

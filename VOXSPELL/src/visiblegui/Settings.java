@@ -348,7 +348,7 @@ public class Settings extends JPanel {
 
 				JFileChooser chooser = new JFileChooser(reward_videos_folder, fsv);
 				//expected format is a .avi file for VLCJ to be able to play it
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("AVI files", "avi");
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("Video files", "avi", "mp4");
 				chooser.setFileFilter(filter);
 
 				int button_clicked = chooser.showDialog(parent_frame, "Choose this video");

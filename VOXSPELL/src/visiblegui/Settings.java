@@ -87,7 +87,7 @@ public class Settings extends JPanel {
 	 */
 	private void seupResetListStats() {
 		VoxButton reset_list_stats_button = new VoxButton("Clear stats for current list");
-		reset_list_stats_button.setBounds(543, 462, 299, 50);
+		reset_list_stats_button.setBounds(523, 462, 319, 50);
 		add(reset_list_stats_button);
 		reset_list_stats_button.addActionListener(new ActionListener() {
 			@Override
@@ -108,7 +108,7 @@ public class Settings extends JPanel {
 	 */
 	private void seupResetToDefaultSettings() {
 		VoxButton reset_to_default_button = new VoxButton("Reset settings data to defaults");
-		reset_to_default_button.setBounds(543, 533, 299, 50);
+		reset_to_default_button.setBounds(523, 533, 319, 50);
 		reset_to_default_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean ask_result = askForConfirmation("Are you sure you want to reset your Settings data Back to Defaults?\nList-specific data will be retained.", "Reset Settings Back to Defaults");
@@ -137,7 +137,7 @@ public class Settings extends JPanel {
 				}
 			}
 		});
-		reset_user_button.setBounds(543, 605, 299, 50);
+		reset_user_button.setBounds(523, 605, 319, 50);
 		add(reset_user_button);
 		reset_user_button.setBackground(Color.RED);
 		reset_user_button.changeMouseEventColor(Color.BLACK);
@@ -152,7 +152,7 @@ public class Settings extends JPanel {
 		warning_label.setForeground(Color.RED);
 		warning_label.setFont(new Font("Arial", Font.PLAIN, 16));
 		warning_label.setHorizontalAlignment(SwingConstants.CENTER);
-		warning_label.setBounds(543, 668, 299, 30);
+		warning_label.setBounds(523, 668, 319, 30);
 		add(warning_label);
 	}
 
@@ -283,7 +283,7 @@ public class Settings extends JPanel {
 		choose_wordlist_label.setForeground(Color.BLACK);
 		choose_wordlist_label.setFont(new Font("Arial", Font.PLAIN, 20));
 		choose_wordlist_label.setHorizontalAlignment(SwingConstants.RIGHT);
-		choose_wordlist_label.setBounds(655, 169, 661, 30);
+		choose_wordlist_label.setBounds(625, 169, 691, 30);
 		add(choose_wordlist_label);
 
 		//tells user what list they chose
@@ -313,7 +313,8 @@ public class Settings extends JPanel {
 						will_change_to.setText("Will change to "+temp_list_selection+" on save.");
 						will_change_to.setForeground(new Color(254, 157, 79));
 						will_change_to.setFont(new Font("Arial", Font.PLAIN, 18));
-						will_change_to.setBounds(655, 246, 661, 30);
+						will_change_to.setHorizontalAlignment(SwingConstants.RIGHT);
+						will_change_to.setBounds(625, 246, 691, 30);
 					}
 				}
 			}
@@ -330,7 +331,7 @@ public class Settings extends JPanel {
 		choose_video_label.setForeground(Color.BLACK);
 		choose_video_label.setFont(new Font("Arial", Font.PLAIN, 20));
 		choose_video_label.setHorizontalAlignment(SwingConstants.RIGHT);
-		choose_video_label.setBounds(655, 318, 661, 30);
+		choose_video_label.setBounds(625, 318, 691, 30);
 		add(choose_video_label);
 
 		//tells user what video they chose
@@ -360,7 +361,8 @@ public class Settings extends JPanel {
 						will_change_to.setText("Will change to "+temp_video_selection+" on save.");
 						will_change_to.setForeground(new Color(254, 157, 79));
 						will_change_to.setFont(new Font("Arial", Font.PLAIN, 18));
-						will_change_to.setBounds(655, 395, 661, 30);
+						will_change_to.setHorizontalAlignment(SwingConstants.RIGHT);
+						will_change_to.setBounds(625, 395, 691, 30);
 					}
 				}
 			}

@@ -203,6 +203,8 @@ public class QuizComplete extends JPanel{
 			}
 		}
 
+		if(!parent_frame.getDataHandler().isReturningToQuizComplete()){
+			parent_frame.getDataHandler().setIsReturningToQuizComplete(true);//next time will be true
 		/*
 		 * Simple scoring:
 		 * 3 points for mastered, 1 point for faulted. None for failed. Multiplied by level number. As a percentage
@@ -220,6 +222,7 @@ public class QuizComplete extends JPanel{
 			} else {
 				setupNewPB(score,false);
 			}
+		}
 		}
 	}
 
@@ -297,8 +300,8 @@ public class QuizComplete extends JPanel{
 		score_results.setWrapStyleWord(true);
 		score_results.setFont(new Font("Arial", Font.PLAIN, 24));
 		score_results.setOpaque(false);
-		score_results.setText("New personal best score: \n"+pb_score+"\n\n\n");
-		score_results.setBounds(1028, 232, 288, 347);
+		score_results.setText("New personal best score!\n"+pb_score+"\n\n\n");
+		score_results.setBounds(1028, 170, 288, 400);
 		add(score_results);	
 
 		String[] global = parent_frame.getDataHandler().getGlobalTop().split("\\s+");
@@ -345,6 +348,7 @@ public class QuizComplete extends JPanel{
 				parent_frame.getDataHandler().writeToSettingsFiles();
 				//resets flag for level up
 				parent_frame.getDataHandler().setLevelledUp(false);
+				parent_frame.getDataHandler().setIsReturningToQuizComplete(false);
 				parent_frame.changePanel(PanelID.MainMenu);
 			}
 		});

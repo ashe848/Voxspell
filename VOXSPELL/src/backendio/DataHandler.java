@@ -91,6 +91,7 @@ public class DataHandler {
 	 */
 	private static int latest_quiz_length; //length of latest quiz. May not be same as preferred words in quiz as there might not be that many words
 	private static boolean levelled_up=false; //flag for whether user had decided to level up
+	private static boolean returning_to_quiz_complete=false;
 
 	/**
 	 * Constructor for single instance, reference parent frame and starts reading files
@@ -1049,6 +1050,20 @@ public class DataHandler {
 	 */
 	public void setLevelledUp(boolean flag){
 		levelled_up=flag;
+	}
+	
+	/**
+	 * @return whether user is returning to quiz complete after video
+	 */
+	public boolean isReturningToQuizComplete(){
+		return returning_to_quiz_complete;
+	}
+
+	/**
+	 * sets whether user is returning to quiz complete after video
+	 */
+	public void setIsReturningToQuizComplete(boolean flag){
+		returning_to_quiz_complete=flag;
 	}
 
 	/**

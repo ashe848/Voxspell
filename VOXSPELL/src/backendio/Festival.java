@@ -84,6 +84,13 @@ public class Festival {
 	}
 
 	/**
+	 * Getter for whether festival is executing a voice prompt
+	 */
+	public boolean isLocked() {
+		return locked;
+	}
+	
+	/**
 	 * Getter for speed
 	 */
 	public FestivalSpeed getFestivalSpeed() {
@@ -197,6 +204,7 @@ public class Festival {
 		 */
 		protected void done(){
 			locked=false;
+//			System.out.println("unlocked");
 			if (!worker_queue.isEmpty()){
 				locked=true;
 				//executes the next worker (i.e. Festival call) in the queue

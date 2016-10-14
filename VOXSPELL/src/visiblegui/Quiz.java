@@ -173,8 +173,13 @@ public class Quiz extends JPanel {
 		input_from_user.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				checkCorrectSpelling(input_from_user.getText());
-				input_from_user.requestFocusInWindow();
+				//only enable submitting if festival has finished to avoid lagging voice prompts
+				if(parent_frame.getFestival().isLocked()){
+					feedback_display.append("\tPlease submit after voice prompt has finished.\n");
+				} else {
+					checkCorrectSpelling(input_from_user.getText());
+					input_from_user.requestFocusInWindow();
+				}
 			}
 		});
 		add(input_from_user);
@@ -191,8 +196,13 @@ public class Quiz extends JPanel {
 		submit_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				checkCorrectSpelling(input_from_user.getText());
-				input_from_user.requestFocusInWindow();
+				//only enable submitting if festival has finished to avoid lagging voice prompts
+				if(parent_frame.getFestival().isLocked()){
+					feedback_display.append("\tPlease submit after voice prompt has finished.\n");
+				} else {
+					checkCorrectSpelling(input_from_user.getText());
+					input_from_user.requestFocusInWindow();
+				}
 			}
 		});
 		submit_button.addMouseListener(new VoxMouseAdapter(submit_button,null));

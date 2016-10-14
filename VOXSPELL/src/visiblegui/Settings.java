@@ -160,7 +160,7 @@ public class Settings extends JPanel {
 	 * Drop down to change festival voice
 	 */
 	private void setupChangeVoice() {
-		JLabel change_voice_label = new JLabel("Change voice (you can also change this during the quiz)");
+		JLabel change_voice_label = new JLabel("Change voice of audio prompt in quiz");
 		change_voice_label.setBounds(32, 169, 580, 30);
 		change_voice_label.setFont(new Font("Arial", Font.PLAIN, 20));
 		change_voice_label.setForeground(Color.BLACK);
@@ -189,7 +189,7 @@ public class Settings extends JPanel {
 	 * Drop down to change festival speed
 	 */
 	private void setupChangeSpeed() {
-		JLabel change_speed_label = new JLabel("Change speed (you can also change this during the quiz)");
+		JLabel change_speed_label = new JLabel("Change speed of audio prompt in quiz");
 		change_speed_label.setBounds(32, 294, 580, 30);
 		change_speed_label.setFont(new Font("Arial", Font.PLAIN, 20));
 		change_speed_label.setForeground(Color.BLACK);

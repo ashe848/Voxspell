@@ -205,24 +205,24 @@ public class QuizComplete extends JPanel{
 
 		if(!parent_frame.getDataHandler().isReturningToQuizComplete()){
 			parent_frame.getDataHandler().setIsReturningToQuizComplete(true);//next time will be true
-		/*
-		 * Simple scoring:
-		 * 3 points for mastered, 1 point for faulted. None for failed. Multiplied by level number. As a percentage
-		 */
-		double score=parent_frame.getDataHandler().getCurrentLevel()*((double)(latest_mastered_words.size()*3 + latest_faulted_words.size()))/parent_frame.getDataHandler().getLatestQuizLength();
-		//compare to personal best (this users all lists all sessions)
-		if(score > parent_frame.getDataHandler().getPersonalBest()){
-			parent_frame.getDataHandler().setPersonalBest(score);
+			/*
+			 * Simple scoring:
+			 * 3 points for mastered, 1 point for faulted. None for failed. Multiplied by level number. As a percentage
+			 */
+			double score=parent_frame.getDataHandler().getCurrentLevel()*((double)(latest_mastered_words.size()*3 + latest_faulted_words.size()))/parent_frame.getDataHandler().getLatestQuizLength();
+			//compare to personal best (this users all lists all sessions)
+			if(score > parent_frame.getDataHandler().getPersonalBest()){
+				parent_frame.getDataHandler().setPersonalBest(score);
 
-			//compare to global top (all users all lists all sessions)
-			double global_top_score=Double.parseDouble(parent_frame.getDataHandler().getGlobalTop().split("\\s+")[0]);
-			if (score > global_top_score){
-				setupNewPB(score,true);
-				parent_frame.getDataHandler().setGlobalTop(score+" "+parent_frame.getDataHandler().getUser()+" "+parent_frame.getDataHandler().getSpellingListName());				
-			} else {
-				setupNewPB(score,false);
+				//compare to global top (all users all lists all sessions)
+				double global_top_score=Double.parseDouble(parent_frame.getDataHandler().getGlobalTop().split("\\s+")[0]);
+				if (score > global_top_score){
+					setupNewPB(score,true);
+					parent_frame.getDataHandler().setGlobalTop(score+" "+parent_frame.getDataHandler().getUser()+" "+parent_frame.getDataHandler().getSpellingListName());				
+				} else {
+					setupNewPB(score,false);
+				}
 			}
-		}
 		}
 	}
 

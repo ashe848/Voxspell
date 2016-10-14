@@ -106,7 +106,7 @@ public class Video extends JPanel{
 	private void setupProgressBar(){
 		player.parseMedia();
 
-		//get length of video
+		//get length of video in seconds
 		duration=(int)player.getLength()/1000;
 		//Set max to duration in seconds
 		progress_bar = new JProgressBar(0,duration);

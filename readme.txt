@@ -19,7 +19,7 @@ Open terminal and change to the directory containing Voxspell.jar
 enter the following command:
 
 >>>>>>>>>>>>>
-java -jar Voxspell.jar 
+java -jar Voxspell.jar &> /dev/null
 <<<<<<<<<<<<<
 
 Note: double-clicking the jar file will not work as it can't find the .resources/ folder (on Ubuntu)

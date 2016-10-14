@@ -74,24 +74,24 @@ public class Help extends JFrame {
 		switch(from_panel){
 		case MainMenu:
 			help_text.append("Welcome to VOXSPELL!\n");
-			help_text.append("Has default spelling list and reward video. Application won't run if they're deleted \n");
+			help_text.append("Has default spelling list and reward video. Application won't run if they're deleted. Has the ability to import lists, put space if empty sentences when importing lists \n");
 			break;
 		case StatSelection:
-			help_text.append("There are 4 types of stats.\n");
+			help_text.append("There are 4 types of stats. Strike and spare\n");
 			break;
 		case PersistentAllStats: case SessionAllStats:
 			help_text.append("These stats are for the current list.\n");
-			help_text.append("They are for all words attempted (in any level).\n");
+			help_text.append("They are for all words attempted (in any level). Table will be blank if no words have been attempted.\n");
 			help_text.append("You can sort by clicking on the column headers.\n");
 			break;
 		case PersistentLevelStats: case SessionLevelStats:
 			help_text.append("These stats are for the level chosen in the current list.\n");
-			help_text.append("They are for all words attempted in the chosen level.\n");
+			help_text.append("They are for all words attempted in the chosen level. Table will be blank if no words have been attempted for that level.\n");
 			help_text.append("The default drop down option is your current level. You can change it to any level using the dropdown\n");
 			help_text.append("You can sort by clicking on the column headers.\n");
 			break;
 		case Quiz: case Review:
-			help_text.append("The default drop down option is your current setting. You can change it using the dropdown\n");
+			help_text.append("The default drop down option is your current setting. You can change it using the dropdown\nNZ voice can't say everything, e.g. expelliarmus\nChange voice and speed saves like settings\nCase sensitive no penalty if just case wrong");
 			break;
 		case QuizComplete:
 			help_text.append("Level up will change your current level to the one above. If you are on the highest level, you will be asked to select a level to go to in a pop up.\n");

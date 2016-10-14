@@ -34,6 +34,11 @@ import vox.Voxspell.PanelID;
  * Also responsible for returning spelling data/word data as well as 
  * manipulation of data structure for things like generating random
  * words to quiz.
+ * 
+ * Unfortunately got long due to refactoring and encapsulating
+ * All fields in here
+ * 
+ * Unfortunately not enough time to try this as it's an all-or-nothing task and too high risk
  */
 public class DataHandler {
 	private static Voxspell parent_frame;

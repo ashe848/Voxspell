@@ -31,15 +31,22 @@ import vox.Voxspell.PanelID;
  * 
  * Responsible for all interactions(input and output) with external spelling word data files
  * (but not video file, which is handled elsewhere)
- * Also responsible for returning spelling data/word data as well as 
- * manipulation of data structure for things like generating random
- * words to quiz.
  * 
  * Unfortunately got long due to refactoring and encapsulating
- * All fields in here
+ * Would lose cohesion if break apart as multiple functions manipulate the same data structures,
+ * so it's difficult to split it into statsModel, levelModel, quizModel etc without moving the data structures into a super class 
+ * and making all the fields non-private. 
+ * Would've been good if protected visibility means only subclasses, but it's actually less strict 
+ * than no modifier, I feel like the data structures should be kept private instead
  * 
+ * Multiple classes also use the same method (I was maximising reuse), so lose cohesion if break apart.
+ * In the end a decision had to be made and I kept them together but javadoc comments for each method 
+ * as well as the laying out of the code should make class understandable 
+ * 
+ * Would've done it if Eclipse refactoring menu worked for a class like this, but a lot of manual effort was required
  * Unfortunately not enough time to try this as it's an all-or-nothing task and too high risk
  */
+
 public class DataHandler {
 	private static Voxspell parent_frame;
 
@@ -96,7 +103,7 @@ public class DataHandler {
 	 */
 	private static int latest_quiz_length; //length of latest quiz. May not be same as preferred words in quiz as there might not be that many words
 	private static boolean levelled_up=false; //flag for whether user had decided to level up
-	private static boolean returning_to_quiz_complete=false;
+	private static boolean returning_to_quiz_complete=false; //flag for whether user had just watched video not did another quiz
 
 	/**
 	 * Constructor for single instance, reference parent frame and starts reading files
@@ -200,36 +207,7 @@ public class DataHandler {
 			words_in_quiz=10;
 			personal_best=0;
 
-			/*
-			 * if resources folder can't be found, abort program now instead of get exceptions thrown everywhere
-			 * no barrier against if a png was deleted for example (could test for all contents and abort program, but that's not the purpose of this project)
-			 */
-			File resources_folder = new File(parent_frame.getResourceFileLocation());
-			if (!resources_folder.exists()) {
-				JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary resources folder has been removed\nAborting", "Fatal Error", JOptionPane.ERROR_MESSAGE);
-				System.exit(1);
-			}
-
-			/*
-			 * Default spelling list and reward video. Application won't run if they're deleted 
-			 */
-			File default_spelling_list = new File(System.getProperty("user.dir")+"/spellinglists/"+spelling_list_name);
-			if (!default_spelling_list.exists()) {
-				JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary NZCER-spelling-lists.txt has been removed\n(should be in spellinglists folder)\nPlease put it back and restart Voxspell", "Fatal Error", JOptionPane.ERROR_MESSAGE);
-				System.exit(1);
-			}
-
-			File default_reward_video = new File(System.getProperty("user.dir")+"/rewardvideos/"+parent_frame.getDataHandler().video_name);
-			if (!default_reward_video.exists()) {
-				JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary ffmpeg_reward_video.avi has been removed\n(should be in rewardvideos folder)\nPlease put it back and restart Voxspell", "Fatal Error", JOptionPane.ERROR_MESSAGE);
-				System.exit(1);
-			}
-
-			File user_folder = new File(parent_frame.getResourceFileLocation()+user+"/");
-			if (!user_folder.exists()) {
-				//creates folder if doesn't already exist
-				user_folder.mkdir();
-			}
+			checkFileExistence();
 
 			user_settings=parent_frame.getResourceFileLocation()+user+"/"+user+"_settings";
 			File user_settings_file = new File(user_settings);
@@ -295,6 +273,42 @@ public class DataHandler {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Checks the existence of necessary files
+	 * 
+	 * if resources folder can't be found, abort program now instead of get exceptions thrown everywhere
+	 * no barrier against if a png was deleted for example 
+	 * (could test for all contents and abort program, but that's not the purpose of this project)
+	 * 
+	 * Default spelling list and reward video. Application won't run if they're deleted 
+	 * 
+	 * Creates folder if doesn't already exist (ie new user)
+	 */
+	private static void checkFileExistence() {		 
+		File resources_folder = new File(parent_frame.getResourceFileLocation());
+		if (!resources_folder.exists()) {
+			JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary resources folder has been removed\nAborting", "Fatal Error", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
+		}
+
+		File default_spelling_list = new File(System.getProperty("user.dir")+"/spellinglists/"+spelling_list_name);
+		if (!default_spelling_list.exists()) {
+			JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary NZCER-spelling-lists.txt has been removed\n(should be in spellinglists folder)\nPlease put it back and restart Voxspell", "Fatal Error", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
+		}
+
+		File default_reward_video = new File(System.getProperty("user.dir")+"/rewardvideos/"+parent_frame.getDataHandler().video_name);
+		if (!default_reward_video.exists()) {
+			JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary ffmpeg_reward_video.avi has been removed\n(should be in rewardvideos folder)\nPlease put it back and restart Voxspell", "Fatal Error", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
+		}
+
+		File user_folder = new File(parent_frame.getResourceFileLocation()+user+"/");
+		if (!user_folder.exists()) {
+			user_folder.mkdir();
 		}
 	}
 
@@ -667,7 +681,7 @@ public class DataHandler {
 	}
 
 	/**
-	 * writes to settings files for the user
+	 * writes to settings files for the user including list-specific and general settings
 	 */
 	public static void writeToSettingsFiles(){
 		try {
@@ -700,7 +714,7 @@ public class DataHandler {
 	}
 
 	/**
-	 * Writes to program-wide stats and users list
+	 * Writes list of users and program-wide data 
 	 * @author Abby S
 	 */
 	public static void writeToProgramFiles(){

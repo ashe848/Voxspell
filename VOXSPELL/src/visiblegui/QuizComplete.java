@@ -38,6 +38,7 @@ import vox.Voxspell.PanelID;
  * as well as how many attempts taken if they got it correct.
  * 
  * Does the scoring for simple gamification purposes
+ * The elderly aren't that into competitiveness (which is offputting - just having some fun
  * 
  * Also allows user to level up and watch reward video if user has completed quiz well.
  */
@@ -203,25 +204,34 @@ public class QuizComplete extends JPanel{
 			}
 		}
 
+		//if returning, means they went to video so don't reprocess score
 		if(!parent_frame.getDataHandler().isReturningToQuizComplete()){
-			parent_frame.getDataHandler().setIsReturningToQuizComplete(true);//next time will be true
-			/*
-			 * Simple scoring:
-			 * 3 points for mastered, 1 point for faulted. None for failed. Multiplied by level number. As a percentage
-			 */
-			double score=parent_frame.getDataHandler().getCurrentLevel()*((double)(latest_mastered_words.size()*3 + latest_faulted_words.size()))/parent_frame.getDataHandler().getLatestQuizLength();
-			//compare to personal best (this users all lists all sessions)
-			if(score > parent_frame.getDataHandler().getPersonalBest()){
-				parent_frame.getDataHandler().setPersonalBest(score);
+			processScore();
+		}
+	}
 
-				//compare to global top (all users all lists all sessions)
-				double global_top_score=Double.parseDouble(parent_frame.getDataHandler().getGlobalTop().split("\\s+")[0]);
-				if (score > global_top_score){
-					setupNewPB(score,true);
-					parent_frame.getDataHandler().setGlobalTop(score+" "+parent_frame.getDataHandler().getUser()+" "+parent_frame.getDataHandler().getSpellingListName());				
-				} else {
-					setupNewPB(score,false);
-				}
+	/**
+	 * Process score for gamification to calculate personal best and compare to global top
+	 * Simple scoring so as to stay encouraging and not too competitive (which is offputting)
+	 * 3 points for mastered, 1 point for faulted. None for failed. Multiplied by level number. As a percentage
+	 * 
+	 * @author Abby S
+	 */
+	private void processScore() {
+		parent_frame.getDataHandler().setIsReturningToQuizComplete(true);//next time will be true
+		 
+		double score=parent_frame.getDataHandler().getCurrentLevel()*((double)(latest_mastered_words.size()*3 + latest_faulted_words.size()))/parent_frame.getDataHandler().getLatestQuizLength();
+		//compare to personal best (this users all lists all sessions)
+		if(score > parent_frame.getDataHandler().getPersonalBest()){
+			parent_frame.getDataHandler().setPersonalBest(score);
+
+			//compare to global top (all users all lists all sessions)
+			double global_top_score=Double.parseDouble(parent_frame.getDataHandler().getGlobalTop().split("\\s+")[0]);
+			if (score > global_top_score){
+				setupNewPB(score,true);
+				parent_frame.getDataHandler().setGlobalTop(score+" "+parent_frame.getDataHandler().getUser()+" "+parent_frame.getDataHandler().getSpellingListName());				
+			} else {
+				setupNewPB(score,false);
 			}
 		}
 	}

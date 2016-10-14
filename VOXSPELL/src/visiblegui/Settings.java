@@ -63,7 +63,9 @@ public class Settings extends JPanel {
 		setupChangeSpeed();
 		setupWordInQuiz();
 		setupChooseLevel();
+		setupChooseWordListLabel();
 		setupChooseWordList();
+		setupChooseRewardVideoLabel();
 		setupChooseRewardVideo();
 		setupBackButton();
 	}
@@ -274,18 +276,25 @@ public class Settings extends JPanel {
 		add(level_chooser);
 	}
 
+	
 	/**
-	 * File chooser to choose word list from spellinglists directory
+	 * label for file chooser to choose word list from spellinglists directory
 	 * @author Abby S
 	 */
-	private void setupChooseWordList(){
+	private void setupChooseWordListLabel(){
 		JLabel choose_wordlist_label = new JLabel("Current word list: "+parent_frame.getDataHandler().getSpellingListName());
 		choose_wordlist_label.setForeground(Color.BLACK);
 		choose_wordlist_label.setFont(new Font("Arial", Font.PLAIN, 20));
 		choose_wordlist_label.setHorizontalAlignment(SwingConstants.RIGHT);
 		choose_wordlist_label.setBounds(625, 169, 691, 30);
 		add(choose_wordlist_label);
-
+	}
+	
+	/**
+	 * File chooser to choose word list from spellinglists directory
+	 * @author Abby S
+	 */
+	private void setupChooseWordList(){
 		//tells user what list they chose
 		final JLabel will_change_to=new JLabel("");
 		add(will_change_to);
@@ -323,17 +332,23 @@ public class Settings extends JPanel {
 	}
 
 	/**
-	 * File chooser to choose reward video from rewardvideos directory
+	 * Label for file chooser to choose reward video from rewardvideos directory
 	 * @author Abby S
 	 */
-	private void setupChooseRewardVideo(){
+	private void setupChooseRewardVideoLabel(){
 		JLabel choose_video_label = new JLabel("Current Reward Video: "+parent_frame.getDataHandler().getVideoName());
 		choose_video_label.setForeground(Color.BLACK);
 		choose_video_label.setFont(new Font("Arial", Font.PLAIN, 20));
 		choose_video_label.setHorizontalAlignment(SwingConstants.RIGHT);
 		choose_video_label.setBounds(625, 318, 691, 30);
 		add(choose_video_label);
-
+	}
+	
+	/**
+	 * File chooser to choose reward video from rewardvideos directory
+	 * @author Abby S
+	 */
+	private void setupChooseRewardVideo(){
 		//tells user what video they chose
 		final JLabel will_change_to=new JLabel("");
 		add(will_change_to);
@@ -437,7 +452,9 @@ public class Settings extends JPanel {
 	/**
 	 * Means the file chooser is restricted to the directory I specify
 	 * So user only allowed to choose lists for the spellinglists folder for example
-	 * For ease of use as users don't want to accidently click something and end up in a random place in the system file hierachy
+	 * For ease of use, as users don't want to accidently click something 
+	 * and end up changing things in the system file hierarchy
+	 * Especially considering this application is intended for use on a healthcare robot
 	 * 
 	 * Slightly modified from:	
 	 * https://tips4java.wordpress.com/2009/01/28/single-root-file-chooser/

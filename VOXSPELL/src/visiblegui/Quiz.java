@@ -177,7 +177,7 @@ public class Quiz extends JPanel {
 				if(parent_frame.getFestival().isLocked()){
 					feedback_display.append("\tPlease submit after voice prompt has finished.\n");
 				} else {
-					checkCorrectSpelling(input_from_user.getText());
+					processAttempt(input_from_user.getText());
 					input_from_user.requestFocusInWindow();
 				}
 			}
@@ -200,7 +200,7 @@ public class Quiz extends JPanel {
 				if(parent_frame.getFestival().isLocked()){
 					feedback_display.append("\tPlease submit after voice prompt has finished.\n");
 				} else {
-					checkCorrectSpelling(input_from_user.getText());
+					processAttempt(input_from_user.getText());
 					input_from_user.requestFocusInWindow();
 				}
 			}
@@ -231,15 +231,6 @@ public class Quiz extends JPanel {
 						parent_frame.getFestival().speak(sentence,false);
 					}
 				}
-				
-				//TODO
-				/*if(parent_frame.getDataHandler().hasSampleSentences()){
-					int index=parent_frame.getDataHandler().getWordlistWords().get(parent_frame.getDataHandler().getCurrentLevel()).indexOf(words_to_spell.get(current_word_number));
-					parent_frame.getFestival().speak(parent_frame.getDataHandler().getSampleSentences().get(parent_frame.getDataHandler().getCurrentLevel()).get(index),false);
-				}*/
-
-				//says the word slowly again
-//				parent_frame.getFestival().speak(words_to_spell.get(current_word_number),true);
 			}
 		});
 		sayagain_button.addMouseListener(new VoxMouseAdapter(sayagain_button,null));
@@ -266,7 +257,6 @@ public class Quiz extends JPanel {
 				if((FestivalVoice)voice_chooser.getSelectedItem()!=null){
 					parent_frame.getFestival().setFestivalVoice((FestivalVoice)voice_chooser.getSelectedItem());
 				}
-
 			}
 		});
 		voice_chooser.setBounds(919, 600, 154, 40);
@@ -392,7 +382,7 @@ public class Quiz extends JPanel {
 	 * 
 	 * Logic based on Theo's A2 code
 	 */
-	private void checkCorrectSpelling(String attempt){
+	private void processAttempt(String attempt){
 		input_from_user.setText("");//clear input field	
 
 		if(!attempt.matches(".*[a-zA-Z]+.*")){ 
@@ -404,39 +394,10 @@ public class Quiz extends JPanel {
 		} else{
 			feedback_display.append("Feedback: \""+attempt+"\" is ");//updates progress area with user guess
 
-			//if correct spelling (case-sensitive)
 			if(attempt.equals(words_to_spell.get(current_word_number))){
-				parent_frame.getFestival().speak("Correct", false);
-
-				//adds to respective arraylist based on which attempt they get it right
-				if (current_attempt_number==1){
-					words_mastered.add(words_to_spell.get(current_word_number));
-				} else {//words is faulted
-					words_faulted.add(words_to_spell.get(current_word_number));
-				}
-
-				current_word_number+=1;
-				current_attempt_number=1;
-				progress_bar.setForeground(Color.GREEN);
-				progress_bar.setString("word "+current_word_number +" was CORRECT");
-				feedback_display.setText("");//clear display
+				correctSpelling();
 			} else{
-				//incorrect spelling
-				parent_frame.getFestival().speak("Incorrect", false);
-				feedback_display.append("INCORRECT\n\n");
-
-				//second time getting it wrong(failed)
-				if(current_attempt_number == 2){
-					words_failed.add(words_to_spell.get(current_word_number));
-					current_word_number+=1;
-					current_attempt_number=1;
-					progress_bar.setForeground(Color.RED);
-					progress_bar.setString("word "+current_word_number+" was INCORRECT");
-					feedback_display.setText("");//clear display
-				} else{	//first time getting it wrong(faulted so far, maybe failed later)
-					parent_frame.getFestival().speak("Try again", false);
-					current_attempt_number+=1;
-				}
+				incorrectSpelling();
 			}
 		}
 
@@ -449,6 +410,47 @@ public class Quiz extends JPanel {
 		} else{ 
 			//Otherwise keep going with quiz
 			startQuiz();
+		}
+	}
+
+	/**
+	 * If correct spelling (case-sensitive)
+	 */
+	private void correctSpelling() {
+		parent_frame.getFestival().speak("Correct", false);
+
+		//adds to respective arraylist based on which attempt they get it right
+		if (current_attempt_number==1){
+			words_mastered.add(words_to_spell.get(current_word_number));
+		} else {//words is faulted
+			words_faulted.add(words_to_spell.get(current_word_number));
+		}
+
+		current_word_number+=1;
+		current_attempt_number=1;
+		progress_bar.setForeground(Color.GREEN);
+		progress_bar.setString("word "+current_word_number +" was CORRECT");
+		feedback_display.setText("");//clear display
+	}
+
+	/**
+	 * incorrect spelling
+	 */
+	private void incorrectSpelling() {
+		parent_frame.getFestival().speak("Incorrect", false);
+		feedback_display.append("INCORRECT\n\n");
+
+		//second time getting it wrong(failed)
+		if(current_attempt_number == 2){
+			words_failed.add(words_to_spell.get(current_word_number));
+			current_word_number+=1;
+			current_attempt_number=1;
+			progress_bar.setForeground(Color.RED);
+			progress_bar.setString("word "+current_word_number+" was INCORRECT");
+			feedback_display.setText("");//clear display
+		} else{	//first time getting it wrong(faulted so far, maybe failed later)
+			parent_frame.getFestival().speak("Try again", false);
+			current_attempt_number+=1;
 		}
 	}
 }

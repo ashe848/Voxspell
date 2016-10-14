@@ -27,6 +27,9 @@ import vox.Voxspell.PanelID;
  * Contains video panel, stop+play+play/pause button
  * and return to quiz complete screen button.
  * Based on Nasser's ACP VLCJ code
+ * 
+ * Video sources and ffmpeg code provided in my report
+ * 
  */
 public class Video extends JPanel{
 	private Voxspell parent_frame; //link to parent frame
@@ -93,7 +96,7 @@ public class Video extends JPanel{
 		panel.add(media_player_component);
 		media_player_component.setBounds(32, 169, 1140, 496);
 
-		frame.setContentPane(panel); //sticking new panel on the frame that program is on
+		frame.setContentPane(panel); //putting a new panel on the frame that program is on
 
 		player.playMedia(video);
 	}
@@ -108,8 +111,8 @@ public class Video extends JPanel{
 
 		//get length of video in seconds
 		duration=(int)player.getLength()/1000;
-		//Set max to duration in seconds
-		progress_bar = new JProgressBar(0,duration);
+		
+		progress_bar = new JProgressBar(0,duration);//Set max to duration in seconds
 		progress_bar.setForeground(new Color(254, 157, 79));
 		progress_bar.setBackground(Color.WHITE);
 		progress_bar.setBorderPainted(false);

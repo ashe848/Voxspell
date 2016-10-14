@@ -111,6 +111,16 @@ public class GeneralStats extends JPanel {
 		}
 		table.setModel(model);
 
+		enhanceTableAppearance(model);
+	}
+
+	/**
+	 * Essentially adds a visual appearance to the table
+	 * Also sets some restrictions on manipulation of the table
+	 * 
+	 * @param model
+	 */
+	private void enhanceTableAppearance(DefaultTableModel model) {
 		//For ordering
 		TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(model);
 		table.setRowSorter(sorter);

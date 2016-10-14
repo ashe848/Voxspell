@@ -118,6 +118,16 @@ public class LevelStats extends JPanel{
 		}
 		table.setModel(model);
 
+		enhanceTableAppearance(model);
+	}
+
+	/**
+	 * Essentially adds a visual appearance to the table
+	 * Also sets some restrictions on manipulation of the table
+	 * 
+	 * @param model
+	 */
+	private void enhanceTableAppearance(DefaultTableModel model) {
 		//For ordering
 		sorter = new TableRowSorter<TableModel>(model);
 		table.setRowSorter(sorter);

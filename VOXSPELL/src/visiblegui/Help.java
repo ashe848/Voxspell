@@ -96,6 +96,8 @@ public class Help extends JFrame {
 		case QuizComplete:
 			help_text.append("Level up will change your current level to the one above. If you are on the highest level, you will be asked to select a level to go to in a pop up.\n");
 			break;
+		case ListBuilder:
+			break;
 		default:
 			break;
 		}

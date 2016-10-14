@@ -56,6 +56,7 @@ public class ListBuilder extends JPanel {
 		setupEnterWord();		
 		setupEnterSentence();
 		setupAddButton();
+		setupHelpButton();
 		setupSaveButton();
 		setupDiscardButton();
 	}
@@ -69,7 +70,7 @@ public class ListBuilder extends JPanel {
 		title.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 65));
 		title.setForeground(new Color(254, 157, 79));
 		title.setHorizontalAlignment(SwingConstants.CENTER);
-		title.setBounds(32, 24, 1284, 119);
+		title.setBounds(32, 24, 1136, 119);
 		add(title);
 	}
 
@@ -193,6 +194,25 @@ public class ListBuilder extends JPanel {
 		add(add_word_button);
 	}
 
+	/**
+	 * Displays pop up help frame
+	 * @author Abby S
+	 */
+	private void setupHelpButton() {
+		ImageIcon help_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "help.png");
+		JButton help_button = new JButton("",help_button_image);
+		help_button.setBorderPainted(false);
+		help_button.setBounds(1216, 24, 100, 100);
+		help_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Help help_frame=new Help(PanelID.ListBuilder);
+				help_frame.setVisible(true);
+			}
+		});
+		help_button.addMouseListener(new VoxMouseAdapter(help_button,null));
+		add(help_button);
+	}
+	
 	/**
 	 * User clicks this to save their list (asks for confirmation)
 	 * @author Abby S

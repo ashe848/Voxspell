@@ -1,0 +1,13 @@
+ffmpeg -i reward_video.avi -vf negate,drawtext="text='CONGRATULATIONS VOXMASTER\!\!\!': fontsize=40: box=1: boxcolor=orange@0.5: x=(w-text_w)/2: y=(h-text_h)/2" -af aecho ffmpeg_reward_video.avi
+
+
+ffmpeg -ss 00:00:00 -t 00:00:29 -i turtle-SD.mp4 -acodec copy -vcodec copy -async 1 ffmpeg-turtle.mp4
+
+ffmpeg -i ffmpeg-turtle.mp4 -vf drawtext="text='CONGRATULATIONS\!\!\!': fontsize=80: box=1: boxcolor=white@0.5: x=(w-text_w)/2: y=(h-text_h)/2" -strict -2 ffmpeg-turtle-text.mp4
+
+ffmpeg -i ffmpeg_reward_video.mp4 -strict -2 ffmpeg_reward_video.avi
+
+ffmpeg -i ffmpeg_reward_video_louder.mp4 -vcodec copy -af "volume=-20dB" -strict -2 ffmpeg_reward_video.mp4
+ffmpeg -i ffmpeg_reward_video_louder.avi -vcodec copy -af "volume=-20dB" -strict -2 ffmpeg_reward_video.avi
+
+ffmpeg -i quiz_complete_audio_loud.wav -af "volume=-15dB" -strict -2 quiz_complete_audio.wav

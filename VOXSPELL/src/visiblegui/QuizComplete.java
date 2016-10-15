@@ -63,9 +63,9 @@ public class QuizComplete extends JPanel{
 
 		parent_frame = parent;
 
-		latest_mastered_words=parent_frame.getDataHandler().getLatestWordResults().get(0);
-		latest_faulted_words=parent_frame.getDataHandler().getLatestWordResults().get(1);
-		latest_failed_words=parent_frame.getDataHandler().getLatestWordResults().get(2);
+		latest_mastered_words=parent_frame.getPostQuizHandler().getLatestWordResults().get(0);
+		latest_faulted_words=parent_frame.getPostQuizHandler().getLatestWordResults().get(1);
+		latest_failed_words=parent_frame.getPostQuizHandler().getLatestWordResults().get(2);
 
 		setupTitle();
 		setupAudio();
@@ -354,8 +354,8 @@ public class QuizComplete extends JPanel{
 		back_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				clip.close(); //stops background music
-				parent_frame.getDataHandler().writeToProgramFiles();
-				parent_frame.getDataHandler().writeToSettingsFiles();
+				parent_frame.getFileWritingHandler().writeToProgramFiles();
+				parent_frame.getFileWritingHandler().writeToSettingsFiles();
 				//resets flag for level up
 				parent_frame.getDataHandler().setLevelledUp(false);
 				parent_frame.getDataHandler().setIsReturningToQuizComplete(false);

@@ -138,10 +138,10 @@ public class LogIn extends JFrame {
 					//registers user if they're new. Saves them having to go to a separate register screen
 					if(!parent_frame.getDataHandler().getUsers().contains(username)){
 						parent_frame.getDataHandler().getUsers().add(username);
-						parent_frame.getDataHandler().writeToProgramFiles();
+						parent_frame.getFileWritingHandler().writeToProgramFiles();
 					}
-					parent_frame.getDataHandler().readUserFiles();
-					parent_frame.getDataHandler().readListSpecificFiles();
+					parent_frame.getFileReadingHandler().readUserFiles();
+					parent_frame.getFileReadingHandler().readListSpecificFiles();
 					parent_frame.changePanel(PanelID.MainMenu);
 					log_in_frame.dispose();
 				}

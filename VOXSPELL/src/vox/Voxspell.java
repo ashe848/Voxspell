@@ -8,6 +8,10 @@ import com.sun.jna.NativeLibrary;
 
 import backendio.DataHandler;
 import backendio.Festival;
+import backendio.FileReadingHandler;
+import backendio.FileWritingHandler;
+import backendio.PostQuizHandler;
+import backendio.PreQuizHandler;
 import uk.co.caprica.vlcj.binding.LibVlc;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 import visiblegui.GeneralStats;
@@ -31,6 +35,10 @@ public class Voxspell extends JFrame{
 	private final String RESOURCE_FILE_LOCATION = System.getProperty("user.dir")+"/resources/";//TODO make this folder hidden
 
 	//Contains the singleton DataHandler and Festival instances which panels get
+	private FileReadingHandler file_reading_handler;
+	private FileWritingHandler file_writing_handler;
+	private PostQuizHandler post_quiz_handler;
+	private PreQuizHandler pre_quiz_handler;
 	private DataHandler data_handler;
 	private Festival festival;
 
@@ -58,6 +66,10 @@ public class Voxspell extends JFrame{
 
 		VoxDefaultUI.getInstance();
 		festival = Festival.getInstance(this);
+		file_reading_handler=FileReadingHandler.getInstance(this);
+		file_writing_handler=FileWritingHandler.getInstance(this);
+		post_quiz_handler=PostQuizHandler.getInstance(this);
+		pre_quiz_handler=PreQuizHandler.getInstance(this);
 		data_handler=DataHandler.getInstance(this);
 
 		//make MainMenu the panel to display
@@ -92,6 +104,38 @@ public class Voxspell extends JFrame{
 	 */
 	public DataHandler getDataHandler(){
 		return data_handler;
+	}
+	
+	/**
+	 * Method to return object responsible for handling data
+	 * @return
+	 */
+	public FileReadingHandler getFileReadingHandler(){
+		return file_reading_handler;
+	}
+	
+	/**
+	 * Method to return object responsible for handling data
+	 * @return
+	 */
+	public FileWritingHandler getFileWritingHandler(){
+		return file_writing_handler;
+	}
+	
+	/**
+	 * Method to return object responsible for handling data
+	 * @return
+	 */
+	public PostQuizHandler getPostQuizHandler(){
+		return post_quiz_handler;
+	}
+	
+	/**
+	 * Method to return object responsible for handling data
+	 * @return
+	 */
+	public PreQuizHandler getPreQuizHandler(){
+		return pre_quiz_handler;
 	}
 
 	/**

@@ -240,7 +240,7 @@ public class ListBuilder extends JPanel {
 					} else {
 						//confirms with user
 						if (askForConfirmation("Will save into spellinglists folder\nas "+list_name+".txt", "Confirm Save")){
-							parent_frame.getDataHandler().writeCustomList(list_name, words_to_add, sentences_to_add);
+							parent_frame.getFileWritingHandler().writeCustomList(list_name, words_to_add, sentences_to_add);
 							parent_frame.changePanel(PanelID.MainMenu);
 						}	
 					}

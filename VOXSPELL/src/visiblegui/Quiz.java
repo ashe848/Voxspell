@@ -95,9 +95,9 @@ public class Quiz extends JPanel {
 	private void initialiseWordsToSpell(){
 		//normal quiz
 		if(quiz_type==PanelID.Quiz){
-			words_to_spell = parent_frame.getDataHandler().getWordsForSpellingQuiz(parent_frame.getDataHandler().getNumWordsInQuiz(), PanelID.Quiz);
+			words_to_spell = parent_frame.getPreQuizHandler().getWordsForSpellingQuiz(parent_frame.getDataHandler().getNumWordsInQuiz(), PanelID.Quiz);
 		} else { //review quiz
-			words_to_spell = parent_frame.getDataHandler().getWordsForSpellingQuiz(parent_frame.getDataHandler().getNumWordsInQuiz(), PanelID.Review);
+			words_to_spell = parent_frame.getPreQuizHandler().getWordsForSpellingQuiz(parent_frame.getDataHandler().getNumWordsInQuiz(), PanelID.Review);
 		}	
 	}
 
@@ -301,7 +301,7 @@ public class Quiz extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<String> word_to_add=new ArrayList<>();
 				word_to_add.add(words_to_spell.get(current_word_number));
-				parent_frame.getDataHandler().addToReviewList(word_to_add);
+				parent_frame.getPostQuizHandler().addToReviewList(word_to_add);
 			}
 		});
 		add_to_review.addMouseListener(new VoxMouseAdapter(add_to_review,null));
@@ -405,7 +405,7 @@ public class Quiz extends JPanel {
 		if (current_word_number == words_to_spell.size()){
 			//no point speaking any more things if quiz has already completed
 			parent_frame.getFestival().emptyWorkerQueue();
-			parent_frame.getDataHandler().processQuizResults(words_mastered,words_faulted,words_failed,quiz_type,words_to_spell.size());
+			parent_frame.getPostQuizHandler().processQuizResults(words_mastered,words_faulted,words_failed,quiz_type,words_to_spell.size());
 			parent_frame.changePanel(PanelID.QuizComplete);
 		} else{ 
 			//Otherwise keep going with quiz

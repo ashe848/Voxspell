@@ -96,7 +96,7 @@ public class Settings extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				boolean ask_reset_result = askForConfirmation("Are you sure you want to reset Stats for "+parent_frame.getDataHandler().getSpellingListName()+"?", "Reset Stats for Current List");
 				if (ask_reset_result){
-					parent_frame.getDataHandler().resetListStats();
+					parent_frame.getFileWritingHandler().resetListStats();
 				}
 			}
 		});
@@ -115,7 +115,7 @@ public class Settings extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				boolean ask_result = askForConfirmation("Are you sure you want to reset your Settings data Back to Defaults?\nList-specific data will be retained.", "Reset Settings Back to Defaults");
 				if (ask_result){
-					parent_frame.getDataHandler().resetToDefaults();
+					parent_frame.getFileWritingHandler().resetToDefaults();
 				}
 			}
 		});
@@ -135,7 +135,7 @@ public class Settings extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				boolean ask_clear_result = askForConfirmation("Are you sure you want to reset all your Data?\nWill be logged into Visitor", "Reset User Stats");
 				if (ask_clear_result){
-					parent_frame.getDataHandler().resetUser();
+					parent_frame.getFileWritingHandler().resetUser();
 				}
 			}
 		});
@@ -314,7 +314,7 @@ public class Settings extends JPanel {
 
 				int button_clicked = chooser.showDialog(parent_frame, "Choose this word list");
 				if(button_clicked == JFileChooser.APPROVE_OPTION) {
-					if (!parent_frame.getDataHandler().errorCheckSelectedFile(chooser.getSelectedFile())){
+					if (!parent_frame.getFileReadingHandler().errorCheckSelectedFile(chooser.getSelectedFile())){
 						//checks if file format is correct
 						JOptionPane.showMessageDialog(null, "Chosen list is not in correct format\nPlease choose another list", "List Format Error", JOptionPane.WARNING_MESSAGE);
 					} else {
@@ -416,12 +416,12 @@ public class Settings extends JPanel {
 						parent_frame.getDataHandler().setVideoName(temp_video_selection);
 					}
 					//saves list settings first, before seeing if the list needs to change
-					parent_frame.getDataHandler().writeToSettingsFiles();
+					parent_frame.getFileWritingHandler().writeToSettingsFiles();
 
 					if(temp_list_selection!=null){
 						parent_frame.getDataHandler().setSpellingListName(temp_list_selection);
-						parent_frame.getDataHandler().readListSpecificFiles();
-						parent_frame.getDataHandler().writeToSettingsFiles();
+						parent_frame.getFileReadingHandler().readListSpecificFiles();
+						parent_frame.getFileWritingHandler().writeToSettingsFiles();
 					}
 				}
 				parent_frame.changePanel(PanelID.MainMenu); //else doesn't save

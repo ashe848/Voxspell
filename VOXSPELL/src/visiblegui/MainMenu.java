@@ -241,8 +241,8 @@ public class MainMenu extends JPanel{
 				boolean ask_leave_result = askToLeave();
 				if (ask_leave_result){
 					//saves to settings before exiting (e.g. the last thing done could've been clicking the level up button)
-					parent_frame.getDataHandler().writeToSettingsFiles();
-					parent_frame.getDataHandler().writeToProgramFiles();
+					parent_frame.getFileWritingHandler().writeToSettingsFiles();
+					parent_frame.getFileWritingHandler().writeToProgramFiles();
 					System.exit(0);
 				}
 			}

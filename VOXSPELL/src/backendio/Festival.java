@@ -139,9 +139,9 @@ public class Festival {
 			}
 		} else {
 			if (say_again){
-				parent_frame.getDataHandler().writeToScheme(speech, FestivalSpeed.slow, festival_voice);
+				parent_frame.getFileWritingHandler().writeToScheme(speech, FestivalSpeed.slow, festival_voice);
 			} else {
-				parent_frame.getDataHandler().writeToScheme(speech, festival_speed, festival_voice);
+				parent_frame.getFileWritingHandler().writeToScheme(speech, festival_speed, festival_voice);
 			}
 			System.out.println(speech + " " + festival_speed.getSpeedValue() + " " + festival_voice.getVoiceValue());
 		}
@@ -180,9 +180,9 @@ public class Festival {
 		protected Void doInBackground(){
 			//writes to .scm file, uses slow speed if say again @author Abby S
 			if (say_again){
-				parent_frame.getDataHandler().writeToScheme(speech, festival_speed.slow, festival_voice);
+				parent_frame.getFileWritingHandler().writeToScheme(speech, festival_speed.slow, festival_voice);
 			} else {
-				parent_frame.getDataHandler().writeToScheme(speech, festival_speed, festival_voice);
+				parent_frame.getFileWritingHandler().writeToScheme(speech, festival_speed, festival_voice);
 			}
 
 			//makes call to festival to execute the scm file in batch mode

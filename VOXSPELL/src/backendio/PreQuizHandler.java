@@ -61,7 +61,7 @@ public class PreQuizHandler {
 		}
 
 		if(relevant_bank_of_words.size() == 0){
-			JOptionPane.showMessageDialog(null, "Empty list for level: "+parent_frame.getDataHandler().getLevelNames().get(parent_frame.getDataHandler().getCurrentLevel())+"\nWill return to main menu" ,"Nothing to test",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Empty list for level: "+parent_frame.getDataHandler().getLevelNames().get(parent_frame.getDataHandler().getCurrentLevel())+"\nWill return to main menu" ,"Nothing to test for " + id.toString(),JOptionPane.ERROR_MESSAGE);
 			parent_frame.changePanel(PanelID.MainMenu);
 		} else {
 			//randomising of words without messing with order of original array (no deep copy needed)

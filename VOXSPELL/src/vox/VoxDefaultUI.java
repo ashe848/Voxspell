@@ -53,5 +53,6 @@ public class VoxDefaultUI {
 		UIManager.put("Button.font", new Font("Arial", Font.PLAIN, 18)); //enhances default java buttons (e.g. pop up dialog and file chooser) 
 		UIManager.put("Button.background",new Color(254, 157, 79));
 		UIManager.put("Button.foreground",Color.WHITE);
+		UIManager.put("Button.focus", new Color(0, 0, 0, 0));//remove focus border on default java buttons
 	}
 }

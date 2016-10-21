@@ -19,8 +19,8 @@ import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
-import backendio.Festival.FestivalSpeed;
-import backendio.Festival.FestivalVoice;
+import audio.Festival.FestivalSpeed;
+import audio.Festival.FestivalVoice;
 import vox.VoxButton;
 import vox.VoxMouseAdapter;
 import vox.Voxspell;

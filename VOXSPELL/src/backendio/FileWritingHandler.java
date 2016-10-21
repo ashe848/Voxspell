@@ -11,8 +11,8 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 
-import backendio.Festival.FestivalSpeed;
-import backendio.Festival.FestivalVoice;
+import audio.Festival.FestivalSpeed;
+import audio.Festival.FestivalVoice;
 import visiblegui.StatsChooser.StatsType;
 import vox.Voxspell;
 import vox.Voxspell.PanelID;
@@ -105,7 +105,7 @@ public class FileWritingHandler {
 	 * writes to scheme file to be executed by Festival in batch mode
 	 * sets voice, speed, and text to say
 	 */
-	void writeToScheme(String speech, FestivalSpeed speed, FestivalVoice voice){
+	public void writeToScheme(String speech, FestivalSpeed speed, FestivalVoice voice){
 		try {
 			FileWriter fw = new FileWriter(new File(parent_frame.getDataHandler().getFestivalScheme()), false);
 			fw.write("(voice_" + voice.getVoiceValue() +")\n");

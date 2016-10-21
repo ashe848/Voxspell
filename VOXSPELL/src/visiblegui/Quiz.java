@@ -18,8 +18,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import backendio.Festival.FestivalSpeed;
-import backendio.Festival.FestivalVoice;
+import audio.Festival.FestivalSpeed;
+import audio.Festival.FestivalVoice;
 import vox.VoxMouseAdapter;
 import vox.Voxspell;
 import vox.Voxspell.PanelID;

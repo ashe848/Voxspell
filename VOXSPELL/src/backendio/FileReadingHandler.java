@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import backendio.Festival.FestivalSpeed;
-import backendio.Festival.FestivalVoice;
+import audio.Festival.FestivalSpeed;
+import audio.Festival.FestivalVoice;
 import vox.Voxspell;
 
 @SuppressWarnings({ "static-access" })

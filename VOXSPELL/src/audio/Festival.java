@@ -1,4 +1,4 @@
-package backendio;
+package audio;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -53,7 +53,7 @@ public class Festival {
 	public enum FestivalSpeed {
 		slow, normal, fast;
 
-		double getSpeedValue(){
+		public double getSpeedValue(){
 			switch(this){
 			case slow:
 				return 2.0;
@@ -71,7 +71,7 @@ public class Festival {
 	public enum FestivalVoice {
 		Kiwi, American, British;
 
-		String getVoiceValue(){
+		public String getVoiceValue(){
 			switch(this){
 			case American:
 				return "kal_diphone";

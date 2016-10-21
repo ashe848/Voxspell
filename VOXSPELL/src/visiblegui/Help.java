@@ -117,15 +117,15 @@ public class Help extends JFrame {
 				+ "clicking them will bring up pop ups, guiding you through the next steps. \n\n");
 		help_text.append("Log in: To register and/or log in with your name, so your data, progress and settings "
 				+ "will be saved. This means that multiple users can play VOXSPELL, and you will not interfere "
-				+ "with each other¡¯s progress. By default, VOXSPELL starts being logged in as Visitor, so if you "
-				+ "don¡¯t want to keep your data, feel free to continue with Visitor\n\n");
+				+ "with each other's progress. By default, VOXSPELL starts being logged in as Visitor, so if you "
+				+ "don't want to keep your data, feel free to continue with Visitor\n\n");
 		help_text.append("New Quiz and Review starts a quiz at your current level, with words being chosen randomly. "
-				+ "Review will specifically select words out of those you didn¡¯t quite get, so you can review them. "
+				+ "Review will specifically select words out of those you didn't quite get, so you can review them. "
 				+ "Otherwise, the quizzes proceed in exactly the same way.\n\n");
 		help_text.append("You can use List Builder to build a custom list, and then choose to be quizzed on your own "
-				+ "list in Settings. This is helpful if there is a category of words you¡¯d like to specifically practice "
+				+ "list in Settings. This is helpful if there is a category of words you'd like to specifically practice "
 				+ "the spelling for, such as GrandchildrensNames, or VegesInMyGarden.\n\n");
-		help_text.append("If you¡¯d like to exit VOXSPELL, click the Power button on the bottom right corner. This is the "
+		help_text.append("If you'd like to exit VOXSPELL, click the Power button on the bottom right corner. This is the "
 				+ "only way to quit the application, and will ensure that all your data is correctly saved before exiting.\n\n");
 	}
 
@@ -152,10 +152,10 @@ public class Help extends JFrame {
 		help_text.append("By default, the words are sorted in ascending order by their numeric level (from 1 onwards, "
 				+ "representing difficulty).\n\n");
 		help_text.append("Words are categorised into Strike! (got the correct on the first try), Spare! (incorrect the"
-				+ " first try but correct on the second), and Didn¡¯t get it (incorrect on both tries). They are displayed"
-				+ " in a table, with the numbers in each column representing how many times each word you¡¯ve attempted fell"
+				+ " first try but correct on the second), and Didn't get it (incorrect on both tries). They are displayed"
+				+ " in a table, with the numbers in each column representing how many times each word you've attempted fell"
 				+ " into those categories. You can sort the tables by clicking on the column headers, or drag them to resize"
-				+ " the columns if longer words aren¡¯t fully showing.\n\n");
+				+ " the columns if longer words aren't fully showing.\n\n");
 		help_text.append("If no words have been attempted, the table will consist of only the column headers, and be empty.\n\n");
 	}
 
@@ -167,10 +167,10 @@ public class Help extends JFrame {
 		help_text.append("The default dropdown selection is your current level, and you can change it to any level you like."
 				+ " The levels are listed by their names, in increasing level of difficulty.\n\n");
 		help_text.append("Words are categorised into Strike! (got the correct on the first try), Spare! (incorrect the first"
-				+ " try but correct on the second), and Didn¡¯t get it (incorrect on both tries). They are displayed in a table,"
-				+ " with the numbers in each column representing how many times each word you¡¯ve attempted fell into those "
+				+ " try but correct on the second), and Didn't get it (incorrect on both tries). They are displayed in a table,"
+				+ " with the numbers in each column representing how many times each word you've attempted fell into those "
 				+ "categories. You can sort the tables by clicking on the column headers, or drag them to resize the columns "
-				+ "if longer words aren¡¯t fully showing.\n\n");
+				+ "if longer words aren't fully showing.\n\n");
 		help_text.append("If no words have been attempted, the table will consist of only the column headers, and be empty.\n\n");
 	}
 
@@ -179,11 +179,11 @@ public class Help extends JFrame {
 	 * @author Abby S
 	 */
 	private void populateForQuizzing() {
-		help_text.append("Type your attempt into the field next to ¡°SPELL HERE¡± and either click the Submit button, or the "
+		help_text.append("Type your attempt into the field next to 'SPELL HERE' and either click the Submit button, or the "
 				+ "Enter key on the keyboard to register your attempt. If you got it incorrect on your first try, you get a "
 				+ "second chance, after which VOXSPELL will move on to the next word. The text on the progress bar will show "
 				+ "your result for the previous word, and be coloured green or red depending on whether you got it correct.\n\n");
-		help_text.append("If you feel you¡¯d like to practice a word more, click the Add to Review button to manually add the"
+		help_text.append("If you feel you'd like to practice a word more, click the Add to Review button to manually add the"
 				+ " current word to the list for Review.\n\n");
 		help_text.append("If you did not hear a word clearly, feel free to click the Say Again button to hear it be spoken slowly,"
 				+ " followed by a sample sentence (if the word has one). You can also change the voice and speed settings for "
@@ -191,7 +191,7 @@ public class Help extends JFrame {
 				+ "to a different voice, because the Kiwi voice can't say certain uncommon words, e.g. expelliarmus.\n\n");
 		help_text.append("VOXSPELL quizzes are case sensitive, but it will not take up an attempt if you got the spelling correct,"
 				+ " but just capitalisation wrong. You will stay on the same attempt number, and the voice will prompt you to "
-				+ "spell it again. The same goes for if your attempt didn¡¯t contain any alphabetical characters at all ¨C it would"
+				+ "spell it again. The same goes for if your attempt didn't contain any alphabetical characters at all - it would"
 				+ " most probably be an accidental click on the Submit button.\n\n");
 	}
 
@@ -208,9 +208,9 @@ public class Help extends JFrame {
 				+ "the current level in deciding whether to move up, but you can always change to a lower level in Settings if "
 				+ "you find the words too difficult.\n\n");
 		help_text.append("Scores are calculated in VOXSPELL as an average over the number of words in the quiz you completed. "
-				+ "3 points are awarded for each strike, 1 for each spare, and none if you didn¡¯t get it. This average is then "
+				+ "3 points are awarded for each strike, 1 for each spare, and none if you didn't get it. This average is then "
 				+ "multiplied by the level number (indicating difficulty) to get your score for the quiz. If you bet your "
-				+ "personal best, you¡¯ll see a message displayed on the left of this screen.\n\n");
+				+ "personal best, you'll see a message displayed on the left of this screen.\n\n");
 	}
 
 	/**
@@ -222,7 +222,7 @@ public class Help extends JFrame {
 				+ " The list will be saved to your spellinglists folder under this name, which will also serve as the level name.\n\n");
 		help_text.append("Type in the word, and also add a sample sentence if you wish (else leave it empty), then click the "
 				+ "Add Word button. You will see the list of words added being updated on the left of the screen.\n\n");
-		help_text.append("When you¡¯re done, click Save to save the list, or Discard if you don¡¯t want it. Once you¡¯ve saved "
+		help_text.append("When you're done, click Save to save the list, or Discard if you don't want it. Once you've saved "
 				+ "the list, you can choose to be quizzed on it via the Settings screen.\n\n");
 	}
 }

@@ -78,7 +78,7 @@ public class LogIn extends JFrame {
 		registered_users.setEditable(false);
 		registered_users.setLineWrap(true);
 		registered_users.setWrapStyleWord(true);
-		registered_users.setFont(new Font("Calibri Light", Font.PLAIN, 25));
+		registered_users.setFont(new Font("Calibri Light", Font.PLAIN, 20));
 
 		registered_users.setText("If your name is in the list, please enter your name to log in\n\nIf not, WELCOME! Enter your name and you will be registered.\n\nRegistered Users (Case Sensitive):\n");
 		registered_users.append("Visitor\n");
@@ -87,9 +87,9 @@ public class LogIn extends JFrame {
 				registered_users.append(u+"\n");
 			}
 		}
-
+		
 		JScrollPane scroll_pane = new JScrollPane(registered_users);
-		scroll_pane.setBounds(32, 164, 606, 310);
+		scroll_pane.setBounds(32, 164, 606, 330);
 		content_pane.add(scroll_pane);
 	}
 
@@ -99,12 +99,12 @@ public class LogIn extends JFrame {
 	 */
 	private void setupEnterName() {
 		JLabel enter_name_label = new JLabel("Your name:");
-		enter_name_label.setBounds(32, 484, 172, 52);
+		enter_name_label.setBounds(32, 504, 172, 52);
 		enter_name_label.setFont(new Font("Arial", Font.PLAIN, 25));
 		content_pane.add(enter_name_label);
 
 		enter_name_field = new JTextField();
-		enter_name_field.setBounds(214, 484, 424, 52);
+		enter_name_field.setBounds(214, 504, 424, 52);
 		enter_name_field.setFont(new Font("Calibri Light", Font.PLAIN, 25));
 		enter_name_field.setColumns(10);
 		content_pane.add(enter_name_field);
@@ -117,7 +117,7 @@ public class LogIn extends JFrame {
 	private void setupOKButton() {
 		//for error in entering name
 		final JLabel error_label = new JLabel("");
-		error_label.setFont(new Font("Arial", Font.PLAIN, 25));
+		error_label.setFont(new Font("Arial", Font.PLAIN, 20));
 		error_label.setHorizontalAlignment(SwingConstants.CENTER);
 		error_label.setForeground(new Color(254, 157, 79));
 		content_pane.add(error_label);
@@ -132,7 +132,7 @@ public class LogIn extends JFrame {
 				String username=enter_name_field.getText();
 				if(!username.matches("[a-zA-Z]+")){
 					error_label.setText("Only alphabetical characters allowed!");
-					error_label.setBounds(32, 546, 606, 40);
+					error_label.setBounds(32, 556, 606, 40);
 				} else {
 					parent_frame.getDataHandler().setUser(username);
 					//registers user if they're new. Saves them having to go to a separate register screen

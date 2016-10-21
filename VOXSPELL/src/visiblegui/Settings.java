@@ -251,7 +251,7 @@ public class Settings extends JPanel {
 	 * @author Abby S
 	 */
 	private void setupChooseLevel() {
-		JLabel choose_level_label = new JLabel("Choose Level (for current list)");
+		JLabel choose_level_label = new JLabel("Choose level (for current list)");
 		choose_level_label.setForeground(Color.BLACK);
 		choose_level_label.setFont(new Font("Arial", Font.PLAIN, 20));
 		choose_level_label.setBounds(32, 552, 517, 30);
@@ -282,7 +282,7 @@ public class Settings extends JPanel {
 	 * @author Abby S
 	 */
 	private void setupChooseWordListLabel(){
-		JLabel choose_wordlist_label = new JLabel("Current word list: "+parent_frame.getDataHandler().getSpellingListName());
+		JLabel choose_wordlist_label = new JLabel("Current spelling list: "+parent_frame.getDataHandler().getSpellingListName());
 		choose_wordlist_label.setForeground(Color.BLACK);
 		choose_wordlist_label.setFont(new Font("Arial", Font.PLAIN, 20));
 		choose_wordlist_label.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -336,7 +336,7 @@ public class Settings extends JPanel {
 	 * @author Abby S
 	 */
 	private void setupChooseRewardVideoLabel(){
-		JLabel choose_video_label = new JLabel("Current Reward Video: "+parent_frame.getDataHandler().getVideoName());
+		JLabel choose_video_label = new JLabel("Current reward video: "+parent_frame.getDataHandler().getVideoName());
 		choose_video_label.setForeground(Color.BLACK);
 		choose_video_label.setFont(new Font("Arial", Font.PLAIN, 20));
 		choose_video_label.setHorizontalAlignment(SwingConstants.RIGHT);

@@ -121,13 +121,13 @@ public class ListBuilder extends JPanel {
 	private void setupEnterWord() {
 		JLabel word_label = new JLabel("Word:");
 		word_label.setFont(new Font("Arial", Font.PLAIN, 25));
-		word_label.setBounds(420, 269, 223, 45);
+		word_label.setBounds(420, 310, 223, 45);
 		add(word_label);
 
 		word_field = new JTextField();
 		word_field.setColumns(10);
 		word_field.setFont(new Font("Calibri Light", Font.PLAIN, 25));
-		word_field.setBounds(688, 269, 383, 45);
+		word_field.setBounds(688, 310, 383, 45);
 		add(word_field);
 	}
 
@@ -161,7 +161,7 @@ public class ListBuilder extends JPanel {
 	private void setupAddButton() {
 		ImageIcon add_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "addword.png");
 		JButton add_word_button = new JButton("", add_button_image);
-		add_word_button.setBounds(1139, 180, 177, 100);
+		add_word_button.setBounds(1139, 260, 177, 100);
 		add_word_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

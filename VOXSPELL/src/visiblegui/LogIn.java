@@ -87,6 +87,7 @@ public class LogIn extends JFrame {
 				registered_users.append(u+"\n");
 			}
 		}
+		registered_users.setCaretPosition(0); //scrolled to the top
 		
 		JScrollPane scroll_pane = new JScrollPane(registered_users);
 		scroll_pane.setBounds(32, 164, 606, 330);

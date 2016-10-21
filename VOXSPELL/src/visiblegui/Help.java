@@ -69,8 +69,9 @@ public class Help extends JFrame {
 		help_text.setEditable(false);
 		help_text.setLineWrap(true);
 		help_text.setWrapStyleWord(true);
-		help_text.setFont(new Font("Calibri Light", Font.PLAIN, 25));
+		help_text.setFont(new Font("Calibri Light", Font.PLAIN, 20));
 		help_text.setText("");
+		help_text.setCaretPosition(0); //scrolled to the top
 
 		switch(from_panel){
 		case MainMenu:

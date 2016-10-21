@@ -12,30 +12,12 @@ import vox.Voxspell.PanelID;
 @SuppressWarnings({ "static-access" })
 
 /**
- * Singleton data handling class
+ * Singleton data handling class containing data structures and their access control
+ * lowest visibility possible: mostly package private, so only backend io classes get access
  * 
- * Responsible for all interactions(input and output) with external spelling word data files
- * (but not video file, which is handled elsewhere)
+ * Maximising reuse of methods and data structures, so fairly long class
+ * JavaDoc comments actually take up more lines than actual code.
  * 
- * Unfortunately got long due to refactoring and encapsulating
- * Would lose cohesion if break apart as multiple functions manipulate the same data structures,
- * so it's difficult to split it into statsModel, levelModel, quizModel etc without moving the data structures into a super class 
- * and making all the fields non-private. 
- * Would've been good if protected visibility means only subclasses, but it's actually less strict 
- * than no modifier, I feel like the data structures should be kept private instead
- * 
- * Multiple classes also use the same method (I was maximising reuse), so lose cohesion if break apart.
- * In the end a decision had to be made and I kept them together but javadoc comments for each method 
- * as well as the laying out of the code should make class understandable 
- * 
- * Would've done it if Eclipse refactoring menu worked for a class like this, but a lot of manual effort was required
- * Unfortunately not enough time to try this as it's an all-or-nothing task and too high risk
- * 
- * 
- * 
- * Lowest visibility possible.
- * Must have getter setters, else this class gets well over 1000 lines
- * Package private, so only backend io classes get access
  */
 
 //TODO javadoc this class and split offs

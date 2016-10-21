@@ -228,7 +228,7 @@ public class Settings extends JPanel {
 		add(change_words_in_quiz_label);
 
 		//just a few choices for simplicity in use
-		Integer[] word_numbers={1, 5, 10, 15, 25, 50};//TODO: remove 1 after testing
+		Integer[] word_numbers={5, 10, 15, 25, 50};
 		final JComboBox word_number_chooser = new JComboBox(word_numbers);
 		word_number_chooser.setFont(new Font("Arial", Font.PLAIN, 20));
 		word_number_chooser.setForeground(Color.BLACK);

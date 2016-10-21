@@ -1,6 +1,10 @@
 package vox;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import com.sun.jna.Native;
@@ -32,7 +36,7 @@ import visiblegui.Video;
  * Is the frame for the Voxspell program
  */
 public class Voxspell extends JFrame{
-	private final String RESOURCE_FILE_LOCATION = System.getProperty("user.dir")+"/resources/";//TODO make this folder hidden
+	private final String RESOURCE_FILE_LOCATION = System.getProperty("user.dir")+"/.resources/";
 
 	//Contains the singleton backend I/O handler and Festival instances which panels get
 	private FileReadingHandler file_reading_handler;
@@ -50,18 +54,17 @@ public class Voxspell extends JFrame{
 	 */
 	public Voxspell(){
 		setTitle("VOXSPELL");
-		setSize(1366,772);//TODO: 745 height
+		setSize(1366,745);
 		setLocationRelativeTo(null);
 		setResizable(false);
 
-		//TODO back to DO_NOTHING_ON_CLOSE
 		//Make the power button on main menu the only way to exit the application
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//		addWindowListener(new WindowAdapter() {
-		//			public void windowClosing(WindowEvent e) {
-		//				JOptionPane.showMessageDialog(null, "Closing the window will result in loss of data\nPlease exit using the power button on main menu", "Error", JOptionPane.WARNING_MESSAGE);
-		//			}
-		//		});
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				JOptionPane.showMessageDialog(null, "Closing the window will result in loss of data\nPlease exit using the power button on main menu", "Error", JOptionPane.WARNING_MESSAGE);
+			}
+		});
 
 		//Initialisations
 		VoxDefaultUI.getInstance();

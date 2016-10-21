@@ -89,7 +89,7 @@ public class Festival {
 	public boolean isLocked() {
 		return locked;
 	}
-	
+
 	/**
 	 * Getter for speed
 	 */
@@ -125,25 +125,12 @@ public class Festival {
 	 * @param speech
 	 */
 	public void speak(String speech, boolean say_again){
-		/*		TODO
-		Only makes Festival calls on Linux to avoid issues on other OS
-		For development purposes to speed up testing
-		 */
-		if (System.getProperty("os.name").equals("Linux")) {
-			FestivalWorker worker = new FestivalWorker(speech, say_again);
-			worker_queue.add(worker);
-			if (!locked){
-				locked=true;
-				worker_queue.get(0).execute();
-				worker_queue.remove(0);
-			}
-		} else {
-			if (say_again){
-				parent_frame.getFileWritingHandler().writeToScheme(speech, FestivalSpeed.slow, festival_voice);
-			} else {
-				parent_frame.getFileWritingHandler().writeToScheme(speech, festival_speed, festival_voice);
-			}
-			System.out.println(speech + " " + festival_speed.getSpeedValue() + " " + festival_voice.getVoiceValue());
+		FestivalWorker worker = new FestivalWorker(speech, say_again);
+		worker_queue.add(worker);
+		if (!locked){
+			locked=true;
+			worker_queue.get(0).execute();
+			worker_queue.remove(0);
 		}
 	}
 

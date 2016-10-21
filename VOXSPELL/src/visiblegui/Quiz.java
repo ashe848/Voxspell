@@ -78,7 +78,7 @@ public class Quiz extends JPanel {
 			words_mastered = new ArrayList<String>();
 			words_faulted = new ArrayList<String>();
 			words_failed = new ArrayList<String>();
-
+			
 			startQuiz(); //begins quiz logic
 		}
 	}
@@ -190,8 +190,8 @@ public class Quiz extends JPanel {
 					feedback_display.append("\tPlease submit after voice prompt has finished.\n");
 				} else {
 					processAttempt(input_from_user.getText());
-					input_from_user.requestFocusInWindow();//gets focus back to the spell here field
 				}
+				input_from_user.requestFocusInWindow();//gets focus back to the spell here field
 			}
 		});
 		submit_button.addMouseListener(new VoxMouseAdapter(submit_button,null));
@@ -209,6 +209,8 @@ public class Quiz extends JPanel {
 		sayagain_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				input_from_user.requestFocusInWindow();//gets focus back to the spell here field
+				
 				//says the word slowly
 				parent_frame.getFestival().speak(words_to_spell.get(current_word_number),true);
 
@@ -243,6 +245,7 @@ public class Quiz extends JPanel {
 		voice_chooser.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				input_from_user.requestFocusInWindow();//gets focus back to the spell here field
 				if((FestivalVoice)voice_chooser.getSelectedItem()!=null){
 					parent_frame.getFestival().setFestivalVoice((FestivalVoice)voice_chooser.getSelectedItem());
 				}
@@ -268,6 +271,7 @@ public class Quiz extends JPanel {
 		speed_chooser.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				input_from_user.requestFocusInWindow();//gets focus back to the spell here field
 				if((FestivalSpeed)speed_chooser.getSelectedItem()!=null){
 					parent_frame.getFestival().setFestivalSpeed((FestivalSpeed)speed_chooser.getSelectedItem());
 				}
@@ -291,6 +295,8 @@ public class Quiz extends JPanel {
 				ArrayList<String> word_to_add=new ArrayList<>();
 				word_to_add.add(words_to_spell.get(current_word_number));
 				parent_frame.getPostQuizHandler().addToReviewList(word_to_add);
+				
+				input_from_user.requestFocusInWindow();//gets focus back to the spell here field
 			}
 		});
 		add_to_review.addMouseListener(new VoxMouseAdapter(add_to_review,null));
@@ -310,6 +316,7 @@ public class Quiz extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				Help help_frame=new Help(PanelID.Quiz);
 				help_frame.setVisible(true);
+				input_from_user.requestFocusInWindow();//gets focus back to the spell here field
 			}
 		});
 		help_button.addMouseListener(new VoxMouseAdapter(help_button,null));
@@ -358,7 +365,7 @@ public class Quiz extends JPanel {
 	 * Begins quiz based on current word and current attempt fields of object
 	 * Says word to spell, sample sentence (if there is one) and updates text progress area
 	 */
-	private void startQuiz(){
+	private void startQuiz(){	
 		parent_frame.getFestival().speak("Please spell... "+words_to_spell.get(current_word_number),false);
 
 		feedback_display.append("Word: "+(current_word_number+1)+" out of "+words_to_spell.size()+"\nAttempt: "+current_attempt_number+" out of 2\n");

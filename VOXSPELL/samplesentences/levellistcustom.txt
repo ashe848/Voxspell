@@ -1,6 +1,0 @@
-%levellistcustom.txt
-This is word 1
- 
- 
-\\,\.\.-.\\.     		`
- 

@@ -1,5 +1,0 @@
-%spaces
-one
-two
-three
-four

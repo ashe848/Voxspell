@@ -28,12 +28,6 @@ import vox.Voxspell.PanelID;
 
 /**
  * JPanel class for screen displayed when user does quiz (normal & review)
- * Displays a title, with a text area below showing quiz progress and
- * previous guesses.
- * User has a text field where they enter their attempt with a submit
- * button and say again (in case they want to hear word again) button 
- * available to press.
- * Return to main menu button also present on panel.
  */
 public class Quiz extends JPanel {
 	private Voxspell parent_frame;
@@ -116,11 +110,6 @@ public class Quiz extends JPanel {
 
 	/**
 	 * Shows progress through words in this quiz
-	 * 
-	 * Colour is set based on result of last word, because text area clears once move on
-	 * For the colour-blind, they can hear the result said by festival anyway
-	 * Using JLabel only seems to work if it's a local variable, but that doesn't do the feedback job as it can't be changed
-	 * 
 	 * @author Abby S
 	 */
 	private void setupProgressBar() {
@@ -173,12 +162,12 @@ public class Quiz extends JPanel {
 		input_from_user.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//only enable submitting if festival has finished to avoid lagging voice prompts
+				//only enable submitting if festival has finished to avoid delayed voice prompts
 				if(parent_frame.getFestival().isLocked()){
 					feedback_display.append("\tPlease submit after voice prompt has finished.\n");
 				} else {
 					processAttempt(input_from_user.getText());
-					input_from_user.requestFocusInWindow();
+					input_from_user.requestFocusInWindow(); //gets focus back on the field
 				}
 			}
 		});
@@ -196,12 +185,12 @@ public class Quiz extends JPanel {
 		submit_button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//only enable submitting if festival has finished to avoid lagging voice prompts
+				//only enable submitting if festival has finished to avoid delayed voice prompts
 				if(parent_frame.getFestival().isLocked()){
 					feedback_display.append("\tPlease submit after voice prompt has finished.\n");
 				} else {
 					processAttempt(input_from_user.getText());
-					input_from_user.requestFocusInWindow();
+					input_from_user.requestFocusInWindow();//gets focus back to the spell here field
 				}
 			}
 		});
@@ -212,7 +201,7 @@ public class Quiz extends JPanel {
 
 	/**
 	 * adds button that lets user re-hear word to spell without penalty
-	 * will speak the word using slow speed, then the sample sentence (if there is one) at user's preferred speed, then word slowly again
+	 * will speak the word using slow speed, then the sample sentence (if there is one) at user's preferred speed
 	 */
 	private void setupSayAgainButton() {
 		ImageIcon sayagain_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "sayagain.png");
@@ -223,7 +212,7 @@ public class Quiz extends JPanel {
 				//says the word slowly
 				parent_frame.getFestival().speak(words_to_spell.get(current_word_number),true);
 
-				//says the sample sentence at user's preferred speed there is one
+				//says the sample sentence at user's preferred speed there is one @author Abby S
 				if(parent_frame.getDataHandler().hasSampleSentences()){
 					int index=parent_frame.getDataHandler().getWordlistWords().get(parent_frame.getDataHandler().getCurrentLevel()).indexOf(words_to_spell.get(current_word_number));
 					String sentence=parent_frame.getDataHandler().getSampleSentences().get(parent_frame.getDataHandler().getCurrentLevel()).get(index);
@@ -274,7 +263,7 @@ public class Quiz extends JPanel {
 		speed_chooser.setForeground(Color.BLACK);
 		speed_chooser.setBackground(Color.WHITE);
 
-		//set shown item to be the current voice
+		//set shown item to be the current speed
 		speed_chooser.setSelectedItem(parent_frame.getFestival().getFestivalSpeed());
 		speed_chooser.addActionListener(new ActionListener() {
 			@Override
@@ -353,10 +342,10 @@ public class Quiz extends JPanel {
 
 	/**
 	 * Prompt that asks user if they want to return to main menu
+	 * http://stackoverflow.com/questions/8689122/joptionpane-yes-no-options-confirm-dialog-box-issue-java
 	 * @returns boolean		true if they clicked yes, otherwise false
 	 */
 	private boolean askToLeave(){
-		//http://stackoverflow.com/questions/8689122/joptionpane-yes-no-options-confirm-dialog-box-issue-java
 		int ask_leave_prompt = JOptionPane.YES_NO_OPTION;
 		int ask_leave_result = JOptionPane.showConfirmDialog(this, "Would you like to return to main menu?\nYou will lose all progress", "Return To Main Menu", ask_leave_prompt);
 		if (ask_leave_result == JOptionPane.YES_OPTION){
@@ -372,7 +361,7 @@ public class Quiz extends JPanel {
 	private void startQuiz(){
 		parent_frame.getFestival().speak("Please spell... "+words_to_spell.get(current_word_number),false);
 
-		feedback_display.append("Word: "+(current_word_number+1)+" out of "+words_to_spell.size()+"\nAttempt: "+(current_attempt_number)+" out of 2\n");
+		feedback_display.append("Word: "+(current_word_number+1)+" out of "+words_to_spell.size()+"\nAttempt: "+current_attempt_number+" out of 2\n");
 		progress_bar.setValue(current_word_number);
 	}
 

@@ -12,6 +12,8 @@ import javax.swing.filechooser.FileSystemView;
  * and end up changing things in the system file hierarchy
  * Especially considering this application is intended for use on a healthcare robot
  * 
+ * @author Abby S
+ * 
  * Slightly modified from:	
  * https://tips4java.wordpress.com/2009/01/28/single-root-file-chooser/
  * http://www.camick.com/java/source/SingleRootFileSystemView.java
@@ -42,7 +44,7 @@ public class SingleRootFileSystemView extends FileSystemView{
 		}
 	}
 
-	//Disable creating new folders. The icon will do nothing (as with the home icon)
+	//Disable creating new folders. The icon will do nothing (as with the home icon) @author Abby S
 	public File createNewFolder(File containingDir){
 		return null;
 	}

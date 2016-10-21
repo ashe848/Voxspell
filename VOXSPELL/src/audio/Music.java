@@ -12,13 +12,13 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
- * Singleton class for controlling Music
+ * Singleton class responsible for controlling Music
+ * 
  * @author Abby S
- *
  */
 public class Music {
 	private static Clip clip;
-	
+
 	/**
 	 * Sets up background audio if it isn't already playing
 	 * Audio chosen for background celebratory music on quiz completion. 
@@ -58,7 +58,7 @@ public class Music {
 
 	/**
 	 * Stops the audio clip
-	 * 
+	 * Resets clip to null, should different music be played next time
 	 * @author Abby S
 	 */
 	public static void closeClip() {

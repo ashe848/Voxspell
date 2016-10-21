@@ -204,7 +204,7 @@ public class Settings extends JPanel {
 		speed_chooser.setForeground(Color.BLACK);
 		speed_chooser.setBackground(Color.WHITE);
 
-		//set shown item to be the current voice
+		//set shown item to be the current speed
 		speed_chooser.setSelectedItem(parent_frame.getFestival().getFestivalSpeed());
 		speed_chooser.addActionListener(new ActionListener() {
 			@Override
@@ -276,7 +276,7 @@ public class Settings extends JPanel {
 		add(level_chooser);
 	}
 
-	
+
 	/**
 	 * label for file chooser to choose word list from spellinglists directory
 	 * @author Abby S
@@ -289,7 +289,7 @@ public class Settings extends JPanel {
 		choose_wordlist_label.setBounds(625, 169, 691, 30);
 		add(choose_wordlist_label);
 	}
-	
+
 	/**
 	 * File chooser to choose word list from spellinglists directory
 	 * @author Abby S
@@ -343,7 +343,7 @@ public class Settings extends JPanel {
 		choose_video_label.setBounds(625, 318, 691, 30);
 		add(choose_video_label);
 	}
-	
+
 	/**
 	 * File chooser to choose reward video from rewardvideos directory
 	 * @author Abby S

@@ -34,14 +34,13 @@ import visiblegui.Video;
 public class Voxspell extends JFrame{
 	private final String RESOURCE_FILE_LOCATION = System.getProperty("user.dir")+"/resources/";//TODO make this folder hidden
 
-	//Contains the singleton DataHandler and Festival instances which panels get
+	//Contains the singleton backend I/O handler and Festival instances which panels get
 	private FileReadingHandler file_reading_handler;
 	private FileWritingHandler file_writing_handler;
 	private PostQuizHandler post_quiz_handler;
 	private PreQuizHandler pre_quiz_handler;
 	private DataHandler data_handler;
 	private Festival festival;
-
 
 	//To be used when refreshing the main menu on panel change
 	private MainMenu main_menu;
@@ -64,6 +63,7 @@ public class Voxspell extends JFrame{
 		//			}
 		//		});
 
+		//Initialisations
 		VoxDefaultUI.getInstance();
 		festival = Festival.getInstance(this);
 		file_reading_handler=FileReadingHandler.getInstance(this);
@@ -92,47 +92,41 @@ public class Voxspell extends JFrame{
 
 	/**
 	 * Method to return location of resources folder
-	 * @return
 	 */
 	public String getResourceFileLocation(){
 		return RESOURCE_FILE_LOCATION;
 	}
 
 	/**
-	 * Method to return object responsible for handling data
-	 * @return
+	 * Method to return responsible for handling data structures
 	 */
 	public DataHandler getDataHandler(){
 		return data_handler;
 	}
-	
+
 	/**
-	 * Method to return object responsible for handling data
-	 * @return
+	 * Method to return object responsible for handling file reading
 	 */
 	public FileReadingHandler getFileReadingHandler(){
 		return file_reading_handler;
 	}
-	
+
 	/**
-	 * Method to return object responsible for handling data
-	 * @return
+	 * Method to return object responsible for handling file writing
 	 */
 	public FileWritingHandler getFileWritingHandler(){
 		return file_writing_handler;
 	}
-	
+
 	/**
-	 * Method to return object responsible for handling data
-	 * @return
+	 * Method to return object responsible for handling post quiz data manipulation
 	 */
 	public PostQuizHandler getPostQuizHandler(){
 		return post_quiz_handler;
 	}
-	
+
 	/**
-	 * Method to return object responsible for handling data
-	 * @return
+	 * Method to return object responsible for handling pre quiz data manipulation
 	 */
 	public PreQuizHandler getPreQuizHandler(){
 		return pre_quiz_handler;
@@ -140,7 +134,6 @@ public class Voxspell extends JFrame{
 
 	/**
 	 * Method to return object responsible for making Festival calls
-	 * @return
 	 */
 	public Festival getFestival(){
 		return festival;
@@ -155,7 +148,7 @@ public class Voxspell extends JFrame{
 		this.getContentPane().removeAll();
 		this.repaint();
 
-		//Change panel based on ID passed into method. Initialise extra constructor parameters if needed.
+		//Changes panel based on ID passed into method. Initialise extra constructor parameters if needed.
 		switch (id) {
 		case MainMenu:
 			main_menu=new MainMenu(this);

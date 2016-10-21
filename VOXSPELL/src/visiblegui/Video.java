@@ -24,12 +24,11 @@ import vox.Voxspell.PanelID;
 
 /**
  * Video reward JPanel class
- * Contains video panel, stop+play+play/pause button
+ * Contains video panel, stop + play + play/pause buttons
  * and return to quiz complete screen button.
  * Based on Nasser's ACP VLCJ code
  * 
- * Video sources and ffmpeg code provided in my report
- * 
+ * Video sources and ffmpeg code provided in documentation
  */
 public class Video extends JPanel{
 	private Voxspell parent_frame; //link to parent frame
@@ -49,7 +48,7 @@ public class Video extends JPanel{
 
 	/**
 	 * Constructor initialising the size and layout of jpanel
-	 * Also sets up buttons used to manipulate playback.
+	 * Also sets up buttons used to manipulate play back.
 	 */
 	public Video(Voxspell parent){
 		setSize(1366,745);
@@ -103,7 +102,7 @@ public class Video extends JPanel{
 
 	/**
 	 * Displays progress through the video
-	 * Updates once per second as it's just for indicative purposes
+	 * Updates once per second just for indicative purposes
 	 * @author Abby S
 	 */
 	private void setupProgressBar(){
@@ -111,7 +110,7 @@ public class Video extends JPanel{
 
 		//get length of video in seconds
 		duration=(int)player.getLength()/1000;
-		
+
 		progress_bar = new JProgressBar(0,duration);//Set max to duration in seconds
 		progress_bar.setForeground(new Color(254, 157, 79));
 		progress_bar.setBackground(Color.WHITE);

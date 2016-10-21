@@ -63,6 +63,7 @@ public class StatsChooser extends JPanel{
 
 	/**
 	 * Displays help pop up to aid user in which button to select for which purpose
+	 * @author Abby S
 	 */
 	private void setupHelpButton() {
 		ImageIcon help_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "help.png");

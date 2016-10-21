@@ -16,17 +16,17 @@ import vox.Voxspell;
 @SuppressWarnings({ "static-access" })
 
 /**
- * 
+ * Singleton class responsible for reading from files
  * @author Abby S
  *
  */
 public class FileReadingHandler {
 	private static Voxspell parent_frame;
 
-	private static FileReadingHandler instance=null; //since singleton class
-	
+	private static FileReadingHandler instance=null; 
+
 	/**
-	 * Constructor for single instance, reference parent frame and starts reading files
+	 * Private constructor for single instance, reference parent frame
 	 */
 	private FileReadingHandler(Voxspell parent){
 		parent_frame=parent;
@@ -34,8 +34,6 @@ public class FileReadingHandler {
 
 	/**
 	 * Gets single instance of FileReadingHandler
-	 * @param parent 	parent frame
-	 * @return instance of itself (or creates one if first time called)
 	 */
 	public static FileReadingHandler getInstance(Voxspell parent){
 		if (instance==null){
@@ -43,9 +41,9 @@ public class FileReadingHandler {
 		}
 		return instance;
 	}
-	
+
 	/**
-	 * 
+	 * Method that reads files and stores them into data structures
 	 */
 	void readInFiles() {
 		readUsers();
@@ -53,7 +51,7 @@ public class FileReadingHandler {
 		readUserFiles();
 		readListSpecificFiles();
 	}
-	
+
 	/**
 	 * Reads in list of users
 	 * @author Abby S
@@ -194,22 +192,17 @@ public class FileReadingHandler {
 
 	/**
 	 * Checks the existence of necessary files
-	 * 
-	 * if resources folder can't be found, abort program now instead of get exceptions thrown everywhere
-	 * no barrier against if a png was deleted for example 
-	 * (could test for all contents and abort program, but that's not the purpose of this project)
-	 * 
-	 * Default spelling list and reward video. Application won't run if they're deleted 
-	 * 
-	 * Creates folder if doesn't already exist (ie new user)
 	 */
 	private static void checkFileExistence() {		 
+		//if resources folder can't be found, abort program now instead of get exceptions thrown everywhere. 
+		//No barrier against if a png was deleted for example (could test for all contents and abort program, but that's not the purpose of this project)
 		File resources_folder = new File(parent_frame.getResourceFileLocation());
 		if (!resources_folder.exists()) {
 			JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary resources folder has been removed\nAborting", "Fatal Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 
+		//Default spelling list and reward video. Application won't run if they're deleted 
 		File default_spelling_list = new File(System.getProperty("user.dir")+"/spellinglists/"+parent_frame.getDataHandler().getSpellingListName());
 		if (!default_spelling_list.exists()) {
 			JOptionPane.showMessageDialog(null, "Fatal Error\nThe necessary NZCER-spelling-lists.txt has been removed\n(should be in spellinglists folder)\nPlease put it back and restart Voxspell", "Fatal Error", JOptionPane.ERROR_MESSAGE);
@@ -224,12 +217,12 @@ public class FileReadingHandler {
 
 		File user_folder = new File(parent_frame.getResourceFileLocation()+parent_frame.getDataHandler().getUser()+"/");
 		if (!user_folder.exists()) {
-			user_folder.mkdir();
+			user_folder.mkdir(); //Creates folder if doesn't already exist (ie new user)
 		}
 	}
 
 	/**
-	 * Method that reads contents of files and stores them into data structures
+	 * Reads contents of list-specific files
 	 */
 	public static void readListSpecificFiles(){
 		setupListSpecificFiles();
@@ -243,7 +236,7 @@ public class FileReadingHandler {
 	}
 
 	/**
-	 * files specific to this list
+	 * the files specific to this list
 	 */
 	private static void setupListSpecificFiles() {
 		parent_frame.getDataHandler().setSpellingList(System.getProperty("user.dir")+"/spellinglists/"+parent_frame.getDataHandler().getSpellingListName());
@@ -291,7 +284,6 @@ public class FileReadingHandler {
 		parent_frame.getDataHandler().setPersistentMasterCount(new ArrayList<ArrayList<Integer>>());
 		parent_frame.getDataHandler().setPersistentFaultedCount(new ArrayList<ArrayList<Integer>>());
 		parent_frame.getDataHandler().setPersistentFailedCount(new ArrayList<ArrayList<Integer>>());
-
 		parent_frame.getDataHandler().setSessionWords(new ArrayList<ArrayList<String>>());
 		parent_frame.getDataHandler().setSessionMasterCount(new ArrayList<ArrayList<Integer>>());
 		parent_frame.getDataHandler().setSessionFaultedCount(new ArrayList<ArrayList<Integer>>());
@@ -331,7 +323,6 @@ public class FileReadingHandler {
 			} else {
 				parent_frame.getDataHandler().setHasSampleSentences(false);
 			}
-
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -423,7 +414,6 @@ public class FileReadingHandler {
 					parent_frame.getDataHandler().getPersistentFailedCount().get(word_level).add(failed_count);
 				}
 			}
-
 			current_BR.close(); //close statsfile
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -469,7 +459,6 @@ public class FileReadingHandler {
 					}
 				}
 			}
-
 			current_BR.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -523,15 +512,9 @@ public class FileReadingHandler {
 
 		try {
 			BufferedReader current_BR = new BufferedReader(new FileReader(selected));
-
 			String input_line = current_BR.readLine();
 
 			//must have % on first line followed by something (not empty or spaces) for level name
-			/*
-			 * If the file chosen isn't a text file, input_lines would be something like the below:
-			 * RIFF?02AVI LIST?"hdrlavih8
-			 * and therefore fail the checks and return false. It appears that no exception is thrown.
-			 */
 			if (input_line.isEmpty() || input_line.charAt(0)!='%' || input_line.trim().equals("%")){
 				current_BR.close();
 				return false;

@@ -212,7 +212,7 @@ public class ListBuilder extends JPanel {
 		help_button.addMouseListener(new VoxMouseAdapter(help_button,null));
 		add(help_button);
 	}
-	
+
 	/**
 	 * User clicks this to save their list (asks for confirmation)
 	 * @author Abby S

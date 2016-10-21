@@ -20,17 +20,17 @@ import vox.Voxspell.PanelID;
 @SuppressWarnings({ "static-access" })
 
 /**
- * Writing to files
+ * Singleton class responsible for writing to files
  * @author Abby S
  *
  */
 public class FileWritingHandler {
 	private static Voxspell parent_frame;
 
-	private static FileWritingHandler instance=null; //since singleton class
-	
+	private static FileWritingHandler instance=null;
+
 	/**
-	 * Constructor for single instance, reference parent frame and starts reading files
+	 * Private constructor for single instance, reference parent frame
 	 */
 	private FileWritingHandler(Voxspell parent){
 		parent_frame=parent;
@@ -67,7 +67,7 @@ public class FileWritingHandler {
 	}
 
 	/**
-	 * writes to reviewlist with %Level number between the levels
+	 * writes to reviewlist with %LevelName between the levels
 	 */
 	void writeToReview(){
 		try {

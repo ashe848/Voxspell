@@ -98,14 +98,14 @@ public class Festival {
 	}
 
 	/**
-	 * setters for speed
+	 * setter for speed
 	 */
 	public FestivalVoice getFestivalVoice() {
 		return festival_voice;
 	}
 
 	/**
-	 * Getters for voice
+	 * Getter for voice
 	 */
 	public void setFestivalSpeed(FestivalSpeed speed) {
 		festival_speed = speed;
@@ -204,7 +204,6 @@ public class Festival {
 		 */
 		protected void done(){
 			locked=false;
-//			System.out.println("unlocked");
 			if (!worker_queue.isEmpty()){
 				locked=true;
 				//executes the next worker (i.e. Festival call) in the queue

@@ -11,17 +11,16 @@ import vox.Voxspell.PanelID;
 @SuppressWarnings({ "static-access" })
 
 /**
- * Pre-quiz logic
+ * Singleton class responsible for pre-quiz logic
  * @author Abby S
- *
  */
 public class PreQuizHandler {
 	private static Voxspell parent_frame;
 
-	private static PreQuizHandler instance=null; //since singleton class
-	
+	private static PreQuizHandler instance=null;
+
 	/**
-	 * Constructor for single instance, reference parent frame and starts reading files
+	 * private constructor for single instance, references parent frame
 	 */
 	private PreQuizHandler(Voxspell parent){
 		parent_frame=parent;
@@ -38,7 +37,7 @@ public class PreQuizHandler {
 		}
 		return instance;
 	}
-	
+
 	/**
 	 * Method that generates random words for quiz
 	 * @param number_of_words		words in quiz specified, will go to number of words in file if less than
@@ -87,6 +86,7 @@ public class PreQuizHandler {
 	 */
 	private void shuffleIndicesArray(int[] indices){
 		Random rand = new Random();
+
 		//swaps 2 random elements 100 times
 		for(int i = 0; i<100; i++){
 			int position1 = rand.nextInt(indices.length);

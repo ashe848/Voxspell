@@ -30,7 +30,6 @@ import vox.Voxspell.PanelID;
  * as well as how many attempts taken if they got it correct.
  * 
  * Does the scoring for simple gamification purposes
- * The elderly aren't that into competitiveness (which is offputting - just having some fun
  * 
  * Also allows user to level up and watch reward video if user has completed quiz well.
  */
@@ -141,11 +140,6 @@ public class QuizComplete extends JPanel{
 		if(latest_failed_words.size()<=(int)(0.1*parent_frame.getDataHandler().getLatestQuizLength())) {
 			setupVideoButton();
 
-			/*
-			 * Same requirements for levelling up. It's not difficult to level up
-			 * because user can easily choose levels below current in settings, but moving up would otherwise be a slow progress if 
-			 * they find a level too easy
-			 */
 			//whether user has already levelled up before playing video
 			if(parent_frame.getDataHandler().getNumberOfLevels()-1==1) {
 				//do nothing. Only 1 level.
@@ -163,15 +157,13 @@ public class QuizComplete extends JPanel{
 	}
 
 	/**
-	 * Process score for gamification to calculate personal best and compare to global top
-	 * Simple scoring so as to stay encouraging and not too competitive (which is offputting)
-	 * 3 points for mastered, 1 point for faulted. None for failed. Multiplied by level number. As a percentage
-	 * 
+	 * Process score for gamification to compare to personal best and global top
+	 * 3 points for mastered, 1 point for faulted. None for failed. Multiplied by level number. As an average
 	 * @author Abby S
 	 */
 	private void processScore() {
 		parent_frame.getDataHandler().setIsReturningToQuizComplete(true);//next time will be true
-		 
+
 		double score=parent_frame.getDataHandler().getCurrentLevel()*((double)(latest_mastered_words.size()*3 + latest_faulted_words.size()))/parent_frame.getDataHandler().getLatestQuizLength();
 		//compare to personal best (this users all lists all sessions)
 		if(score > parent_frame.getDataHandler().getPersonalBest()){
@@ -194,7 +186,6 @@ public class QuizComplete extends JPanel{
 	private void setupLevelUpButton() {
 		ImageIcon levelup_button_image = new ImageIcon(parent_frame.getResourceFileLocation() + "levelup.png");
 		final JButton level_up_button = new JButton("", levelup_button_image);
-
 		level_up_button.setBounds(648, 404, 355, 200);
 		level_up_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -204,10 +195,10 @@ public class QuizComplete extends JPanel{
 					parent_frame.getDataHandler().setLevelledUp(true);
 					setupLevelledUpLabel("up ");
 				} else {
-					//on highest level, so prompt user to choose which level they want to go to
-					//if user made a choice, then show the label behind button
+					//on highest level, so prompt user to choose which level they want to go to		
 					if(parent_frame.getDataHandler().chooseLevel("All levels completed!\n", true)){
 						parent_frame.getDataHandler().setLevelledUp(true);
+						//if user made a choice, then show the label behind button
 						setupLevelledUpLabel("");
 					}
 				}
@@ -308,7 +299,7 @@ public class QuizComplete extends JPanel{
 				Music.closeClip();//stops background music
 				parent_frame.getFileWritingHandler().writeToProgramFiles();
 				parent_frame.getFileWritingHandler().writeToSettingsFiles();
-				//resets flag for level up
+				//resets flags
 				parent_frame.getDataHandler().setLevelledUp(false);
 				parent_frame.getDataHandler().setIsReturningToQuizComplete(false);
 				parent_frame.changePanel(PanelID.MainMenu);

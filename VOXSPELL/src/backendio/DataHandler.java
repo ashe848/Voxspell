@@ -13,19 +13,15 @@ import vox.Voxspell.PanelID;
 
 /**
  * Singleton data handling class containing data structures and their access control
- * lowest visibility possible: mostly package private, so only backend io classes get access
+ * Maximising reuse of methods and data structures, so fairly long class 
+ * lowest visibility possible: mostly only backend I/O classes get access
  * 
- * Maximising reuse of methods and data structures, so fairly long class
- * JavaDoc comments actually take up more lines than actual code.
- * 
+ * JavaDoc comments almost take up more lines than actual code.
  */
-
-//TODO javadoc this class and split offs
-
 public class DataHandler {
 	private static Voxspell parent_frame;
 
-	private static DataHandler instance=null; //since singleton class
+	private static DataHandler instance=null; 
 
 	private static String user;
 	private static String spelling_list_name;
@@ -35,9 +31,7 @@ public class DataHandler {
 	private static ArrayList<String> users;
 	private static String global_top;
 
-	/*
-	 * filenames
-	 */
+	//filenames
 	private static String program_stats; //program-wide stats (e.g. global top score)
 	private static String users_list; //list of registered users
 	private static String user_settings; //settings for this user
@@ -54,16 +48,11 @@ public class DataHandler {
 	private static ArrayList<String> level_names; //names of the levels (uses integers under the hood)
 	private static int current_level; //current level
 
-	/*
-	 * Statistics data structures
-	 * Uses master/faulted/failed under the hood
-	 * Persistent and session are all for the current list
-	 */
+	//Statistics data structures (Uses master/faulted/failed under the hood)
 	private static ArrayList<ArrayList<String>> persistent_allwords; //all words from wordlist + reviewlist
 	private static ArrayList<ArrayList<Integer>> persistent_master_count; //counts of times mastered of words above
 	private static ArrayList<ArrayList<Integer>> persistent_faulted_count; //counts of times faulted of words above
 	private static ArrayList<ArrayList<Integer>> persistent_failed_count; //counts of times failed of words above
-
 	private static ArrayList<ArrayList<String>> session_words; //words attempted this session of program
 	private static ArrayList<ArrayList<Integer>> session_master_count; //times word in current session mastered
 	private static ArrayList<ArrayList<Integer>> session_faulted_count; //times word in current session faulted
@@ -73,9 +62,6 @@ public class DataHandler {
 	private static ArrayList<String> latest_faulted_words; //list of faulted words from last quiz (for QuizComplete table)
 	private static ArrayList<String> latest_failed_words; //list of failed words from last quiz (for QuizComplete table)
 
-	/*
-	 * Post-quiz variables
-	 */
 	private static int latest_quiz_length; //length of latest quiz. May not be same as preferred words in quiz as there might not be that many words
 	private static boolean levelled_up=false; //flag for whether user had decided to level up
 	private static boolean returning_to_quiz_complete=false; //flag for whether user had just watched video not did another quiz
@@ -94,8 +80,6 @@ public class DataHandler {
 
 	/**
 	 * Gets single instance of DataHandler
-	 * @param parent 	parent frame
-	 * @return instance of itself (or creates one if first time called)
 	 */
 	public static DataHandler getInstance(Voxspell parent){
 		if (instance==null){
@@ -104,10 +88,6 @@ public class DataHandler {
 		return instance;
 	}
 
-	/*
-	 * Getters, setters and related methods
-	 * To following coding conventions and not have non-private fields
-	 */
 	/**
 	 * @return number of words attempted in current level
 	 */
@@ -137,11 +117,9 @@ public class DataHandler {
 
 	/**
 	 * Returns the levels as an Integer array
-	 * @return
 	 */
 	public static String[] getLevelArray() {
-		//subtract 1 to exclude level 0
-		String[] levels = new String[getNumberOfLevels()-1];
+		String[] levels = new String[getNumberOfLevels()-1];//subtract 1 to exclude level 0
 		for(int level=1; level<getNumberOfLevels(); level++){
 			levels[level-1]=getLevelNames().get(level);
 		}
@@ -150,8 +128,6 @@ public class DataHandler {
 
 	/**
 	 * level chooser pop up asking user to select a level to quiz at
-	 * @param additional_message
-	 * @return whether user chose a level
 	 */
 	public static boolean chooseLevel(String additional_message, boolean back_to_quiz_complete) {
 		String[] levels = getLevelArray();
@@ -172,9 +148,6 @@ public class DataHandler {
 
 	/**
 	 * selects type and level for the word data asked for
-	 * @param level		level of data requested
-	 * @param type		type of data requested
-	 * @return the pointers to arrays requested
 	 */
 	public ArrayList<Object[]> returnWordDataForLevel(int level, StatsChooser.StatsType type){
 		ArrayList<ArrayList<String>> words;
@@ -193,13 +166,11 @@ public class DataHandler {
 			failed_count=getSessionFailedCount();
 			break;
 		}
-
 		return getWordDataForLevel(level, words, master_count, faulted_count, failed_count);
 	}
 
 	/**
-	 * returns an object array containing
-	 * <word level> <level name> <the word> <mastered count> <faulted count> <failed count>
+	 * returns an object array containing <word level> <level name> <the word> <mastered count> <faulted count> <failed count>
 	 */
 	private ArrayList<Object[]> getWordDataForLevel(int level, ArrayList<ArrayList<String>> words, ArrayList<ArrayList<Integer>> master_count, ArrayList<ArrayList<Integer>> faulted_count, ArrayList<ArrayList<Integer>> failed_count){
 		ArrayList<Object[]> to_return = new ArrayList<Object[]>();
@@ -214,311 +185,290 @@ public class DataHandler {
 
 	/**
 	 * gets accuracy rates message for current level to be displayed to the user at all relevant times
-	 * @return string representation of accuracy rate
 	 */
 	public String getAccuracyRates(){
 		String to_return=getUser();
 		to_return+=" [Level: "+getLevelNames().get(getCurrentLevel());
 		to_return+="] [Attempted "+getAttemptedCount()+"/"+getPersistentAllwords().get(getCurrentLevel()).size();
 		to_return+=" words] [Didn't get "+getReviewlistWords().get(getCurrentLevel()).size()+"]";
-
 		return to_return;
 	}
-	
+
 	/**
-	 * @return the user
-	 * @author Abby S
+	 * @return the user @author Abby S
 	 */
 	public static String getUser() {
 		return user;
 	}
 
 	/**
-	 * set the user
-	 * @author Abby S
+	 * set the user @author Abby S
 	 */
 	public static void setUser(String user) {
 		DataHandler.user = user;
 	}
 
 	/**
-	 * @return the spelling list name
-	 * @author Abby S
+	 * @return the spelling list name @author Abby S
 	 */
 	public static String getSpellingListName() {
 		return spelling_list_name;
 	}
 
 	/**
-	 * set the spelling list name
-	 * @author Abby S
+	 * set the spelling list name @author Abby S
 	 */
 	public static void setSpellingListName(String spelling_list_name) {
 		DataHandler.spelling_list_name = spelling_list_name;
 	}
 
 	/**
-	 * @return the video name
-	 * @author Abby S
+	 * @return the video name @author Abby S
 	 */
 	public static String getVideoName() {
 		return video_name;
 	}
 
 	/**
-	 * set the reward video name
-	 * @author Abby S
+	 * set the reward video name @author Abby S
 	 */
 	public static void setVideoName(String video_name) {
 		DataHandler.video_name = video_name;
 	}
-	
+
 	/**
-	 * @return the personal best score of this user
-	 * @author Abby S
+	 * @return the personal best score of this user @author Abby S
 	 */
 	public static double getPersonalBest() {
 		return personal_best;
 	}
 
 	/**
-	 * set the personal best score of this user
-	 * @author Abby S
+	 * set the personal best score of this user @author Abby S
 	 */
 	public static void setPersonalBest(double personal_best) {
 		DataHandler.personal_best = personal_best;
 	}
-	
+
 	/**
-	 * @return the preferred number of words in a quiz
-	 * @author Abby S
+	 * @return the preferred number of words in a quiz @author Abby S
 	 */
 	public static int getNumWordsInQuiz() {
 		return words_in_quiz;
 	}
 
 	/**
-	 * set the preferred number of words in a quiz
-	 * @author Abby S
+	 * set the preferred number of words in a quiz @author Abby S
 	 */
 	public static void setNumWordsInQuiz(int words_in_quiz) {
 		DataHandler.words_in_quiz = words_in_quiz;
 	}
 
 	/**
-	 * @return the users
-	 * @author Abby S
+	 * @return the users @author Abby S
 	 */
 	public static ArrayList<String> getUsers() {
 		return users;
 	}
 
 	/**
-	 * @param users the users to set
+	 * @param users the users to set @author Abby S
 	 */
 	static void setUsers(ArrayList<String> users) {
 		DataHandler.users = users;
 	}
 
 	/**
-	 * @return the global top information
-	 * @author Abby S
+	 * @return the global top information @author Abby S
 	 */
 	public static String getGlobalTop() {
 		return global_top;
 	}
 
 	/**
-	 * set new global top record
-	 * @author Abby S
+	 * set new global top record @author Abby S
 	 */
 	public static void setGlobalTop(String global_top) {
 		DataHandler.global_top = global_top;
 	}
 
 	/**
-	 * @return the program_stats
+	 * @return the program_stats @author Abby S
 	 */
 	static String getProgramStats() {
 		return program_stats;
 	}
 
 	/**
-	 * @param program_stats the program_stats to set
+	 * @param program_stats the program_stats to set @author Abby S
 	 */
 	static void setProgramStats(String program_stats) {
 		DataHandler.program_stats = program_stats;
 	}
 
 	/**
-	 * @return the users_list
+	 * @return the users_list @author Abby S
 	 */
 	static String getUsersList() {
 		return users_list;
 	}
 
 	/**
-	 * @param users_list the users_list to set
+	 * @param users_list the users_list to set @author Abby S
 	 */
 	static void setUsersList(String users_list) {
 		DataHandler.users_list = users_list;
 	}
 
 	/**
-	 * @return the user_settings
+	 * @return the user_settings @author Abby S
 	 */
 	static String getUserSettings() {
 		return user_settings;
 	}
 
 	/**
-	 * @param user_settings the user_settings to set
+	 * @param user_settings the user_settings to set @author Abby S
 	 */
 	static void setUserSettings(String user_settings) {
 		DataHandler.user_settings = user_settings;
 	}
 
 	/**
-	 * @return the festival_scheme
+	 * @return the festival_scheme @author Abby S
 	 */
 	static String getFestivalScheme() {
 		return festival_scheme;
 	}
 
 	/**
-	 * @param festival_scheme the festival_scheme to set
+	 * @param festival_scheme the festival_scheme to set @author Abby S
 	 */
 	static void setFestivalScheme(String festival_scheme) {
 		DataHandler.festival_scheme = festival_scheme;
 	}
 
 	/**
-	 * @return the spelling_list
+	 * @return the spelling_list @author Abby S
 	 */
 	static String getSpellingList() {
 		return spelling_list;
 	}
 
 	/**
-	 * @param spelling_list the spelling_list to set
+	 * @param spelling_list the spelling_list to set @author Abby S
 	 */
 	static void setSpellingList(String spelling_list) {
 		DataHandler.spelling_list = spelling_list;
 	}
 
 	/**
-	 * @return the statsfile
+	 * @return the statsfile @author Abby S
 	 */
 	static String getStatsfile() {
 		return statsfile;
 	}
 
 	/**
-	 * @param statsfile the statsfile to set
+	 * @param statsfile the statsfile to set @author Abby S
 	 */
 	static void setStatsfile(String statsfile) {
 		DataHandler.statsfile = statsfile;
 	}
 
 	/**
-	 * @return the reviewlist
+	 * @return the reviewlist @author Abby S
 	 */
 	static String getReviewlist() {
 		return reviewlist;
 	}
 
 	/**
-	 * @param reviewlist the reviewlist to set
+	 * @param reviewlist the reviewlist to set @author Abby S
 	 */
 	static void setReviewlist(String reviewlist) {
 		DataHandler.reviewlist = reviewlist;
 	}
 
 	/**
-	 * @return the list_settings
+	 * @return the list_settings @author Abby S
 	 */
 	static String getListSettings() {
 		return list_settings;
 	}
 
 	/**
-	 * @param list_settings the list_settings to set
+	 * @param list_settings the list_settings to set @author Abby S
 	 */
 	static void setListSettings(String list_settings) {
 		DataHandler.list_settings = list_settings;
 	}
 
 	/**
-	 * @return the words in wordlist 
-	 * @author Abby S
+	 * @return the words in wordlist @author Abby S
 	 */
 	public static ArrayList<ArrayList<String>> getWordlistWords() {
 		return wordlist_words;
 	}
 
 	/**
-	 * @param wordlist_words the wordlist_words to set
+	 * @param wordlist_words the wordlist_words to set @author Abby S
 	 */
 	static void setWordlistWords(ArrayList<ArrayList<String>> wordlist_words) {
 		DataHandler.wordlist_words = wordlist_words;
 	}
 
-	
 	/**
-	 * @return the words in reviewlist
-	 * @author Abby S
+	 * @return the words in reviewlist @author Abby S
 	 */
 	public static ArrayList<ArrayList<String>> getReviewlistWords() {
 		return reviewlist_words;
 	}
 
 	/**
-	 * @param reviewlist_words the reviewlist_words to set
+	 * @param reviewlist_words the reviewlist_words to set @author Abby S
 	 */
 	static void setReviewlistWords(ArrayList<ArrayList<String>> reviewlist_words) {
 		DataHandler.reviewlist_words = reviewlist_words;
 	}
 
 	/**
-	 * @return whether this list has sample sentences
-	 * @author Abby S
+	 * @return whether this list has sample sentences @author Abby S
 	 */
 	public static boolean hasSampleSentences() {
 		return has_sample_sentences;
 	}
 
 	/**
-	 * @param has_sample_sentences the has_sample_sentences to set
+	 * @param has_sample_sentences the has_sample_sentences to set @author Abby S
 	 */
 	static void setHasSampleSentences(boolean has_sample_sentences) {
 		DataHandler.has_sample_sentences = has_sample_sentences;
 	}
 
 	/**
-	 * @return the sample sentences
-	 * @author Abby S
+	 * @return the sample sentences @author Abby S
 	 */
 	public static ArrayList<ArrayList<String>> getSampleSentences() {
 		return sample_sentences;
 	}
 
 	/**
-	 * @param sample_sentences the sample_sentences to set
+	 * @param sample_sentences the sample_sentences to set @author Abby S
 	 */
 	static void setSampleSentences(ArrayList<ArrayList<String>> sample_sentences) {
 		DataHandler.sample_sentences = sample_sentences;
 	}
 
 	/**
-	 * @return the level names
-	 * @author Abby S
+	 * @return the level names @author Abby S
 	 */
 	public static ArrayList<String> getLevelNames() {
 		return level_names;
 	}
 
 	/**
-	 * @param level_names the level_names to set
+	 * @param level_names the level_names to set @author Abby S
 	 */
 	static void setLevelNames(ArrayList<String> level_names) {
 		DataHandler.level_names = level_names;
@@ -532,204 +482,203 @@ public class DataHandler {
 	}
 
 	/**
-	 * @param current_level   the current level to set
+	 * @param current_level   the current level to set @author Abby S
 	 */
 	public static void setCurrentLevel(int current_level) {
 		DataHandler.current_level = current_level;
 	}
 
 	/**
-	 * @return the persistent_allwords
+	 * @return the persistent_allwords @author Abby S
 	 */
 	static ArrayList<ArrayList<String>> getPersistentAllwords() {
 		return persistent_allwords;
 	}
 
 	/**
-	 * @param persistent_allwords the persistent_allwords to set
+	 * @param persistent_allwords the persistent_allwords to set @author Abby S
 	 */
 	static void setPersistentAllwords(ArrayList<ArrayList<String>> persistent_allwords) {
 		DataHandler.persistent_allwords = persistent_allwords;
 	}
 
 	/**
-	 * @return the persistent_master_count
+	 * @return the persistent_master_count @author Abby S
 	 */
 	static ArrayList<ArrayList<Integer>> getPersistentMasterCount() {
 		return persistent_master_count;
 	}
 
 	/**
-	 * @param persistent_master_count the persistent_master_count to set
+	 * @param persistent_master_count the persistent_master_count to set @author Abby S
 	 */
 	static void setPersistentMasterCount(ArrayList<ArrayList<Integer>> persistent_master_count) {
 		DataHandler.persistent_master_count = persistent_master_count;
 	}
 
 	/**
-	 * @return the persistent_faulted_count
+	 * @return the persistent_faulted_count @author Abby S
 	 */
 	static ArrayList<ArrayList<Integer>> getPersistentFaultedCount() {
 		return persistent_faulted_count;
 	}
 
 	/**
-	 * @param persistent_faulted_count the persistent_faulted_count to set
+	 * @param persistent_faulted_count the persistent_faulted_count to set @author Abby S
 	 */
 	static void setPersistentFaultedCount(ArrayList<ArrayList<Integer>> persistent_faulted_count) {
 		DataHandler.persistent_faulted_count = persistent_faulted_count;
 	}
 
 	/**
-	 * @return the persistent_failed_count
+	 * @return the persistent_failed_count @author Abby S
 	 */
 	static ArrayList<ArrayList<Integer>> getPersistentFailedCount() {
 		return persistent_failed_count;
 	}
 
 	/**
-	 * @param persistent_failed_count the persistent_failed_count to set
+	 * @param persistent_failed_count the persistent_failed_count to set @author Abby S
 	 */
 	static void setPersistentFailedCount(ArrayList<ArrayList<Integer>> persistent_failed_count) {
 		DataHandler.persistent_failed_count = persistent_failed_count;
 	}
 
 	/**
-	 * @return the session_words
+	 * @return the session_words @author Abby S
 	 */
 	static ArrayList<ArrayList<String>> getSessionWords() {
 		return session_words;
 	}
 
 	/**
-	 * @param session_words the session_words to set
+	 * @param session_words the session_words to set @author Abby S
 	 */
 	static void setSessionWords(ArrayList<ArrayList<String>> session_words) {
 		DataHandler.session_words = session_words;
 	}
 
 	/**
-	 * @return the session_master_count
+	 * @return the session_master_count @author Abby S
 	 */
 	static ArrayList<ArrayList<Integer>> getSessionMasterCount() {
 		return session_master_count;
 	}
 
 	/**
-	 * @param session_master_count the session_master_count to set
+	 * @param session_master_count the session_master_count to set @author Abby S
 	 */
 	static void setSessionMasterCount(ArrayList<ArrayList<Integer>> session_master_count) {
 		DataHandler.session_master_count = session_master_count;
 	}
 
 	/**
-	 * @return the session_faulted_count
+	 * @return the session_faulted_count @author Abby S
 	 */
 	static ArrayList<ArrayList<Integer>> getSessionFaultedCount() {
 		return session_faulted_count;
 	}
 
 	/**
-	 * @param session_faulted_count the session_faulted_count to set
+	 * @param session_faulted_count the session_faulted_count to set @author Abby S
 	 */
 	static void setSessionFaultedCount(ArrayList<ArrayList<Integer>> session_faulted_count) {
 		DataHandler.session_faulted_count = session_faulted_count;
 	}
 
 	/**
-	 * @return the session_failed_count
+	 * @return the session_failed_count @author Abby S
 	 */
 	static ArrayList<ArrayList<Integer>> getSessionFailedCount() {
 		return session_failed_count;
 	}
 
 	/**
-	 * @param session_failed_count the session_failed_count to set
+	 * @param session_failed_count the session_failed_count to set @author Abby S
 	 */
 	static void setSessionFailedCount(ArrayList<ArrayList<Integer>> session_failed_count) {
 		DataHandler.session_failed_count = session_failed_count;
 	}
 
 	/**
-	 * @return the latest_mastered_words
+	 * @return the latest_mastered_words @author Abby S
 	 */
 	static ArrayList<String> getLatestMasteredWords() {
 		return latest_mastered_words;
 	}
 
 	/**
-	 * @param latest_mastered_words the latest_mastered_words to set
+	 * @param latest_mastered_words the latest_mastered_words to set @author Abby S
 	 */
 	static void setLatestMasteredWords(ArrayList<String> latest_mastered_words) {
 		DataHandler.latest_mastered_words = latest_mastered_words;
 	}
 
 	/**
-	 * @return the latest_faulted_words
+	 * @return the latest_faulted_words @author Abby S
 	 */
 	static ArrayList<String> getLatestFaultedWords() {
 		return latest_faulted_words;
 	}
 
 	/**
-	 * @param latest_faulted_words the latest_faulted_words to set
+	 * @param latest_faulted_words the latest_faulted_words to set @author Abby S
 	 */
 	static void setLatestFaultedWords(ArrayList<String> latest_faulted_words) {
 		DataHandler.latest_faulted_words = latest_faulted_words;
 	}
 
 	/**
-	 * @return the latest_failed_words
+	 * @return the latest_failed_words @author Abby S
 	 */
 	static ArrayList<String> getLatestFailedWords() {
 		return latest_failed_words;
 	}
 
 	/**
-	 * @param latest_failed_words the latest_failed_words to set
+	 * @param latest_failed_words the latest_failed_words to set @author Abby S
 	 */
 	static void setLatestFailedWords(ArrayList<String> latest_failed_words) {
 		DataHandler.latest_failed_words = latest_failed_words;
 	}
 
 	/**
-	 * @return the length of the latest quiz
-	 * @author Abby S
+	 * @return the length of the latest quiz @author Abby S
 	 */
 	public static int getLatestQuizLength() {
 		return latest_quiz_length;
 	}
 
 	/**
-	 * @param latest_quiz_length the latest_quiz_length to set
+	 * @param latest_quiz_length the latest_quiz_length to set @author Abby S
 	 */
 	static void setLatestQuizLength(int latest_quiz_length) {
 		DataHandler.latest_quiz_length = latest_quiz_length;
 	}
-	
+
 	/**
-	 * @return whether user decided to level up
+	 * @return whether user decided to level up @author Abby S
 	 */
 	public boolean getLevelledUp(){
 		return levelled_up;
 	}
 
 	/**
-	 * sets on user deciding to level up
+	 * sets on user deciding to level up @author Abby S
 	 */
 	public void setLevelledUp(boolean flag){
 		levelled_up=flag;
 	}
-	
+
 	/**
-	 * @return whether user is returning to quiz complete after video
+	 * @return whether user is returning to quiz complete after video @author Abby S
 	 */
 	public boolean isReturningToQuizComplete(){
 		return returning_to_quiz_complete;
 	}
 
 	/**
-	 * sets whether user is returning to quiz complete after video
+	 * sets whether user is returning to quiz complete after video @author Abby S
 	 */
 	public void setIsReturningToQuizComplete(boolean flag){
 		returning_to_quiz_complete=flag;

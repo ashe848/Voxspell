@@ -124,8 +124,6 @@ public class LevelStats extends JPanel{
 	/**
 	 * Essentially adds a visual appearance to the table
 	 * Also sets some restrictions on manipulation of the table
-	 * 
-	 * @param model
 	 */
 	private void enhanceTableAppearance(DefaultTableModel model) {
 		//For ordering
@@ -160,7 +158,7 @@ public class LevelStats extends JPanel{
 	 * selects different level to display
 	 */
 	private void removeTableFromPanel(){
-		this.remove(scroll_pane); //removes scroll pane as it contains the table
+		this.remove(scroll_pane); //removes the scroll pane as it contains the table
 	}
 
 	/**

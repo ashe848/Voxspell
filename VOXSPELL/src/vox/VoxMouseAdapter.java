@@ -17,6 +17,10 @@ public class VoxMouseAdapter extends MouseAdapter{
 	private JButton action_button;
 	private Color border_color;
 
+	/**
+	 * Constructs the mouse adapter
+	 * @author Abby S
+	 */
 	public VoxMouseAdapter(JButton button, Color special_color) {
 		action_button=button;
 		if(special_color!=null){

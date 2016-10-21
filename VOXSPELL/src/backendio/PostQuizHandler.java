@@ -8,17 +8,16 @@ import vox.Voxspell.PanelID;
 @SuppressWarnings({ "static-access" })
 
 /**
- * Post-quiz logic
+ * Singleton class responsible for post-quiz logic
  * @author Abby S
- *
  */
 public class PostQuizHandler {
 	private static Voxspell parent_frame;
 
-	private static PostQuizHandler instance=null; //since singleton class
-	
+	private static PostQuizHandler instance=null;
+
 	/**
-	 * Constructor for single instance, reference parent frame and starts reading files
+	 * Private constructor for single instance, reference parent frame
 	 */
 	private PostQuizHandler(Voxspell parent){
 		parent_frame=parent;
@@ -35,7 +34,7 @@ public class PostQuizHandler {
 		}
 		return instance;
 	}
-	
+
 	/**
 	 * Results for a quizzed word
 	 */
@@ -104,6 +103,7 @@ public class PostQuizHandler {
 			session_data_structure=parent_frame.getDataHandler().getSessionFailedCount();
 			break;
 		}
+
 		for (String w:quizzed_words){
 			//for persistent data structure
 			int index=parent_frame.getDataHandler().getPersistentAllwords().get(parent_frame.getDataHandler().getCurrentLevel()).indexOf(w);

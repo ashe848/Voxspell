@@ -10,9 +10,8 @@ import javax.swing.UIManager;
  * @author Abby S
  */
 public class VoxDefaultUI {
-	
-	private static VoxDefaultUI instance=null; //since singleton class
-	
+	private static VoxDefaultUI instance=null; 
+
 	/**
 	 * Private constructor
 	 * @author Abby S
@@ -20,7 +19,7 @@ public class VoxDefaultUI {
 	private VoxDefaultUI(){
 		setGraphicalDefaults();
 	}
-	
+
 	/**
 	 * Method to return the single instance responsible for making the default UI effects
 	 * @author Abby S
@@ -31,7 +30,7 @@ public class VoxDefaultUI {
 		}
 		return instance;
 	}
-	
+
 	/**
 	 * Sets defaults to fit the theme of the application
 	 * @author Abby S

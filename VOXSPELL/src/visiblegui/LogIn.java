@@ -29,9 +29,9 @@ import vox.Voxspell.PanelID;
  */
 public class LogIn extends JFrame {
 	private Voxspell parent_frame;
-	private JPanel content_pane;
 
 	private LogIn log_in_frame=this;
+	private JPanel content_pane;
 	private JTextField enter_name_field;
 
 	/**
@@ -80,7 +80,9 @@ public class LogIn extends JFrame {
 		registered_users.setWrapStyleWord(true);
 		registered_users.setFont(new Font("Calibri Light", Font.PLAIN, 20));
 
-		registered_users.setText("If your name is in the list, please enter your name to log in\n\nIf not, WELCOME! Enter your name and you will be registered.\n\nRegistered Users (Case Sensitive):\n");
+		registered_users.setText("If your name is in the list, please enter your name to log in\n\n"
+				+ "If not, WELCOME! Enter your name and you will be registered.\n\n"
+				+ "Registered Users (Case Sensitive):\n");
 		registered_users.append("Visitor\n");
 		for (String u:parent_frame.getDataHandler().getUsers()){
 			if (!u.equals("Visitor")){
@@ -88,7 +90,7 @@ public class LogIn extends JFrame {
 			}
 		}
 		registered_users.setCaretPosition(0); //scrolled to the top
-		
+
 		JScrollPane scroll_pane = new JScrollPane(registered_users);
 		scroll_pane.setBounds(32, 164, 606, 330);
 		content_pane.add(scroll_pane);

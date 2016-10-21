@@ -62,7 +62,6 @@ public class MainMenu extends JPanel{
 
 	/**
 	 * Puts the voxspell background image, overriding paintComponent method(below) to ensure functionality
-	 * 
 	 * http://stackoverflow.com/questions/1466240/how-to-set-an-image-as-a-background-for-frame-in-swing-gui-of-java
 	 */
 	private void setupBackground(){
@@ -209,7 +208,7 @@ public class MainMenu extends JPanel{
 	 * 		user name
 	 * 		personal best
 	 *		current list
-	 *		level name
+	 *		current level name
 	 * @author Abby S
 	 */
 	private void setupGameSummary() {

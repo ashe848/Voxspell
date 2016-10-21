@@ -117,8 +117,6 @@ public class GeneralStats extends JPanel {
 	/**
 	 * Essentially adds a visual appearance to the table
 	 * Also sets some restrictions on manipulation of the table
-	 * 
-	 * @param model
 	 */
 	private void enhanceTableAppearance(DefaultTableModel model) {
 		//For ordering
@@ -162,7 +160,6 @@ public class GeneralStats extends JPanel {
 				parent_frame.changePanel(PanelID.StatSelection);
 			}
 		});
-
 		add(back_button);
 		back_button.addMouseListener(new VoxMouseAdapter(back_button,null));
 		back_button.setBounds(1216, 598, 100, 100);

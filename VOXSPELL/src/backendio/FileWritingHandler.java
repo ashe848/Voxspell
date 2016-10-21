@@ -233,6 +233,7 @@ public class FileWritingHandler {
 		File user_settings_file = new File(parent_frame.getDataHandler().getUserSettings());
 		user_settings_file.delete();
 		parent_frame.getFileReadingHandler().readUserFiles();
+		parent_frame.getFileReadingHandler().readListSpecificFiles();
 
 		parent_frame.changePanel(PanelID.MainMenu);
 	}

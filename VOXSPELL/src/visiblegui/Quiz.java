@@ -41,6 +41,7 @@ public class Quiz extends JPanel {
 	private int current_word_number; //indicates which word the user is up to in quiz
 	private int current_attempt_number; //indicates which attempt user is up to when spelling
 
+	private ArrayList<String> words_to_add_to_review;//list of words users wanted to manually add to review
 	private ArrayList<String> words_mastered; //list of words user got first try in quiz
 	private ArrayList<String> words_faulted; //list of words user got second try in quiz
 	private ArrayList<String> words_failed; //list of words user didn't get right in quiz
@@ -75,6 +76,7 @@ public class Quiz extends JPanel {
 			current_attempt_number = 1;
 			current_word_number = 0;
 
+			words_to_add_to_review=new ArrayList<>();
 			words_mastered = new ArrayList<String>();
 			words_faulted = new ArrayList<String>();
 			words_failed = new ArrayList<String>();
@@ -292,10 +294,7 @@ public class Quiz extends JPanel {
 		add_to_review.setBounds(374, 598, 177, 100);
 		add_to_review.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<String> word_to_add=new ArrayList<>();
-				word_to_add.add(words_to_spell.get(current_word_number));
-				parent_frame.getPostQuizHandler().addToReviewList(word_to_add);
-				
+				words_to_add_to_review.add(words_to_spell.get(current_word_number));
 				input_from_user.requestFocusInWindow();//gets focus back to the spell here field
 			}
 		});
@@ -402,6 +401,9 @@ public class Quiz extends JPanel {
 			//no point speaking any more things if quiz has already completed
 			parent_frame.getFestival().emptyWorkerQueue();
 			parent_frame.getPostQuizHandler().processQuizResults(words_mastered,words_faulted,words_failed,quiz_type,words_to_spell.size());
+			
+			//after processing results, so if got word correct after clicking Add To Review, word is still added
+			parent_frame.getPostQuizHandler().addToReviewList(words_to_add_to_review);
 			parent_frame.changePanel(PanelID.QuizComplete);
 		} else{ 
 			//Otherwise keep going with quiz

@@ -1,3 +1,6 @@
+Note: Final Release has since been made and all features completed and available on the Master branch.
+Execution instructions unchanged from Beta below:
+
 October 2016
 SE206 Assignment 4 Voxspell Beta Release
 Target audience: elderly users on Healthbot Robot
@@ -67,7 +70,7 @@ They are the defaults
 
 On any launch, if the any of the above don't exist, Voxspell sees this as a fatal error and won't launch at all
 These files won't be deleted by exiting the application
-Altering them outside of this application may produce unexpected behaviour ¨C so don¡¯t do it
+Altering them outside of this application may produce unexpected behaviour Â¨C so donÂ¡Â¯t do it
 
 
 =============================================
